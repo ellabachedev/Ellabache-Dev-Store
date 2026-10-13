@@ -1017,3 +1017,204 @@ body .freegifts-main-container .nav.right-nav{
   white-space: nowrap;
   border: 0;
 }
+/* ------------------------------------------------------------------
+   Mini cart polish: theme navy tabs, clearer line items and free gifts,
+   payment info grouped with the subtotal, footer pinned on mobile.
+------------------------------------------------------------------ */
+.cart-header .tab-menu .tab-menu-item a {
+  color: #001e37;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  border-bottom: 2px solid transparent;
+}
+.cart-header .tab-menu .tab-menu-item a.active {
+  border-bottom: 2px solid #001e37;
+}
+
+/* Line items */
+#cart-mini .prod-info-container .product-info .prod-title a {
+  color: #001e37;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container .product-info .prod-price {
+  color: #001e37;
+}
+#cart-mini .cart-remove {
+  top: 6px;
+  padding: 0;
+}
+#cart-mini .cart-remove a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+#cart-mini .cart-remove a:hover,
+#cart-mini .cart-remove a:focus-visible {
+  opacity: 1;
+}
+
+/* Free gift lines: compact row on a soft teal tint, one "Free gift" label (no second "Free" price) */
+.cart-line-item.sample-item {
+  background: #eef8f9;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample {
+  padding: 8px 10px;
+  border-bottom-color: #d5eef0;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-image {
+  width: 56px;
+  height: 56px;
+  margin-right: 12px;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-image img {
+  width: 56px;
+  height: 56px;
+  padding: 4px;
+  border: 1px solid #d5eef0;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .product-info {
+  width: calc(100% - 68px);
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .product-info .prod-title a {
+  font-size: 14px;
+  line-height: 1.3;
+}
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-actions {
+  margin-left: 0;
+}
+#cart-mini .gift-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 2px;
+  color: #1f6f74;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+#cart-mini .gift-value {
+  display: none;
+  margin: 2px 0 0;
+  color: #4a4a4a;
+  font-size: 12px;
+}
+#cart-mini .gift-value.gift-value--show {
+  display: block;
+}
+
+/* Upsell: theme type instead of bold (#cart-mini prefix: upsell-products-widget.css loads later) */
+#cart-mini .eb-cart-upsell h3.title {
+  color: #001e37;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+}
+#cart-mini .upsell-products__info .upsell-products__title a {
+  color: #001e37;
+}
+#cart-mini .upsell-products__actions p {
+  color: #001e37;
+  font-weight: 300;
+}
+#cart-mini .upsell-products__add-to-cart button {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+#cart-mini .upsell-products__add-to-cart button:hover {
+  background-color: #001e37;
+  color: #ffffff;
+}
+
+/* Footer: subtotal, then Afterpay, then checkout, then accepted payments */
+#cart-mini .mini-cart-form .mini-cart-footer {
+  padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+#cart-mini .mini-cart-footer .afterpay-widget-cartdrawer + square-placement {
+  margin: 0 0 10px;
+  padding: 0;
+  text-align: left;
+}
+#cart-mini .mini-cart-footer .payment-gateways {
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  color: #4a4a4a;
+  font-size: 12px;
+}
+#cart-mini .mini-cart-footer .payment-gateways svg {
+  max-height: 16px;
+  width: auto;
+}
+
+/* Mobile: keep the footer at the bottom of the drawer instead of floating mid-screen */
+@media only screen and (max-width: 767px) {
+  #cart-mini .mini-cart-form {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--mini-cart-head-height, 106px));
+    min-height: calc(100dvh - var(--mini-cart-head-height, 106px));
+  }
+  #cart-mini .mini-cart-form .mini-cart-footer {
+    margin-top: auto;
+  }
+}
+
+/* Free shipping progress: navy fill so it reads as progress, not a disabled bar */
+#cart-mini .shipping__threshold--indicator .indicator-track .indicator-level {
+  background: #001e37;
+  transition: width 0.4s ease;
+}
+
+/* While the mini cart is open, keep third-party overlays off the subtotal / checkout area.
+   Tidio chat launcher: only on phones, where the drawer is full width (on larger screens it
+   sits beside the drawer). PushOwl "add to home screen" prompt: hidden while the cart is open. */
+@media only screen and (max-width: 767px) {
+  body.cart-open #tidio-chat {
+    display: none !important;
+  }
+}
+body.cart-open dialog.pushowl-ios-install-prompt[open],
+body.cart-open div:has(> dialog.pushowl-ios-install-prompt) {
+  display: none !important;
+}
+
+/* "Choose your bonus gift": a clear call to action (was pale teal on teal, ~3.3:1 contrast).
+   Shown by cart-mini.js only when a Free Gifts offer has more than one gift to pick from. */
+#cart-mini a#btnClaimSamplesMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 310px;
+  min-height: 42px;
+  margin: 12px auto 0;
+  padding: 8px 14px;
+  border: 0;
+  background-color: #8cd3d7;
+  color: #001e37;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase !important;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+#cart-mini a#btnClaimSamplesMain:hover,
+#cart-mini a#btnClaimSamplesMain:focus-visible {
+  background-color: #7cc7cc;
+}
+#cart-mini a#btnClaimSamplesMain svg {
+  flex: none;
+}
+#cart-mini a#btnClaimSamplesMain::after {
+  box-shadow: none;
+}

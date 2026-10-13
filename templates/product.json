@@ -54,7 +54,7 @@
       "type": "pdp-pair-bundle",
       "settings": {
         "heading": "Pair it with",
-        "subheading": "Goes with [product]. Add straight to your bag.",
+        "subheading": "Goes with [product]. Add straight to your cart.",
         "product_limit": 3,
         "fallback_intent": "related",
         "show_bundle": true,

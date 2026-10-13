@@ -1,11 +1,9 @@
 {%- comment -%}
   Line icons used by the PDP sections. Inherit colour from `currentColor`.
-  Usage: {% render 'pdp-icon', icon: 'bag' %}
+  Usage: {% render 'pdp-icon', icon: 'play' %}
 {%- endcomment -%}
 {%- capture pdp_icon_attrs -%}class="pdp-icon pdp-icon--{{ icon }}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"{%- endcapture -%}
 {%- case icon -%}
-  {%- when 'bag' -%}
-    <svg {{ pdp_icon_attrs }}><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
   {%- when 'play' -%}
     <svg {{ pdp_icon_attrs }}><path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor"/></svg>
   {%- when 'close' -%}

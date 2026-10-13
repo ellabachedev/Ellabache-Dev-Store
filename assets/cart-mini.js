@@ -105,6 +105,9 @@ function miniCartFormHeightCalc() {
     "height",
     "calc(100vh - " + totalHeaderHeight + "px)"
   );
+  // Used by the mobile layout to pin the footer to the bottom of the drawer.
+  var miniCart = document.getElementById("cart-mini");
+  if (miniCart) miniCart.style.setProperty("--mini-cart-head-height", totalHeaderHeight + "px");
   jQuery("#cart-mini .cart-info").css(
     "height",
     "calc(100vh - " + totalHeight + "px)"
@@ -125,6 +128,39 @@ function removeHalterOverlay() {
   }
 }
 
+// renderMiniCartUpsell and calcGwpThresholdWarning run together on every cart open/update:
+// share one in-flight /cart.js request between them instead of fetching the cart twice.
+var sharedCartRequest = null;
+function getSharedCart() {
+  if (!sharedCartRequest) {
+    sharedCartRequest = $.ajax({ url: "/cart.js", dataType: "json" }).always(function () {
+      sharedCartRequest = null;
+    });
+  }
+  return sharedCartRequest;
+}
+
+// Recommendations for a product don't change while the page is open, so fetch them once.
+var upsellRecommendationsCache = {};
+function getUpsellRecommendations(productId, intent) {
+  var key = productId + ":" + intent;
+  if (!upsellRecommendationsCache[key]) {
+    upsellRecommendationsCache[key] = $.ajax({
+      url: "/recommendations/products.json",
+      method: "GET",
+      data: {
+        product_id: productId,
+        intent: intent,
+        limit: 10,
+      },
+      dataType: "json",
+    }).fail(function () {
+      delete upsellRecommendationsCache[key];
+    });
+  }
+  return upsellRecommendationsCache[key];
+}
+
 function renderMiniCartUpsell() {
   var upsellEnable = false;
   var upsellIntent = "related";
@@ -141,11 +177,7 @@ function renderMiniCartUpsell() {
       : 3;
   }
   if (upsellEnable) {
-    $.ajax({
-      url: "/cart.js",
-      dataType: "json",
-      async: true,
-      success: function (cartRes) {
+    getSharedCart().done(function (cartRes) {
         console.log('getCartJson', cartRes);
         if (cartRes.items.length > 0) {
           cartRes.items.forEach(function (item, itmIdx) {
@@ -154,17 +186,7 @@ function renderMiniCartUpsell() {
             }
           });
           if (upsellProductId != null) {
-            $.ajax({
-              url: "/recommendations/products.json",
-              method: "GET",
-              data: {
-                product_id: upsellProductId,
-                intent: upsellIntent,
-                limit: 10,
-              },
-              dataType: "json",
-              async: true,
-              success: function (res) {
+            getUpsellRecommendations(upsellProductId, upsellIntent).done(function (res) {
                 console.log("UPSELL", res);
                 if (res.products.length > 0) {
                   var upsellProdCount = 0;
@@ -238,16 +260,14 @@ function renderMiniCartUpsell() {
                   slidesToScroll: 1,
                 });
                 miniCartFormHeightCalc();
-              },
-            });
+              });
           } else {
             $(".eb-cart-upsell").html("");
           }
         } else {
           $(".eb-cart-upsell").html("");
         }
-      },
-    });
+      });
   } else {
     $(".eb-cart-upsell").html("");
   }
@@ -279,9 +299,10 @@ function bogos2CartPopupOfferCheck(showHalterOverlay = true) {
       window.location.href = "/checkout";
     }
   }
+  // The checks above are synchronous; a short delay is enough for the drawer to repaint.
   setTimeout(function () {
     removeHalterOverlay();
-  }, 1000);
+  }, 150);
 }
 
 function hideShowGwpPopup(show){
@@ -337,11 +358,7 @@ function closeGwpPopupOnClickingOut(){
 var gwpWarningPopupForCartPrev = null;
 function calcGwpThresholdWarning(){
     console.log("CALC GWP RUN");
-    $.ajax({
-      url: "/cart.js",
-      dataType: "json",
-      async: true,
-      success: function (cartObj) {
+    getSharedCart().done(function (cartObj) {
         var gwpWarningPopupForCartNow = null;
         var gwpWarningPopupForCartArr = [];
         cartObj.items.forEach(item => {
@@ -520,8 +537,7 @@ function calcGwpThresholdWarning(){
           } 
           gwpWarningPopupForCartPrev = gwpWarningPopupForCartNow;
         }
-      }
-    });
+      });
 }
 
 $(document).ready(function () {
@@ -532,25 +548,47 @@ $(document).ready(function () {
       .css("background-color", "#a5a5a8")
       .css("border-color", "#a5a5a8");
   });
+  // Free gift lines come from the Free Gifts app with titles like
+  // "🎁 Revealing Fruit Enzyme Exfoliant GWP (100% off)": show the plain product name.
+  if (window.rivets) {
+    rivets.formatters.cleanGiftTitle = function (title) {
+      if (typeof title !== "string") return title;
+      return title
+        .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "")
+        .replace(/\(\s*\d+\s*%\s*off\s*\)/gi, "")
+        .replace(/\bGWP\b/g, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    };
+  }
   CartJS.init(RESOURCES.cartJSON, {
     requestBodyClass: "loading",
   });
   var compareAtCache = {};
 
+  var compareAtRequests = {};
+
   function fetchVariantCompareAtMap(handle) {
     if (compareAtCache[handle]) {
       return Promise.resolve(compareAtCache[handle]);
     }
-    return fetch('/products/' + handle + '.js')
-      .then(function(res) { return res.json(); })
-      .then(function(product) {
-        var map = {};
-        product.variants.forEach(function(v) {
-          map[v.id] = v.compare_at_price;
+    // Share the in-flight request so parallel callers don't fetch the same product twice.
+    if (!compareAtRequests[handle]) {
+      compareAtRequests[handle] = fetch('/products/' + handle + '.js')
+        .then(function(res) { return res.json(); })
+        .then(function(product) {
+          var map = {};
+          product.variants.forEach(function(v) {
+            map[v.id] = v.compare_at_price;
+          });
+          compareAtCache[handle] = map;
+          return map;
+        })
+        .finally(function() {
+          delete compareAtRequests[handle];
         });
-        compareAtCache[handle] = map;
-        return map;
-      });
+    }
+    return compareAtRequests[handle];
   }
 
   function enrichCartWithCompareAtPrices() {
@@ -581,14 +619,9 @@ $(document).ready(function () {
     }
   });
 
-  // Re-run on every subsequent cart update
-  jQuery(document).on('cart.requestComplete', function() {
+  // Re-run every time the cart loads or updates
+  jQuery(document).on('cart.ready cart.requestComplete', function() {
     enrichCartWithCompareAtPrices();
-  });
-
-    // Re-run every time the cart loads or updates
-    jQuery(document).on('cart.ready cart.requestComplete', function() {
-      enrichCartWithCompareAtPrices();
   });
 
   tabMenuContent();

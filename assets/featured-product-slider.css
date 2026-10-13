@@ -353,3 +353,21 @@
 .product-grid--slider .swiper-button-prev.swiper-button-disabled {
   display: none;
 }
+
+/* Equal-height slider cards: whatever number of lines the title wraps to, the price, stars
+   and Add to cart button line up across the row. */
+.product-grid--slider .product-grid__item.swiper-slide {
+  height: auto;
+}
+.product-grid--slider .product-card-wrapper,
+.product-grid--slider .product-card,
+.product-grid--slider .product-card__inner,
+.product-grid--slider .product-card-content,
+.product-grid--slider .product-card__details {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.product-grid--slider .product-card__pricing {
+  margin-top: auto;
+}

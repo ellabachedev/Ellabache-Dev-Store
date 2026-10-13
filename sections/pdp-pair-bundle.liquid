@@ -71,10 +71,9 @@
               <button
                 type="button"
                 class="pdp-button"
-                aria-label="Add {{ item.title | escape }} to bag"
+                aria-label="Add {{ item.title | escape }} to cart"
                 data-cart-addclaims="[{{ item_claim | strip | escape }}]">
-                {%- render 'pdp-icon', icon: 'bag' -%}
-                <span>Add</span>
+                {{ 'products.product.add_to_cart' | t }}
               </button>
             </div>
           {%- else -%}
@@ -118,9 +117,8 @@
             {{ section.settings.bundle_text_before }} <span data-pdp-pair-count></span> for
             <strong data-pdp-pair-total></strong>
           </p>
-          <button type="button" class="pdp-button" data-pdp-pair-bundle-button>
-            {%- render 'pdp-icon', icon: 'bag' -%}
-            <span>{{ section.settings.bundle_button_label }}</span>
+          <button type="button" class="pdp-button pdp-button--large" data-pdp-pair-bundle-button>
+            {{ section.settings.bundle_button_label }}
           </button>
         </div>
       {%- endif -%}
@@ -233,7 +231,7 @@
       "id": "subheading",
       "label": "Subheading",
       "info": "Use [product] to insert the product title.",
-      "default": "Goes with [product]. Add straight to your bag."
+      "default": "Goes with [product]. Add straight to your cart."
     },
     {
       "type": "range",

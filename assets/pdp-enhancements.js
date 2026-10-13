@@ -75,8 +75,12 @@
 
     var stickyButton = bar.querySelector('[data-pdp-sticky-button]');
     var stickyLabel = bar.querySelector('[data-pdp-sticky-label]');
-    var stickyPrice = bar.querySelector('[data-pdp-sticky-price]');
+    var stickyStatus = bar.querySelector('[data-pdp-sticky-status]');
+    var stickyPrices = bar.querySelectorAll('[data-pdp-sticky-price]');
+    var stickyQty = bar.querySelector('[data-pdp-sticky-qty-input]');
+    var focusables = bar.querySelectorAll('button, input');
     var mainPrice = document.querySelector('.product-hero-content [data-product-price]');
+    var mainQty = document.querySelector('.product-form .quantity-wrapper input[name="quantity"]');
 
     function syncFromMain() {
       var mainLabel = mainButton.querySelector('[data-add-to-cart-text]');
@@ -84,22 +88,67 @@
       if (mainButton.disabled && mainLabel) {
         stickyLabel.textContent = mainLabel.textContent.trim();
       }
-      if (mainPrice && stickyPrice) {
-        stickyPrice.textContent = mainPrice.textContent.trim();
+      if (mainPrice) {
+        Array.prototype.forEach.call(stickyPrices, function (el) {
+          el.textContent = mainPrice.textContent.trim();
+        });
+      }
+      if (mainQty && stickyQty) stickyQty.value = mainQty.value || 1;
+    }
+
+    /* Quantity: the sticky stepper drives the main quantity input, which keeps the
+       add-to-cart claim quantity up to date (product-info-new listens for its change event). */
+    function setQuantity(value) {
+      var qty = Math.max(1, parseInt(value, 10) || 1);
+      if (stickyQty) stickyQty.value = qty;
+      if (mainQty) {
+        mainQty.value = qty;
+        mainQty.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
+    if (stickyQty) {
+      bar.querySelectorAll('[data-pdp-sticky-qty-step]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setQuantity((parseInt(stickyQty.value, 10) || 1) + parseInt(btn.getAttribute('data-pdp-sticky-qty-step'), 10));
+        });
+      });
+      stickyQty.addEventListener('change', function () { setQuantity(stickyQty.value); });
+      // The theme's spinner updates the main input through jQuery, so listen the same way.
+      // Bound on load: window.jQuery seen by this deferred script is not the instance the theme ends up using.
+      window.addEventListener('load', function () {
+        if (mainQty && window.jQuery) {
+          window.jQuery(mainQty).on('change', function () { stickyQty.value = mainQty.value || 1; });
+        }
+      });
+    }
+
+    /* Chat: while the bar is showing, lift the Tidio launcher above it (unless the chat is open). */
+    var chatOpen = false;
+    function updateChatLift() {
+      document.documentElement.style.setProperty('--pdp-sticky-atc-height', bar.offsetHeight + 'px');
+      document.body.classList.toggle('pdp-sticky-lift-chat', isVisible && !chatOpen);
+    }
+    function bindTidio() {
+      if (!window.tidioChatApi || bindTidio.done) return;
+      bindTidio.done = true;
+      window.tidioChatApi.on('open', function () { chatOpen = true; updateChatLift(); });
+      window.tidioChatApi.on('close', function () { chatOpen = false; updateChatLift(); });
+    }
+    document.addEventListener('tidioChat-ready', bindTidio);
+    bindTidio();
 
     function setVisible(visible) {
       if (visible) syncFromMain();
       bar.classList.toggle('is-visible', visible);
       document.body.classList.toggle('pdp-sticky-atc-visible', visible);
       bar.setAttribute('aria-hidden', visible ? 'false' : 'true');
-      stickyButton.tabIndex = visible ? 0 : -1;
+      Array.prototype.forEach.call(focusables, function (el) { el.tabIndex = visible ? 0 : -1; });
       if (visible) {
         bar.removeAttribute('inert');
       } else {
         bar.setAttribute('inert', '');
       }
+      updateChatLift();
     }
 
     // Position check on scroll rather than IntersectionObserver: an observer only fires when
@@ -121,11 +170,44 @@
       window.requestAnimationFrame(update);
     }
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('resize', function () {
+      requestUpdate();
+      updateChatLift();
+    });
     update();
 
+    /* Add to cart with loading and "Added" feedback (CartJS fires its events through jQuery). */
+    var pending = false;
+    var resetTimer = null;
+    var safetyTimer = null;
+    function onCartComplete() {
+      if (!pending) return;
+      pending = false;
+      clearTimeout(safetyTimer);
+      bar.classList.remove('is-loading');
+      bar.classList.add('is-added');
+      if (stickyStatus) stickyStatus.textContent = 'Added to cart';
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(function () {
+        bar.classList.remove('is-added');
+        if (stickyStatus) stickyStatus.textContent = '';
+      }, 2200);
+    }
     stickyButton.addEventListener('click', function () {
-      if (mainButton.disabled) return;
+      if (mainButton.disabled || pending) return;
+      pending = true;
+      // Resolve jQuery at click time: CartJS triggers its events on the current window.jQuery.
+      if (window.jQuery) {
+        window.jQuery(document).off('cart.requestComplete', onCartComplete).one('cart.requestComplete', onCartComplete);
+      }
+      bar.classList.remove('is-added');
+      bar.classList.add('is-loading');
+      // Safety net in case the cart request never completes.
+      clearTimeout(safetyTimer);
+      safetyTimer = setTimeout(function () {
+        pending = false;
+        bar.classList.remove('is-loading');
+      }, 8000);
       mainButton.click();
     });
   }
