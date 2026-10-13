@@ -1,0 +1,319 @@
+{%- comment -%}
+  "Pair it with" products with individual Add buttons and an "Add the set" bundle bar.
+  Products come from the product_recommendations metafield (same source as the
+  "Pair It With" tab), falling back to Shopify product recommendations.
+  The set always uses CartJS data-cart-addclaims, so the mini cart opens as usual.
+{%- endcomment -%}
+{{ 'component-pdp-enhancements.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign limit = section.settings.product_limit
+  assign pair_products = product.metafields.accentuate.product_recommendations.value
+  assign use_metafield = false
+  if pair_products != blank and pair_products.size > 0
+    assign use_metafield = true
+  endif
+  if recommendations.performed
+    assign use_metafield = false
+    comment
+      The current product is unknown in this render; one extra is fetched and filtered out in JS.
+    endcomment
+    assign limit = limit | plus: 1
+  endif
+  assign subheading = section.settings.subheading | replace: '[product]', product.title
+-%}
+
+{%- capture pair_items -%}
+  {%- if recommendations.performed -%}
+    {%- assign source_products = recommendations.products -%}
+  {%- else -%}
+    {%- assign source_products = pair_products -%}
+  {%- endif -%}
+  {%- assign rendered = 0 -%}
+  {%- for item in source_products -%}
+    {%- if rendered >= limit -%}{%- break -%}{%- endif -%}
+    {%- if item.id == product.id or item.price == 0 or item.gift_card? -%}{%- continue -%}{%- endif -%}
+    {%- assign rendered = rendered | plus: 1 -%}
+    {%- assign item_variant = item.selected_or_first_available_variant -%}
+    {%- capture item_claim -%}{%- render 'pdp-cart-claim', product: item -%}{%- endcapture -%}
+    <li
+      data-pdp-pair-item
+      data-product-id="{{ item.id }}"
+      data-available="{{ item.available }}"
+      data-price="{{ item_variant.price }}"
+      data-claim="{{ item_claim | strip | escape }}">
+      <div class="pdp-pair-card">
+        <a class="pdp-pair-card__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+          {%- if item.featured_image -%}
+            <img
+              src="{{ item.featured_image | image_url: width: 600 }}"
+              srcset="{{ item.featured_image | image_url: width: 300 }} 300w, {{ item.featured_image | image_url: width: 600 }} 600w"
+              sizes="(max-width: 768px) 68vw, 30vw"
+              alt="{{ item.featured_image.alt | default: item.title | escape }}"
+              width="600"
+              height="600"
+              loading="lazy">
+          {%- endif -%}
+        </a>
+        <div class="pdp-pair-card__body">
+          {%- if item.metafields.global.prod_size != blank -%}
+            <p class="pdp-pair-card__size">{{ item.metafields.global.prod_size }}</p>
+          {%- endif -%}
+          <h3 class="pdp-pair-card__title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+          <p class="pdp-pair-card__price">
+            {{ item_variant.price | money }}
+            {%- if item_variant.compare_at_price > item_variant.price -%}
+              <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+              <s>{{ item_variant.compare_at_price | money }}</s>
+            {%- endif -%}
+          </p>
+          {%- if item.available -%}
+            <div class="pdp-pair-card__action">
+              <button
+                type="button"
+                class="pdp-button"
+                aria-label="Add {{ item.title | escape }} to bag"
+                data-cart-addclaims="[{{ item_claim | strip | escape }}]">
+                {%- render 'pdp-icon', icon: 'bag' -%}
+                <span>Add</span>
+              </button>
+            </div>
+          {%- else -%}
+            <p class="pdp-pair-card__soldout">{{ 'products.product.sold_out' | t }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if product or recommendations.performed -%}
+  <div
+    class="pdp-section pdp-pair pdp-pair-{{ section.id }}"
+    data-pdp-pair
+    {% unless use_metafield %}
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ limit | plus: 1 }}&intent={{ section.settings.fallback_intent }}"
+    {% endunless %}
+    data-money-format="{{ shop.money_format | escape }}"
+    data-product-id="{{ product.id }}"
+    data-limit="{{ limit }}"
+    {% if section.settings.include_current_product and product.available and product.price > 0 %}
+      {%- capture current_claim -%}{%- render 'pdp-cart-claim', product: product -%}{%- endcapture -%}
+      data-current-claim="{{ current_claim | strip | escape }}"
+      data-current-price="{{ product.selected_or_first_available_variant.price }}"
+    {% endif %}
+    {% unless use_metafield %}hidden{% endunless %}>
+    <div class="page-width">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pdp-section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if subheading != blank -%}
+        <p class="pdp-section__subheading">{{ subheading }}</p>
+      {%- endif -%}
+      <ul class="pdp-pair__grid" data-pdp-pair-items style="--pdp-pair-columns: {{ limit }};">
+        {%- if use_metafield or recommendations.performed -%}{{ pair_items }}{%- endif -%}
+      </ul>
+      {%- if section.settings.show_bundle -%}
+        <div class="pdp-pair__bundle" data-pdp-pair-bundle hidden>
+          <p class="pdp-pair__bundle-text">
+            {{ section.settings.bundle_text_before }} <span data-pdp-pair-count></span> for
+            <strong data-pdp-pair-total></strong>
+          </p>
+          <button type="button" class="pdp-button" data-pdp-pair-bundle-button>
+            {%- render 'pdp-icon', icon: 'bag' -%}
+            <span>{{ section.settings.bundle_button_label }}</span>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- style -%}
+  .pdp-pair-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 769px) {
+    .pdp-pair-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var root = document.querySelector('.pdp-pair-{{ section.id }}[data-pdp-pair]');
+    if (!root || root.dataset.pdpPairInit) return;
+    root.dataset.pdpPairInit = 'true';
+
+    function formatMoney(cents, format) {
+      var parts = (cents / 100).toFixed(2).split('.');
+      var whole = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return (format || '${{ "{{" }}amount}}')
+        .replace(/\{\{\s*amount_no_decimals\s*\}\}/, whole)
+        .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, parts[0] + ',' + parts[1])
+        .replace(/\{\{\s*amount\s*\}\}/, whole + '.' + parts[1]);
+    }
+
+    function setupBundle() {
+      var items = root.querySelectorAll('[data-pdp-pair-item]');
+      if (!items.length) {
+        root.hidden = true;
+        return;
+      }
+      root.hidden = false;
+
+      var bundle = root.querySelector('[data-pdp-pair-bundle]');
+      if (!bundle) return;
+      var claims = [];
+      var total = 0;
+      if (root.dataset.currentClaim) {
+        claims.push(JSON.parse(root.dataset.currentClaim));
+        total += parseInt(root.dataset.currentPrice, 10) || 0;
+      }
+      items.forEach(function (item) {
+        if (item.dataset.available !== 'true') return;
+        claims.push(JSON.parse(item.dataset.claim));
+        total += parseInt(item.dataset.price, 10) || 0;
+      });
+      if (claims.length < 2) {
+        bundle.hidden = true;
+        return;
+      }
+      bundle.querySelector('[data-pdp-pair-count]').textContent = claims.length;
+      bundle.querySelector('[data-pdp-pair-total]').textContent = formatMoney(total, root.dataset.moneyFormat);
+      // CartJS listens for clicks on [data-cart-addclaims] and adds every claim in the array.
+      bundle.querySelector('[data-pdp-pair-bundle-button]').setAttribute('data-cart-addclaims', JSON.stringify(claims));
+      bundle.hidden = false;
+    }
+
+    if (!root.dataset.url) {
+      setupBundle();
+      return;
+    }
+    fetch(root.dataset.url)
+      .then(function (response) { return response.text(); })
+      .then(function (text) {
+        var html = document.createElement('div');
+        html.innerHTML = text;
+        var fetched = html.querySelector('[data-pdp-pair-items]');
+        var list = root.querySelector('[data-pdp-pair-items]');
+        if (fetched) {
+          // The recommendations render has no current product, so exclude it and apply the limit here.
+          var limit = parseInt(root.dataset.limit, 10) || 3;
+          Array.prototype.forEach.call(fetched.querySelectorAll('[data-pdp-pair-item]'), function (item) {
+            if (item.dataset.productId === root.dataset.productId) return;
+            if (list.children.length >= limit) return;
+            list.appendChild(item);
+          });
+        }
+        setupBundle();
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "PDP Pair it with",
+  "tag": "section",
+  "class": "pdp-pair-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pair it with"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "info": "Use [product] to insert the product title.",
+      "default": "Goes with [product]. Add straight to your bag."
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "fallback_intent",
+      "label": "Recommendations when no products are set",
+      "info": "Products set in the product_recommendations metafield are always used first. Complementary needs the Search & Discovery app.",
+      "options": [
+        { "value": "related", "label": "Related products" },
+        { "value": "complementary", "label": "Complementary products" }
+      ],
+      "default": "related"
+    },
+    {
+      "type": "header",
+      "content": "Add the set"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bundle",
+      "label": "Show add the set bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "include_current_product",
+      "label": "Include the current product in the set",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bundle_text_before",
+      "label": "Bundle text",
+      "info": "Shown as: [text] 3 for $453",
+      "default": "Add all"
+    },
+    {
+      "type": "text",
+      "id": "bundle_button_label",
+      "label": "Bundle button label",
+      "default": "Add the set"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP Pair it with",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

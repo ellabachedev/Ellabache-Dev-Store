@@ -1,0 +1,45 @@
+{%- comment -%}
+  Sticky add to cart bar for the product page.
+  Appears once the main add to cart button (#pdp-addtocart) has scrolled out of view and
+  forwards clicks to it, so quantity, variant and buyX-getY claims stay in sync.
+  Params: product, current_variant
+{%- endcomment -%}
+{%- assign sticky_image = current_variant.featured_image | default: product.featured_image -%}
+<div
+  class="pdp-sticky-atc"
+  data-pdp-sticky-atc
+  aria-hidden="true"
+  inert>
+  <div class="page-width pdp-sticky-atc__inner">
+    {%- if sticky_image -%}
+      <img
+        class="pdp-sticky-atc__image"
+        src="{{ sticky_image | image_url: width: 120 }}"
+        alt="{{ sticky_image.alt | default: product.title | escape }}"
+        width="48"
+        height="48"
+        loading="lazy">
+    {%- endif -%}
+    <div class="pdp-sticky-atc__info">
+      <p class="pdp-sticky-atc__title">
+        <span class="pdp-sticky-atc__name">{{ product.title }}</span>
+        <span class="pdp-sticky-atc__sep" aria-hidden="true">&middot;</span>
+        <span class="pdp-sticky-atc__price" data-pdp-sticky-price>{{ current_variant.price | money }}</span>
+      </p>
+    </div>
+    <button
+      type="button"
+      class="pdp-sticky-atc__button"
+      data-pdp-sticky-button
+      tabindex="-1"
+      {% unless current_variant.available %}disabled{% endunless %}>
+      <span data-pdp-sticky-label>
+        {%- if current_variant.available -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- else -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- endif -%}
+      </span>
+    </button>
+  </div>
+</div>

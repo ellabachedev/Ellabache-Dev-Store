@@ -1,0 +1,23 @@
+{%- comment -%}
+  Outputs one CartJS "add claim" JSON object for the first available variant of `product`,
+  with the same buyX-getY line item properties used by product-info-new and the product cards.
+  Usage: {%- capture claim -%}{%- render 'pdp-cart-claim', product: item -%}{%- endcapture -%}
+{%- endcomment -%}
+{%- liquid
+  assign claim_variant = product.selected_or_first_available_variant
+  assign claim_handles = product.collections | map: 'handle' | join: ','
+  assign claim_eligible = 0
+  assign claim_free_sample = 0
+  if settings.enable_buyX_getY
+    for claim_collection in product.collections
+      if claim_collection.handle == settings.X_collection
+        assign claim_eligible = 1
+      endif
+    endfor
+    case product.handle
+      when settings.free_product_1, settings.free_product_2, settings.free_product_3, settings.free_product_4, settings.free_product_5
+        assign claim_free_sample = 1
+    endcase
+  endif
+-%}
+{"id":{{ claim_variant.id | json }},"properties":{"_collection_handles":{{ claim_handles | json }},"_eligiable":{{ claim_eligible }},"_freesample":{{ claim_free_sample }}},"quantity":1}

@@ -23,6 +23,10 @@
               </div>
             </div>
           {%- elsif block.settings.layout == "full_video" -%}
+            {%- liquid
+              assign slide_video_src = block.settings.video.sources[1].url | default: block.settings.video_url
+              assign slide_video_mobile_src = block.settings.video_mobile.sources[1].url | default: block.settings.video_mobile_url
+            -%}
             <!-- Full Video Layout -->
             <div class="hero-banner__single-column">
               <div class="hero-banner__media {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
@@ -31,11 +35,11 @@
                 </video>
                 {% endcomment %}
                 <video id="{{ block.id }}-video" autoplay loop muted playsinline>
-                    {% if block.settings.video_mobile != blank %}
-                      <source src="{{ block.settings.video.sources[1].url }}" media="(min-width: 769px)" type="video/mp4">
-                      <source src="{{ block.settings.video_mobile.sources[1].url }}" type="video/mp4">
+                    {% if slide_video_mobile_src != blank %}
+                      <source src="{{ slide_video_src }}" media="(min-width: 769px)" type="video/mp4">
+                      <source src="{{ slide_video_mobile_src }}" type="video/mp4">
                     {% else %}
-                      <source src="{{ block.settings.video.sources[1].url }}" type="video/mp4">
+                      <source src="{{ slide_video_src }}" type="video/mp4">
                     {% endif %}
                   </video>
                 <button id="{{ block.id }}-button" class="video-toggle-btn" onclick="toggleVideo()">
@@ -90,15 +94,19 @@
                   </div>
               </div>
           {%- elsif block.settings.layout == "two_column_video" -%}
+            {%- liquid
+              assign slide_video_src = block.settings.video.sources[1].url | default: block.settings.video_url
+              assign slide_video_mobile_src = block.settings.video_mobile.sources[1].url | default: block.settings.video_mobile_url
+            -%}
             <!-- Two Column Layout (Image/GIF + Video) -->
               <div class="hero-banner__two-column {% if block.settings.reverse_layout %}reverse-layout{% endif %}">
                 <div class="hero-banner__media hero-banner__media-video {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
                   <video id="{{ block.id }}-video" autoplay loop muted playsinline>
-                    {% if block.settings.video_mobile != blank %}
-                      <source src="{{ block.settings.video.sources[1].url }}" media="(min-width: 769px)" type="video/mp4">
-                      <source src="{{ block.settings.video_mobile.sources[1].url }}" type="video/mp4">
+                    {% if slide_video_mobile_src != blank %}
+                      <source src="{{ slide_video_src }}" media="(min-width: 769px)" type="video/mp4">
+                      <source src="{{ slide_video_mobile_src }}" type="video/mp4">
                     {% else %}
-                      <source src="{{ block.settings.video.sources[1].url }}" type="video/mp4">
+                      <source src="{{ slide_video_src }}" type="video/mp4">
                     {% endif %}
                   </video>
                   <button id="{{ block.id }}-button" class="video-toggle-btn" onclick="toggleVideo1()">
@@ -296,6 +304,17 @@
             "id": "video_mobile",
             "label": "Video (mobile)",
             "info": "Dimension: 1920x760"
+          },
+          {
+            "type": "text",
+            "id": "video_url",
+            "label": "Fallback video URL (.mp4)",
+            "info": "Used only when no video is selected above, e.g. a hosted .mp4 link."
+          },
+          {
+            "type": "text",
+            "id": "video_mobile_url",
+            "label": "Fallback mobile video URL (.mp4)"
           },
           {
             "type": "checkbox",

@@ -1,0 +1,154 @@
+{%- comment -%}
+  Product FAQ ("Questions"). One block per question; answers can be connected to product
+  metafields. Outputs FAQPage structured data for the questions shown.
+{%- endcomment -%}
+{%- liquid
+  assign faq_count = 0
+  for block in section.blocks
+    if block.settings.question != blank and block.settings.answer != blank
+      assign faq_count = faq_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if faq_count > 0 -%}
+  {{ 'component-pdp-enhancements.css' | asset_url | stylesheet_tag }}
+  <div class="pdp-section pdp-faq pdp-faq-{{ section.id }}">
+    <div class="page-width">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pdp-section__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      <div class="pdp-faq__list">
+        {%- assign faq_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.question == blank or block.settings.answer == blank -%}{%- continue -%}{%- endif -%}
+          <details
+            class="pdp-faq__item"
+            {% if faq_index == 0 and section.settings.open_first %}open{% endif %}
+            {{ block.shopify_attributes }}>
+            <summary class="pdp-faq__question">{{ block.settings.question }}</summary>
+            <div class="pdp-faq__answer">{{ block.settings.answer }}</div>
+          </details>
+          {%- assign faq_index = faq_index | plus: 1 -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.enable_schema -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {%- assign faq_written = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.question == blank or block.settings.answer == blank -%}{%- continue -%}{%- endif -%}
+            {%- if faq_written > 0 -%},{%- endif -%}
+            {
+              "@type": "Question",
+              "name": {{ block.settings.question | strip_html | strip | json }},
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": {{ block.settings.answer | strip_html | strip | json }}
+              }
+            }
+            {%- assign faq_written = faq_written | plus: 1 -%}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  {%- endif -%}
+
+  {%- style -%}
+    .pdp-faq-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 769px) {
+      .pdp-faq-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PDP Questions",
+  "tag": "section",
+  "class": "pdp-faq-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Open the first question",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_schema",
+      "label": "Add FAQ structured data for search engines",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Which skin types is it for?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Add the answer here, or connect it to a product metafield.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP Questions",
+      "category": "Product",
+      "blocks": [
+        { "type": "question" },
+        { "type": "question" },
+        { "type": "question" }
+      ]
+    }
+  ]
+}
+{% endschema %}

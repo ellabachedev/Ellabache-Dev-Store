@@ -196,8 +196,6 @@
       "name": "Video Custom",
       "settings": {
         "bg_color": "#ffffff",
-        "video": "shopify://files/videos/MD VIDEO DESKTOP.mp4",
-        "video_mobile": "shopify://files/videos/MD VIDEO MOBILE.mp4",
         "video_poster": "shopify://shop_images/video-poster.jpg",
         "padding_top": 52,
         "padding_bottom": 52

@@ -170,25 +170,43 @@
       {% endif %}
     </div>
   </div>
+  {%- liquid
+    assign video_src = section.settings.video.sources[0].url | default: section.settings.video_url
+    assign video_mobile_src = section.settings.video_mobile.sources[1].url | default: section.settings.video_mobile_url
+  -%}
+  {%- if video_src != blank -%}
   <div class="video-with-text__video" onclick="playVideo()">
     <div id="playButton" class="video-with-text__video-play-button"></div>
-    <video id="ftVideo"
+    <video
+      id="ftVideo"
       muted
       poster="{{ section.settings.video_poster | img_url:'884x' }}"
       class="video-with-text__video-element"
       controls>
-      {% if section.settings.video_mobile != blank %}
+      {% if video_mobile_src != blank %}
         <source
-          src="{{ section.settings.video.sources[0].url }}"
+          src="{{ video_src }}"
           media="(min-width: 769px)"
           type="video/mp4">
-        <source src="{{ section.settings.video_mobile.sources[1].url }}" type="video/mp4">
+        <source src="{{ video_mobile_src }}" type="video/mp4">
       {% else %}
-        <source src="{{ section.settings.video.sources[0].url }}" type="video/mp4">
+        <source src="{{ video_src }}" type="video/mp4">
       {% endif %}
     </video>
   </div>
+  {%- elsif section.settings.video_poster != blank -%}
+  <div class="video-with-text__video">
+    <img
+      src="{{ section.settings.video_poster | image_url: width: 884 }}"
+      alt="{{ section.settings.video_poster.alt | escape }}"
+      width="{{ section.settings.video_poster.width }}"
+      height="{{ section.settings.video_poster.height }}"
+      class="video-with-text__video-element"
+      loading="lazy">
+  </div>
+  {%- endif -%}
 </div>
+{%- if video_src != blank -%}
 <script>
   const video = document.getElementById("ftVideo");
   //const poster = document.getElementById("videoPoster");
@@ -244,6 +262,7 @@
   }
   });
 </script>
+{%- endif -%}
 {% schema %}
   {
     "name": "Video with Text",
@@ -268,6 +287,17 @@
         "type": "video",
         "id": "video_mobile",
         "label": "Video Mobile"
+      },
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "Fallback video URL (.mp4)",
+        "info": "Used only when no video is selected above, e.g. a hosted .mp4 link. With no video at all, the poster image is shown."
+      },
+      {
+        "type": "text",
+        "id": "video_mobile_url",
+        "label": "Fallback mobile video URL (.mp4)"
       },
       {
         "type": "image_picker",

@@ -1,5 +1,6 @@
 {% include 'breadcrumbs' %}
 <link rel="stylesheet" href="{{ 'component-pdp-image-gallery.css' | asset_url }}">
+{{ 'component-pdp-enhancements.css' | asset_url | stylesheet_tag }}
 <main
   class="product-single"
   data-section-id="{{ section.id }}"
@@ -105,7 +106,7 @@
         {%- endif -%}
         {% render 'back-in-stock' %}
         {% comment %} {% render 'product-description', product:product %} {% endcomment %}
-        <div class="accordion-block">
+        <div class="accordion-block"{% if section.settings.info_layout == 'tabs' %} data-pdp-tabs{% endif %}>
           {%- if product.metafields.accentuate.accordion_content_1_hide == blank -%}
             {%- if product.metafields.accentuate.accordion_content_1_title != blank -%}
               <div class="item">
@@ -197,6 +198,12 @@
             {%- endif -%}
           {%- endif -%}
         </div>
+        {%- if section.settings.show_skin_tags -%}
+          {% render 'pdp-skin-tags'
+            , product: product
+            , concern_prefix: section.settings.concern_tag_prefix
+            , skin_prefix: section.settings.skin_tag_prefix %}
+        {%- endif -%}
       </div>
     </div>
 
@@ -509,16 +516,62 @@
       {{ product | json }}
     </script>
   {% endunless %}</main>
+{%- if section.settings.enable_sticky_atc and product.price > 0 -%}
+  {% render 'pdp-sticky-atc'
+    , product: product
+    , current_variant: product.selected_or_first_available_variant %}
+{%- endif -%}
 <!-- primaryDetails -->
 {%- include 'variants' -%}
 {%- if product.metafields.global.upsell_products or upsellCollectionStr != "" -%}
   {%- render 'quick-view-new' -%}
 {%- endif -%}
 <script src="{{ 'product-accordion.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pdp-enhancements.js' | asset_url }}" defer="defer"></script>
 {% schema %}
   {
     "name": "Product",
     "settings": [
+      {
+        "type": "header",
+        "content": "Product information"
+      },
+      {
+        "type": "select",
+        "id": "info_layout",
+        "label": "Product details layout",
+        "options": [
+          { "value": "tabs", "label": "Tabs on desktop, accordion on mobile" },
+          { "value": "accordion", "label": "Accordion" }
+        ],
+        "default": "tabs"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_skin_tags",
+        "label": "Show skin concern and skin type tags",
+        "info": "Built from product tags, e.g. \"Concern-Age Correction\" and \"Skin-Dry\".",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "concern_tag_prefix",
+        "label": "Skin concern tag prefix",
+        "default": "Concern-"
+      },
+      {
+        "type": "text",
+        "id": "skin_tag_prefix",
+        "label": "Skin type tag prefix",
+        "default": "Skin-"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_sticky_atc",
+        "label": "Show sticky add to cart bar",
+        "info": "Appears once the add to cart button scrolls out of view.",
+        "default": true
+      },
       {
         "type": "header",
         "content": "Payment Modes"

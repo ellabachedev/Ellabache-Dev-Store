@@ -53,8 +53,8 @@
           "settings": {
             "layout": "full_video",
             "reverse_layout": false,
-            "video": "shopify://files/videos/October 2026 Homepage.mp4",
-            "video_mobile": "shopify://files/videos/October 2026 Homepage (1).mp4",
+            "video_url": "https://www.ellabache.com.au/cdn/shop/videos/c/vp/d83dcf6efdeb4f4194494e3dbf07b98a/d83dcf6efdeb4f4194494e3dbf07b98a.HD-720p-4.5Mbps-94553066.mp4?v=0",
+            "video_mobile_url": "https://www.ellabache.com.au/cdn/shop/videos/c/vp/51032fa72be64e7d938bda4baf1f8744/51032fa72be64e7d938bda4baf1f8744.HD-720p-1.6Mbps-94553067.mp4?v=0",
             "enable_content": true,
             "title": "",
             "description": "",
@@ -145,8 +145,8 @@
       "name": "Video with Text",
       "settings": {
         "bg_color": "#f8f8f8",
-        "video": "shopify://files/videos/9.mp4",
-        "video_mobile": "shopify://files/videos/10.mp4",
+        "video_url": "https://www.ellabache.com.au/cdn/shop/videos/c/vp/ed0019f9d87c4f3baedf22f1c54c696b/ed0019f9d87c4f3baedf22f1c54c696b.SD-480p-0.9Mbps-68829935.mp4?v=0",
+        "video_mobile_url": "https://www.ellabache.com.au/cdn/shop/videos/c/vp/b9113f63504244f8856638382dbd2d12/b9113f63504244f8856638382dbd2d12.HD-1080p-4.8Mbps-68829936.mp4?v=0",
         "video_poster": "shopify://shop_images/ezgif-frame-003.jpg",
         "button_label": "",
         "button_link": "https://www.ellabache.com.au/collections/gifting-1",
@@ -182,8 +182,6 @@
       "name": "Video with Text",
       "settings": {
         "bg_color": "#f8f8f8",
-        "video": "shopify://files/videos/MD VIDEO DESKTOP.mp4",
-        "video_mobile": "shopify://files/videos/MD VIDEO MOBILE.mp4",
         "video_poster": "shopify://shop_images/video-poster.jpg",
         "button_label": "Explore Curated Gifts",
         "button_link": "https://www.ellabache.com.au/collections/gifting-1",

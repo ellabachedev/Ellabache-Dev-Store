@@ -50,6 +50,49 @@
         "include_margins": true
       }
     },
+    "pdp_pair_bundle": {
+      "type": "pdp-pair-bundle",
+      "settings": {
+        "heading": "Pair it with",
+        "subheading": "Goes with [product]. Add straight to your bag.",
+        "product_limit": 3,
+        "fallback_intent": "related",
+        "show_bundle": true,
+        "include_current_product": true,
+        "bundle_text_before": "Add all",
+        "bundle_button_label": "Add the set",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "pdp_ugc_videos": {
+      "type": "pdp-ugc-videos",
+      "settings": {
+        "heading": "People using it",
+        "note": "Creator and salon clips, reposted with permission",
+        "background_color": "#f8f8f8",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "pdp_benefits": {
+      "type": "pdp-benefits",
+      "settings": {
+        "heading": "Three things it does",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "pdp_faq": {
+      "type": "pdp-faq",
+      "settings": {
+        "heading": "Questions",
+        "open_first": true,
+        "enable_schema": true,
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    },
     "mini_promo_banner_L3zLJK": {
       "type": "mini-promo-banner",
       "custom_css": [],
@@ -142,10 +185,14 @@
     "shogun-above",
     "product",
     "1782121758b694fb85",
+    "pdp_pair_bundle",
+    "pdp_ugc_videos",
+    "pdp_benefits",
     "mini_promo_banner_L3zLJK",
     "custom_product_recommendations_7jPXeP",
     "product-recommendations",
     "product_stamped_reviews_8A69eF",
+    "pdp_faq",
     "treatment_card_grid_76FXV3",
     "main",
     "instagram_feed",

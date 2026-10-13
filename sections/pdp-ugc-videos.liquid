@@ -1,0 +1,254 @@
+{%- comment -%}
+  "People using it" strip of short vertical videos (creator, therapist and salon clips).
+  Each block is one Shopify-hosted video; it plays in a popup. Hidden when no block has a video.
+{%- endcomment -%}
+{%- liquid
+  assign video_count = 0
+  for block in section.blocks
+    if block.settings.video != blank
+      assign video_count = video_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if video_count > 0 -%}
+  {{ 'component-pdp-enhancements.css' | asset_url | stylesheet_tag }}
+  <div
+    class="pdp-section pdp-ugc pdp-ugc-{{ section.id }}"
+    data-pdp-ugc
+    style="--pdp-ugc-bg: {{ section.settings.background_color }};">
+    <div class="page-width">
+      <div class="pdp-ugc__header">
+        <h2 class="pdp-ugc__heading">{{ section.settings.heading }}</h2>
+        {%- if video_count > 1 -%}
+          <div class="pdp-ugc__arrows">
+            <button type="button" class="pdp-ugc__arrow" data-pdp-ugc-prev aria-label="Previous videos">
+              {%- render 'pdp-icon', icon: 'arrow-left' -%}
+            </button>
+            <button type="button" class="pdp-ugc__arrow" data-pdp-ugc-next aria-label="Next videos">
+              {%- render 'pdp-icon', icon: 'arrow-right' -%}
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+      <ul class="pdp-ugc__track" data-pdp-ugc-track>
+        {%- for block in section.blocks -%}
+          {%- if block.settings.video == blank -%}{%- continue -%}{%- endif -%}
+          {%- assign poster = block.settings.poster | default: block.settings.video.preview_image -%}
+          <li class="pdp-ugc__item" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="pdp-ugc__card"
+              data-pdp-ugc-open="pdp-ugc-video-{{ block.id }}"
+              aria-label="Play video{% if block.settings.handle != blank %} from {{ block.settings.handle | escape }}{% endif %}{% if block.settings.caption != blank %}: {{ block.settings.caption | escape }}{% endif %}">
+              {%- if poster -%}
+                <img
+                  src="{{ poster | image_url: width: 480 }}"
+                  srcset="{{ poster | image_url: width: 240 }} 240w, {{ poster | image_url: width: 480 }} 480w"
+                  sizes="(max-width: 768px) 42vw, 16vw"
+                  alt=""
+                  width="480"
+                  height="{{ 480 | divided_by: poster.aspect_ratio | round }}"
+                  loading="lazy">
+              {%- endif -%}
+              <span class="pdp-ugc__play">{%- render 'pdp-icon', icon: 'play' -%}</span>
+              <span class="pdp-ugc__meta">
+                {%- if block.settings.handle != blank -%}
+                  <span class="pdp-ugc__handle">{{ block.settings.handle }}</span>
+                {%- endif -%}
+                {%- if block.settings.caption != blank -%}
+                  <span class="pdp-ugc__caption">{{ block.settings.caption }}</span>
+                {%- endif -%}
+              </span>
+            </button>
+            <template id="pdp-ugc-video-{{ block.id }}">
+              {{ block.settings.video | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '720x' }}
+            </template>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.note != blank -%}
+        <p class="pdp-section__note">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </div>
+    <dialog class="pdp-ugc__dialog" data-pdp-ugc-dialog aria-label="Video">
+      <button type="button" class="pdp-ugc__close" data-pdp-ugc-close aria-label="Close video">
+        {%- render 'pdp-icon', icon: 'close' -%}
+      </button>
+      <div data-pdp-ugc-player></div>
+    </dialog>
+  </div>
+
+  {%- style -%}
+    .pdp-ugc-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    @media screen and (min-width: 769px) {
+      .pdp-ugc-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <script>
+    (function () {
+      var root = document.querySelector('.pdp-ugc-{{ section.id }}');
+      if (!root || root.dataset.pdpUgcInit) return;
+      root.dataset.pdpUgcInit = 'true';
+
+      var track = root.querySelector('[data-pdp-ugc-track]');
+      var prev = root.querySelector('[data-pdp-ugc-prev]');
+      var next = root.querySelector('[data-pdp-ugc-next]');
+      var dialog = root.querySelector('[data-pdp-ugc-dialog]');
+      var player = root.querySelector('[data-pdp-ugc-player]');
+      var lastTrigger = null;
+
+      function updateArrows() {
+        if (!prev || !next) return;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      }
+      function scrollByPage(direction) {
+        track.scrollBy({ left: direction * track.clientWidth * 0.8, behavior: 'smooth' });
+      }
+      if (prev && next) {
+        prev.addEventListener('click', function () { scrollByPage(-1); });
+        next.addEventListener('click', function () { scrollByPage(1); });
+        track.addEventListener('scroll', updateArrows, { passive: true });
+        window.addEventListener('resize', updateArrows);
+        updateArrows();
+      }
+
+      function closeVideo() {
+        var video = player.querySelector('video');
+        if (video) video.pause();
+        player.innerHTML = '';
+        if (dialog.open) dialog.close();
+      }
+
+      root.querySelectorAll('[data-pdp-ugc-open]').forEach(function (card) {
+        card.addEventListener('click', function () {
+          var template = document.getElementById(card.getAttribute('data-pdp-ugc-open'));
+          if (!template) return;
+          lastTrigger = card;
+          player.innerHTML = '';
+          player.appendChild(template.content.cloneNode(true));
+          if (typeof dialog.showModal === 'function') {
+            dialog.showModal();
+          } else {
+            dialog.setAttribute('open', '');
+          }
+          var video = player.querySelector('video');
+          if (video) {
+            var playing = video.play();
+            if (playing && playing.catch) playing.catch(function () {});
+          }
+        });
+      });
+
+      root.querySelector('[data-pdp-ugc-close]').addEventListener('click', closeVideo);
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) closeVideo();
+      });
+      dialog.addEventListener('close', function () {
+        var video = player.querySelector('video');
+        if (video) video.pause();
+        player.innerHTML = '';
+        if (lastTrigger) lastTrigger.focus();
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PDP People using it",
+  "tag": "section",
+  "class": "pdp-ugc-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "People using it"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note below videos",
+      "default": "Creator and salon clips, reposted with permission"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Upload a vertical (9:16) clip. Can be connected to a product metafield for product-specific videos."
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Cover image",
+          "info": "Optional. Defaults to the video preview frame."
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Name or handle",
+          "default": "@ellabacheaus"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "My honest review"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDP People using it",
+      "category": "Product",
+      "blocks": [
+        { "type": "video" },
+        { "type": "video" },
+        { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}

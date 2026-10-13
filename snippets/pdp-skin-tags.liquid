@@ -1,0 +1,49 @@
+{%- comment -%}
+  Skin concern / skin type pills built from product tags, e.g.
+  "Concern-Age Correction" -> "Age Correction", "Skin-Dry" -> "Dry skin".
+  Params: product, concern_prefix, skin_prefix
+{%- endcomment -%}
+{%- liquid
+  assign concern_prefix_size = concern_prefix | size
+  assign skin_prefix_size = skin_prefix | size
+  assign concern_tags = ''
+  assign skin_tags = ''
+  for tag in product.tags
+    if concern_prefix_size > 0
+      assign tag_start = tag | slice: 0, concern_prefix_size | downcase
+      assign prefix_down = concern_prefix | downcase
+      if tag_start == prefix_down
+        assign label = tag | slice: concern_prefix_size, 100 | strip
+        if label != blank
+          assign concern_tags = concern_tags | append: label | append: '|'
+        endif
+      endif
+    endif
+    if skin_prefix_size > 0
+      assign tag_start = tag | slice: 0, skin_prefix_size | downcase
+      assign prefix_down = skin_prefix | downcase
+      if tag_start == prefix_down
+        assign label = tag | slice: skin_prefix_size, 100 | strip
+        if label != blank
+          assign label_down = label | downcase
+          unless label_down contains 'skin'
+            assign label = label | append: ' skin'
+          endunless
+          assign skin_tags = skin_tags | append: label | append: '|'
+        endif
+      endif
+    endif
+  endfor
+  assign concern_list = concern_tags | split: '|'
+  assign skin_list = skin_tags | split: '|'
+-%}
+{%- if concern_list.size > 0 or skin_list.size > 0 -%}
+  <ul class="pdp-skin-tags" aria-label="Skin concerns and skin types">
+    {%- for label in concern_list -%}
+      <li class="pdp-skin-tags__item">{%- render 'pdp-icon', icon: 'check' -%}{{ label }}</li>
+    {%- endfor -%}
+    {%- for label in skin_list -%}
+      <li class="pdp-skin-tags__item">{%- render 'pdp-icon', icon: 'face' -%}{{ label }}</li>
+    {%- endfor -%}
+  </ul>
+{%- endif -%}
