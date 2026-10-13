@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "287d29c1-6a5d-418a-a7db-34495061c3a6": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify://shop_images/ArcFactory_EllaBache_2020_A7R05456_PRINT.progressive_c63f3fca-b842-4a01-b8e5-7b89d18a5f56.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span></span><span>EXPRESS YOUR INTEREST</span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "We are looking for new partners to share in our success within the dynamic skincare industry. Are you ready to be a leader in Skin Solutions?",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Make an Enquiry",
+            "slider-button-url": "#franchiseEnquiry",
+            "button-style": "1",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#ffffff",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#001e37",
+            "slider-btn-border-color": "#ffffff",
+            "slider-btn-bg-color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "287d29c1-6a5d-418a-a7db-34495061c3a6"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "franchise-cta2": {
+      "type": "franchise-cta2",
+      "blocks": {
+        "efaee167-6075-4d86-88d3-e548c6e701bd": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/Cleansing_Feb2021_Expiry_2.jpg",
+            "item_title": "Express Your Interest",
+            "item_desc": "<p>Thank you for your interest in becoming a partner with Ella Baché. We are expanding our franchise network to include aditional prime metro and regional locations throughout Australia. So, if you are looking to buy an existing Ella Baché business, or looking to open in a new area we would love to hear from you.Simply complete the form below to receive a Franchise Starter Pack, or call (02) 9432 5016.</p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "efaee167-6075-4d86-88d3-e548c6e701bd"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-enquire-block": {
+      "type": "franchise-enquire-block",
+      "blocks": {
+        "32606c8c-0f5d-4743-85af-54fab31044a7": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_673615d7-1721-4cce-b1fe-d0247bc3046c.jpg",
+            "item_article_title": "How To Own Your Legacy",
+            "item_article_desc": "Fashion designer Kit Willow made one of her first bold moves when, in her early twenties, she founded her first fashion label with no prior experience and a shoe-string budget.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-own-your-voice"
+          }
+        },
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_17d5b825-914b-4955-af3f-8307301c39a4.jpg",
+            "item_article_title": "How to Design a Bold Life",
+            "item_article_desc": "In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas talks to inspiring entrepreneur Carolyn Creswell who shares the steps that have helped her design a bold life.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-design-a-bold-life-2"
+          }
+        },
+        "41dcbb54-dce4-4157-9623-885ecd4333c3": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_d9c6c4c6-915b-43ab-9891-9ab4345bc105.jpg",
+            "item_article_title": "How to Create Momentum",
+            "item_article_desc": "Are you feeling stuck? In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas shares her top 5 tips for creating momentum—whether that’s for a personal project or your own business— and making the most of your 2019",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-create-momentum"
+          }
+        }
+      },
+      "block_order": [
+        "32606c8c-0f5d-4743-85af-54fab31044a7",
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b",
+        "41dcbb54-dce4-4157-9623-885ecd4333c3"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Make it happen",
+        "block_desc": "<p>To find out if becoming an Ella Baché franchisee is your path to an exciting new future, simply call 1300 845 259 or submit the form below.</p>",
+        "typeform_data-url": "https://ellabache.typeform.com/to/Rp418Fv9",
+        "sidebar_title": "Blog"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "franchise-cta2",
+    "franchise-enquire-block"
+  ]
+}

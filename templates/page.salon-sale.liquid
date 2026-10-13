@@ -1,0 +1,12 @@
+{{ 'cms-page.css' | asset_url | stylesheet_tag }}
+{% include 'breadcrumbs' %}
+<div class="cms-page">
+  <div class="page-width page-width--narrow">
+    <div class="flex-container">
+        <div class="pageCont">
+            <div class="rte">{{ page.content }}</div>
+             {% section 'salon-sale-list' %}
+        </div>
+    </div>
+  </div>
+</div>

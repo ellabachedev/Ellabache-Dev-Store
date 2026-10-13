@@ -1,0 +1,53 @@
+.suburbs,
+.location-widget {
+    width: 100%;
+}
+.suburbs .flex-container,
+.location-widget .flex-container {
+    margin: 0 -10px;
+}
+.suburbs .item,
+.location-widget .item {
+    width: 25%;
+    padding: 10px;
+}
+@media only screen and (max-width: 768px) {
+    .suburbs .item,
+    .location-widget .item {
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 400px) {
+    .suburbs .item,
+    .location-widget .item {
+        width: 100%;
+    }
+}
+.suburbs a,
+.location-widget a {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: #001E37;
+    border: 2px solid transparent;
+    padding: 25px 15px;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-weight: 400;
+}
+.suburbs a:hover,
+.location-widget a:hover {
+    border: 2px solid #001E37;
+    background: none;
+    color: #001E37;
+}
+@media only screen and (max-width: 768px) {
+    .suburbs a,
+    .location-widget a {
+        font-size: 15px;
+        padding: 20px 10px;
+    }
+}

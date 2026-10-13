@@ -1,0 +1,74 @@
+.find-a-salon {
+  padding: 2rem 0 5rem;
+}
+.find-a-salon__title {
+  font-size: 2.5vw;
+  text-align: center;
+  color: #333;
+}
+.find-a-salon__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.find-a-salon__list li {
+  text-align: center;
+  border: 2px solid #f0f0f0;
+  margin: -2px 0 0 -2px;
+}
+.find-a-salon__list a {
+  display: block;
+  padding: 1rem;
+  font-size: 1.25rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s ease;
+}
+.find-a-salon__list li:hover {
+  background: #ededed;
+}
+@media (max-width: 600px) {
+  .find-a-salon {
+    padding-bottom: 2rem;
+  }
+  .find-a-salon__title {
+    font-size: 22px;
+  }
+  .find-a-salon__list a {
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+  }
+}
+@media (min-width: 600px) {
+  .find-a-salon__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* Banner */
+.banner {
+  position: relative;
+}
+.banner__image img {
+  width: 100%;
+  display: block;
+}
+.banner__title {
+  font-size: 32px;
+  font-weight: 300;
+  color: #001e37;
+}
+.banner__subtitle {
+  font-size: 16.5px;
+  color: #001e37;
+}
+@media (max-width: 768px) {
+  .banner__title {
+    font-size: 24px;
+  }
+  .banner__subtitle {
+    font-size: 14px;
+  }
+}

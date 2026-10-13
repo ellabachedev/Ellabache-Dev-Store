@@ -1,0 +1,43 @@
+<input type="hidden" id="hidden-customer_landing_page" name="checkout[attributes][Landing Page]" value="">
+
+<script>
+function setCookie(name,value,hours) {
+  var expires = "";
+  if (hours) {
+      var date = new Date();
+      date.setTime(date.getTime() + (hours*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
+function deleteCookie(name) {   
+  document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+$(document).ready(function(){
+  if( Shopify.Checkout.step == 'contact_information' || Shopify.Checkout.step == 'shipping_method' ){
+
+    if( getCookie('eb_landingPage') == null || getCookie('eb_landingPage') == "" ){
+      setCookie('eb_landingPage', window.location.href, 24);
+    }
+
+    if( getCookie('eb_landingPage') != null && getCookie('eb_landingPage') != "" ){
+      $('#hidden-customer_landing_page').appendTo('form.edit_checkout');
+      $('#hidden-customer_landing_page').val(getCookie('eb_landingPage'));
+    }
+
+  }
+});
+</script>

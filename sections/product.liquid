@@ -1,0 +1,594 @@
+{% include 'breadcrumbs' %}
+<link rel="stylesheet" href="{{ 'component-pdp-image-gallery.css' | asset_url }}">
+<main
+  class="product-single"
+  data-section-id="{{ section.id }}"
+  data-section-type="product">
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <div class="page-width">
+    <div class="flex-container hero-content">
+      <div class="desktop-hide">
+        <h1>{{ product.title }}</h1>
+        <div class="short-info">
+          {% if product.metafields.global.shortdescription1 %}
+            <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
+          {% endif %}
+          {%- if product.metafields.global.prod_size -%}
+            <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
+          {%- endif -%}
+          {%- if product.price > 0 -%}
+            <div class="product-price-wrapper">
+              <div data-product-price-wrapper class="product-price {% if current_variant.compare_at_price > current_variant.price %} on-sale {% endif %}">
+                <span class="regular-price" data-product-price>{{ current_variant.price | money }}</span>
+                {%- if product.compare_at_price_max > product.price -%}
+                  <div class="was-price">
+                    <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                    <s data-compare-price style="color:red;">
+                      {%- if current_variant.compare_at_price > current_variant.price -%}
+                        {{ current_variant.compare_at_price | money }}
+                      {%- endif -%}
+                    </s>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+          <div style="margin-top:10px;" id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
+            <!-- Stamped - Begin Star Rating Badge -->
+            <span
+              class="stamped-product-reviews-badge stamped-main-badge"
+              data-id="{{ product.id }}"
+              data-product-sku="{{ product.handle }}"
+              data-product-title="{{product.title}}"
+              style="display: block;">
+              {{ product.metafields.stamped.badge }}
+            </span>
+          <!-- Stamped - End Star Rating Badge -->
+          </div>
+          {%- if product.metafields.global.shortdescription2 -%}
+            <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="image-carousel product-image-gallery">
+        {% render 'pdp-image-gallery-new', product: product, featured_image: featured_image %}
+      </div>
+      <div class="product-hero-content">
+        <div class="mobile-hide">
+          <h1>{{ product.title }}</h1>
+          <div class="short-info">
+            {%- if product.metafields.global.shortdescription1 -%}
+              <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
+            {%- endif -%}
+            {%- if product.metafields.global.prod_size -%}
+              <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
+            {%- endif -%}
+            {%- if product.price > 0 -%}
+              <div class="product-price-wrapper">
+                <div data-product-price-wrapper class="product-price {% if current_variant.compare_at_price > current_variant.price %} on-sale {% endif %}">
+                  <span class="regular-price" data-product-price>{{ current_variant.price | money }}</span>
+                  {%- if product.compare_at_price_max > product.price -%}
+                    <div class="was-price">
+                      <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                      <s data-compare-price style="color:red;">
+                        {%- if current_variant.compare_at_price > current_variant.price -%}
+                          {{ current_variant.compare_at_price | money }}
+                        {%- endif -%}
+                      </s>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+            <div style="margin-top:10px;" id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
+              <!-- Stamped - Begin Star Rating Badge -->
+              <span
+                class="stamped-product-reviews-badge stamped-main-badge"
+                data-id="{{ product.id }}"
+                data-product-sku="{{ product.handle }}"
+                data-product-title="{{product.title}}"
+                style="display: block;">
+                {{ product.metafields.stamped.badge }}
+              </span>
+            <!-- Stamped - End Star Rating Badge -->
+            </div>
+            {%- if product.metafields.global.shortdescription2 -%}
+              <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if product.price > 0 -%}
+          {% render 'product-info-new'
+            , product: product
+            , current_variant: current_variant %}
+        {%- endif -%}
+        {% render 'back-in-stock' %}
+        {% comment %} {% render 'product-description', product:product %} {% endcomment %}
+        <div class="accordion-block">
+          {%- if product.metafields.accentuate.accordion_content_1_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_1_title != blank -%}
+              <div class="item">
+                <div class="header is-open">
+                  <h3>{{ product.metafields.accentuate.accordion_content_1_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_1_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_1_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_1_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.metafields.accentuate.accordion_content_2_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_2_title != blank -%}
+              <div class="item">
+                <div class="header">
+                  <h3>{{ product.metafields.accentuate.accordion_content_2_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_2_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_2_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_2_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.metafields.accentuate.accordion_content_3_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_3_title != blank -%}
+              <div class="item">
+                <div class="header">
+                  <h3>{{ product.metafields.accentuate.accordion_content_3_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_3_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_3_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_3_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.metafields.accentuate.accordion_content_4_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_4_title != blank -%}
+              <div class="item">
+                <div class="header">
+                  <h3>{{ product.metafields.accentuate.accordion_content_4_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_4_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_4_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_4_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.metafields.accentuate.accordion_content_5_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_5_title != blank -%}
+              <div class="item">
+                <div class="header">
+                  <h3>{{ product.metafields.accentuate.accordion_content_5_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_5_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_5_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_5_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.metafields.accentuate.accordion_content_6_hide == blank -%}
+            {%- if product.metafields.accentuate.accordion_content_6_title != blank -%}
+              <div class="item">
+                <div class="header">
+                  <h3>{{ product.metafields.accentuate.accordion_content_6_title }}</h3>
+                  {%- if product.metafields.accentuate.accordion_content_6_sub_title != blank -%}
+                    <h4>{{ product.metafields.accentuate.accordion_content_6_sub_title }}</h4>
+                  {%- endif -%}
+                </div>
+                <div class="content">
+                  {{ product.metafields.accentuate.accordion_content_6_text }}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- liquid
+      if product.selected_or_first_available_variant.featured_media
+        assign seo_media = product.selected_or_first_available_variant.featured_media
+      else
+        assign seo_media = product.featured_media
+      endif
+    -%}
+    <script type="application/ld+json">
+      {
+          "@context": "http://schema.org/",
+          "@type": "Product",
+          "name": {{ product.title | json }},
+          {% if seo_media -%}
+          {%- assign media_size = seo_media.preview_image.width | append: 'x' -%} "image" : [{{ seo_media | img_url: media_size | prepend: "https:" | json }}],
+          {%- endif %}
+          "description": {{ product.description | strip_html | json }},
+          {% if product.selected_or_first_available_variant.sku != blank -%}
+            "sku": {{ product.selected_or_first_available_variant.sku | json }},
+            {%- endif %}
+            "brand": {
+              "@type": "Thing",
+              "name": "Ella Baché"
+            },
+            "url": {{ shop.url | append: product.url | json }},
+            "offers": [
+              {
+                "@type": "Offer",
+                "price": {{ product.price | divided_by: 100.00 | json }},
+                "priceCurrency": {{ cart.currency.iso_code | json }},
+                "availability": "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+                "url": {{ shop.url | append: product.url | json }},
+                "shippingDetails": [
+                  {
+                    "@type": "OfferShippingDetails",
+                    "shippingRate": {
+                      "@type": "MonetaryAmount",
+                      "value": "0",
+                      "currency": "AU"
+                    },
+                    "shippingDestination": {
+                      "@type": "DefinedRegion",
+                      "name": "Orders over $100",
+                      "addressCountry": "AU",
+                      "addressRegion": [
+                        "NSW",
+                        "VIC",
+                        "QLD",
+                        "SA",
+                        "WA",
+                        "TAS",
+                        "ACT",
+                        "NT"
+                      ]
+                    },
+                    "deliveryTime": {
+                      "@type": "ShippingDeliveryTime",
+                      "transitTime": "Standard"
+                    }
+                  }, {
+                    "@type": "OfferShippingDetails",
+                    "shippingRate": {
+                      "@type": "MonetaryAmount",
+                      "value": "10",
+                      "currency": "AU"
+                    },
+                    "shippingDestination": {
+                      "@type": "DefinedRegion",
+                      "name": "All orders under $100",
+                      "addressCountry": "AU",
+                      "addressRegion": [
+                        "NSW",
+                        "VIC",
+                        "QLD",
+                        "SA",
+                        "WA",
+                        "TAS",
+                        "ACT",
+                        "NT"
+                      ]
+                    },
+                    "deliveryTime": {
+                      "@type": "ShippingDeliveryTime",
+                      "transitTime": "Standard"
+                    }
+                  }, {
+                    "@type": "OfferShippingDetails",
+                    "shippingRate": {
+                      "@type": "MonetaryAmount",
+                      "value": "15",
+                      "currency": "AU"
+                    },
+                    "shippingDestination": {
+                      "@type": "DefinedRegion",
+                      "name": "All orders",
+                      "addressCountry": "AU",
+                      "addressRegion": [
+                        "NSW",
+                        "VIC",
+                        "QLD",
+                        "SA",
+                        "WA",
+                        "TAS",
+                        "ACT",
+                        "NT"
+                      ]
+                    },
+                    "deliveryTime": {
+                      "@type": "ShippingDeliveryTime",
+                      "transitTime": "Express"
+                    }
+                  }
+                ]
+              }
+            ],
+            {% if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" %}
+              "aggregateRating" : {
+                "@type": "AggregateRating",
+                "ratingValue": {{ product.metafields.stamped.reviews_average | round: 2 }},
+                "reviewCount": {{ product.metafields.stamped.reviews_count }},
+                "bestRating": 5,
+                "worstRating": 1
+              },
+              {% endif %}
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "AU",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 21,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility"
+              }
+            }
+    </script>
+    {%- comment -%}
+    {%- assign promoVideo = product.metafields.accentuate.teaser_video | strip_html | strip_newlines | strip -%}
+    {%- if promoVideo.size > 0 -%}
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          "@id": "{{ shop.url }}{{ product.url }}/#video",
+          "name": "How to use {{ product.title }}",
+          "description": "Step-by-step product demonstration video showing how to correctly apply {{ product.title }} .",
+          "thumbnailUrl": "{{ product.metafields.accentuate.video_poster_image }}",
+          "uploadDate": "{{ product.published_at | date: '%Y-%m-%d' }}",
+          "contentUrl": "{{ promoVideo }}",
+          "embedUrl": "{{ shop.url }}{{ product.url }}",
+          "about": {
+            "@type": "Product",
+            "@id": "{{ shop.url }}{{ product.url }}/#product"
+          }
+        }
+      </script>
+    {%- endif -%}
+    {%- endcomment -%}
+  </div>
+  {%- if product.metafields.accentuate.treatment_solution_hide == blank -%}
+    {%- if product.metafields.accentuate.treatment_solution_title != blank -%}
+      <div class="treatment-grid-content-block">
+        <div class="page-width">
+          <div class="heading text-center">
+            {%- if product.metafields.accentuate.treatment_solution_title != blank -%}
+              <h2>{{ product.metafields.accentuate.treatment_solution_title }}</h2>
+            {%- endif -%}
+            {%- if product.metafields.accentuate.treatment_solution_subtitle != blank -%}
+              <h3>{{ product.metafields.accentuate.treatment_solution_subtitle }}</h3>
+            {%- endif -%}
+          </div>
+          <div class="grid-content">
+            <div class="flex-container">
+              <div class="content">
+                <div class="inner">
+                  {%- if product.metafields.accentuate.treatment_solution_description != blank -%}
+                    <p>{{ product.metafields.accentuate.treatment_solution_description }}</p>
+                  {%- endif -%}
+                  {%- if product.metafields.accentuate.treatment_solution_short_text != blank -%}
+                    <span>{{ product.metafields.accentuate.treatment_solution_short_text }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- if product.metafields.accentuate.treatment_solution_video != blank -%}
+                <div class="video">
+                  <video
+                    id="promoVideo1"
+                    preload="none"
+                    controls>
+                    <source src="{{ product.metafields.accentuate.treatment_solution_video }}" type="video/mp4">
+                  </video>
+                  {%- if product.metafields.accentuate.treatment_solution_video_poste != blank -%}
+                    <div class="poster">
+                      <img
+                        src="{{ product.metafields.accentuate.treatment_solution_video_poste }}"
+                        alt="Your Treatment Solution Poster"
+                        loading="lazy">
+                    </div>
+                    <div id="playPromoVideo1" class="play-button">
+                      <span>Play</span>
+                    </div>
+                    <script>
+                      window.addEventListener('load', (event) => {
+                        $("#playPromoVideo1").on('click', function() {
+                          $(this).parents('div.video').addClass('playing');
+                          $("#promoVideo1").get(0).play();;
+                        });
+                        var vid = document.getElementById("promoVideo1");
+                        vid.onpause = function() {
+                          $("#promoVideo1").parents("div.video").removeClass('playing');
+                        };
+                      });
+                    </script>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="image">
+                  {%- for image in product.metafields.accentuate.treatment_solution_image -%}
+                    <img
+                      src="{{ image.src }}"
+                      alt="{{ image.alt }}"
+                      loading="lazy"
+                      alt="Your Treatment Solution" />
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    {%- for c in product.collections -%}
+      {%- if c.handle != 'frontpage' and c.handle != 'all' and c.handle != 'bestsellers' and c.handle != 'best-seller' and
+ c.handle != 'best-sellers' and c.handle != 'best-sellers-mega-menu' %}
+        {%- assign collectionforTreatment = c -%}
+        {%- if collectionforTreatment.metafields.accentuate.treatment_solution_title != blank -%}
+          <div class="treatment-grid-content-block">
+            <div class="page-width">
+              <div class="heading text-center">
+                {%- if collectionforTreatment.metafields.accentuate.treatment_solution_title != blank -%}
+                  <h2>{{ collectionforTreatment.metafields.accentuate.treatment_solution_title }}</h2>
+                {%- endif -%}
+                {%- if collectionforTreatment.metafields.accentuate.treatment_solution_subtitle != blank -%}
+                  <h3>{{ collectionforTreatment.metafields.accentuate.treatment_solution_subtitle }}</h3>
+                {%- endif -%}
+              </div>
+              <div class="grid-content">
+                <div class="flex-container">
+                  <div class="content">
+                    <div class="inner">
+                      {%- if collectionforTreatment.metafields.accentuate.treatment_solution_description != blank -%}
+                        <p>{{ collectionforTreatment.metafields.accentuate.treatment_solution_description }}</p>
+                      {%- endif -%}
+                      {%- if product.metafields.accentuate.treatment_solution_short_text != blank -%}
+                        <span>{{ product.metafields.accentuate.treatment_solution_short_text }}</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  {%- if collectionforTreatment.metafields.accentuate.treatment_solution_video != blank -%}
+                    <div class="video">
+                      <video id="promoVideo1" controls>
+                        <source src="{{ collectionforTreatment.metafields.accentuate.treatment_solution_video }}" type="video/mp4">
+                      </video>
+                      {%- if collectionforTreatment.metafields.accentuate.treatment_solution_video_poste != blank -%}
+                        <div class="poster">
+                          <img
+                            src="{{ collectionforTreatment.metafields.accentuate.treatment_solution_video_poste }}"
+                            loading="lazy"
+                            alt="Your Treatment Solution Poster">
+                        </div>
+                        <div id="playPromoVideo1" class="play-button">
+                          <span>Play</span>
+                        </div>
+                        <script>
+                          window.addEventListener('load', (event) => {
+                            $("#playPromoVideo1").on('click', function() {
+                              $(this).parents('div.video').addClass('playing');
+                              $("#promoVideo1").get(0).play();;
+                            });
+                            var vid = document.getElementById("promoVideo1");
+                            vid.onpause = function() {
+                              $("#promoVideo1").parents("div.video").removeClass('playing');
+                            };
+                          });
+                        </script>
+                      {%- endif -%}
+                    </div>
+                  {%- else -%}
+                    <div class="image">
+                      {% for image in collectionforTreatment.metafields.accentuate.treatment_solution_image %}
+                        <img
+                          src="{{ image.src }}"
+                          loading="lazy"
+                          alt="{{ image.alt }}" />
+                      {% endfor %}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- break -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {% unless product == empty %}
+    <script type="application/json" data-product-json>
+      {{ product | json }}
+    </script>
+  {% endunless %}</main>
+<!-- primaryDetails -->
+{%- include 'variants' -%}
+{%- if product.metafields.global.upsell_products or upsellCollectionStr != "" -%}
+  {%- render 'quick-view-new' -%}
+{%- endif -%}
+<script src="{{ 'product-accordion.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Payment Modes"
+      },
+      {
+        "type": "checkbox",
+        "id": "afterpay_enabled",
+        "label": "Enable afterpay",
+        "info": "Display afterpay payment details in product page?",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "klarna_enabled",
+        "label": "Enable klarna",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Related products settings"
+      }, {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Enable related products",
+        "default": false
+      }, {
+        "id": "related_title",
+        "type": "text",
+        "label": "Heading",
+        "default": "Related products"
+      }, {
+        "type": "range",
+        "id": "related_grid_num",
+        "label": "Products per row",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      }, {
+        "type": "range",
+        "id": "related_grid_row",
+        "label": "Rows",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 1
+      }, {
+        "type": "header",
+        "content": "Cross-sell Section Settings"
+      }, {
+        "type": "checkbox",
+        "id": "show_upsell_products",
+        "label": "Enable Cross-sell Products",
+        "default": true
+      }, {
+        "id": "upsell_title",
+        "type": "text",
+        "label": "Cross-sell Section Title",
+        "default": "You may also like"
+      }, {
+        "id": "upsell_sub_title",
+        "type": "text",
+        "label": "Sub Title",
+        "default": "Try these recommended products for a complete skin solution."
+      }, {
+        "id": "upsell_count",
+        "type": "text",
+        "label": "Cross-sell Count",
+        "default": "10"
+      }
+    ]
+  }
+{% endschema %}

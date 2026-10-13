@@ -1,0 +1,146 @@
+<script>
+
+var lambdaMiddlewareModeStr = '{{ shop.metafields.global.lambda_middleware_mode }}'; // METAFIELD Lambda/Middleware Test/Live Mode
+var lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+if(lambdaMiddlewareModeStr == "Test"){
+  lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+}else if(lambdaMiddlewareModeStr == "Live"){
+  lambdaBaseURL = 'https://axitw7b5ed.execute-api.ap-southeast-2.amazonaws.com';
+}else{
+  lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+}
+  
+function setCookie(name,value,hours) {
+  var expires = "";
+  if (hours) {
+      var date = new Date();
+      date.setTime(date.getTime() + (hours*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+
+function deleteCookie(name) {   
+  document.cookie = name+'=; Max-Age=-99999999;';  
+}
+  
+function checkGALoaded() {
+  if (typeof ga === 'function') {
+    //console.log('GA Loaded :'+ ga);
+    jQuery(document).trigger('ga_loaded');
+  } else {
+    //console.log('GA Not loaded');
+    setTimeout(checkGALoaded, 100);
+  }
+}
+
+jQuery(document).ready(function($){
+  
+    if(Shopify.Checkout.step == 'thank_you'){
+
+      var refreshId = setInterval(function(){
+        if( Shopify.checkout != undefined &&  Shopify.checkout != null ){
+          if( Shopify.checkout.order_id != undefined &&  Shopify.checkout.order_id != null ){
+            //console.log('Shopify.checkout.order_id');
+            //console.log(Shopify.checkout.order_id);
+            var orderId = parseInt(Shopify.checkout.order_id);
+            //console.log('orderId');
+            //console.log(orderId);
+            if( orderId != null && orderId > 0 ){
+              if( getCookie('eb_landingPage') != null && getCookie('eb_landingPage') != "" ){
+                var landingPageUrl = getCookie('eb_landingPage');
+                var orderName = '{{ checkout.order_name }}';
+                if( jQuery('.os-order-number').length >= 1 ){
+                  jQuery('.os-order-number').each(function(){
+                    if( jQuery(this).text().includes('#') ){
+                      orderName = '#' + jQuery(this).text().trim().split('#')[1];
+                      return 1;
+                    }
+                  });
+                }
+                var orderTotal = parseFloat(Shopify.checkout.total_price);
+
+                console.log('orderId');
+                console.log(orderId);
+                console.log('orderName');
+                console.log(orderName);
+                console.log('orderTotal');
+                console.log(orderTotal);
+
+                setTimeout(checkGALoaded, 100);
+
+                $(document).on('ga_loaded', function(){
+                  ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Tracking Hole',
+                    eventAction: landingPageUrl,
+                    eventLabel: orderName
+                  });
+                });
+                
+                jQuery.ajax({
+                  method: "POST",
+                  //url: lambdaBaseURL + "/updateorderlandingpage",
+                  url: "https://api.retool.com/v1/workflows/bd80f335-cc67-443d-ad55-485d42e21a17/startTrigger?workflowApiKey=retool_wk_67d84d1dc6914788a179a9cad2e744cb",
+                  dataType: 'json',
+                  data: { lpurl: landingPageUrl, order: orderId },
+                  async: false,
+                  success: function(res){
+                    //console.log('Update Order Landing Page RES');
+                    //console.log(res);
+                  },
+                  error: function(err){
+                    //console.log('Update Order Landing Page ERR');
+                    //console.log(err);
+                  },
+                  complete: function(){
+                    clearInterval(refreshId);
+                  }
+                });
+                
+              }
+            }
+          }
+        }
+      }, 3000);
+
+    }
+
+    if( Shopify.Checkout.step == 'payment_method' ){
+      
+      if( getCookie('authority_to_leave') != null && getCookie('authority_to_leave') != '' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][authority to leave]" value="'+getCookie('authority_to_leave')+'">');
+      }
+      if( getCookie('special_instructions') != null && getCookie('special_instructions') != '' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][delivery comments]" value="'+getCookie('special_instructions')+'">');
+      }
+      if( getCookie('preferred_salon') != null && getCookie('preferred_salon') != '' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][Preferred Salon Code]" value="'+getCookie('preferred_salon')+'">');
+      }
+      /*if( getCookie('hidden_checkout_buyer_accepts_marketing') != null && getCookie('hidden_checkout_buyer_accepts_marketing') != '' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][Customer Subscribed]" value="'+getCookie('hidden_checkout_buyer_accepts_marketing')+'">');
+      }else{
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][Customer Subscribed]" value="1">');
+      }*/
+      if( getCookie('eb_landingPage') != null && getCookie('eb_landingPage') != '' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][Landing Page]" value="'+getCookie('eb_landingPage')+'">');
+      }
+      if( getCookie('competition_answer') != null && getCookie('competition_answer') != '' && getCookie('competition_qna_set') == 'yes' ){
+        jQuery(".main__content .step form.edit_checkout").append('<input type="hidden" name="checkout[attributes][{{ settings.competition_instruction }}]" value="'+getCookie('competition_answer')+'">');
+      }
+
+      //jQuery(".main__content .step form.edit_checkout [name*='checkout[attributes]']");
+    }
+});
+</script>

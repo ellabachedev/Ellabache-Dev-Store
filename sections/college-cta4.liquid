@@ -1,0 +1,124 @@
+{%- capture collegeCTA4 -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-cta4.css' | asset_url | stylesheet_tag }}
+<section class="college-cta4" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    {%- if section.settings.block_title != blank -%}
+    <h2 class="block-title">{{ section.settings.block_title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.block_description != blank -%}
+    <div class="intro-description">
+      <p>{{ section.settings.block_description }}</p>
+    </div>
+    {%- endif -%}
+    {%- if section.settings.block_image != blank -%}
+    <div class="intro-image">
+      <img src="{{ section.settings.block_image | img_url: 'master'}}">
+    </div>
+    <div class="space" style="height:40px;"></div>
+    {%- endif -%}
+    {%- if section.settings.block_shogun_content != blank -%}
+    {{ section.settings.block_shogun_content }}
+    <div class="space" style="height:40px;"></div>
+    {%- endif -%}
+    <div class="accordion-block">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.accordion_item_switch != blank -%}
+        {{ 'accordion-block.css' | asset_url | stylesheet_tag }}
+        <div class="accordion-item">
+          <div class="accordion-title grey-bg">
+            <h3>{{ block.settings.accordion_item_Header }}</h3>
+          </div>
+          <div class="accordion-content">
+            {{ block.settings.accordion_item_content }}
+          </div>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.block_shogun_content_2 != blank-%}
+    <div class="space" style="height:40px;"></div>
+    {{ section.settings.block_shogun_content_2 }}
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ collegeCTA4 | strip_newlines }}
+{% schema %}
+  {
+    "name": "College CTA 4",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id" : "block_title",
+      "type" : "text",
+      "label" : "Text"
+    },
+    {
+      "id" : "block_description",
+      "type" : "textarea",
+      "label" : "Description"
+    },
+    {
+      "id" : "block_image",
+      "type" : "image_picker",
+      "label" : "Image"
+    },
+    {
+      "id" : "block_shogun_content",
+      "type" : "textarea",
+      "label" : "Shogun Content"
+    },
+    {
+    "id" : "block_shogun_content_2",
+    "type" : "textarea",
+    "label" : "Shogun Content 2"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "accordion_content",
+      "name": "Item",
+      "limit": 1,
+      "settings": [
+          {
+          "id" : "accordion_item_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : true
+        },
+        {
+          "id": "accordion_item_Header",
+          "type": "text",
+          "label": "Accorion Header"
+        },
+        {
+          "id": "accordion_item_content",
+          "type": "textarea",
+          "label": "Accrdion Content"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

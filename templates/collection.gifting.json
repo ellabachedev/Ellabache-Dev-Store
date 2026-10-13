@@ -1,0 +1,307 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection_mini_banner": {
+      "type": "collection-mini-banner",
+      "custom_css": [
+        "h1 {color: #8b4063 !important; font-size: 26px; font-weight: 400;}",
+        ".h2 span {font-size: 14px;}",
+        "@media only screen and (max-width: 767px) {.h2 {font-size: 15px; text-align: center; } .h2 span {display: block; font-size: 13px; }}"
+      ],
+      "name": "Collection Mini Banner",
+      "settings": {
+        "show_breadcrumb_nav": true
+      }
+    },
+    "product_feature_eUEKky": {
+      "type": "product-feature",
+      "custom_css": [
+        "h2.product-feature-title {color: #8b4063;}"
+      ],
+      "name": "Product feature",
+      "settings": {
+        "desktop_layout": "image_right",
+        "section_padding": 40,
+        "background_color": "#ffffff",
+        "content_box_background_color": "#ffffff",
+        "content_box_padding": 0,
+        "content_box_border_radius": 0,
+        "title": "The Iconic Skin Collection Case ",
+        "description": "<p>A curated edit with five of our best-selling skincare essentials. </p><p>This limited-edition case brings everything Mum needs for a complete, expert-led routine at home.</p><p>A gift to be shared and enjoyed across generations.</p><h5><strong>RRP $100, valued at $193</strong></h5>",
+        "product_image": "shopify://shop_images/MothersDayKit20261-ezgif.com-crop.jpg",
+        "button_desktop_text": "Shop for her",
+        "button_desktop_link": "shopify://products/iconic-skin-collection-case",
+        "button_mobile_text": "Shop for her",
+        "button_mobile_link": "shopify://products/iconic-skin-collection-case"
+      }
+    },
+    "product_feature_WPzpNq": {
+      "type": "product-feature",
+      "custom_css": [
+        "h2.product-feature-title {color: #8b4063;}"
+      ],
+      "name": "Product feature",
+      "settings": {
+        "desktop_layout": "image_right",
+        "section_padding": 40,
+        "background_color": "#8b4063",
+        "content_box_background_color": "#ffffff",
+        "content_box_padding": 50,
+        "content_box_border_radius": 15,
+        "title": "The Gift of Choice",
+        "description": "<p>Skincare & Facial Treatments she'll love.</p><p>Our gift card can be redeemed across our full range of skincare products and facial treatments. The gift of bespoke skincare and facial treatments.</p>",
+        "product_image": "shopify://shop_images/Gift_card_image.png",
+        "button_desktop_text": "Treat Her Now",
+        "button_desktop_link": "shopify://products/gift-card",
+        "button_mobile_text": "Treat Her Now",
+        "button_mobile_link": "shopify://products/gift-card"
+      }
+    },
+    "content_card_je6BNR": {
+      "type": "content-card",
+      "blocks": {
+        "item_KxgqQr": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/VITALITY.jpg",
+            "duration_HR": "1",
+            "duration_MIN": "15",
+            "title": "VITALITY | $170",
+            "text": "Restore your skin with a comforting rebalance treatment.",
+            "button_label": "Book Now",
+            "button_link": "https://www.ellabache.com.au/products/vitality-treatment-package"
+          }
+        },
+        "item_wMDK3p": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/REJUVENATE.jpg",
+            "duration_HR": "2",
+            "duration_MIN": "",
+            "title": "REJUVENATE | $265",
+            "text": "Rejuvenate your skin, paired with a relaxation back massage & body exfoliation.",
+            "button_label": "Book Now",
+            "button_link": "shopify://products/rejuvenate-treatment-package"
+          }
+        },
+        "item_ATgWdn": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/DELUXE.jpg",
+            "duration_HR": "2",
+            "duration_MIN": "30",
+            "title": "DELUXE  | $375",
+            "text": "Experience a luxuriously hydrating Specialty Facial Treatment, paired with a relaxing full-body massage and body exfoliation.",
+            "button_label": "Book Now",
+            "button_link": "https://www.ellabache.com.au/products/deluxe-treatment-package"
+          }
+        }
+      },
+      "block_order": [
+        "item_KxgqQr",
+        "item_wMDK3p",
+        "item_ATgWdn"
+      ],
+      "custom_css": [
+        "h2.content-card-slider__heading {color: #8b4063;}"
+      ],
+      "name": "Content Card slider",
+      "settings": {
+        "heading": "A moment that's entirely Hers.",
+        "subheading": "Individulised facial treatments to suit you or a loved one.<br><br>\nThe gift of expert skin care in an Ella Baché salon of her choice. Each facial treatment is personalised to her unique skin. Designed for a true moment of calm, relaxation and self-care.  Choose the experience that suits her best.",
+        "button_label": "More Treatments",
+        "button_link": "shopify://collections/treatments",
+        "section_padding": 40,
+        "background_color": "#ffffff",
+        "content_box_padding": 0,
+        "content_box_background_color": "#ffffff",
+        "badge_bg": "#8b4063",
+        "badge_text": "#ffffff",
+        "active_dot_color": "#00264d"
+      }
+    },
+    "featured_product_slider_Tbkitr": {
+      "type": "featured-product-slider",
+      "custom_css": [
+        ".h1 {color: #8b4063; font-size: 32px; text-align: left; margin-top: 0; margin-bottom: 3rem;}",
+        ".page-width {max-width: 1300px !important;}",
+        "@media (min-width: 1024px) {.product-grid__item {width: 27.4rem; }}",
+        ".section-header {text-align: left !important;}",
+        "p {font-size: 14px; text-align: left;}"
+      ],
+      "name": "Featured Product Slider",
+      "settings": {
+        "title": "Curated Gift Sets",
+        "paragraph": "<p>Thoughtfully selected skincare, tailored to every skin story. Beautifully curated for meaningful gifting.</p>",
+        "candy_banner_link": "",
+        "collection": "gift-set",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "featured_collection_WAXFah": {
+      "type": "featured-collection",
+      "custom_css": [
+        "h2.title {color: #8b4063; font-weight: 400;}"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Gifts under $100",
+        "description": "<p>Skincare gifts she'll reach for every day. Under $100. From expert cleansers to her favourite moisturisers.</p>",
+        "collection": "gifts-under-101",
+        "products_to_show": 4,
+        "color_scheme": "background-1",
+        "show_view_all": true,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_ryWniA": {
+      "type": "featured-collection",
+      "custom_css": [
+        "h2.title {color: #8b4063; font-weight: 400;}"
+      ],
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "Gifts under $200",
+        "description": "<p>Luxurious everyday essentials, advanced serums, rich creams and expert formulas she will love.</p>",
+        "collection": "gifts-under-200",
+        "products_to_show": 4,
+        "color_scheme": "background-1",
+        "show_view_all": true,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "video_custom_wPQhEt": {
+      "type": "video-custom",
+      "name": "Video Custom",
+      "settings": {
+        "bg_color": "#ffffff",
+        "video": "shopify://files/videos/MD VIDEO DESKTOP.mp4",
+        "video_mobile": "shopify://files/videos/MD VIDEO MOBILE.mp4",
+        "video_poster": "shopify://shop_images/video-poster.jpg",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "category_card_grid_RFEHib": {
+      "type": "category-card-grid",
+      "blocks": {
+        "card_gf4zQj": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_4_4fe8bfed-f34f-40a5-b6d2-d203d00fc0cc.jpg",
+            "title": "Serum",
+            "link": "shopify://collections/serums"
+          }
+        },
+        "card_UT3czV": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1.jpg",
+            "title": "Exfoliants",
+            "link": "shopify://collections/exfoliants"
+          }
+        },
+        "card_8F86aq": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1_1.jpg",
+            "title": "Suncare",
+            "link": "shopify://collections/sun-protection"
+          }
+        },
+        "card_fPjnYq": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_5_5e369c42-aca8-473f-89f9-e3189aba9bf7.jpg",
+            "title": "Moisture Protectives",
+            "link": "shopify://collections/moisture-protectives"
+          }
+        },
+        "card_qiVCGr": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_4_4fe8bfed-f34f-40a5-b6d2-d203d00fc0cc.jpg",
+            "title": "Body Care",
+            "link": "shopify://collections/bodycare"
+          }
+        },
+        "card_fbxwCj": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1_3.jpg",
+            "title": "Mists",
+            "link": "shopify://collections/mists"
+          }
+        }
+      },
+      "block_order": [
+        "card_gf4zQj",
+        "card_UT3czV",
+        "card_8F86aq",
+        "card_fPjnYq",
+        "card_qiVCGr",
+        "card_fbxwCj"
+      ],
+      "name": "Category Card Grid",
+      "settings": {}
+    },
+    "faq_block_fVaeXd": {
+      "type": "faq-block",
+      "name": "faq Block",
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "instagram_feed_CephUa": {
+      "type": "instagram-feed",
+      "name": "Instagram feed",
+      "settings": {
+        "title": "FOLLOW US ON INSTAGRAM",
+        "link": "https://www.instagram.com/ellabacheaus/?hl=en",
+        "caption": "@ellabacheaus",
+        "user_id": "17841400417663213",
+        "feed_token": "{{ localization.market.metafields.instagram.access_token.value }}",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "collection_mini_banner",
+    "product_feature_eUEKky",
+    "product_feature_WPzpNq",
+    "content_card_je6BNR",
+    "featured_product_slider_Tbkitr",
+    "featured_collection_WAXFah",
+    "featured_collection_ryWniA",
+    "video_custom_wPQhEt",
+    "category_card_grid_RFEHib",
+    "faq_block_fVaeXd",
+    "instagram_feed_CephUa"
+  ]
+}

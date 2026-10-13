@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blogs": {
+      "type": "blogs",
+      "settings": {
+        "mini_banner_switch": true,
+        "toggle_font-color": true,
+        "mini_banner_bg_color": "#e2deda",
+        "mini_banner_title": "<span>Welcome</span> <br><span>To Bold</span>",
+        "mini_banner_desc": "<p>A celebration of pioneering Australian beauty leaders, business entrepreneurs, inspirational creatives and skincare experts sharing what being BOLD means to them and the skincare practices that make them love the skin they’re in.</p>",
+        "mini_banner_btn_txt": "Read More",
+        "mini_banner_btn_url": "https://www.ellabache.com.au/blogs/bold-beyond-beauty"
+      }
+    }
+  },
+  "order": [
+    "blogs"
+  ]
+}

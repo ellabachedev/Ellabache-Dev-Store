@@ -1,0 +1,152 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "college-cta2": {
+      "type": "college-cta2",
+      "blocks": {
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_row-reverse": false,
+            "item_thumb": "shopify:\/\/shop_images\/Picture_1.png",
+            "item_title": "Contact Us",
+            "item_desc": "Complete the form below and we will come back to you shortly, or call us on 1300 856 166 to speak to our Course and Careers Advisor.",
+            "item_btn_switch": false,
+            "item_btn_text": "",
+            "item_btn_url": "",
+            "item_popup_switch": false,
+            "popup_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "popup_js_switch": false
+      }
+    },
+    "grid-content-block": {
+      "type": "grid-content-block",
+      "blocks": {
+        "a229f09f-0060-4ca1-979f-80fa60a095be": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Book A Phone Consultation",
+            "item_btn_url": "https:\/\/calendly.com\/ellabachecollege\/diploma?month=2023-07"
+          }
+        }
+      },
+      "block_order": [
+        "a229f09f-0060-4ca1-979f-80fa60a095be"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "title_switch": false,
+        "page_title": "",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "college-enquire-block": {
+      "type": "college-enquire-block",
+      "blocks": {
+        "468dea47-592e-4b54-8809-bbe2a29287f6": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-edu-hat.png",
+            "item_iconContent_title": "Campus and class",
+            "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+          }
+        },
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-treatment.png",
+            "item_iconContent_title": "Campus and treatment",
+            "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+          }
+        },
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-screen-1.png",
+            "item_iconContent_title": "Virtual Campus tour",
+            "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+          }
+        }
+      },
+      "block_order": [
+        "468dea47-592e-4b54-8809-bbe2a29287f6",
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef",
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Got questions?",
+        "block_desc": "",
+        "sidebar_title": "Discover more about us",
+        "typeform_data-url": "https:\/\/ellabache.typeform.com\/to\/yKFW7A"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    },
+    "college-cta6": {
+      "type": "college-cta6",
+      "disabled": true,
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#f2f2f2",
+        "block_Text": "<p>Ella Baché College of Skinand Beauty Therapy <br\/>RTO Provider No 6704<br\/>CRICOS ID 01474B<\/p>"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "college-cta2",
+    "grid-content-block",
+    "main",
+    "college-enquire-block",
+    "college-cta5",
+    "college-cta6",
+    "shogun-optimizer"
+  ]
+}

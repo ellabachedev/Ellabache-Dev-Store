@@ -1,0 +1,92 @@
+{%- capture product-how-to -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="two-col-content has-video-gallery">
+    <div class="page-width">
+        <div class="flex-container">
+            <div class="col-item content">
+                <div class="content-inner">
+                    <div class="header">
+                        {% if section.settings.block-title-sm != blank %}<h2 class="first">{{ section.settings.block-title-sm }}</h2>{% endif %}
+                        {% if section.settings.block-title-big != blank %}<h2 class="second">{{ section.settings.block-title-big }}</h2>{% endif
+                        %}
+                    </div>
+                    {% if section.settings.block-text != blank %}
+                    <div class="text">
+                        {{ section.settings.block-text }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-item video-gallery col-3">
+                <div class="flex-container">
+                    {% if section.settings.block-vid1 != blank %}
+                    <div class="item">
+                        <video id="howTovVid1" class="how-to-vid" controls>
+                            <source src="{{ section.settings.block-vid1 }}" type="video/mp4">
+                        </video>
+                    </div>
+                    {% endif %}
+                    {% if section.settings.block-vid2 != blank %}
+                    <div class="item">
+                        <video id="howTovVid2" class="how-to-vid" controls>
+                            <source src="{{ section.settings.block-vid2 }}" type="video/mp4">
+                        </video>
+                    </div>
+                    {% endif %}
+                    {% if section.settings.block-vid3 != blank %}
+                    <div class="item">
+                        <video id="howTovVid3" class="how-to-vid" controls>
+                            <source src="{{ section.settings.block-vid3 }}" type="video/mp4">
+                        </video>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ product-how-to | strip_newlines }}
+{% schema %}
+{
+"name": "Product How To",
+"settings": [
+{
+"type": "checkbox",
+"id": "block_switch",
+"label": "Enable",
+"default" : true
+},
+{
+"type": "text",
+"id": "block-title-sm",
+"label": "Small Title"
+},
+{
+"type": "text",
+"id": "block-title-big",
+"label": "Big Title"
+},
+{
+"type": "textarea",
+"id": "block-text",
+"label": "Text"
+},
+{
+"type": "text",
+"id": "block-vid1",
+"label": "Video 1 URL"
+},
+{
+"type": "text",
+"id": "block-vid2",
+"label": "Video 2 URL"
+},
+{
+"type": "text",
+"id": "block-vid3",
+"label": "Video 3 URL"
+}
+]
+}
+{% endschema %}

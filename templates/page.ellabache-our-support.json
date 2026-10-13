@@ -1,0 +1,248 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "287d29c1-6a5d-418a-a7db-34495061c3a6": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify://shop_images/Peptide-Eye-Mask.progressive_e44e4160-2ca0-4c88-bceb-6753a6398a0d.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span></span><span>OUR SUPPORT</span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "We are looking for new partners to share in our success within the dynamic skincare industry. Are you ready to be a leader in Skin Solutions?",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Make an Enquiry",
+            "slider-button-url": "#franchiseEnquiry",
+            "button-style": "1",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "287d29c1-6a5d-418a-a7db-34495061c3a6"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "franchise-cta1": {
+      "type": "franchise-cta1",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_tag": "Our Support",
+        "block_title_font-size": 32,
+        "block_title": "Now in our third generation of family ownership, Ella Baché boasts the country’s largest skincare franchise network and our products and services are available in over 150 salons nationwide.",
+        "block_desc": "<p>There’s no secret to our enduring success. Our brand reflects the traits Australians tend to value and admire most, like authenticity, curiosity, hard work and confidence. As a franchise owner, you can expect the ongoing support and training you need to create the vibrant lifestyle you want.</p>",
+        "block_video_switch": false,
+        "block_video": "",
+        "block_image_switch": true,
+        "block_image": "shopify://shop_images/Help-Me-Hydrate.jpg",
+        "block_image_caption": "",
+        "block_image_link": ""
+      }
+    },
+    "franchise-our-support-grid-col-content": {
+      "type": "franchise-our-support-grid-col-content",
+      "blocks": {
+        "968d7260-cc33-4291-bef4-c00d32f47cd1": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/Picture_1.png",
+            "item_title": "Business Management Support",
+            "item_desc": "<ul>\n<li>A Business Manager assigned to your salon to give support and promote the growth of your salon</li>\n<li>Assistance prior to your salon opening and during your crucial first few weeks. Fortnightly visits during the first three months and then once every four weeks (or as you need us).</li>\n<li>Guidance in business planning, marketing, public relations and sales initiatives</li>\n<li>Up-to-date information on your stock transactions</li>\n<li>Assistance in motivating and focusing your salon team to help them achieve</li>\n</ul>"
+          }
+        },
+        "7af9757f-8416-45a9-aca8-a7787a7961a3": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/philosophy.jpg",
+            "item_title": "Education and Support",
+            "item_desc": "<ul>\n<li>Education and training for you and your team in the latest skincare treatments, techniques and products</li>\n<li>Help to maintain and improve your product and treatment sales, and effective product merchandising in your salon</li>\n<li>Education for your team on campaign strategies</li>\n<li>In-salon training and promotional activity, where appropriate</li>\n</ul>"
+          }
+        }
+      },
+      "block_order": [
+        "968d7260-cc33-4291-bef4-c00d32f47cd1",
+        "7af9757f-8416-45a9-aca8-a7787a7961a3"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "franchise-our-support-cta2": {
+      "type": "franchise-our-support-cta2",
+      "blocks": {
+        "06f0e626-c708-4a45-a3e0-2e5510024a64": {
+          "type": "Article",
+          "settings": {
+            "image_thumb_max-height": 350,
+            "item_thumb": "shopify://shop_images/help-always-at-hand_ca1536b7-6360-4dd3-80d3-6675f1ec019e.jpg",
+            "item_thumb_2": "shopify://shop_images/your-study-option-thumb_85b9dd6f-e3e6-4536-a25f-3359384a6dd7.jpg",
+            "item_title": "Help always at hand",
+            "item_desc": "<p>Your specially assigned Business Manager will:</p>\n<ul>\n<li>Provide in-salon business coaching prior to the salon opening and during the crucial first few weeks</li>\n<li>Help you with business planning by visiting you frequently during the first three months, and then provide continual support through monthly visits (or as needed)</li>\n<li>Work with you to undertake a comprehensive annual review to help you set your goals for the future</li>\n<li>Help you create and implement marketing plans for your opening along with our on-going monthly promotional calendar</li>\n<li>Detail and debrief salon staff on campaign strategies</li>\n<li>Organise in-salon sales training and promotional activities as needed</li>\n<li>Keep you informed of your stock transactions and progress</li>\n<li>Deal quickly and efficiently with your queries</li>\n<li>Assist in motivating and focusing the salon team to help them achieve retail/treatment targets each week/month</li>\n<li>Assist you to ensure your salon aligns with best practice within the network</li>\n<li>Help you to maintain high standards in customer service, presentation and practise standards with independent benchmarking</li>\n</ul>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "06f0e626-c708-4a45-a3e0-2e5510024a64"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-ourSupport-3-col-grid-layout": {
+      "type": "franchise-ourSupport-3-col-grid-layout",
+      "blocks": {
+        "9c29b70a-b510-4f3b-b769-57e032271041": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-support.png",
+            "item_title": "Marketing Support",
+            "item_desc": "<p>When you're part of the Ella Baché family, you'll reap the benefits of our strong brand and the support of an accomplished marketing team.</p>\n<ul>\n<li>Our commitment to consistently reinvigorating ourselves through progressive skincare research and product development, as well as strategic brand marketing, has carved a market-leading niche for us</li>\n<li>We provide a monthly promotional plan that is supported with professionally designed point-of-sale material, as well as a national advertising and public relations campaign</li>\n<li>Our marketing initiatives are supported via co-operative advertising and rebate programs</li>\n<li>We provide local area marketing support through the creation of templates and have invested in a new website with market leading digital capabilities, in conjunction with our virtual salons</li>\n</ul>"
+          }
+        },
+        "e10ad433-4461-460e-b7c8-2857d17ba8d7": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-statistics.png",
+            "item_title": "Business Benchmarking",
+            "item_desc": "<p>The family oriented nature of our company inspires Salon Owners across the network to share business and management intelligence, performance tips, best practice protocols and margin strategies to achieve greater returns.</p>\n<p>The benefits of our collaborative approach to franchise networking are many. One of the biggest benefits is that you can benchmark your business performance against your peers in a transparent and collaborative environment. You have the opportunity to share your challenges with fellow Salon Owners to learn how they've coped in similar circumstances and share your solutions to help your peers grow.</p>\n<p>These strategic alliances are offered formally (in group sessions) or one-on-one, if requested.</p>"
+          }
+        },
+        "724ce4a7-e894-451f-b2b2-23b248ad6868": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-star_f79c8c1e-1f22-42f7-81e9-ff0e40583e6d.png",
+            "item_title": "Recognition",
+            "item_desc": "<p>A job well done deserves a reward. We recognise passion and hard work in a variety of ways, including:</p>\n<ul>\n<li>National incentive programs for Beauty Therapists, Salon Teams and Salon Owners</li>\n<li>Our Annual 'Ella Awards', an opportunity for therapists and salon owners to shine amongst their peers. This glamorous event recognises the performance of top salons, and elects individuals in each state for outstanding performance and commitment.</li>\n<li>Generous incentive offers for our top performers including cash rewards, training and trips away!</li>\n</ul>"
+          }
+        },
+        "97644b6e-f3e5-4deb-a262-59f83c3722a4": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-monitor.png",
+            "item_title": "Virtual Salon",
+            "item_desc": "<p>Your own dedicated page for clients to browse your menu of services, special offers and book appointments online, as well as to promote your own local area initiatives and awards.</p>"
+          }
+        },
+        "89d39bf6-cea4-4669-a6ca-6b310515782d": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-conference_7ad30157-1101-432e-b29b-a1d4b8961775.png",
+            "item_title": "Annual Business Owners Conference",
+            "item_desc": "<p>When you're part of the Ella Baché franchise group, you're part of a dynamic group of entrepreneurs. Each year, we offer salon owners the opportunity to attend our conference to acquire:</p>\n<ul>\n<li>Business tools to improve your operational efficiency</li>\n<li>Ideas to inspire business development</li>\n<li>Opportunities for professional growth through networking</li>\n</ul>"
+          }
+        },
+        "9b7fbcdf-2f83-4231-b912-2c262d1b3276": {
+          "type": "Article",
+          "settings": {
+            "item_icon_img": "shopify://shop_images/icon-counsil.png",
+            "item_title": "Advisory Council",
+            "item_desc": "<p>Constructive, open and two-way communication between all Ella Baché franchisees and management is a crucial element of our solid franchise partnerships. Our advisory council exists to:</p>\n<ul>\n<li>Actively identifying new business opportunities and develop them in conjunction with our network of salon owners</li>\n<li>Continually improve our professionalism, research and development, and operational efficiency</li>\n</ul>"
+          }
+        }
+      },
+      "block_order": [
+        "9c29b70a-b510-4f3b-b769-57e032271041",
+        "e10ad433-4461-460e-b7c8-2857d17ba8d7",
+        "724ce4a7-e894-451f-b2b2-23b248ad6868",
+        "97644b6e-f3e5-4deb-a262-59f83c3722a4",
+        "89d39bf6-cea4-4669-a6ca-6b310515782d",
+        "9b7fbcdf-2f83-4231-b912-2c262d1b3276"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-enquire-block": {
+      "type": "franchise-enquire-block",
+      "blocks": {
+        "32606c8c-0f5d-4743-85af-54fab31044a7": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_673615d7-1721-4cce-b1fe-d0247bc3046c.jpg",
+            "item_article_title": "How To Own Your Legacy",
+            "item_article_desc": "Fashion designer Kit Willow made one of her first bold moves when, in her early twenties, she founded her first fashion label with no prior experience and a shoe-string budget.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-own-your-voice"
+          }
+        },
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_17d5b825-914b-4955-af3f-8307301c39a4.jpg",
+            "item_article_title": "How to Design a Bold Life",
+            "item_article_desc": "In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas talks to inspiring entrepreneur Carolyn Creswell who shares the steps that have helped her design a bold life.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-design-a-bold-life-2"
+          }
+        },
+        "41dcbb54-dce4-4157-9623-885ecd4333c3": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_d9c6c4c6-915b-43ab-9891-9ab4345bc105.jpg",
+            "item_article_title": "How to Create Momentum",
+            "item_article_desc": "Are you feeling stuck? In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas shares her top 5 tips for creating momentum—whether that’s for a personal project or your own business— and making the most of your 2019",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-create-momentum"
+          }
+        }
+      },
+      "block_order": [
+        "32606c8c-0f5d-4743-85af-54fab31044a7",
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b",
+        "41dcbb54-dce4-4157-9623-885ecd4333c3"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Make it happen",
+        "block_desc": "<p>To find out if becoming an Ella Baché franchisee is your path to an exciting new future, simply call 1300 845 259 or submit the form below.</p>",
+        "typeform_data-url": "https://ellabache.typeform.com/to/Rp418Fv9",
+        "sidebar_title": "Blog"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "franchise-cta1",
+    "franchise-our-support-grid-col-content",
+    "franchise-our-support-cta2",
+    "franchise-ourSupport-3-col-grid-layout",
+    "franchise-enquire-block"
+  ]
+}

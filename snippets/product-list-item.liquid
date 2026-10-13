@@ -1,0 +1,67 @@
+<div class="product-list">
+  <div class="img-wrapper">
+    <div class="imgbox">
+      <img
+        src="{{ product.featured_image | img_url: 'grande'}}"
+        loading="lazy"
+        alt="{{ product.featured_image.alt }}">
+    </div>
+  </div>
+  <div class="product-grid-details">
+    <p class="product-grid-details-info title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </p>
+    {% if product.description.size > 0 %}
+      <div class="rte">
+        {{ product.description }}
+      </div>
+    {% endif %}
+    {%- assign index = 0 -%}
+    {%- for treatmentTitleItem in product.metafields.accentuate.treatment_content_title -%}
+      {%- if product.metafields.accentuate.treatment_content_title[index] contains 'Time' -%}
+        <p class="product-grid-details-info desc">{{ product.metafields.accentuate.treatment_content[index] }}</p>
+      {%- endif -%}
+      {%- assign index = index | plus: 1 -%}
+    {%- endfor -%}
+    {% comment %}
+    {% assign summary = product.metafields.global.summary | strip_html | strip_newlines | strip  %}
+    {% if summary.size > 0  %}
+    <p class="product-grid-details-info desc">{{ product.metafields.global.summary }}</p>
+    {% else %} 
+
+    {% endif %} 
+    {% if product.metafields.global.time  %}
+    <p class="product-grid-details-info desc">{{ product.metafields.global.time }}</p>
+    {% endif %} 
+    {% endcomment %}
+    {% unless hidereviews %}
+      <span
+        class="stamped-product-reviews-badge"
+        data-product-sku="{{ product.handle }}"
+        data-id="{{ product.id }}"
+        style="display:block;">{{ product.metafields.stamped.badge }}</span>
+    {% endunless %}
+    <div class="listAction">
+      {%- if isTreatmentProduct -%}
+        <div class="buttonBoxWrap">
+          <div class="buttonBox">
+            {%- if product.metafields.accentuate.exclusive_salon != blank -%}
+                <a href="{{product.metafields.accentuate.exclusive_salon}}?treatmentfilter={{product.handle}}" class="button">
+                  Find a Salon
+                </a>
+              {%- else -%}
+                {% comment %} <a href="/pages/find-a-salon?treatmentfilter={{product.handle}}" class="button">
+                  Find a Salon
+                </a> {% endcomment %}
+                <button class="button collection-salon-selector">Book Now</button>
+              {%- endif -%}
+          </div>
+          <div class="buttonBox">
+            <a href="{{ product.url }}" class="button">Details</a>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <!-- product-grid-details -->
+</div>

@@ -1,0 +1,108 @@
+{%- capture product-launch-cta2 -%}
+	{%- if section.settings.block_switch != blank -%}
+    <section class="product-instruction-guide">
+		<div class="page-width">
+			<div class="flex-container">
+				<div class="col-item infographics">
+                    {%- assign index = 1 -%}
+                    {%- for block in section.blocks -%}
+					<div class="item">
+                        {% if block.settings.step-icon-image != blank %}
+						<span class="artwork"><img src="{{ block.settings.step-icon-image | img_url: '300x' }}" loading="lazy" alt="Step {{index}}"></span>
+                        {% endif %}
+                        {% if block.settings.step-text != blank %}
+						<p class="text-center">{{ block.settings.step-text }}</p>
+                        {% endif %}
+						<span class="step-count"><span>Step {{index}}</span></span>
+					</div>
+                    {%- assign index = index | plus: 1 -%}
+                    {%- endfor -%}
+				</div>
+				<div class="col-item content">
+					<div class="inner">
+                        <div class="header">
+                            {% if section.settings.block-title-sm != blank %}<h2 class="first">{{ section.settings.block-title-sm }}</h2>{% endif %}
+                            {% if section.settings.block-title-big != blank %}<h2 class="second">{{ section.settings.block-title-big }}</h2>{% endif
+                            %}
+                        </div>
+                        {% if section.settings.block-text != blank %}
+                        <div class="text">
+                            {{ section.settings.block-text }}
+                        </div>
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+{%- endcapture -%}
+{{ product-launch-cta2 | strip_newlines }}
+<script>
+    // Animate On Screen  -------------------------------
+    function offscrnTarget_product_instruction_guide() {
+        if ($('section.product-instruction-guide_loaded').length < 1) {
+            var targetPosition_top = $('section.product-instruction-guide').offset().top + 300;
+            var winScrollposition = $(window).scrollTop();
+            var winHt = $(window).height();
+            if (targetPosition_top - winHt < winScrollposition) {
+                $('section.product-instruction-guide').addClass('product-instruction-guide_loaded');
+                $('section.product-instruction-guide div.infographics div.item').each(function (i) {
+                    var $item = $(this);
+                    setTimeout(function () {
+                        $item.addClass('animate');
+                    }, i * 500);
+                });
+            }
+        }
+    }
+    $(window).on('scroll', function () {
+        offscrnTarget_product_instruction_guide();
+    });
+</script>
+{% schema %}
+{
+	"name": "CTA 2 ",
+	"settings": [
+		{
+		"type": "checkbox",
+		"id": "block_switch",
+		"label": "Enable",
+		"default" : true
+		},
+        {
+        "type": "text",
+        "id": "block-title-sm",
+        "label": "Small Title"
+        },
+        {
+        "type": "text",
+        "id": "block-title-big",
+        "label": "Big Title"
+        },
+        {
+        "type": "textarea",
+        "id": "block-text",
+        "label": "Text"
+        }
+	],
+	"blocks": [
+		{
+		"type": "content",
+		"name": "step",
+			"settings": [
+				{
+				"type": "image_picker",
+				"id": "step-icon-image",
+				"label": "Step Icon"
+				},
+				{
+				"type": "textarea",
+				"id": "step-text",
+				"label": "Step Text"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,69 @@
+<!-- Google Tag Manager -->
+{% comment %}
+<script>
+window.dataLayer = window.dataLayer || [];
+
+  dataLayer.push({
+    event: "all_standard_events",
+    data: event?.data,
+    fired_from: "custom_pixel"
+  });
+  
+if(Shopify.Checkout != null && Shopify.Checkout != undefined){
+  if(Shopify.Checkout.step != null && Shopify.Checkout.step != undefined){
+    if(Shopify.Checkout.step == 'thank_you'){
+      console.log("Shopify.Checkout.step == 'thank_you'");
+
+      var customer_type = "";
+      {% if checkout.customer.orders_count %}
+        if({{ checkout.customer.orders_count }} > 1) customer_type = "repeat_customer";
+        else customer_type = "new_customer";
+      {% endif %}  
+      
+      dataLayer.push({ ecommerce: null });
+      dataLayer.push({
+        event: "purchase_customer_type",
+        ecommerce: {
+            transaction_id: "{{ order.order_number }}",
+            value: {{ order.total_price | times: 0.01 }},
+            tax: {{ order.tax_price | times: 0.01 }},
+            shipping: {{ order.shipping_price | times: 0.01 }},
+            currency: "{{ order.currency }}",
+            customer_type: customer_type,
+            items: [
+             {% for line_item in order.line_items %}{
+              item_id: "{{ line_item.product_id }}",
+              item_name: "{{ line_item.title | remove: "'" | remove: '"' }}",
+              currency: "{{ order.currency }}",
+              price: {{ line_item.final_price | times: 0.01 }},
+              quantity: {{ line_item.quantity }}
+            },{% endfor %}
+       ]
+        }
+      });
+      console.log('dataLayer push for {{ order.order_number }}');
+    }
+  }
+}
+</script>
+{% endcomment %}
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T3SCHT6');
+    
+</script>
+
+<!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-971680275"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-971680275');
+</script>

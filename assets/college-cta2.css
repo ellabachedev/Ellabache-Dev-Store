@@ -1,0 +1,140 @@
+.college-cta2 {
+    padding: 60px 0;
+}
+@media (max-width: 768px) {
+    .college-cta2 {
+        padding: 15px 0;
+    }
+    .college-cta2 .page-width {
+        max-width: 550px;
+    }
+}
+.college-cta2 p {
+    font-size: 16px;
+    color: #7e7e7e;
+    line-height: 1.5;
+    margin-top: 0;
+    font-weight: 400;
+}
+.college-cta2 p:last-child {
+    margin-bottom: 0;
+}
+.college-cta2 .lists .item {
+    position: relative;
+    margin-bottom: 70px;
+}
+.college-cta2 .lists .item:last-child {
+    margin-bottom: 0;
+}
+@media (max-width: 768px) {
+    .college-cta2 .lists .item {
+        margin-bottom: 30px;
+        border-bottom: 1px solid #bbbbbb;
+        padding-bottom: 30px;
+    }
+    .college-cta2 .lists .item:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border: none;
+    }
+}
+@media (max-width: 480px) {
+    .college-cta2 .lists .item {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+}
+.college-cta2 .lists .item .flex-container {
+    align-items: center;
+}
+.college-cta2 .lists .item figure.thumb {
+    width: 58%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    min-height: 280px;
+}
+@media (max-width: 768px) {
+    .college-cta2 .lists .item figure.thumb {
+        width: 100%;
+        min-height: inherit;
+        height: auto !important;
+    }
+}
+.college-cta2 .lists .item figure.thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.college-cta2 .lists .item .content {
+    width: 42%;
+    padding-left: 60px;
+    padding-right: 0;
+}
+.college-cta2 .lists .item .flex-container.row-reverse .content{
+    padding-right:60px;
+    padding-left:0;
+}
+@media (max-width: 768px) {
+    .college-cta2 .lists .item .content {
+        width: 100%;
+        padding: 0;
+        padding-top: 20px;
+        padding-left: 0 !important;
+    }
+    .college-cta2 .lists .item .flex-container.row-reverse .content {
+        padding-right:0 !important;
+    }
+}
+.college-cta2 .lists .item .content h2.title {
+    font-size: 34px;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #001E37;
+}
+@media (max-width: 991px) {
+    .college-cta2 .lists .item .content h2.title {
+        font-size: 24px;
+    }
+}
+.college-cta2 .lists .item .button-holder {
+    margin-top: 30px;
+}
+.college-cta2 .lists .item .button-holder a.button {
+    background-color: #001E37;
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 15.5px 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 270px;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+    display: inline-block;
+}
+.college-cta2 .lists .item .flex-container.row-reverse {
+    flex-direction: row-reverse;
+}
+@media (max-width: 768px) {
+    .college-cta2 .lists .item .flex-container.row-reverse {
+        flex-direction: inherit;
+    }
+  .college-cta2 .lists .item .content h2.title{
+    margin-bottom:15px;
+  }
+  .college-cta2 p{
+    font-size:14px;
+  }
+}
+.college-cta2.contact-us .lists .item .flex-container.row-reverse .content {
+    padding-left: 0px;
+    padding-right: 60px;
+}
+.college-cta2.contact-us .lists .item:nth-child(2n) .flex-container {
+    flex-direction: row-reverse;
+}

@@ -1,0 +1,148 @@
+<style>
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    transition: transform 0.25s ease;
+    max-width:768px;
+    margin:0 auto;
+}
+.card{
+    transition: transform 0.25s ease;
+}
+.card:hover{
+    transform: translateY(-6px);
+}
+.card a{
+    text-decoration:none;
+}
+.card ul li a:hover{
+    text-decoration:underline;
+}
+.card  h4{
+    font-weight:300;
+}
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+.card-image svg.placeholder-svg{
+    border-radius: 10px;
+    background:#ffffff;
+}
+.card a:focus img{
+    outline: none;
+}
+.card ul{
+    padding-left: 20px;
+}
+.card ul li{
+    font-size:12px;
+}
+.card-title{
+    font-size:16px;
+    line-height:1.1;
+}
+.card-subtitle{
+    font-size: 16px;
+    line-height:1.1;
+}
+@media (max-width: 991px) {
+    .cards{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 480px) {
+    .cards{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+</style>
+<div class="salon-portal-resources">
+    <div class="cards">
+    {% assign salonPortalAccessLevel = customer.metafields.custom.salon_portal_access_level.value | strip %}
+    {% for block in section.blocks %}
+        {% case salonPortalAccessLevel %}
+            {% when 'Salon Owner' %}
+                {% if block.settings['resource-access-level'] == 'both' or block.settings['resource-access-level'] == 'skin-owner' %}
+                    {% render 'salon-portal-resources-card', block: block, tag: block.settings['resource-access-level'] %}
+                {% endif %}
+            {% when 'Skin Therapist' %}
+                {% if block.settings['resource-access-level'] == 'both' or block.settings['resource-access-level'] == 'skin-therapist' %}
+                    {% render 'salon-portal-resources-card', block: block, tag: block.settings['resource-access-level'] %}
+                {% endif %}
+            {% when 'Admin' %}
+                {% render 'salon-portal-resources-card', block: block, tag: block.settings['resource-access-level'] %}
+            {% else %}
+        {% endcase %}
+    {% endfor %}
+    </div>
+</div>
+{% schema %}
+{
+    "name": "Salon Portal Resources",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "resource",
+            "name": "Resource Item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "color",
+                    "id": "heading_color",
+                    "label": "Heading Color",
+                    "default": "#001e37"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "subtitle",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Rich Text"
+                },
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "URL"
+                },
+{
+                    "type": "select",
+                    "id": "resource-access-level",
+                    "label": "Access Level",
+                    "options": [
+                        {
+                            "value": "",
+                            "label": "Select Acess Level"
+                        },
+                        {
+                            "value": "skin-owner",
+                            "label": "Salon Owner"
+                        },
+                        {
+                            "value": "skin-therapist",
+                            "label": "Skin Therapist"
+                        },
+                        {
+                            "value": "both",
+                            "label": "Both"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

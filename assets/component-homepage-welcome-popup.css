@@ -1,0 +1,188 @@
+.homepage_welcome_popup {
+    display: none;
+    padding: 0;
+    max-width: 890px;
+    width: 100%;
+    margin: 0 auto;
+}
+.homepage_welcome_popup .left-col {
+    width: 50%;
+}
+@media only screen and (max-width: 767px) {
+    .homepage_welcome_popup .left-col {
+        width: 100%;
+    }
+}
+.homepage_welcome_popup .right-col {
+    width: 50%;
+    padding: 68px 40px 40px 40px;
+}
+@media only screen and (max-width: 767px) {
+.homepage_welcome_popup .right-col {
+        width: 100%;
+        padding: 30px;
+    }
+}
+.homepage_welcome_popup .banner {
+    position: relative;
+}
+@media only screen and (min-width: 768px) {
+    .homepage_welcome_popup .banner .image {
+        width: 100%;
+    }
+}
+.homepage_welcome_popup .banner .image img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+@media only screen and (max-width: 767px) {
+    .homepage_welcome_popup .banner .image img {
+        max-height: 400px;
+    }
+}
+.homepage_welcome_popup .banner .content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 35px;
+}
+@media only screen and (max-width: 767px) {
+    .homepage_welcome_popup .banner .content {
+        padding: 30px;
+    }
+}
+.homepage_welcome_popup .subscription-form {
+    width: 50%;
+    position: relative;
+}
+@media only screen and (max-width: 767px) {
+    .homepage_welcome_popup .subscription-form {
+        width: 100%;
+    }   
+}
+.homepage_welcome_popup .popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #000000;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+.homepage_welcome_popup .popup-close:before, .homepage_welcome_popup .popup-close:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 20px;
+    left: 9px;
+    top: 0;
+    display: block;
+    background-color: #cecece;
+}
+.homepage_welcome_popup .popup-close:before {
+    transform: rotate(45deg);
+}
+.homepage_welcome_popup .popup-close:after {
+    transform: rotate(-45deg);
+}
+.homepage_welcome_popup h2.title {
+    font-size: 45px;
+    font-family: 'Helvetica Neue LT Std 57 Condensed';
+    line-height: 1.1;
+    color: #001b39;
+    text-transform: uppercase;
+    margin: 0;
+    overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+    .homepage_welcome_popup h2.title {
+        font-size: 30px;
+    }
+}
+.homepage_welcome_popup p {
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0;
+    color: #001e37;
+    margin-top: 0px;
+    margin-bottom: 0;
+    clear: both;
+}
+.homepage_welcome_popup.modal {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+.homepage_welcome_popup .flex-container {
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+}
+.homepage_welcome_popup .flex-container.vertical-middle {
+    align-items: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+    height: 100%;
+}
+.homepage_welcome_popup .buttons {
+    width: 100%;
+}
+.homepage_welcome_popup .buttons .item {
+    margin-bottom: 15px;
+    width: 100%;
+}
+.homepage_welcome_popup .buttons .item:last-child {
+    margin-bottom: 0;
+}
+.homepage_welcome_popup .buttons .item .btn-primary {
+    width: 100%;
+    background-color: #c6e3e1;
+    padding: 22px 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #001e37;
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.homepage_welcome_popup {
+    max-width: 712px;
+    overflow: hidden;
+}
+.homepage_welcome_popup .banner {
+    width: 100%;
+}
+.homepage_welcome_popup .banner a {
+    display: block;
+}
+.homepage_welcome_popup .banner a:focus {
+    outline: none;
+}
+.homepage_welcome_popup .banner img {
+    max-height: 533px;
+}
+.homepage_welcome_popup .popup-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+}
+.homepage_welcome_popup .popup-close:before, .homepage_welcome_popup .popup-close:after {
+    left: 14px;
+    top: 5px;
+}
+.homepage_welcome_popup .popup-close:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}

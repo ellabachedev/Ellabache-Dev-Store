@@ -1,0 +1,81 @@
+.newletter__form {
+  position: relative;
+}
+.newletter__form input[type="email"] {
+  background: none;
+  border: none;
+  border: 1px solid #000000;
+  padding: 15px 100px 15px 15px;
+  color: #000000;
+  font-family: "Helvetica Neue LT Std 35 Thin", sans-serif;
+}
+.newletter__form input[type="email"]::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #000000;
+}
+.newletter__form input[type="email"]::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #000000;
+}
+.newletter__form input[type="email"]:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #000000;
+}
+.newletter__form input[type="email"]:-moz-placeholder {
+  /* Firefox 18- */
+  color: #000000;
+}
+.newletter__form input[type="email"]:focus {
+  outline: none;
+}
+.newletter__form .button-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.newletter__form .button-wrapper button {
+  border: none;
+  background-color: #000000;
+  font-size: 15px;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+  line-height: 1.4;
+  max-width: 100px;
+  width: 100%;
+  padding: 14px;
+  height: auto;
+  text-transform: uppercase;
+}
+@media (max-width: 650px) {
+  .newletter__form .button-wrapper button {
+    margin: 0;
+    padding: 12px;
+  }
+}
+.newsletter__form-message__text {
+  border: 1px solid #008060;
+  padding: 15px;
+  margin: 0;
+  color: #008060;
+  font-size: 14px;
+}
+.newletter__form input:-webkit-autofill,
+.newletter__form input:-webkit-autofill:hover,
+.newletter__form input:-webkit-autofill:focus,
+.newletter__form input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+}
+@media (max-width: 768px) {
+  .safari .newletter__form .button-wrapper {
+    top: 3px;
+  }
+}
+.newsletter__form-wrapper #email{
+  background: none;
+  border: none;
+  border: 1px solid #000000;
+  padding: 15px 100px 15px 15px;
+  color: #000;
+  font-family: "Helvetica Neue LT Std 35 Thin",sans-serif;
+}

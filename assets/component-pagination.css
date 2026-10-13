@@ -1,0 +1,22 @@
+.pagination {
+  text-align: center;
+}
+.pagination .prev,
+.pagination .next {
+  display: none;
+}
+.pagination .page {
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: 1.5px;
+}
+.pagination .page a {
+  color: #a6a4a7;
+  text-decoration: none;
+}
+.pagination .page.current {
+  color: #001e37;
+}

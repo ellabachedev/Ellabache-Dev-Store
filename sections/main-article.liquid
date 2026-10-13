@@ -1,0 +1,185 @@
+<link rel="stylesheet" href="{{ 'widget-shogun.css' | asset_url }}">
+{{ 'article.css' | asset_url | stylesheet_tag }}
+{% include 'breadcrumbs' %}
+<div class="pageContent articlePageContent">
+  <div class="page-width">
+    <div class="flex-container">
+      {% comment %}{%- render 'page-subnav' -%}{% endcomment %}
+      <div class="pageCont">
+        <article role="article" itemscope itemtype="http://schema.org/Article">
+          <header role="banner">
+            <div class="article-heading">
+              <h1 class="article-title text-center">{{ article.title }}</h1>
+              {% capture date %}{{ article.published_at | date: '%d/%m/%y' }}{% endcapture %}
+              {% comment %}<p class="article-date text-center">Posted on {{ article.published_at | date: "%d/%m/%y" }}</p>{% endcomment %}
+            </div>
+          </header>
+          {% if article.metafields.accentuate.cover_video != blank %}
+            <iframe class="cover-video" width="100%" height="500" src="{{ article.metafields.accentuate.cover_video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          {% else %}
+            {%- if article.image -%}
+              {{ article | img_url: '1024x1024' | img_tag: article.title }}
+            {%- endif -%}
+          {% endif %}
+          <div class="rte bottomBorder" itemprop="articleBody">
+            {{ article.content }}
+          </div>
+          {%- if article.tags.size > 0 -%}
+          <ul>
+            {%- for tag in article.tags -%}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+            </li>
+            {%- endfor -%}
+          </ul>
+          {%- endif -%}
+          {%- if settings.social_sharing_blog -%}
+          <div class="article-share-buttons-block bottomBorder">
+            <h2>{{ 'blogs.article.share' | t }}</h2>
+            {%- render 'social-sharing', share_title: article.title, share_permalink: article.url, share_image:
+            article.image, is_article: 'true' -%}
+          </div>
+          {%- endif -%}
+          {%- if article.metafields.global.enable_author_info -%}
+          <div class="article-author-info-block bottomBorder">
+            <div class="grid">
+              {%- if article.metafields.global.author_name -%}
+              <div class="grid__item one-whole medium-up--four-fifths author-name">
+                <h2>{{ article.metafields.global.author_name }}</h2>
+              </div>
+              {%- endif -%}
+              {%- if article.metafields.global.author_image -%}
+              <div class="grid__item one-whole medium-up--one-fifth author-image">
+                <div class="author-image-wrap">
+                  <img src="{{ article.metafields.global.author_image }}" alt=""/>
+                </div>
+              </div>
+              {%- endif -%}
+              {%- if article.metafields.global.author_description -%}
+              <div class="grid__item one-whole medium-up--four-fifths author-description">
+                <p>{{ article.metafields.global.author_description }}</p>
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- endif -%}
+          {%- if blog.comments_enabled? -%}
+          <h3>{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+          {%- paginate article.comments by 5 -%}
+          <div id="comments">
+            {%- if comment and comment.status and paginate.current_page == 1 -%}
+            <p class="form-success">
+              {%- if blog.moderated? and comment.status != 'published' %}
+              {{ 'blogs.comments.success_moderated' | t }}
+              {%- else -%}
+              {{ 'blogs.comments.success' | t }}
+              {%- endif -%}
+            </p>
+            {%- endif -%}
+            {%- if number_of_comments > 0 -%}
+            <ul>
+              {% comment %}
+              Display comment from URL parameters if it is waiting moderation
+              {% endcomment %}
+              {%- if comment and comment.status != 'published' -%}
+              <li id="{{ comment.id }}">
+                <div class="rte">
+                  {{ comment.content }}
+                </div>
+                {%- capture date -%}{{ comment.created_at | time_tag: format: 'month_day_year' }}{%- endcapture -%}
+                <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+              </li>
+              {%- endif -%}
+              {%- for comment in article.comments -%}
+              <li id="{{ comment.id }}">
+                <div class="rte">
+                  {{ comment.content }}
+                </div>
+                {%- capture date %}{{ comment.created_at | time_tag: format: 'month_day_year' }}{% endcapture -%}
+                <p>{{ 'blogs.article.comment_meta_html' | t: author: comment.author, date: date }}</p>
+              </li>
+              {%- endfor -%}
+            </ul>
+            {%- if paginate.pages > 1 -%}
+            {%- include 'pagination' -%}
+            {%- endif -%}
+            {%- endif -%}
+          </div>
+          {%- endpaginate -%}
+          {%- form 'new_comment', article -%}
+          <h3>{{ 'blogs.comments.title' | t }}</h3>
+          {{ form.errors | default_errors }}
+          <label for="CommentAuthor" class="label-hidden">
+            {{ 'blogs.comments.name' | t }}
+          </label>
+          <input type="text" name="comment[author]" id="CommentAuthor"
+            class="{% if form.errors contains 'author' %}input-error{% endif %}"
+            placeholder="{{ 'blogs.comments.name' | t }}" value="{{ form.author }}" autocapitalize="words">
+          <label for="CommentEmail" class="label-hidden">
+            {{ 'blogs.comments.email' | t }}
+          </label>
+          <input type="email" name="comment[email]" id="CommentEmail"
+            class="{% if form.errors contains 'email' %}input-error{% endif %}"
+            placeholder="{{ 'blogs.comments.email' | t }}" value="{{ form.email }}" spellcheck="false"
+            autocomplete="off" autocapitalize="off">
+          <label for="CommentBody" class="label-hidden">
+            {{ 'blogs.comments.message' | t }}
+          </label>
+          <textarea name="comment[body]" id="CommentBody"
+            class="{% if form.errors contains 'body' %}input-error{% endif %}"
+            placeholder="{{ 'blogs.comments.message' | t }}">
+                {{ form.body }}
+              </textarea>
+          {%- if blog.moderated? -%}
+          <p>{{ 'blogs.comments.moderated' | t }}</p>
+          {% endif %}
+          <input type="submit" class="btn" value="{{ 'blogs.comments.post' | t }}">
+          {%- endform -%}
+          {%- endif -%}
+        </article>
+        {%- render 'shogun-products', content: article -%}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <script defer="defer">
+  $('.pageSidebar .page-sidebar-nav-global').fadeIn();
+  var user = getCookie("pageSideNav");
+  if (user == "melbourne") {
+    $('.pageSidebar .page-sidebar-nav-melbourne').fadeIn();
+  } else if (user == "global") {
+    $('.pageSidebar .page-sidebar-nav-global').fadeIn();
+  }
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+</script> -->
+<script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ blog.url | escape }}" 
+  },
+  "headline": "{{ article.title | escape }}",  
+  "image": "{{ article.image | img_url: '1024x1024' | escape }}",
+  "author": {
+    "@type": "Organization",
+    "name": "Ella Bache",
+    "url": "https://www.ellabache.com.au/"
+  }
+}
+</script>

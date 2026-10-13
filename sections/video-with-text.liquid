@@ -1,0 +1,361 @@
+<style>
+  /* Video with Text Section */
+  .video-with-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-direction: column;
+    margin-bottom:0;
+  }
+  @media (min-width: 769px) {
+    .video-with-text {
+      gap: 6rem;
+      flex-direction: row;
+    }
+  }
+  .video-with-text__content {
+    text-align: center;
+    padding: 0 20px;
+    margin-bottom:2rem;
+  }
+  .video-with-text__content .inner {
+    max-width: 530px;
+  }
+  /* Left Side - Text Content */
+  @media (min-width: 769px) {
+    .video-with-text__content {
+      flex: 1;
+      width: 50%;
+      text-align: left;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .video-with-text__subtitle {
+    font-size: 0.875rem;
+    color: #888;
+    margin: 0;
+  }
+  @media (min-width: 769px) {
+    .video-with-text__subtitle {
+      font-size: 1.45rem;
+    }
+  }
+  .video-with-text__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  /* Right Side - Video Section */
+  .video-with-text__video {
+    position: relative;
+    cursor: pointer;
+    padding: 0 20px;
+  }
+  @media (min-width: 769px) {
+    .video-with-text__video {
+      flex: 1;
+      width: 50%;
+      padding: 0;
+    }
+  }
+  .video-with-text__video-poster {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+  /* Play Button (Overlay) */
+  .video-with-text__video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10rem;
+    height: 10rem;
+    background: rgba(0, 30, 55, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+    z-index: 2;
+  }
+  .video-with-text__video-play-button::after {
+    content: "play";
+    display: block;
+    color: #ffffff;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+  }
+  /* Hide the actual video initially */
+  .video-with-text__video-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 0.58;
+  }
+  @media (min-width: 769px) {
+    .video-with-text__video-element {
+      aspect-ratio: auto;
+    }
+  }
+  /* Ripple Effect on Hover */
+  .video-with-text__video-play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .video-with-text__video-play-button:hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1);
+    animation: ripple 1.5s ease-out;
+  }
+  /* Ripple Animation */
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+</style>
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="video-with-text section-{{ section.id }}-padding" style="background-color:{{ section.settings.bg_color }};">
+  <div class="video-with-text__content">
+    <div class="inner">
+      {%- for block in section.blocks -%}
+        {% case block.type %}
+          {%- when 'sub-heading' -%}
+            {%- if block.settings.sub-heading != blank -%}
+              <p class="video-with-text__subtitle">{{ block.settings.sub-heading }}</p>
+            {%- endif -%}
+          {%- when 'heading' -%}
+            {%- if block.settings.heading != blank -%}
+              <h2 class="video-with-text__title h1">{{ block.settings.heading }}</h2>
+            {%- endif -%}
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              {{ block.settings.text }}
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="video-with-text__video" onclick="playVideo()">
+    <div id="playButton" class="video-with-text__video-play-button"></div>
+    <video id="ftVideo"
+      muted
+      poster="{{ section.settings.video_poster | img_url:'884x' }}"
+      class="video-with-text__video-element"
+      controls>
+      {% if section.settings.video_mobile != blank %}
+        <source
+          src="{{ section.settings.video.sources[0].url }}"
+          media="(min-width: 769px)"
+          type="video/mp4">
+        <source src="{{ section.settings.video_mobile.sources[1].url }}" type="video/mp4">
+      {% else %}
+        <source src="{{ section.settings.video.sources[0].url }}" type="video/mp4">
+      {% endif %}
+    </video>
+  </div>
+</div>
+<script>
+  const video = document.getElementById("ftVideo");
+  //const poster = document.getElementById("videoPoster");
+  const playButton = document.getElementById("playButton");
+  const videoContainer = document.querySelector(".video-with-text__video");
+  const promoSection = document.getElementById("ftVideo");
+  
+  function playVideo() {
+      //poster.style.display = "none";  // Hide the poster
+      playButton.style.display = "none";  // Hide play button
+      video.play();  // Start playback
+      videoContainer.classList.add("playing"); // Add "playing" class
+  }
+  
+  function restorePoster() {
+      if (video.paused || video.ended) {
+          //poster.style.display = "block";  // Show the poster
+          playButton.style.display = "flex";  // Show play button
+          videoContainer.classList.remove("playing"); // Remove "playing" class
+      }
+  }
+  
+  // Play video when clicking the poster or button
+  videoContainer.addEventListener("click", playVideo);
+  
+  // Restore poster and play button when video is paused or ended
+  video.addEventListener("pause", restorePoster);
+  video.addEventListener("ended", restorePoster);
+  
+  window.addEventListener('load', function () {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('promo-video') === 'true') {
+     // Scroll to video section (instant or smooth)
+    promoSection.scrollIntoView({
+      behavior: 'smooth', // change to 'auto' if you want instant
+      block: 'center'
+    });
+    // Play once section is visible
+    const observerVideo = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          // Play after scroll settles
+          playVideo();
+          observerVideo.disconnect();
+        }
+      },
+      {
+        threshold: 0.5 // lower if section is short
+      }
+    );
+  
+    observerVideo.observe(promoSection);
+  }
+  });
+</script>
+{% schema %}
+  {
+    "name": "Video with Text",
+    "class": "section",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "video",
+        "id": "video",
+        "label": "Video"
+      },
+      {
+        "type": "video",
+        "id": "video_mobile",
+        "label": "Video Mobile"
+      },
+      {
+        "type": "image_picker",
+        "id": "video_poster",
+        "label": "Video Poster"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 36
+      }
+    ],
+    "blocks": [
+      {
+        "type": "sub-heading",
+        "name": "Sub Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "sub-heading",
+            "label": "Sub Heading"
+          }
+        ]
+      }, 
+      {
+        "type": "heading",
+        "name": "Heading",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "heading",
+            "label": "Heading"
+          }
+        ]
+      }, 
+      {
+        "type": "text",
+        "name": "Description",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Video with Text",
+        "blocks": [
+          {
+            "type": "heading"
+          }, {
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

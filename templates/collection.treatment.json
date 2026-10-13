@@ -1,0 +1,70 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection_mini_banner_AyGMH3": {
+      "type": "collection-mini-banner",
+      "name": "Collection Mini Banner",
+      "settings": {
+        "show_breadcrumb_nav": false
+      }
+    },
+    "treatment-collection-template": {
+      "type": "treatment-collection-template",
+      "settings": {
+        "pagination_limit": "12",
+        "navigation_list": "",
+        "find_salon": "shopify://pages/find-your-local-salon"
+      }
+    },
+    "service_hightlights": {
+      "type": "service-highlights",
+      "blocks": {
+        "08211367-c727-4035-9c8c-2766333952dc": {
+          "type": "text",
+          "settings": {
+            "title": "<p>Shop now and <br>pay later with Afterpay</p>",
+            "icon": "giftbox",
+            "url": "shopify://collections/all"
+          }
+        },
+        "12f4a8a3-9416-4557-9a2f-52ac9f019411": {
+          "type": "text",
+          "settings": {
+            "title": "<p>Free shipping<br> on all orders of $50+</p>",
+            "icon": "shipping",
+            "url": "shopify://pages/shipping"
+          }
+        },
+        "9f55fcc3-298d-401c-a2c9-e16a65dc1ec3": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "<p>2 complimentary samples<br> with all orders</p>",
+            "icon": "cosmetics",
+            "url": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "08211367-c727-4035-9c8c-2766333952dc",
+        "12f4a8a3-9416-4557-9a2f-52ac9f019411",
+        "9f55fcc3-298d-401c-a2c9-e16a65dc1ec3"
+      ],
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "collection_mini_banner_AyGMH3",
+    "treatment-collection-template",
+    "service_hightlights"
+  ]
+}

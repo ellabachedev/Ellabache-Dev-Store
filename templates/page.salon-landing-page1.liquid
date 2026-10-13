@@ -1,0 +1,23 @@
+{{ 'salon-landing-page1.css' | asset_url | stylesheet_tag }}
+{%- section 'hero-slider' -%}
+<div class="widgets" style="padding: 5px 0px 50px 0px;margin-top: 0px;">
+  <div class="page-width">
+    <div class="location-widget item">
+      <div class="salon-book">
+        <h1 style="text-align:center;">Find your Local Salon</h1>
+        <div class="suburbs">
+          <div class="flex-container homebooking-by-preselect-location" id="book-buttons-wrap">
+            {% assign salonList = page.metafields.findasalon.salon_list | split: '|' %}
+            {% for salonHandle in salonList %}
+              {% if pages[salonHandle] != blank %}
+                <div class="item">
+                  <a class="home-booking-widget embed-popup homebooking-from-location-btn"href="{{ pages[salonHandle].url }}">{{ pages[salonHandle].title | replace: 'Ella Baché ', '' }}</a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,324 @@
+{%- capture product_info -%}
+  {%- assign productVarHandle = 'loadedVariantId-' | append: product.handle -%}
+  <div
+    id="loadedVariantId"
+    data-variant-id='{{ current_variant.id }}'
+    style="display: none"></div>
+  {% comment %}{%- include 'product-addtocart' -%}{% endcomment %}
+  <form
+    action="/cart/add"
+    class="product-form"
+    data-cart-submit
+    method="post"
+    enctype="multipart/form-data">
+    {%- assign isEligiable = 0 -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if settings.enable_buyX_getY -%}
+      {% assign isEligiable = 0 %}
+      {%- for prodCollection in product.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+          {%- assign isEligiable = 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign isFreeSample = 0 -%}
+      {%- if product.handle == settings.free_product_1 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_2 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_3 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_4 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_5 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- else -%}
+        {%- assign isFreeSample = 0 -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- assign productCollectionHandles = '' -%}
+    {%- for prodColl in product.collections -%}
+      {%- if forloop.first == true -%}
+        {%- assign productCollectionHandles = prodColl.handle -%}
+      {%- else -%}
+        {%- assign productCollectionHandles = productCollectionHandles | append: ',' | append: prodColl.handle -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <input
+      type="hidden"
+      name="properties[collection_handles]"
+      value="{{ productCollectionHandles }}">
+    <input
+      type="hidden"
+      name="properties[eligiable]"
+      value="{{ isEligiable }}">
+    <input
+      type="hidden"
+      name="properties[freesample]"
+      value="{{ isFreeSample }}">
+    {% render 'gift_card_additional_fields' %}
+    <div class="estimated-shipping">
+      {%- assign estimate = false -%}
+      {%- for tag in product.tags -%}
+        {%- if tag contains "estimated-shipping-time" -%}
+          {%- assign estimate = tag | replace: "estimated-shipping-time", "" -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if estimate -%}
+        <div class="estimated-shipping">
+          * {{ 'products.product.estimated_shipping_time' | t: estimate: estimate }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="afterpay-widget-product"></div>
+    <div class="add-to-cart {% if product.tags contains 'no-rental' %} no-rental {% endif %}">
+        <div class="quantity-wrapper">
+          {%- assign productQtyHandle = 'Quantity-' | append: product.handle -%}
+          <label for="{{ productQtyHandle }}">Quantity</label>
+          {% render 'number-spinner', id: productQtyHandle, name: 'quantity', value: 1, min: 1 %}
+        </div>
+        {% if product.metafields.custom.enable_swatches == true %}
+        <div class="product-swatches">
+          <label>Colour: <span class="current-swatch-text"></span></label>
+        <style>
+          .product-swatches{
+            margin:20px 0;
+          }
+          .product-swatches label{
+            display: block;
+            line-height: 1;
+            font-size: 13px;
+            margin-bottom:10px;
+          }
+          .swatch-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          }
+          .swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            cursor: pointer;
+            transition: 0.2s ease;
+            box-sizing: border-box;
+            outline:2px solid #ffffff;
+            position:relative;
+          }
+          .swatch:hover {
+            transform: scale(1.08);
+            outline-color:#001e37;
+          }
+          .swatch.selected {
+            outline-color:#001e37;
+          }
+          .swatch.selected .tooltip{
+            visibility: visible;
+            opacity:1;
+          }
+        </style>
+        <div class="swatch-wrapper">
+          {%- for variant in product.variants -%}
+            <div
+              title="{{ variant.title }}"
+              class="swatch {% if variant == product.selected_or_first_available_variant %}selected{% endif %}"
+              style="background-color: {{ variant.metafields.custom.color_code }};"
+              data-variant-id="{{ variant.id }}"
+              data-variant-index="{{ forloop.index0 }}"
+            ></div>
+          {%- endfor -%}
+        </div>
+          <script>
+            $(window).on('load', function() {
+              var currentSwatchTitle = $('.swatch-wrapper .swatch.selected').attr('title');
+              $('.product-swatches .current-swatch-text').text(currentSwatchTitle);
+
+              var loadedVariantId = $("#loadedVariantId").attr('data-variant-id');
+              activeProductSwatchColor(loadedVariantId);
+
+              $('.swatch').on('click', function() {
+                var swatchVariantId = $(this).attr('data-variant-id');
+                activeProductCarouselVariantImage(swatchVariantId);
+                activeProductSwatchColor(swatchVariantId);
+                selectProductVariantOption(swatchVariantId);
+
+                var currentSwatchTitle = $(this).attr('title');
+                $('.product-swatches .current-swatch-text').text(currentSwatchTitle);
+              });
+              
+            });
+          </script>
+          </div>
+        {% endif %}
+        <div class="select-variant {% if product.has_only_default_variant %}visually-hidden{% endif %}">
+      {% if product.metafields.custom.enable_swatches == false or product.metafields.custom.enable_swatches == blank %}
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="item">
+                <label>{{ option.name }}</label>
+                <div class="selector-wrapper js">
+                  <select
+                    id="{{ product.handle }}-SingleOptionSelector-{{ forloop.index0 }}"
+                    class="selector-variant"
+                    data-single-option-selector
+                    data-index="option{{ option.position }}">
+                    {%- for value in option.values -%}
+                      {%- for variant in product.variants -%}
+                        {%- if variant.title == value -%}
+                          {%- assign dataVariantId = variant.id -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {{ variant.id }}
+                      <option
+                        value="{{ value | escape }}"
+                        data-variant-id="{{ dataVariantId }}"
+                        {% if option.selected_value == value %}selected="selected"{% endif %}>
+                        {{ value }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+        {% endif %}
+          <select
+            id="variantOptions"
+            name="id"
+            class="no-js selector-variant-hidden"
+            data-product-select>
+            {%- for variant in product.variants -%}
+              {%- unless variant.metafields.secomapp.freegifts -%}
+                {%- assign dataVariantQty = variant.inventory_quantity -%}
+                <option
+                  {% if variant == current_variant %}selected="selected"{% endif %}
+                  {% unless variant.available %}disabled="disabled"{% endunless %}
+                  value="{{ variant.id }}"
+                  data-variant-qty="{{ dataVariantQty }}"
+                  data-variant-id="{{ variant.id }}">
+                  {{ variant.title }}
+                </option>
+              {%- endunless -%}
+            {%- endfor -%}
+          </select>
+        </div>
+        {% assign cartAddClaimsStr = '[{&quot;id&quot;:&quot;' | append: current_variant.id | append: '&quot;,&quot;properties&quot;:{&quot;_collection_handles&quot;:&quot;' | append: productCollectionHandles | append: '&quot;,&quot;_eligiable&quot;:' | append: isEligiable | append: ',&quot;_freesample&quot;:' | append: isFreeSample | append: '},&quot;quantity&quot;:1}]' %}
+        <button
+          type="submit"
+          name="add"
+          id="pdp-addtocart"
+          aria-label="Add this item to cart"
+          class="button"
+          data-cart-addclaims="{{ cartAddClaimsStr }}"
+          {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+          <span data-add-to-cart-text>
+            {%- if current_variant.available -%}
+              {%- if current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity == 0 -%}
+                {{ 'products.product.preorder' | t }}
+              {%- else -%}
+                {% if product.metafields.accentuate.add_to_cart_text == blank %}
+                  {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                  {{ product.metafields.accentuate.add_to_cart_text }}
+                {%- endif -%}
+              {%- endif -%}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </span>
+        </button>
+    </div>
+    {%- if current_variant.available -%}
+      <p style="margin-bottom:0; display:none;" class="stock-alert form-error">{{ product.title }} stock quantity is
+        <span class="stock"></span> {% if current_variant.inventory_quantity < 2 %}unit.{% else %}units.{% endif %}</p>
+    {%- endif -%}
+  </form>
+{%- endcapture -%}
+{{ product_info | st10p_newlines }}
+<script>
+  function activeProductCarouselVariantImage(variantID){
+    $(".productHeroSlider .swiper-slide").each(function() {
+      var sliderVariantId = $(this).attr('data-variant-id');
+      if (variantID == sliderVariantId) {
+        var sliderIndex = $(this).attr('data-swiper-index');
+        //$('.product__image-carousel').slick('slickGoTo', sliderIndex);
+        if (window.productHeroSlider) {
+          window.productHeroSlider.slideTo(sliderIndex);
+        }
+      }
+    });
+  }
+  function activeProductSwatchColor(variantID){
+    // Active Current Variant Color in Swatch
+    $(".swatch").each(function(){
+      var swatchVariantId = $(this).attr('data-variant-id');
+      if (variantID == swatchVariantId) {
+        $('.swatch').removeClass('selected');
+        $(this).addClass('selected');
+      }
+    });
+  }
+  function selectProductVariantOption(variantID){
+    //Updates Hidden Variant Select Option:selected
+    $("#variantOptions").val(variantID).trigger('change');
+  }
+
+  $(window).on('load', function() {
+    var loadedVariantId = $("#loadedVariantId").attr('data-variant-id');
+    activeProductCarouselVariantImage(loadedVariantId);
+    activeProductSwatchColor(loadedVariantId);
+    selectProductVariantOption(loadedVariantId);
+
+    var selectedVariant = $("#variantOptions option:selected").attr("data-variant-qty");
+    if (selectedVariant <= 20) {
+      $(".product-form .stock-alert").fadeIn();
+      $(".product-form .stock-alert span").text(selectedVariant);
+    }
+  });
+  $('.select-variant select').change(function() {
+    setTimeout(function(){
+    $(".product-form .stock-alert").css('display', 'none');
+    var optionVariantId = $('#variantOptions option:selected').attr('data-variant-id');
+    console.log(optionVariantId);
+    $("select.selector-variant-hidden option").each(function() {
+      var optionVariantIdH = $(this).attr('data-variant-id');
+      if (optionVariantId == optionVariantIdH) {
+        $(this).prop('selected', true);
+        $("select.variant-selector-hidden").val(optionVariantId);
+        $("select.variant-selector-hidden").trigger('change');
+      }
+    });
+    $(".productHeroSlider .swiper-slide").each(function() {
+      var sliderVariantId = $(this).attr('data-variant-id');
+      if (optionVariantId == sliderVariantId) {
+        var sliderIndex = $(this).attr('data-swiper-index');
+        //$('.product__image-carousel').slick('slickGoTo', sliderIndex);
+        if (window.productHeroSlider) {
+          window.productHeroSlider.slideTo(sliderIndex);
+        }
+      }
+    });
+
+    var selectedVariant = $("#variantOptions option:selected").attr("data-variant-qty");
+    if (selectedVariant > 0 && selectedVariant <= 20) {
+      $(".product-form .stock-alert").fadeIn();
+      $(".product-form .stock-alert span").text(selectedVariant);
+    }
+
+    var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+    var cartAddClaims = JSON.parse(cartAddClaimsStr);
+    var selectedVariantId = $("#variantOptions option:selected").attr("data-variant-id");
+    cartAddClaims[0].id = selectedVariantId;
+    cartAddClaimsStr = JSON.stringify(cartAddClaims);
+    $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+    },500);
+  });
+  $('.quantity-wrapper .quantity-spinner input[name="quantity"]').change(function() {
+    var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+    var cartAddClaims = JSON.parse(cartAddClaimsStr);
+    cartAddClaims[0].quantity = $('.quantity-wrapper .quantity-spinner input[name="quantity"]').val();
+    cartAddClaimsStr = JSON.stringify(cartAddClaims);
+    $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+  });
+</script>

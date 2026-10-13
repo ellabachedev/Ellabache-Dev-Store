@@ -1,0 +1,34 @@
+<div class="card" {{ block.shopify_attributes }}>
+    <a title="{{ block.settings.title }}" href="{{  block.settings.url }}">
+        {% if block.settings.image != blank %}
+            <div class="card-image">
+                <img src="{{ block.settings.image | img_url: 'medium' }}" alt="{{ block.settings.title }}">
+            </div>
+        {% else %}
+            <div class="card-image">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+        {% endif %}
+        
+        {% if block.settings.title %}
+            <h3 style="color:{{ block.settings.heading_color }}" class="card-title h4">{{ block.settings.title }}</h3>
+        {% endif %}
+        
+        {% if block.settings.subtitle %}
+            <p style="color:{{ block.settings.heading_color }}" class="card-subtitle">{{ block.settings.subtitle }}</p>
+        {% endif %}
+        {% if block.settings.content %}
+            <div class="card-content">
+                {{ block.settings.content }}
+            </div>
+        {% endif %}
+        {% assign page_handle = block.settings.url | split: '/' | last %}
+        {% assign page_obj = pages[page_handle] %}
+        {% assign folders = page_obj.metafields.dropbox.dropbox_data.value %}
+    </a>
+    <ul>
+    {% for folder in folders %}
+        <li><a href="{{  block.settings.url }}\?folder={{forloop.index}}" title="{{ folder.name }}">{{ folder.name }}</a></li>
+    {% endfor %}
+    </ul>
+</div>

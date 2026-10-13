@@ -1,0 +1,116 @@
+{{ 'section-bestseller.css' | asset_url | stylesheet_tag }}
+{{ 'featured-product-slider.css' | asset_url | stylesheet_tag }}
+{%- capture bestseller -%}
+<div id="bestSellers" data-section-id="{{ section.id }}" data-section-type="custom" class="best-sellers">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="block-title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+    {%- if section.blocks.size < 2 -%}
+      {%- assign active_index = 1 -%}
+    {%- else -%}
+      {%- assign active_index = 2 -%}
+    {%- endif -%}
+    <div class="best-sellers-control" id="best-sellers-control-{{section.id}}">    
+      {%- for block in section.blocks -%}
+        {%- if block.settings.label != blank -%}
+        <a href="#" data-tab-target="{{ section.id }}-tab-{{ forloop.index }}" class="{% if forloop.index == active_index %} active {% endif %}">
+          {{ block.settings.label }}
+        </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="tab-content">
+      {%- assign count = 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="product-grid--slider {% if forloop.index == active_index %}active{% endif %}" data-tab-content="{{ section.id }}-tab-{{ forloop.index }}">
+            <div class="swiper product-swiper{{ count }}">
+              <div class="swiper-wrapper">
+                {%- assign collection = collections[block.settings.collection] -%}
+                {%- for product in collection.products -%}
+                  {%- assign count = count | plus: 1 -%}
+                  {%- assign showbadge = 'products.badges.bestseller' | t  -%}
+                  {%- render 'product-grid-item-featured', showbadge: showbadge, product: product -%}
+                {%- endfor -%}
+              </div>
+              <div class="swiper-button-prev product-swiper{{ count }}-button-prev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Previous" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.12006 7.00125L8 1.07293L6.94245 0L0 6.99958L6.92165 14L7.98085 12.9287L2.12006 7.00125Z" fill="black"></path></svg></div>
+              <div class="swiper-button-next product-swiper{{ count }}-button-next"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Next" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.87994 6.99875L0.0191458 1.07126L1.07835 0L8 7.00042L1.05755 14L0 12.9271L5.87994 6.99875Z" fill="black"></path></svg></div>
+            </div>
+          </div>
+          <script>
+            new Swiper('.product-swiper{{ count }}', {
+                loop: false,
+                slidesPerView: "auto",
+                centeredSlides: false, // Align slides from the start
+                paginationClickable: true,
+                spaceBetween: 30,
+                spaceBetween: 14,
+                // Navigation arrows
+                navigation: {
+                    nextEl: '.product-swiper{{ count }}-button-next',
+                    prevEl: '.product-swiper{{ count }}-button-prev'
+                },
+                breakpoints: {
+                  600: {
+                    spaceBetween: 14,
+                  }
+                }
+            });
+          </script>
+        {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{{ bestseller | strip_newlines }}
+<script src="{{ 'bestseller-min-js.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Best Sellers",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Best Sellers"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Label",
+            "id": "label",
+            "type": "text",
+            "default": "Best Seller"
+          },
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Best Sellers",
+        "category": "Collection",
+        "blocks": [
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          },
+          {
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

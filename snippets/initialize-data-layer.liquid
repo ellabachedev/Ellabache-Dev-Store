@@ -1,0 +1,14 @@
+{% if settings.enable_datalayer %}
+<script defer='defer'>
+	window.dataLayer = window.dataLayer || [];
+	{%- if customer -%}
+	window.dataLayer.push(
+		{
+			"event": "identify",
+			"email": btoa({{ customer.email | json }}) {% if settings.show_unhashed_email_in_datalayer %},
+			"email1": {{ customer.email | md5 | json }}{% endif %}
+		}
+	);
+	{%- endif- %}
+</script>
+{% endif %}

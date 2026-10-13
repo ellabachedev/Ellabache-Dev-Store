@@ -1,0 +1,32 @@
+{% comment %}Edit Variables{% endcomment %}
+{% assign NAMESPACE = 'ellabachegc' %}
+
+
+{% if customer %}
+	{% assign balance = customer.metafields[NAMESPACE].balance %}
+{% endif %}
+{% if balance %}
+	<div id='loyalty_redeem_section' style="padding: 10px 0;border-bottom: 1px solid rgba(175,175,175,0.34);">
+		<div class="fieldset">
+			<div class="field">
+				<div class="field__input-btn-wrapper">
+					<div class="field__input-wrapper" style="display: flex;align-items: center; justify-content: flex-end;">
+						<span>
+							You have {{ balance | times: 100 | money }} credit
+						</span>
+						<button name="button" class="field__input-btn btn {% if balance == "0.00" %}btn--disabled{% endif %}" id="apply_loyalty_button" aria-busy="false" style="padding: 10px;" {% if balance == "0.00" %}disabled{% endif %}>
+							<span class="btn__content visually-hidden-on-mobile" aria-hidden="true">
+								Apply
+							</span>
+							<span class="visually-hidden">
+								Redeem credit balance
+							</span>
+							<svg class="icon-svg icon-svg--size-16 btn__icon shown-on-mobile" aria-hidden="true" focusable="false"> <use xlink:href="#arrow"></use> </svg>
+							<svg class="icon-svg icon-svg--size-18 btn__spinner icon-svg--spinner-button" aria-hidden="true" focusable="false"> <use xlink:href="#spinner-button"></use> </svg>
+						</button>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

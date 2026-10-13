@@ -1,0 +1,83 @@
+{{ 'section-franchise-our-support-grid-col-content.css' | asset_url | stylesheet_tag }}
+{%- capture colGridLayout -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="two-col-grid-layout" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="lists flex-container">
+      {%- for block in section.blocks -%}
+      <div class="item">
+        <div class="flex-container">
+          {%- if block.settings.item_thumb != blank -%}
+            <figure class="thumb desktop">
+              <img width="550" height="371" src="{{ block.settings.item_thumb | img_url:'649x' }}" loading="lazy" alt="">
+            </figure>
+          {%- endif -%}
+          <div class="expandableContent">
+              <div class="content-full">
+                {%- if block.settings.item_title != blank -%}
+                <h2 class="title">{{ block.settings.item_title }}</h2>
+                {%- endif -%}
+                {%- if block.settings.item_desc != blank -%}
+                {{ block.settings.item_desc }}
+                {%- endif -%}
+              </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ colGridLayout | strip_newlines }}
+{% schema %}
+  {
+    "name": "Two Col Grid Layout",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id": "item_thumb",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

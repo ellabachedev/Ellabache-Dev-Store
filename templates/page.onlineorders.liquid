@@ -1,0 +1,411 @@
+{% if customer %}
+    {% if customer.metafields.salon_portal.salon_page_handle %}
+        <div class="dashboard-customer">
+          <div class="flex-container">
+            {% include 'customer-dashboard-sidebar' %}
+            <div class="content-body">
+              <div class="content-body-onlineOrders">
+                <h3 class="sub-history">{{ page.title }}</h3>
+                  <div class="filter-order-date" style="display:block">
+                    <div class="filters">
+                      <div class="flex-container">
+                        <div class="item">
+                          <div class="inner">
+                            <label for="from">From Date: </label>
+                            <input id="from" class="datepicker" type="text" name="from" placeholder="yyyy-mm-dd">
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="inner">
+                            <label for="to">To Date:</label>
+                            <input id="to" class="datepicker" type="text" name="to" placeholder="yyyy-mm-dd">
+                          </div>
+                        </div>
+                        <div class="item">
+                          <input type="submit" id="fromToSubmit" name="" value="Submit">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="overflow-x: auto;">
+                    <table id="onlineOrdersReport"  class="default" >
+                      <thead>
+                        <tr>
+                          <th style="width:65px;">S.N.<span class="icon-sort"></span></th>
+                          <th id="landingPagePathTitle" class="table-head-col" data-orderby="ga:landingPagePath" data-order="ASCENDING" style="display:none;">Landing Page <span class="icon-sort"></span></th>
+                          <th id="transactionIdTitle" class="table-head-col" data-orderby="ga:transactionId" data-order="DESCENDING">Transaction ID <span class="icon-sort"></span></th>
+                          <th id="transactionRevenueTitle" class="table-head-col sorted descending" data-orderby="ga:transactionRevenue" data-order="ASCENDING">Revenue <span class="icon-sort"></span></th>
+                          <th style="width:90px;" id="itemQuantityTitle" class="table-head-col" data-orderby="ga:itemQuantity" data-order="DESCENDING">Quantity <span class="icon-sort"></span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="simple pagination" style="display:none;">
+                    <div class="previous">
+                      
+                    </div>
+                    <div class="next">
+                      
+                    </div>
+                  </div>
+
+                  <div class="no-data" style="display:none">
+                    <p>Sorry! There were no orders to show.</p>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          {%- include 'jquery-ui-datepicker' -%}
+        </script>
+        <script>
+          $( function() {
+            var dateFormat = "yy-mm-dd",
+              from = $( "#from" )
+                .datepicker({
+                  dateFormat: 'yy-mm-dd',
+                  maxDate : 0,
+                  numberOfMonths: 1
+                })
+                .on( "change", function() {
+                  to.datepicker( "option", "minDate", getDate( this ) );
+                }),
+              to = $( "#to" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                maxDate : 0,
+                numberOfMonths: 1
+              })
+              .on( "change", function() {
+                from.datepicker( "option", "maxDate", getDate( this ) );
+              });
+         
+            function getDate( element ) {
+              var date;
+              try {
+                date = $.datepicker.parseDate( dateFormat, element.value );
+              } catch( error ) {
+                date = null;
+              }
+         
+              return date;
+            }
+          } );
+        </script>
+
+        {% if customer.metafields.salon_portal.salon_page_handle %}
+          <script>
+            function addReportsHalterOverlay(){
+              if( $('#reportsHalterOverlay').length < 1 ){
+                var halterHtml = '<div id="reportsHalterOverlay" class="body-overlay"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="40px" height="40px" viewBox="0 0 128 128" xml:space="preserve"><rect x="0" y="0" width="100%" height="100%" fill="#17324A" /><g><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="1"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(30 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(60 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(90 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(120 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.3" transform="rotate(150 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.4" transform="rotate(180 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.5" transform="rotate(210 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.6" transform="rotate(240 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.7" transform="rotate(270 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.8" transform="rotate(300 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.9" transform="rotate(330 64 64)"/><animateTransform attributeName="transform" type="rotate" values="0 64 64;30 64 64;60 64 64;90 64 64;120 64 64;150 64 64;180 64 64;210 64 64;240 64 64;270 64 64;300 64 64;330 64 64" calcMode="discrete" dur="1080ms" repeatCount="indefinite"></animateTransform></g></svg></div>';
+                $('body').prepend(halterHtml);
+
+              }
+            }
+
+            function removeReportsHalterOverlay(){
+              if( $('#reportsHalterOverlay').length > 0 ){
+                $('#reportsHalterOverlay').remove();
+              }
+            }
+
+            function getReports(keyword, from, to, pageNo, pageSize, pageToken, orderBy, order){
+              var returnResponse = null;
+              var ajaxUrl = 'https://dcpzjgt0sa.execute-api.us-east-1.amazonaws.com/dev/salononlineordersreport'
+              jQuery.ajax({
+                method: "POST",
+                url: ajaxUrl,
+                dataType: 'json',
+                data: { keyword: keyword, from: from, to: to, page: pageNo, pagesize: pageSize, pagetoken: pageToken, orderby: orderBy, order: order },
+                async: true,
+                success: function (res){
+                  console.log('res');
+                  console.log(res);
+                  if(res.status == 'success'){
+                    var dimensionHeaders = res.response_data.reports[0].columnHeader.dimensions;
+                    var metricHeaders = res.response_data.reports[0].columnHeader.metricHeader.metricHeaderEntries;
+                    var landingPagePathIndex = false;
+                    var transactionIdIndex = false;
+                    var transactionRevenueIndex = false;
+                    var itemQuantityIndex = false;
+                    jQuery.each(dimensionHeaders, function(k, v){
+                      if( v == "ga:landingPagePath" ){
+                        landingPagePathIndex = k;
+                      }
+                      if( v == "ga:transactionId" ){
+                        transactionIdIndex = k;
+                      }
+                    });
+                    jQuery.each(metricHeaders, function(k, v){
+                      if( v.name == "ga:transactionRevenue" ){
+                        transactionRevenueIndex = k;
+                      }
+                      if( v.name == "ga:itemQuantity" ){
+                        itemQuantityIndex = k;
+                      }
+                    });
+
+                    var nextPageToken = res.response_data.reports[0].nextPageToken;
+                    var reportRows = res.response_data.reports[0].data.rows;
+                    var rowCount = res.response_data.reports[0].data.rowCount;
+                    if( rowCount > 0 ){
+                      jQuery('.filter-order-date').show();
+                      jQuery('#onlineOrdersReport').css('display', 'table');
+                      jQuery('.no-data').hide();
+
+                      var finalReportRows = [];
+                      jQuery.each(reportRows, function(k, v){
+                        var reportRow = {
+                          landingPagePath: v.dimensions[landingPagePathIndex],
+                          transactionId: v.dimensions[transactionIdIndex],
+                          transactionRevenue: v.metrics[0].values[transactionRevenueIndex],
+                          itemQuantity: v.metrics[0].values[itemQuantityIndex],
+                          transactionRevenueFloat: parseFloat(v.metrics[0].values[transactionRevenueIndex]),
+                          itemQuantityInt: parseInt(v.metrics[0].values[itemQuantityIndex])
+                        };
+                        finalReportRows.push(reportRow);
+                      });
+                      console.log(finalReportRows);
+
+                      var tableHtml = '';
+                      var sn = 1;
+                      if( pageNo > 1 ){
+                        sn = (pageSize * (pageNo - 1)) + 1;
+                      }
+                      jQuery.each(finalReportRows, function(k, v){
+                        tableHtml += '<tr class="responsive-table-row">';
+                        tableHtml += '  <td>' + sn + '</td>';
+                        tableHtml += '  <td style="display:none;">' + v.landingPagePath + '</td>';
+                        tableHtml += '  <td>' + v.transactionId + '</td>';
+                        tableHtml += '  <td>A$' + v.transactionRevenue + '</td>';
+                        tableHtml += '  <td>' + v.itemQuantity + '</td>';
+                        tableHtml += '</tr>';
+                        sn = sn + 1;
+                      });
+                      jQuery('#onlineOrdersReport tbody').html(tableHtml);
+
+                      if( pageNo == 1 && nextPageToken == null ){
+                        jQuery('.pagination').hide();
+                      }else if( pageNo == 1 && nextPageToken != null ){
+                        jQuery('.pagination').show();
+                        var prevHtml = '<span class="disabled"><i class="fas fa-chevron-left"></i>Previous</span>';
+                        var nextPageNo = pageNo + 1;
+                        var nexTPageToken = pageSize;
+                        var nextHtml = '<a href="javascript:void(0);" id="nextPage" class="prevNextPage" data-pageno="' + nextPageNo + '" data-nextpagetoken="' + nextPageToken + '">Next<i class="fas fa-chevron-right"></i></a>';
+                        jQuery('.pagination .previous').html(prevHtml);
+                        jQuery('.pagination .next').html(nextHtml);
+                      }else if( pageNo > 1 && nextPageToken == null ){
+                        jQuery('.pagination').show();
+                        var prevPageNo = pageNo - 1;
+                        if(prevPageNo < 1){
+                          prevPageNo = 1;
+                        }
+                        var prevPageToken = pageToken;
+                        var prevPageToken = (pageSize * (pageNo - 1)) - pageSize;
+                        var prevHtml = '<a href="javascript:void(0);" id="prevPage" class="prevNextPage" data-pageno="' + prevPageNo + '" data-nextpagetoken="' + prevPageToken + '"><i class="fas fa-chevron-left"></i>Previous</a>';
+                        var nextHtml = '<span class="disabled">Next<i class="fas fa-chevron-right"></i></span>';
+
+                        jQuery('.pagination .previous').html(prevHtml);
+                        jQuery('.pagination .next').html(nextHtml);
+                      }else if( pageNo > 1 && nextPageToken != null ){
+                        jQuery('.pagination').show();
+                        var prevPageNo = pageNo - 1;
+                        if(prevPageNo < 1){
+                          prevPageNo = 1;
+                        }
+                        var prevPageToken = parseInt(nextPageToken) - pageSize;
+
+                        console.log('pageSize'); console.log(pageSize);
+                        console.log('pageNo'); console.log(pageNo);
+                        var prevPageToken = (pageSize * (pageNo - 1)) - pageSize;
+                        console.log('prevPageToken'); console.log(prevPageToken);
+                        console.log('pageSize'); console.log(pageSize);
+                        console.log('pageNo'); console.log(pageNo);
+                        var nexTPageToken = pageSize * pageNo;
+                        console.log('nexTPageToken'); console.log(nexTPageToken);
+
+                        var prevHtml = '<a href="javascript:void(0);" id="prevPage" class="prevNextPage" data-pageno="' + prevPageNo + '" data-nextpagetoken="' + prevPageToken + '"><i class="fas fa-chevron-left"></i>Previous</a>';
+                        var nextPageNo = pageNo + 1;
+                        var nextHtml = '<a href="javascript:void(0);" id="nextPage" class="prevNextPage" data-pageno="' + nextPageNo + '" data-nextpagetoken="' + nexTPageToken + '">Next<i class="fas fa-chevron-right"></i></a>';
+
+                        jQuery('.pagination .previous').html(prevHtml);
+                        jQuery('.pagination .next').html(nextHtml);
+                      }else{
+                        
+                      }
+                    }else{
+                      jQuery('.filter-order-date').show();
+                      jQuery('#onlineOrdersReport').hide();
+                      jQuery('.pagination').hide();
+                      jQuery('.no-data').show();
+                      jQuery('.no-data p').text('Sorry! There were no orders during this duration.');
+                    }
+                  }else{
+                    jQuery('.filter-order-date').show();
+                    jQuery('#onlineOrdersReport').hide();
+                    jQuery('.pagination').hide();
+                    jQuery('.no-data').show();
+                    jQuery('.no-data p').text('Sorry! An error occurred while getting your report.');
+                  }
+                },
+                error: function (err){
+                  console.log('err');
+                  console.log(err);
+                  jQuery('.filter-order-date').show();
+                  jQuery('#onlineOrdersReport').hide();
+                  jQuery('.pagination').hide();
+                  jQuery('.no-data').show();
+                  jQuery('.no-data p').text('Sorry! An error occurred while getting your report.');
+                },
+                complete: function(){
+                  removeReportsHalterOverlay();
+                  jQuery(document).trigger('reportsloaded');
+                }
+              });
+            }
+
+            jQuery(document).ready(function($){
+
+              $(".hasDatepicker").on("blur", function() {
+                var thisDatePicker = this;
+                $('body').on('click', function(e){
+                  if( $(e.target).parents('#ui-datepicker-div').length < 1 && !$(e.target).hasClass('ui-datepicker-prev') && !$(e.target).hasClass('ui-datepicker-next') && !$(e.target).hasClass('hasDatepicker') ){
+                    $(thisDatePicker).datepicker("hide");
+                  }
+                });
+              });
+
+              var numDayMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+              var numDayFullMap = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+              var numMonthMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+              var numMonthFullMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+              /* Today's Date START */
+              var now = new Date();
+              var nowYear = now.getFullYear();
+              var nowMonth = now.getMonth() + 1;
+              var nowDate = now.getDate();
+              var nowDay = now.getDay();
+              var todayDateFormatted = nowYear + '-' + ((nowMonth < 10 ? '0' : '') + nowMonth) + '-' + ((nowDate < 10 ? '0' : '') + nowDate);
+              var todayDateObj = {
+                  object: now,
+                  formatted: todayDateFormatted,
+                  year: nowYear,
+                  month: nowMonth,
+                  month_name: numMonthMap[nowMonth - 1],
+                  month_name_full: numMonthFullMap[nowMonth - 1],
+                  date: nowDate,
+                  day: nowDay,
+                  day_name: numDayMap[nowDay],
+                  day_name_full: numDayFullMap[nowDay]
+              }
+              /* Today's Date END */
+
+              var prevDayAdd = nowDate - 7;
+              var prevStamp = new Date(now).setDate(prevDayAdd);
+              var prev = new Date(prevStamp);
+              var prevYear = prev.getFullYear();
+              var prevMonth = prev.getMonth() + 1;
+              var prevDate = prev.getDate();
+              var prevDay = prev.getDay();
+              var prevDateFormatted = prevYear + '-' + ((prevMonth < 10 ? '0' : '') + prevMonth) + '-' + ((prevDate < 10 ? '0' : '') + prevDate);
+              var prevDateObj = {
+                  object: prev,
+                  formatted: prevDateFormatted,
+                  year: prevYear,
+                  month: prevMonth,
+                  month_name: numMonthMap[prevMonth - 1],
+                  month_name_full: numMonthFullMap[prevMonth - 1],
+                  date: prevDate,
+                  day: prevDay,
+                  day_name: numDayMap[prevDay],
+                  day_name_full: numDayFullMap[prevDay]
+              }
+
+              //$('#from').val(prevDateFormatted);
+              $('#from').val('2020-03-01');
+              $('#to').val(todayDateFormatted);
+
+              var salonPageHandle = '{{ customer.metafields.salon_portal.salon_page_handle }}';
+              var from = $('#from').val();
+              var to = $('#to').val();
+              var page = 1;
+              var pageSize = 50;
+              var pageToken = 0;
+              var orderBy = 'ga:transactionRevenue';
+              var order = 'DESCENDING';
+              addReportsHalterOverlay();
+              getReports(salonPageHandle, from, to, page, pageSize, pageToken, orderBy, order);
+
+              $('#fromToSubmit').off().on('click', function(){
+                addReportsHalterOverlay()
+                from = $('#from').val();
+                to = $('#to').val();
+                page = 1;
+                pageToken = 0;
+                orderBy = 'ga:transactionRevenue';
+                order = 'DESCENDING';
+                getReports(salonPageHandle, from, to, page, pageSize, pageToken, orderBy, order);
+                $('.table-head-col').removeClass('sorted');
+                $('.table-head-col').removeClass('ascending');
+                $('.table-head-col').removeClass('descending');
+                $('#transactionRevenueTitle').addClass('sorted');
+                $('#transactionRevenueTitle').addClass(order.toLowerCase());
+                $('.table-head-col').attr('data-order', 'DESCENDING');
+                $('#landingPagePathTitle').attr('data-order', 'ASCENDING');
+                $('#transactionRevenueTitle').attr('data-order', 'ASCENDING');
+              });
+
+              $('.table-head-col').off().on('click', function(){
+                addReportsHalterOverlay();
+                page = 1;
+                pageToken = 0;
+                orderBy = $(this).attr('data-orderby');
+                order = $(this).attr('data-order');
+                var nextOrder = 'DESCENDING';
+                if(order == 'DESCENDING'){
+                  nextOrder = 'ASCENDING';
+                }
+                getReports(salonPageHandle, from, to, page, pageSize, pageToken, orderBy, order);
+                $('.table-head-col').removeClass('sorted');
+                $('.table-head-col').removeClass('ascending');
+                $('.table-head-col').removeClass('descending');
+                $(this).addClass('sorted');
+                $(this).addClass(order.toLowerCase());
+                $('.table-head-col').attr('data-order', 'DESCENDING');
+                $('#landingPagePathTitle').attr('data-order', 'ASCENDING');
+                $(this).attr('data-order', nextOrder);
+              });
+
+              $(document).off().on('reportsloaded', function(){
+                $('#prevPage').off().on('click', function(){
+                  addReportsHalterOverlay();
+                  page = parseInt($(this).attr('data-pageno'));
+                  pageToken = parseInt($(this).attr('data-nextpagetoken'));
+                  getReports(salonPageHandle, from, to, page, pageSize, pageToken, orderBy, order);
+                });
+                $('#nextPage').off().on('click', function(){
+                  addReportsHalterOverlay();
+                  page = parseInt($(this).attr('data-pageno'));
+                  pageToken = parseInt($(this).attr('data-nextpagetoken'));
+                  getReports(salonPageHandle, from, to, page, pageSize, pageToken, orderBy, order);
+                });
+              });
+                
+            });
+          </script>
+        {% endif %}
+    {% else %}
+        <script>
+            var shopUrl = '{{ shop.url }}';
+            window.location.href = shopUrl + "/account";
+        </script>
+    {% endif %}
+{% else %}
+    <script>
+        var shopUrl = '{{ shop.url }}';
+        window.location.href = shopUrl + "/account/login?return_url=%2Fpages%2Fcustomer-online-orders";
+    </script>
+{% endif %}

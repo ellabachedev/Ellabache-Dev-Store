@@ -1,0 +1,171 @@
+{% include 'breadcrumbs' %}
+<link rel="stylesheet" href="{{ 'component-pdp-image-gallery.css' | asset_url }}">
+<div class="product-single" data-section-id="{{ section.id }}" data-section-type="product"
+  data-enable-history-state="true" itemscope>
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <div class="page-width">
+    <div class="flex-container hero-content">
+      <div class="image-carousel product-image-gallery">
+        {% render 'pdp-image-gallery', product: product , featured_image: featured_image %}
+      </div>
+      <div class="product-hero-content">
+        <div class="title">
+          <h1 class="full">{{ product.title }}</h1>
+        </div>
+        <p style="border-bottom:1px solid #b9c0c9; padding-bottom:13px; color:#001b39;">Online | In Salon</p>
+        {{ product.metafields.gift_card.description_2 }}
+        {% if product.metafields.global.prod_size or product.metafields.global.shortdescription1 or product.metafields.global.shortdescription2 %}
+        <div class="short-info">
+          {% if product.metafields.global.shortdescription1 %}
+          <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
+          {% endif %}
+          <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
+          {% if product.metafields.global.shortdescription2 %}
+          <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
+          {% endif %}
+        </div>
+        <div class="separator"></div>
+        {% endif %}
+        {%- if product.price > 0 -%}
+        {% render 'product_gift-info', product: product, current_variant: current_variant %}
+        {%- endif -%}
+        {% render 'back-in-stock' %}
+      </div>
+    </div>
+    {% comment %}
+    <div class="promotion-block">
+      <div class="flex-container">
+        {%- assign promoVideo = product.metafields.accentuate.youtube_video | strip_html | strip_newlines | strip -%}
+        {%- if promoVideo.size > 0 -%}
+        <div class="video">
+          <video id="promoVideo" preload="none" controls>
+            <source src="{{ product.metafields.accentuate.youtube_video }}" type="video/mp4">
+          </video>
+          {%- if product.metafields.accentuate.video_poster_image != blank -%}
+          <div class="poster">
+            <img src="{{ product.metafields.accentuate.video_poster_image }}" alt="Promo Video Poster" loading="lazy">
+          </div>
+          <div id="playPromoVideo" class="play-button"><span>Play</span></div>
+          <script>
+            window.addEventListener('load', (event) => {
+              $("#playPromoVideo").on('click', function () {
+                $(this).parents('div.video').addClass('playing');
+                $("#promoVideo").get(0).play();;
+              });
+              var vid = document.getElementById("promoVideo");
+              vid.onpause = function () {
+                $("#promoVideo").parents("div.video").removeClass('playing');
+              };
+            });
+          </script>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+        <link rel="stylesheet" href="{{ 'stamped-widget.css' | asset_url }}">
+        <div class="stamped-widget {% if product.metafields.accentuate.youtube_video == blank %} full-width {% endif %}">
+          <div class="productReviewsBlock" id="stamped-main-widget" data-widget-style="standard"
+            data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}"
+            data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "
+            large" |replace: '?' , '%3F' | replace: '&' ,'%26'}}" data-description="{{ product.description | escape }}"
+            data-product-sku="{{product.handle}}">
+          </div>
+        </div>
+        <script async type="text/javascript" data-api-key="" id="stamped-script-widget"
+          src="https://cdn-stamped-io.azureedge.net/files/widget.min.js" defer="defer"></script>
+        <script src="{{ 'stampedio.js' | asset_url }}" defer="defer"></script>
+      </div>
+    </div>
+    {% endcomment %}
+  </div>                                
+  {% unless product == empty %}
+  <script type="application/json" data-product-json>{{ product | json }}</script>
+  {% endunless %}
+</div><!-- primaryDetails -->
+{%- include 'variants' -%}
+{% schema %}
+{
+"name": "Product",
+"settings": [
+{
+"type": "header",
+"content": "Payment Modes"
+},
+{
+"type": "checkbox",
+"id": "afterpay_enabled",
+"label": "Enable afterpay",
+"info": "Display afterpay payment details in product page?",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "klarna_enabled",
+"label": "Enable klarna",
+"default": true
+},
+{
+"type": "header",
+"content": "Related products settings"
+},
+{
+"type": "checkbox",
+"id": "show_related_products",
+"label": "Enable related products",
+"default": false
+},
+{
+"id": "related_title",
+"type": "text",
+"label": "Heading",
+"default": "Related products"
+},
+{
+"type": "range",
+"id": "related_grid_num",
+"label": "Products per row",
+"min": 2,
+"max": 4,
+"step": 1,
+"default": 3
+},
+{
+"type": "range",
+"id": "related_grid_row",
+"label": "Rows",
+"min": 1,
+"max": 3,
+"step": 1,
+"default": 1
+},
+{
+"type": "header",
+"content": "Cross-sell Section Settings"
+},
+{
+"type": "checkbox",
+"id": "show_upsell_products",
+"label": "Enable Cross-sell Products",
+"default": true
+},
+{
+"id": "upsell_title",
+"type": "text",
+"label": "Cross-sell Section Title",
+"default": "You may also like"
+},
+{
+"id": "upsell_sub_title",
+"type": "text",
+"label": "Sub Title",
+"default": "Try these recommended products for a complete skin solution."
+},
+{
+"id": "upsell_count",
+"type": "text",
+"label": "Cross-sell Count",
+"default": "10"
+}
+]
+}
+{% endschema %}

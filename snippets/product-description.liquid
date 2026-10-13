@@ -1,0 +1,175 @@
+{%- liquid
+  assign description = description | default: product.description
+  assign chunks = description | split: '<h3>'
+-%}
+
+<div class="pd-accordion" id="pd-accordion-{{ product.id }}">
+  {%- for chunk in chunks -%}
+    {%- assign parts = chunk | split: '</h3>' -%}
+    {%- assign title = parts[0] | strip_html | remove: ':' | strip -%}
+    {%- assign body = parts[1] -%}
+
+    {%- if title != blank -%}
+      <div class="pd-item">
+        <details class="pd-details"{% if forloop.first %} open{% endif %}>
+          <summary class="pd-trigger">
+            <span>{{ title }}</span>
+
+            <span class="pd-icon" aria-hidden="true">
+              <span class="pd-icon-plus">+</span>
+              <span class="pd-icon-minus">−</span>
+            </span>
+          </summary>
+
+          <div class="pd-panel">
+            <div class="pd-panel-inner">
+              {{ body }}
+            </div>
+          </div>
+        </details>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% stylesheet %}
+  .pd-accordion {
+    --pd-border: rgba(0,0,0,0.15);
+    --pd-text: #001b39;
+    --pd-muted: #001b39;
+    --pd-accent: #001b39;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--pd-text);
+  }
+
+  .pd-accordion .pd-item {
+    border-bottom: 1px solid var(--pd-border);
+  }
+
+  .pd-accordion .pd-item:first-child {
+    border-top: 1px solid var(--pd-border);
+  }
+
+  /* Remove native details marker */
+  .pd-accordion .pd-details summary {
+    list-style: none;
+  }
+
+  .pd-accordion .pd-details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Trigger */
+  .pd-accordion .pd-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    padding: 16px 4px;
+
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+
+    color: var(--pd-text);
+  }
+
+  .pd-accordion .pd-trigger:focus-visible {
+    outline: 2px solid var(--pd-accent);
+    outline-offset: 2px;
+  }
+
+  /* Plus/minus icon */
+  .pd-accordion .pd-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    text-align: center;
+
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--pd-accent);
+  }
+
+  .pd-accordion .pd-icon-minus {
+    display: none;
+  }
+
+  .pd-accordion .pd-details[open] .pd-icon-plus {
+    display: none;
+  }
+
+  .pd-accordion .pd-details[open] .pd-icon-minus {
+    display: inline;
+  }
+
+  /* =========================
+     ANIMATED ACCORDION
+     ========================= */
+
+  .pd-accordion .pd-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+
+    transition:
+      grid-template-rows 0.35s ease,
+      opacity 0.25s ease;
+
+    opacity: 0;
+  }
+
+  .pd-accordion .pd-details[open] .pd-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .pd-accordion .pd-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+
+    padding: 0 4px 18px 4px;
+
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--pd-muted);
+  }
+
+  .pd-accordion .pd-panel-inner ol,
+  .pd-accordion .pd-panel-inner ul {
+    margin: 0;
+  }
+
+  .pd-accordion .pd-panel-inner li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .pd-accordion .pd-panel-inner p {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Smooth icon rotation */
+  .pd-accordion .pd-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .pd-accordion .pd-details[open] .pd-icon {
+    transform: rotate(0deg);
+  }
+
+  /* Reduced motion accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .pd-accordion .pd-panel,
+    .pd-accordion .pd-icon {
+      transition: none;
+    }
+  }
+{% endstylesheet %}

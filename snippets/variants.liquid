@@ -1,0 +1,10 @@
+<script>
+var variants = new Array();
+{%- for variant in product.variants -%}
+variants.push({
+    "variant_id": {{ variant.id }},        
+    "inventory_policy": {{ variant.inventory_policy | json }},
+    "qty": {{ variant.inventory_quantity }}
+});
+{%- endfor -%}
+</script>

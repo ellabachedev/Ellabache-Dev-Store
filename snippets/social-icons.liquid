@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="{{ 'component-social-icons.css' | asset_url }}">
+{%- assign social_accounts = 'Instagram, Linkedin, Facebook, Twitter, Pinterest, Snapchat, Tumblr, YouTube, Vimeo' | split: ', ' -%}
+<div class="social-icons">
+    {%- for social in social_accounts -%}
+        {%- assign social_handle = social | handleize -%}
+        {%- capture social_link -%}social_{{ social_handle }}_link{%- endcapture -%}
+        {%- if settings[social_link] != blank -%}
+            <a href="{{ settings[social_link] }}" title="{{ shop.name }} on {{ social }}">
+                {%- if social_handle == 'instagram' -%}
+                    {%- render 'icon-ella-instagram-new' -%}
+                {%- elsif social_handle == 'facebook' -%}
+                    {%- render 'icon-ella-facebook-new' -%}
+                {%- elsif social_handle == 'pinterest' -%}
+                    {%- render 'icon-ella-functional-pinterest' -%}
+                {%- elsif social_handle == 'twitter' -%}
+                    {%- render 'icon-ella-twitter-new' -%}
+                {%- elsif social_handle == 'linkedin' -%}
+                    {%- render 'icon-ella-linkedin-new' -%}
+                {%- endif -%}
+            </a>
+        {%- endif -%}
+    {%- endfor -%}
+</div>

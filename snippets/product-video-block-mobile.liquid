@@ -1,0 +1,37 @@
+{%- assign promoVideo = product.metafields.accentuate.teaser_video | strip_html | strip_newlines | strip -%}
+{%- if promoVideo.size > 0 -%}
+  <div class="product__video-block" id="productVideoBlockMob">
+    <video
+      id="promoVideoMob"
+      controls
+      preload="metadata"
+      poster="{{ product.metafields.accentuate.video_poster_image }}"
+      title="Promo video for {{ product.title }}">
+      <source src="{{ promoVideo }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button
+      type="button"
+      class="product__video-block__play-button"
+      id="playPromoVideoMob"
+      aria-label="Play product video for {{ product.title }}">Play</button>
+  </div>
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    const videoBlock = document.getElementById('productVideoBlockMob');
+    const video = document.getElementById('promoVideoMob');
+    const playBtn = document.getElementById('playPromoVideoMob');
+    
+    if (playBtn && video) {
+      playBtn.addEventListener('click', () => {
+        videoBlock.classList.add('playing');
+        video.play();
+      });
+    
+      video.addEventListener('pause', () => {
+        videoBlock.classList.remove('playing');
+      });
+    }
+      });
+  </script>
+{%- endif -%}

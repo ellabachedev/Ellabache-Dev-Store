@@ -1,0 +1,97 @@
+{{ 'collection-hightlight-grid.css' | asset_url | stylesheet_tag }}
+<section class="collection-highlight-grid">
+  <div class="page-width collection-highlight-grid__wrapper">
+    {% if section.settings.title != blank %}
+      <h2 class="collection-highlight-grid__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <p class="collection-highlight-grid__subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+
+    <div class="collection-highlight-grid__grid">
+      {% for block in section.blocks %}
+        <div class="collection-highlight-grid__card">
+          {% if block.settings.image %}
+            <div class="collection-highlight-grid__image-wrapper">
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.label | escape }}" class="collection-highlight-grid__image" />
+            </div>
+          {% endif %}
+          <a href="{{ block.settings.link }}" class="collection-highlight-grid__button">{{ block.settings.button_text }}</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray(".collection-highlight-grid__card").forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+        },
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: "power2.out"
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Highlight Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Range"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Whatever your budget or occasion, find the perfect collection."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image",
+          "info": "Dimension:520x780"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Collection Highlight Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

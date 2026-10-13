@@ -1,0 +1,131 @@
+{%- capture product-launch-cta3 -%}
+	{%- if section.settings.block_switch != blank -%}
+		{%- for block in section.blocks -%}
+        <section class="two-col-content">
+			<div class="page-width">
+				<div class="flex-container {% if block.settings.block_col_reverse != blank %}row-reverse{% endif %}">
+					<div class="col-item content">
+						<div class="content-inner" style="padding-right:{{ block.settings.content-padding-right }}px;">
+							<div class="header">
+								{% if block.settings.block-title-sm != blank %}<h2 class="first">{{ block.settings.block-title-sm }}</h2>{% endif %}
+								{% if block.settings.block-title-big != blank %}<h2 class="second">{{ block.settings.block-title-big }}</h2>{% endif %}
+							</div>
+							{% if block.settings.block-text != blank %}
+							<div class="text">
+								{{ block.settings.block-text }}
+							</div>
+							{% endif %}
+							{% if block.settings.block-inline-image != blank %}
+							<div class="inline-img">
+								<img src="{{ block.settings.block-inline-image | img_url: '300x' }}" loading="lazy" alt="{{ block.settings.block-inline-image.alt | escape }}">
+							</div>
+							{% endif %}
+						</div>
+                        {% if block.settings.block-button1-text != blank or block.settings.block-button2-text != blank %}
+						<div class="button-holder {% if block.settings.block-button1-text != blank and block.settings.block-button2-text != blank %}col-2 {% elsif block.settings.block-button1-text != blank or block.settings.block-button2-text != blank %} col-1{% endif %} flex-container">
+							{% if block.settings.block-button1-text != blank %}
+							<div class="item">
+								<a class="btn btn-primary" href="{{ block.settings.block-button1-url }}">{{ block.settings.block-button1-text }}</a>
+							</div>
+							{% endif %}
+							{% if block.settings.block-button2-text != blank %}
+							<div class="item">
+								<a class="btn btn-primary-accent" href="{{ block.settings.block-button2-url }}">{{ block.settings.block-button2-text }}</a>
+							</div>
+							{% endif %}
+						</div>
+                        {% endif %}
+					</div>
+					{% if block.settings.block-image != blank %}
+					<div class="col-item image">
+						<img src="{{ block.settings.block-image | img_url: '800x' }}" loading="lazy" alt="{{ block.settings.block-image.alt | escape }}">
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</section>
+		{%- endfor -%}
+	{%- endif -%}
+{%- endcapture -%}
+{{ product-launch-cta3 | strip_newlines }}
+{% schema %}
+{
+	"name": "CTA 3 ",
+	"settings": [
+		{
+		"type": "checkbox",
+		"id": "block_switch",
+		"label": "Enable",
+		"default" : true
+		}
+	],
+	"blocks": [
+		{
+		"type": "content",
+		"name": "Item",
+			"settings": [
+				{
+				"type": "checkbox",
+				"id": "block_col_reverse",
+				"label": "Column Reverse",
+				"default" : false
+				},
+				{
+				"type": "text",
+				"id": "block-title-sm",
+				"label": "Small Title"
+				},
+				{
+				"type": "text",
+				"id": "block-title-big",
+				"label": "Big Title"
+				},
+				{
+				"type": "textarea",
+				"id": "block-text",
+				"label": "Text"
+				},
+				{
+				"type": "range",
+				"id": "content-padding-right",
+				"min": 0,
+				"max": 300,
+				"step": 5,
+				"label": "Content Padding Right",
+				"default": 0
+				},
+				{
+				"type": "image_picker",
+				"id": "block-image",
+				"label": "Image"
+				},
+				{
+				"type": "image_picker",
+				"id": "block-inline-image",
+				"label": "Inline Image"
+				},
+				{
+				"type": "text",
+				"id": "block-button1-text",
+				"label": "Primary Button"
+				},
+				{
+				"type": "url",
+				"id": "block-button1-url",
+				"label": "Primary Button URL"
+				},
+				{
+				"type": "text",
+				"id": "block-button2-text",
+				"label": "Secondary Button"
+				},
+				{
+				"type": "url",
+				"id": "block-button2-url",
+				"label": "Secondary Button URL"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

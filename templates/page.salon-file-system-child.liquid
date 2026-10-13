@@ -1,0 +1,498 @@
+{% render 'shogun-products', content: page %}
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<style>
+.salon-portal.flex-container {
+  justify-content: flex-start;
+  align-items:center;
+}
+.salon-portal .salon-portal-banner {
+  width: 40%;
+  max-width:500px;
+  position:relative;
+  padding-right:25px;
+}
+.salon-portal .salon-portal-banner picture svg{
+  background-color:#ffffff;
+  border-radius:20px;
+}
+.salon-portal-banner img{
+  border-radius:20px;
+  display:block;
+}
+.salon-portal .salon-portal-resources {
+  width: 60%;
+  max-height:612px;
+  overflow-y: auto;
+}
+.salon-portal-resources ul{
+  list-style: none;
+  padding-left: 0;
+}
+.salon-portal-resources ul li.folder:first-child{
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+}
+.salon-portal-resources ul li.folder{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+}
+.salon-portal-resources .children {
+  display: none;
+}
+.folder-label.flex-container{
+  justify-content: flex-start;
+  gap:15px;
+  align-items: center;
+}
+.salon-portal-resources-explorer .folder-view{
+  display: flex;
+  flex-wrap:wrap;
+  gap:15px;
+  justify-content: flex-start;
+}
+.salon-portal-resources-explorer .folder-view .item{
+  width:120px;
+  cursor:pointer;
+  transform: translateY(0px);
+  transition: transform 0.3s ease ;
+}
+.salon-portal-resources-explorer .folder-view .item.empty-item{
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor:not-allowed;
+}
+.salon-portal-resources-explorer .folder-view .item-file{
+  width:100%;
+  display:flex;
+  justify-content: flex-start;
+  gap:10px;
+  align-items: center;
+  padding:10px;
+  background:#ffffff;
+  border-radius:8px;
+}
+.salon-portal-resources-explorer .folder-view .item-file:first-child ~ .back-btn{
+  width:100%;
+}
+.salon-portal-resources-explorer .folder-view .item:hover{
+  transform: translateY(-5px);
+}
+.salon-portal-resources-explorer .folder-view .item-file:hover{
+  background:#f0f0f0;
+  transform: translateY(0px);
+}
+.salon-portal-resources-explorer .folder-view .item  .file-icon{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:600;
+  text-transform: uppercase;
+  border-radius:8px;
+}
+.salon-portal-resources-explorer .folder-view .item  .icon svg{
+  display:block;
+  width:120px;
+  height:auto;
+  margin:-10px;
+}
+.salon-portal-resources-explorer .folder-view .item  .icon svg path{
+  fill: #001e37;
+}
+.salon-portal-resources-explorer .folder-view .item  .file-icon svg{
+  width:50px;
+  margin:0;
+}
+.salon-portal-resources-explorer .folder-view .item  .file-icon svg path{
+  fill: #ffffff;
+}
+.salon-portal-resources-explorer .folder-view .item .file-name{
+  font-size:14px;
+  font-weight:400;
+  color:#001e37;
+  text-align:center;
+  word-break: break-all;
+}
+.salon-portal-resources-explorer .folder-view .item .folder-name{
+  font-size:13px;
+  font-weight:400;
+  color:#001e37;
+  line-height:1.2;
+  text-align:center;
+}
+.salon-portal-resources-explorer .folder-view .item.back-btn{
+  width:120px;
+  height:115px;
+  border:7px solid transparent;
+}
+.salon-portal-resources-explorer .folder-view .item.back-btn > div{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height:100%;
+  color:#9a9aa9;
+  font-weight:400;
+}
+.salon-portal-resources-explorer .folder-view .item.back-btn span:before{
+  content: "";
+  display: inline-block;
+  border-right: 2px solid #9a9aa9;
+  border-bottom: 2px solid #9a9aa9;
+  width: 10px;
+  height: 10px;
+  transform: rotate(136deg);
+  margin-right:5px;
+}
+.salon-portal-resources-explorer .folder-view .item.back-btn:hover div{
+  color:#001e37;
+}
+.salon-portal-resources-explorer .folder-view .item.back-btn:hover span:before{
+  border-color: #001e37;
+}
+.salon-portal-resources-explorer .topbar{
+  display:none;
+}
+.salon-portal-resources-explorer .topbar .breadcrumb{
+  display:flex;
+  margin-bottom:20px;
+}
+.salon-portal-resources-explorer .topbar .breadcrumb span,
+.salon-portal-resources-explorer .topbar .breadcrumb div{
+  cursor:pointer;
+  padding:4px;
+}
+@media (max-width:1300px){
+  .salon-portal-resources-explorer{
+  margin-bottom:20px;}
+  .salon-portal-resources-explorer .folder-view .item{
+    width:80px;
+  }
+  .salon-portal-resources-explorer .folder-view .item-back-btn{
+    width:80px;
+  }
+  .salon-portal-resources-explorer .folder-view .item-file{
+    width:100%;
+  }
+}
+@media (max-width:768px){
+  .salon-portal.flex-container{
+    flex-direction:column;
+  }
+  .salon-portal .salon-portal-banner{
+    padding-right:0;
+    width:100%;
+    max-width:250px;
+  }
+  .salon-portal .salon-portal-resources{
+    width:100%;
+    max-height:none;
+    margin-top:20px;
+  }
+  .salon-portal .salon-portal-resources{
+    overflow:hidden;
+  }
+}
+</style>
+{% if customer %}
+{% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website"  %}
+<div class="dashboard-customer">
+  <div class="flex-container">
+    {% include 'customer-dashboard-sidebar' %}
+    <div class="content-body">
+      {%  render 'customer-dashboard-welcome-box' %}
+      <div class="salon-portal flex-container">
+        <div class="salon-portal-banner">
+          <picture>
+            {%- if page.metafields.accentuate.salon_portal_resources_featured_image != blank -%}
+              <img src="{{ page.metafields.accentuate.salon_portal_resources_featured_image }}" alt="banner">
+              {% comment %} <span class="salon-portal-banner-text h1" style="color:#ffffff; position:absolute; bottom:25px; left:50%; transform:translateX(-50%); text-align:center; width:100%; line-height:1; padding:0 20px; margin:0; text-transform:uppercase;">
+                {{ page.title }}
+              </span> {% endcomment %}
+            {%- else -%}  
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </picture>
+        </div>
+        <div class="salon-portal-resources">
+          {%- if page.metafields.accentuate.salon_portal_resources_heading != blank -%}
+          <h4 class="text-center">{{ page.metafields.accentuate.salon_portal_resources_heading }}</h4>
+          {%- endif -%}
+          {% assign dropbox_data = page.metafields.dropbox.dropbox_data.value %}
+          {% if dropbox_data != blank %}
+          <div class="salon-portal-resources-explorer">
+            <div class="topbar">
+              <div class="breadcrumb" id="breadcrumb"></div>
+            </div>
+            <div class="folder-view" id="folderView"></div>
+          </div>
+          <script>
+          // =========================================
+          // YOUR JSON DATA
+          // =========================================
+
+          const fileSystem = {
+            name:"Home",
+            type:"folder",
+            content: {{ dropbox_data | json }}
+          };
+          // =========================================
+          // ELEMENTS
+          // =========================================
+          const folderView = document.getElementById("folderView");
+          const breadcrumb = document.getElementById("breadcrumb");
+          // =========================================
+          // NAVIGATION STACK
+          // =========================================
+          const navigationStack = [fileSystem];
+          // =========================================
+          // FILE ICONS
+          // =========================================
+          function getFileIcon(extension){
+            extension = extension?.toLowerCase();
+            switch(extension){
+              case ".mp4":
+                return '🎬';
+
+              case ".pdf":
+                return '&#128196;';
+
+              case ".xlsx":
+                return '📗';
+
+              case ".jpg":
+              case ".jpeg":
+              case ".png":
+              case ".webp":
+                return '🖼️';
+
+              case ".doc":
+              case ".docx":
+                return '📘';
+
+              case ".zip":
+                return '🗜️';
+
+              default:
+                return '📄';
+            }
+
+          }
+
+
+          // =========================================
+          // RENDER FOLDER
+          // =========================================
+
+          function renderFolder(folder){
+
+            folderView.innerHTML = "";
+
+
+            // =====================================
+            // BACK BUTTON
+            // =====================================
+
+            if(navigationStack.length > 1){
+
+              const back = document.createElement("div");
+
+              back.className = "item back-btn";
+
+              back.innerHTML = `
+                <div>
+                <span>Back</span>
+                </div>
+              `;
+
+              back.addEventListener("click", () => {
+
+                navigationStack.pop();
+
+                renderFolder(
+                  navigationStack[navigationStack.length - 1]
+                );
+
+              });
+
+              folderView.appendChild(back);
+
+            }
+
+
+            // =====================================
+            // EMPTY FOLDER
+            // =====================================
+
+            if(!folder.content || folder.content.length === 0){
+
+              const empty = document.createElement("div");
+
+              empty.className = "item empty-item";
+
+              empty.innerHTML = `
+                <span style="font-weight:400; color:red;">Empty Folder</span>
+              `;
+
+              folderView.appendChild(empty);
+
+              updateBreadcrumb();
+
+              return;
+
+            }
+
+
+            // =====================================
+            // ITEMS
+            // =====================================
+            let folderCounter = 0;
+            folder.content.forEach((item, index) => {
+
+              // ===================================
+              // FOLDER
+              // ===================================
+
+              if(item.type === "folder"){
+                folderCounter++;
+                const row = document.createElement("div");
+                row.className = "item";
+                row.id = `folder${folderCounter}`;
+
+                row.innerHTML = `
+                  <div class="icon"><img src="{{ 'folder-1.png' | asset_url }}" alt="Folder"></div>
+                  <div class="folder-name">${item.name}</div>
+                `;
+
+                row.addEventListener("click", () => {
+
+                  navigationStack.push(item);
+
+                  renderFolder(item);
+
+                });
+
+                folderView.appendChild(row);
+
+              }
+
+
+              // ===================================
+              // FILE
+              // ===================================
+
+              if(item.type === "file"){
+
+                const file = document.createElement("a");
+
+                file.className = "item item-file";
+
+                file.href = item.url;
+                file.target = "_blank";
+
+                file.innerHTML = `
+                  <div class="icon file-icon">
+                    ${getFileIcon(item.extension)}
+                  </div>
+
+                  <div class="file-name">
+                    ${item.name}
+                  </div>
+                `;
+
+                folderView.appendChild(file);
+
+              }
+
+            });
+
+            updateBreadcrumb();
+
+          }
+
+
+          // =========================================
+          // BREADCRUMB
+          // =========================================
+
+          function updateBreadcrumb(){
+
+            breadcrumb.innerHTML = "";
+
+            navigationStack.forEach((item,index) => {
+
+              const crumb = document.createElement("span");
+
+              crumb.textContent = item.name;
+
+              crumb.addEventListener("click", () => {
+
+                navigationStack.splice(index + 1);
+
+                renderFolder(
+                  navigationStack[navigationStack.length - 1]
+                );
+
+              });
+
+              breadcrumb.appendChild(crumb);
+
+              if(index < navigationStack.length - 1){
+
+                const separator = document.createElement("div");
+
+                separator.textContent = ">";
+
+                breadcrumb.appendChild(separator);
+
+              }
+
+            });
+
+          }
+
+
+          // =========================================
+          // INITIAL RENDER
+          // =========================================
+
+          renderFolder(fileSystem);
+
+
+          renderFolder(fileSystem);
+
+          const params = new URLSearchParams(window.location.search);
+          const folderNumber = params.get('folder');
+
+          if(folderNumber){
+
+            setTimeout(() => {
+
+              const folder = document.getElementById(`folder${folderNumber}`);
+
+              if(folder){
+                folder.click();
+              }
+
+            }, 100);
+
+          }
+
+          </script>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% else %}
+<script>
+  var shopUrl = '{{ shop.url }}';
+  var pageUrl = '{{ page.handle }}';
+  window.location.href = shopUrl + "/account/login?return_url=%2Fpages%2F" + pageUrl;
+</script>
+{% endif %}
+{{ page.metafields.shogun.optimizer }}

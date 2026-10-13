@@ -1,0 +1,125 @@
+{% schema %}
+{
+  "name": "Category Card Grid",
+  "tag": "section",
+  "class": "category-card-grid",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Category Card Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .category-card-grid__wrapper {
+    text-align: center;
+  }
+  .category-card-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    align-items: start;
+  }
+  .category-card-grid__item {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+  .category-card-grid__item:hover {
+    transform: translateY(-5px);
+  }
+  .category-card-grid__image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+  .category-card-grid__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+  .category-card-grid__item:hover .category-card-grid__image {
+    transform: scale(1.05);
+  }
+  .category-card-grid__title {
+    margin-top: 1.2rem;
+    font-size: 1.52rem;
+    color: #222;
+  }
+  
+  @media screen and (max-width: 768px) {
+  .category-card-grid__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 0 1rem 1rem;
+  }
+
+  .category-card-grid__item {
+    flex: 0 0 40%; /* Show ~2 full items and partial 3rd */
+    scroll-snap-align: start;
+  }
+
+  .category-card-grid__image-wrapper {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+
+  /* Optional: hide scrollbars */
+  .category-card-grid__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .category-card-grid__grid {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+}
+
+</style>
+<div class="category-card-grid__wrapper">
+  <div class="page-width">
+    <div class="category-card-grid__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="category-card-grid__item">
+          <div class="category-card-grid__image-wrapper">
+            {% if block.settings.image %}
+              <img class="category-card-grid__image" src="{{ block.settings.image | image_url: width: 500 }}" loading="lazy" alt="{{ block.settings.title | escape }}">
+            {% endif %}
+          </div>
+          <div class="category-card-grid__title">{{ block.settings.title }}</div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>

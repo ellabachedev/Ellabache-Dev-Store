@@ -1,0 +1,43 @@
+{%- capture collegeCTA5 -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-cta5.css' | asset_url | stylesheet_tag }}
+<section class="college-cta5" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width text-center">
+    {{ section.settings.block_Text }}
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ collegeCTA5 | strip_newlines }}
+{% schema %}
+  {
+    "name": "College CTA 5",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id" : "block_Text",
+      "type" : "richtext",
+      "label" : "Text"
+    }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

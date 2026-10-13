@@ -1,0 +1,71 @@
+.complimentary-sample-banner {
+    padding: 45px 0;
+}
+.complimentary-sample-banner .page-width {
+    max-width: 1410px;
+}
+.complimentary-sample-banner .flex-container {
+    justify-content: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    -moz-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+}
+.complimentary-sample-banner h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 26px;
+    color: #001e37;
+}
+.complimentary-sample-banner .image-holder {
+    padding: 0 80px;
+}
+.complimentary-sample-banner .image-holder img {
+    max-width: 142px;
+    height:176px;
+    width:100%;
+    object-fit:contain; 
+}
+.complimentary-sample-banner .button-holder {
+    max-width: 252px;
+    width: 100%;
+}
+.complimentary-sample-banner .button-holder a {
+    width: 100%;
+    text-decoration: none;
+    border: 1px solid #001e37;
+    padding: 20px;
+    text-align: center;
+    display: block;
+    color: #ffffff;
+    font-weight: 400;
+    background-color: #001e37;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 1.3;
+}
+@media (max-width: 768px) {
+    .complimentary-sample-banner h2 {
+        font-size: calc(100vw * 0.035156);
+        margin-bottom: 20px;
+    }
+    .complimentary-sample-banner .image-holder {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+  .complimentary-sample-banner .button-holder a{
+    padding:15px;
+  }
+}
+@media (max-width: 767px) {
+  .complimentary-sample-banner{padding:20px 0;}
+}
+@media (max-width: 480px) {
+    .complimentary-sample-banner h2 {
+        text-align: center;
+        font-size: 24px;
+    }
+}

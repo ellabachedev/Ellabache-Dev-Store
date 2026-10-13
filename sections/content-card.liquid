@@ -1,0 +1,402 @@
+{%- style -%}
+  .card-content-wrapper {
+    padding: {{ section.settings.content_box_padding | times: 0.5 | round: 0 }}px;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    .card-content-wrapper {
+      padding: {{ section.settings.content_box_padding }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="content-card-slider-section" style="background-color: {{ section.settings.background_color }}; padding: {{ section.settings.section_padding }}px 0;" {{ section.shopify_attributes }}>
+  <div class="content-card-slider__inner page-width">
+    <div class="card-content-wrapper" style="background-color: {{ section.settings.content_box_background_color }};">
+    {% if section.settings.heading != blank %}
+      <h2 class="content-card-slider__heading">
+        {{ section.settings.heading | newline_to_br }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p>
+        {{ section.settings.subheading }}
+      </p>
+    {% endif %}
+
+    <div class="content-card-swiper swiper js-content-card-swiper">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide content-card-card" {{ block.shopify_attributes }}>
+            <div class="content-card-card__image-wrap">
+                {% comment %} {% if block.settings.link != blank %}
+                    <a class="link" href="{{ block.settings.link }}"></a>
+                {% endif %} {% endcomment %}
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.title | escape }}" loading="lazy" class="content-card-card__image" srcset="{{ block.settings.image | image_url: width: 400 }} 400w, {{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 800 }} 800w, {{ block.settings.image | image_url: width: 1000 }} 1000w, {{ block.settings.image | image_url: width: 1200 }} 1200w" sizes="(max-width: 768px) 86vw, 420px">
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'content-card-card__image content-card-card__image--placeholder' }}
+              {% endif %}
+
+              {% if block.settings.duration_HR != blank or block.settings.duration_MIN != blank %}
+                <div class="content-card-card__badge">
+                {% if block.settings.duration_HR != blank %}
+                  <span class="content-card-card__badge-number">{{ block.settings.duration_HR }}HR
+                {%  endif %}
+                {% if block.settings.duration_MIN != blank %}
+                  <span class="content-card-card__badge-number" style="display:block; font-size:16px;">{{ block.settings.duration_MIN }}<span class="content-card-card__badge-text">min</span></span>
+                  {%  endif %}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="content-card-card__content {% if block.settings.button_label != blank %}has-button{% endif %}">
+              {% if block.settings.title != blank %}
+                <h3 class="content-card-card__title">{{ block.settings.title }}</h3>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <p class="content-card-card__text">{{ block.settings.text }}</p>
+              {% endif %}
+              {% if block.settings.button_label != blank %}
+                <div class="button-holder text-center">
+                    <a href="{{ block.settings.button_link | default: '#' }}" class="button content-card-slider__button">
+                    {{ block.settings.button_label }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {% if section.blocks.size > 1 %}
+        <div class="content-card-slider__pagination swiper-pagination"></div>
+      {% endif %}
+      {% if section.settings.button_label != blank %}
+      <div class="center collection__view-all"> 
+        <a href="{{ section.settings.button_link | default: '#' }}" class="button" aria-label="{{ section.settings.button_label }}">
+          {{ section.settings.button_label }}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    </div>
+  </div>
+</div>
+<style>
+.content-card-slider-section{
+overflow:hidden;}
+  .content-card-slider__heading {
+    margin: 0 0 18px;
+  }
+
+  .content-card-slider__subheading {
+    margin: 0 0 24px;
+    color: {{ section.settings.subheading_color }};
+    font-size: 18px;
+    line-height: 1.35;
+    font-weight: 400;
+  }
+
+  .content-card-swiper {
+    overflow: visible;
+  }
+
+  .content-card-card {
+    width: 100%;
+  }
+
+  .content-card-card__image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #f2f2f2;
+  }
+  .content-card-card__image-wrap .link{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .content-card-card__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.32 / 1;
+    object-fit: cover;
+  }
+
+  .content-card-card__image--placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.32 / 1;
+  }
+
+  .content-card-card__badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text }};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-align: center;
+    gap: 5px;
+  }
+
+  .content-card-card__badge-number {
+    font-size: 21px;
+    font-weight: 400;
+  }
+
+  .content-card-card__badge-text {
+    font-size: 11px;
+    font-weight: 300;
+  }
+
+  .content-card-card__content {
+    text-align: center;
+    padding: 16px 14px 4px;
+  }
+  .content-card-card__content.has-button{
+padding-bottom:60px;
+}
+  .content-card-card__content.has-button .button-holder{
+    position: absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+}
+
+  .content-card-card__title {
+    margin: 0 0 6px;
+    color: {{ section.settings.card_title_color }};
+    font-size: 17px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .content-card-card__text {
+    color: {{ section.settings.card_text_color }};
+    font-size: 14px;
+    line-height: 1.35;
+    min-height:55px;
+  }
+
+  .content-card-slider__pagination {
+    position: static;
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .content-card-slider__pagination .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    margin: 0 !important;
+    opacity: 1;
+    background: #d9d9d9;
+  }
+
+  .content-card-slider__pagination .swiper-pagination-bullet-active {
+    background: {{ section.settings.active_dot_color }};
+  }
+
+  .content-card-slider__button-wrap {
+    text-align: center;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function initContentCardSwiper() {
+      const swiperEl = document.querySelector('.js-content-card-swiper');
+      if (!swiperEl || typeof Swiper === 'undefined') return;
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.destroy(true, true);
+      }
+
+      new Swiper(swiperEl, {
+        slidesPerView: 1.08,
+        spaceBetween: 4,
+        centeredSlides: false,
+        loop: false,
+        grabCursor: true,
+        watchOverflow: true,
+        pagination: {
+          el: swiperEl.querySelector('.swiper-pagination'),
+          clickable: true
+        },
+        breakpoints: {
+          750: {
+            slidesPerView: 2.2,
+            spaceBetween: 16
+          },
+          990: {
+            slidesPerView: 3,
+            spaceBetween: 20
+          }
+        }
+      });
+    }
+
+    if (typeof Swiper !== 'undefined') {
+      initContentCardSwiper();
+    } else {
+      window.addEventListener('load', initContentCardSwiper);
+    }
+
+    document.addEventListener('shopify:section:load', initContentCardSwiper);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Content Card slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "...or choose a treatment for mum"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sub heading for treatments here"
+    },
+    {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label",
+        "default": "Find a salon"
+    },
+    {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background Color",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "range",
+      "id": "content_box_padding",
+      "label": "Content Box padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "content_box_background_color",
+      "label": "Content Box Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge background",
+      "default": "#00264d"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_dot_color",
+      "label": "Active dot color",
+      "default": "#00264d"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Card Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "duration_HR",
+          "label": "Duration HR"
+        },
+        {
+          "type": "text",
+          "id": "duration_MIN",
+          "label": "Duration MIN",
+          "default": "60"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Treatment heading here"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "sub heading here and here and here"
+        },
+        {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label",
+        "default": "Find a salon"
+        },
+        {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Content Card slider",
+      "blocks": [
+        { "type": "item" },
+        { "type": "item" },
+        { "type": "item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

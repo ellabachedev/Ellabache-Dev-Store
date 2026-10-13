@@ -1,0 +1,29 @@
+{% comment %}Edit Variables{% endcomment %}
+{% assign NAMESPACE = 'ellabachegc' %}
+{% assign GOOGLE_RECAPTCHA_SCRIPT_URL = 'https://www.google.com/recaptcha/api.js?render=6Lcn37MZAAAAAALJwSEiWc34UCm-NQ7prVolb0Fs' %}
+{% assign POINTS_NAME = 'Ella Bache reward points' %}
+
+
+{% if customer %}
+	{% assign balance = customer.metafields[NAMESPACE].balance %}
+	{% assign points = customer.metafields[NAMESPACE].points %}
+{% endif %}
+<div id="balance">You have {{ balance | default: 0 | times: 100 | money }} credit</div>
+<div id="points">You have {{ points | default: 0 }} {{ POINTS_NAME }}</div>
+<script>
+	document.addEventListener("DOMContentLoaded", async (e) => {
+		if (!givexCert) {
+			return;
+		}
+		await fetch(`${API_BASE_URL}/loyalty/balance?givex_cert=${encodeURIComponent(givexCert)}&customer_id=${encodeURIComponent(customerId)}&store_name=${encodeURIComponent(SHOPNAME)}`)
+		.then(res => res.json())
+		.then(res => {
+			if (res && !res.error) {
+				let realTotal = (parseFloat(res.preauth_balance) || 0) + (parseFloat(res.certificate_balance) || 0);
+				document.getElementById('balance').innerText = `You have $${realTotal.toFixed(2)} credit`;
+				document.getElementById('points').innerText = `You have ${res.points_balance} ${POINTS_NAME}`;
+			}
+		})
+		.catch(e => console.error(e));
+	});
+</script>

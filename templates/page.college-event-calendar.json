@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "college_event_calendar": {
+      "type": "college-event-calendar",
+      "settings": {
+        "jan_events": "Virtual Info session | 10 January 2023 ||| Student Salon |  11 January 2023 ||| Open Day | 14 January 2023 ||| EdFlex Campus & EdFlex Online | 23 January 2023 ||| Graduation | 31 January 2023",
+        "feb_events": "February On Campus & Online Intake Close | 10 February 2023 |||\nVirtual Open Day Webinar | 13 February 2023 ||| EdFlex Campus & EdFlex Online | 23 February 2023",
+        "march_events": "Easter Break | 29 March 2023 ||| EdFlex Campus & EdFlex Online | 23 March 2023",
+        "april_events": "Virtual Open Day Webinar | 11th April 2023 || https:\/\/us02web.zoom.us\/meeting\/register\/tZwkf-msqD8oHtOG0wlAUopUsyCMToQFv8hu ||| EdFlex Campus & EdFlex Online | 23 April 2023",
+        "may_events": "Virtual Open Day Webinar | 9th May 2023 || https:\/\/us02web.zoom.us\/meeting\/register\/tZwkf-msqD8oHtOG0wlAUopUsyCMToQFv8hu ||| On Campus Open Day (MAY) | 13 May 2023 ||| National Career Week | 15 May 2023 ||| Virtual Open Day Webinar | 16 May 2023 ||| SYD Open Day | 20 May 2023 || https:\/\/www.eventbrite.com.au\/e\/ella-bache-college-sydney-open-day-may-2023-tickets-630532799577 ||| EdFlex Campus & EdFlex Online | 23 May 2023",
+        "june_events": "First Day On Campus | 5 June 2023 ||| Virtual Open Day Webinar | 13th June 2023 ||| EdFlex Campus & EdFlex Online | 23 June 2023",
+        "july_events": "Virtual Open Day Webinar | 11th July 2023 ||| EdFlex Campus & EdFlex Online | 23 July 2023",
+        "aug_events": "Virtual Open Day Webinar | 8th August 2023 ||| EdFlex Campus & EdFlex Online | 23 August 2023",
+        "sep_events": "Virtual Open Day Webinar | 12th September 2023 ||| EdFlex Campus & EdFlex Online | 23 September 2023",
+        "oct_events": "Virtual Open Day Webinar | 10th October 2023 ||| EdFlex Campus & EdFlex Online | 23 October 2023",
+        "nov_events": "Jan Intake Closes | 1 November 2023 ||| Virtual Open Day Webinar | 14th November 2023 ||| EdFlex Campus & EdFlex Online | 23 November 2023",
+        "dec_events": "Virtual Open Day Webinar | 12th December 2023 ||| Virtual Open Day | 13 December 2023 ||| EdFlex Campus & EdFlex Online | 23 December 2023"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "college_event_calendar",
+    "shogun-optimizer"
+  ]
+}

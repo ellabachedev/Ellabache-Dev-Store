@@ -1,0 +1,39 @@
+{{ 'accordion-block.css' | asset_url | stylesheet_tag }}
+<div class="accordion-block">
+    {%- if section.settings.accordion_item_Header != blank -%}
+    <div class="accordion-item">
+        <div class="accordion-title grey-bg">
+            <h3>{{ section.settings.accordion_item_Header }}</h3>
+        </div>
+        <div class="accordion-content">
+            {{ section.settings.accordion_item_content }}
+        </div>
+    </div>
+    {%- endif -%}
+</div>
+<script>
+    $(document).ready(function(){
+        accordionContent();
+    });
+    function accordionContent(){
+        setTimeout(function () {
+            $("div.accordion-block div.accordion-item:first-child .accordion-title").addClass('is-open').next('div.accordion-content').stop().slideDown();
+        }, 1000);
+        $("div.accordion-block div.accordion-item").on('click', 'div.accordion-title', function () {
+            if ($(this).hasClass('is-open')) {
+                $(this).removeClass('is-open').next('div.accordion-content').stop().slideUp();
+            }
+            else {
+                $("div.accordion-block div.accordion-item div.accordion-title").removeClass('is-open').next('div.accordion-content').stop().slideUp();
+                $(this).addClass('is-open').next('div.accordion-content').stop().slideDown();
+            }
+        });
+        $("div.accordion-item a.toggle-extra-desc").on('click', function (e) {
+            e.preventDefault();
+            if ($(this).siblings('div.extra-desc').length == 1) {
+                $(this).stop().toggleClass('more');
+                $(this).siblings('div.extra-desc').stop().slideToggle(400);
+            }
+        });
+    }
+</script> 

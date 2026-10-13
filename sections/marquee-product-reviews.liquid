@@ -1,0 +1,145 @@
+<style>
+.marquee-product-reviews{
+  background-color:#e2ddd7;
+  padding:45px 0;
+  overflow-x:hidden;
+}
+.marquee-product-reviews .item{
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 2rem;
+  display:none;
+}
+.marquee-product-reviews .item:first-child{
+  display:flex;
+}
+.marquee-product-reviews .slick-initialized .item{
+  display:flex;
+}
+.marquee-product-reviews .item p{
+  margin:0;
+  font-size:20px;
+  max-width:900px;
+}
+.marquee-product-reviews .item span.customer-name{
+  display:block;
+  text-transform:uppercase;
+  font-size:20px;
+  font-family:"Helvetica Neue LT Std 67 MdCn";
+}
+@media only screen and (max-width: 768px){
+  .marquee-product-reviews{
+    padding:15px 0;
+  }
+  .marquee-product-reviews .item span.customer-name{
+    font-size:16px;
+  }
+  .marquee-product-reviews .item p{
+    font-size:16px;
+  }
+}
+</style>
+<section class="marquee-product-reviews">
+  <div class="slick marquee">
+    {%- for block in section.blocks -%}
+      <div class="item">
+        <div class="review-header">
+          <span class="customer-name">{{ block.settings.reviewer_name }}</span>
+          <span class="stamped-starratings stamped-review-header-starratings" role="list" data-rating="{{ block.settings.reviewer_rating }}" aria-label="{{ block.settings.reviewer_rating }}-Star Rating Review"> <i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i> </span>
+        </div>
+        <div clas="review-content">
+          <p>{{ block.settings.reviewer_content }}</p>
+        </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</section>
+<script>
+jQuery(document).ready(function($) {
+  $('.slick.marquee').slick({
+    speed: 10000,
+    autoplay: true,
+    autoplaySpeed: 0,
+    cssEase: 'linear',
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true,
+    infinite: true,
+    initialSlide: 1,
+    arrows: false,
+    buttons: false,
+    pauseOnHover: false,
+    pauseOnHover: false,
+    responsive: [
+    {
+      breakpoint: 600,
+      settings: {
+        speed: 15000
+      }
+    }
+  ]
+  });
+});
+</script>
+{% schema %}
+  {
+    "name": "Product Reviews",
+    "settings": [
+      
+    ],
+    "blocks": [
+    {
+      "type": "review_content",
+      "name": "Review",
+      "settings": [
+        {
+          "id": "reviewer_name",
+          "type": "text",
+          "label": "Reviewer Name"
+        },
+        {
+          "id": "reviewer_content",
+          "type": "textarea",
+          "label": "Reviewer Text"
+        },
+        {
+          "type": "select",
+          "id": "reviewer_rating",
+          "label": "Reviewer Rating",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            }
+          ],
+          "default": "5",
+          "label": "5"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

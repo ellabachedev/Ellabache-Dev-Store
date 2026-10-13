@@ -1,0 +1,149 @@
+{%- capture location -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-location.css' | asset_url | stylesheet_tag }}
+<section class="college-locations" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="lists">
+      <div class="flex-container">
+        <div class="left-col">
+          {%- if section.settings.content_left != blank -%}
+          <div class="col-content">
+            {{ section.settings.content_left }}
+          </div>
+          {%- endif -%}
+          <div class="locations">
+            {%- for block in section.blocks -%}
+              {%- if block.type == "address-left" -%}
+                {%- if block.settings.item_switch != blank -%}
+                  <div class="item">
+                    {%- include 'icon-map-pointer-1' -%}
+                    {%- if block.settings.item_title != blank -%}
+                    <h4>{{ block.settings.item_title }}</h4>
+                    {%- endif -%}
+                    {%- if block.settings.item_desc -%}
+                    <div class="content">
+                      {{ block.settings.item_desc }}
+                    </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="right-col">
+          {%- if section.settings.content_right != blank -%}
+          <div class="col-content">
+            {{ section.settings.content_right }}
+          </div>
+          {%- endif -%}
+          <div class="locations">
+            {%- for block in section.blocks -%}
+              {%- if block.type == "address-right" -%}
+                {%- if block.settings.item_switch != blank -%}
+                  <div class="item">
+                    {%- include 'icon-map-pointer-1' -%}
+                    {%- if block.settings.item_title != blank -%}
+                    <h4>{{ block.settings.item_title }}</h4>
+                    {%- endif -%}
+                    {%- if block.settings.item_desc -%}
+                    <div class="content">
+                      {{ block.settings.item_desc }}
+                    </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ location | strip_newlines }}
+{% schema %}
+  {
+    "name": "Location",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id" : "content_left",
+      "type" : "textarea",
+      "label" : "Content Left Column"
+    },
+    {
+      "id" : "content_right",
+      "type" : "textarea",
+      "label" : "Content Right Column"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "address-left",
+      "name": "Address Left Column",
+      "settings": [
+        {
+          "id" : "item_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : true
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "address-right",
+      "name": "Address Right Column",
+      "settings": [
+        {
+          "id" : "item_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : true
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

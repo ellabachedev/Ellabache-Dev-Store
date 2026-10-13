@@ -1,0 +1,297 @@
+{{ 'section-homepage-grid-blocks.css' | asset_url | stylesheet_tag }}
+{%- capture homepageGridBlocks -%}
+  <section class="homepage-grid-blocks" style="background-color:{{ section.settings.block-bg-color }};">
+    <div class="page-width">
+      {%- if section.settings.block_title != blank -%}
+        <h2 class="block-title">{{ section.settings.block_title }}</h2>
+      {%- endif -%}
+      <div class="outer-wrapper">
+        <div class="lists flex-container">
+          {%- for block in section.blocks -%}
+            {%- if block.type == "Article" -%}
+              {%- if block.settings.article_switch != blank -%}
+                <div class="item type-article">
+                  <div class="flex-container">
+                    {%- if block.settings.item_image != blank or block.settings.item_image_mob != blank -%}
+                      <figure class="thumb">
+                        {%- if block.settings.item_link != blank -%}
+                          <a
+                            href="{{ block.settings.item_link }}"
+                            class="link-wrapper"
+                            aria-label="Blog">
+                          {%- endif -%}
+                          <picture>
+                            <source srcset="{{ block.settings.item_image | img_url: '500x', format: 'pjpg' }}" media="(max-width: 480px)">
+                            <source srcset="{{ block.settings.item_image | img_url: '700x', format: 'pjpg' }}" media="(max-width: 1900px)">
+                            <img
+                              width="700"
+                              height="410"
+                              src="{{ block.settings.item_image | img_url: '700x', format: 'pjpg' }}"
+                              loading="lazy"
+                              alt="">
+                          </picture>
+                          {%- if block.settings.chevrons_switch != blank -%}
+                            <div class="artwork">
+                              <picture>
+                                <source srcset="{{ 'artwork-mobile.png' | asset_url }}" media="(max-width: 991px)">
+                                <img
+                                  data-src="{{ 'artwork.png' | asset_url }}"
+                                  loading="lazy"
+                                  alt="">
+                              </picture>
+                            </div>
+                          {%- endif -%}
+                          {%- if block.settings.item_link != blank -%}
+                          </a>
+                        {%- endif -%}
+                      </figure>
+                    {%- endif -%}
+                    <div class="content">
+                      {%- if block.settings.item_tag != blank -%}
+                        {%- if block.settings.item_link != blank -%}
+                          <a href="{{ block.settings.item_link }}" class="link-wrapper">
+                          {%- endif -%}
+                          <span class="tag">{{ block.settings.item_tag }}</span>
+                          {%- if block.settings.item_link != blank -%}
+                          </a>
+                        {%- endif -%}
+                      {%- endif -%}
+                      {%- if block.settings.item_title != blank -%}
+                        <h2>{{ block.settings.item_title }}</h2>
+                      {%- endif -%}
+                      {%- if block.settings.item_desc != blank -%}
+                        <p>{{ block.settings.item_desc }}</p>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  {% comment %}
+                  <div class="associated-products">
+                    <div class="flex-container">
+                      <div class="bind-product-item">
+                        <div class="inner">
+                          {% assign product1 = block.settings.item_bind_product_1 %}
+                          <a class="anchor-link" href="{{ all_products[product1].url }}">
+                            {%- if all_products[product1].featured_image.src != blank -%}
+                              {%- assign imgSrc = all_products[product1].featured_image.src | img_url: '230x' -%}
+                            {%- else -%}
+                              {%- assign imgSrc = 'https://cdn.shopify.com/s/files/1/0119/6028/7313/files/no-image.png' -%}
+                            {%- endif -%}
+                            <div class="img-wrapper offscreen_img_wrapper">
+                              <img
+                                width="115"
+                                height="115"
+                                src="{{ imgSrc }}"
+                                loading="lazy"
+                                alt="{{ all_products[product1].featured_image.alt }}">
+                            </div>
+                            <h3>{{ all_products[product1].title }}</h3>
+                            <span class="price">{{ all_products[product1].price | money }}</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="bind-product-item">
+                        <div class="inner">
+                          {%- assign product2 = block.settings.item_bind_product_2 -%}
+                          <a class="anchor-link" href="{{ all_products[product2].url }}">
+                            {%- if all_products[product2].featured_image.src != blank -%}
+                              {%- assign imgSrc1 = all_products[product2].featured_image.src | img_url: '230x' -%}
+                            {%- else -%}
+                              {%- assign imgSrc1 = 'https://cdn.shopify.com/s/files/1/0119/6028/7313/files/no-image.png' -%}
+                            {%- endif -%}
+                            <div class="img-wrapper offscreen_img_wrapper">
+                              <img
+                                width="115"
+                                height="115"
+                                src="{{ imgSrc1 }}"
+                                loading="lazy"
+                                alt="{{ all_products[product2].featured_image.alt }}">
+                            </div>
+                            <h3>{{ all_products[product2].title }}</h3>
+                            <span class="price">{{ all_products[product2].price | money }}</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    {%- if block.settings.more_products_link_text != blank -%}
+                      <a class="button" href="{{ block.settings.more_products_link }}">{{ block.settings.more_products_link_text }}</a>
+                    {%- endif -%}
+                  </div>
+                  {% endcomment %}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if block.type == "Article-2" -%}
+              {%- if block.settings.article_2_switch != blank -%}
+                <div class="item type-article2 {% cycle 'odd', 'even' %}">
+                  <div class="flex-container">
+                    {%- if block.settings.item_image != blank -%}
+                      <figure class="thumb desktop">
+                        <img
+                          src="{{ block.settings.item_image | img_url: '680x' }}"
+                          loading="lazy"
+                          alt="">
+                      </figure>
+                    {%- endif -%}
+                    <div class="content">
+                      <h2>{{ block.settings.item_title }}</h2>
+                      <p>{{ block.settings.item_desc }}</p>
+                      {%- if block.settings.item_image != blank -%}
+                        <figure class="thumb mobile">
+                          <img
+                            src="{{ block.settings.item_image | img_url: '680x' }}"
+                            loading="lazy"
+                            alt="">
+                        </figure>
+                      {%- endif -%}
+                      <a class="button" href="{{ block.settings.item_link }}">{{ block.settings.item_link_text }}</a>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endcapture -%}
+{{ homepageGridBlocks | strip_newlines }}
+{% comment %} <script>
+  $(window).on('load', function() {
+    var winWidth = $(window).width();
+    if (winWidth <= 1024) {
+      $('.homepage-grid-blocks .lists').slick({
+        dots: false,
+        arrows: true,
+        infinite: true,
+        speed: 300,
+        adaptiveHeight: true,
+        autoplay: false,
+        pauseOnFocus: false
+      });
+    }
+  });
+</script> {% endcomment %}
+{% schema %}
+  {
+    "name": "Homepage Grid Blocks",
+    "settings": [
+      {
+        "id": "block_title",
+        "type": "text",
+        "label": "Section Title"
+      }, {
+        "type": "color",
+        "id": "block-bg-color",
+        "label": "Background Color",
+        "default": "#f8f8f8"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Article",
+        "name": "Block Grid Rel Product",
+        "settings": [
+          {
+            "id": "article_switch",
+            "type": "checkbox",
+            "label": "Enable",
+            "default": true
+          },
+          {
+            "id": "chevrons_switch",
+            "type": "checkbox",
+            "label": "Enable Chevrons",
+            "default": true
+          },
+          {
+            "id": "item_image",
+            "type": "image_picker",
+            "label": "Desktop Thumb Image"
+          },
+          {
+            "id": "item_image_mob",
+            "type": "image_picker",
+            "label": "Mobile Thumb Image"
+          }, {
+            "id": "item_tag",
+            "type": "text",
+            "label": "Tag"
+          }, {
+            "id": "item_link",
+            "type": "url",
+            "label": "Item Link"
+          }, {
+            "id": "item_title",
+            "type": "text",
+            "label": "Title"
+          }, {
+            "id": "item_desc",
+            "type": "textarea",
+            "label": "Description"
+          }, {
+            "id": "item_bind_product_1",
+            "type": "product",
+            "label": "First Product"
+          }, {
+            "id": "item_bind_product_2",
+            "type": "product",
+            "label": "Second Product"
+          }, {
+            "id": "more_products_link_text",
+            "type": "text",
+            "label": "Button Link"
+          }, {
+            "id": "more_products_link",
+            "type": "url",
+            "label": "Button Link"
+          }
+        ]
+      }, {
+        "type": "Article-2",
+        "name": "Block Grid Normal",
+        "settings": [
+          {
+            "id": "article_2_switch",
+            "type": "checkbox",
+            "label": "Enable",
+            "default": true
+          },
+          {
+            "id": "item_image",
+            "type": "image_picker",
+            "label": "Desktop Thumb Image"
+          },
+          {
+            "id": "item_image_mob",
+            "type": "image_picker",
+            "label": "Mobile Thumb Image"
+          },
+          {
+            "id": "item_title",
+            "type": "text",
+            "label": "Title"
+          }, {
+            "id": "item_desc",
+            "type": "textarea",
+            "label": "Description"
+          }, {
+            "id": "item_link_text",
+            "type": "text",
+            "label": "Button Link"
+          }, {
+            "id": "item_link",
+            "type": "url",
+            "label": "Button Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Homepage Grid Blocks",
+        "category": "Custom Content"
+      }
+    ]
+  }
+{% endschema %}

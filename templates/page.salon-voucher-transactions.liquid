@@ -1,0 +1,114 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{% if customer %}
+  {% if customer.metafields.salon_portal.salon_page_handle %}
+    {% if customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+      <div class="dashboard-customer">
+        <div class="flex-container">
+          {% include 'customer-dashboard-sidebar' %}
+          <div class="content-body">
+            {%  render 'customer-dashboard-welcome-box' %}
+            <div class="content-body-box content-body-onlineOrders">
+              <h3 class="sub-history">{{ page.title }}</h3>
+                <div class="transaction-data" style="overflow-x: auto;">
+                  <table id="salonVoucherTransactions"  class="default" >
+                    <thead>
+                      <tr>
+                        <th id="voucherCode" class="table-head-col">Voucher Code</th>
+                        <th id="voucherValue" class="table-head-col">Voucher Value</th>
+                        <th id="transactionDateTime" class="table-head-col">Transaction Date/Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="no-data" style="display:none">
+                  <p>Sorry! There were no orders to show.</p>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var lambdaMiddlewareModeStr = '{{ shop.metafields.global.lambda_middleware_mode }}'; // METAFIELD Lambda/Middleware Test/Live Mode
+        var lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+        if(lambdaMiddlewareModeStr == "Test"){
+          lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+        }else if(lambdaMiddlewareModeStr == "Live"){
+          lambdaBaseURL = 'https://axitw7b5ed.execute-api.ap-southeast-2.amazonaws.com';
+        }else{
+          lambdaBaseURL = 'https://jml6ygobnj.execute-api.ap-southeast-2.amazonaws.com';
+        }
+
+        var salonPageHandle = '{{ customer.metafields.salon_portal.salon_page_handle }}';
+        var customerEmail = '{{ customer.email }}';
+
+        function addReportsHalterOverlay(){
+          if( $('#reportsHalterOverlay').length < 1 ){
+            var halterHtml = '<div id="reportsHalterOverlay" class="body-overlay"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="40px" height="40px" viewBox="0 0 128 128" xml:space="preserve"><rect x="0" y="0" width="100%" height="100%" fill="#17324A" /><g><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="1"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(30 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(60 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(90 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(120 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.3" transform="rotate(150 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.4" transform="rotate(180 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.5" transform="rotate(210 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.6" transform="rotate(240 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.7" transform="rotate(270 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.8" transform="rotate(300 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.9" transform="rotate(330 64 64)"/><animateTransform attributeName="transform" type="rotate" values="0 64 64;30 64 64;60 64 64;90 64 64;120 64 64;150 64 64;180 64 64;210 64 64;240 64 64;270 64 64;300 64 64;330 64 64" calcMode="discrete" dur="1080ms" repeatCount="indefinite"></animateTransform></g></svg></div>';
+            $('body').prepend(halterHtml);
+
+          }
+        }
+
+        function removeReportsHalterOverlay(){
+          if( $('#reportsHalterOverlay').length > 0 ){
+            $('#reportsHalterOverlay').remove();
+          }
+        }
+
+        jQuery(document).ready(function($){
+
+          addReportsHalterOverlay();
+          jQuery.ajax({
+            url: "https://get-salon-voucher-transactions-366775112035.australia-southeast1.run.app/",
+            method: "POST",
+            dataType: 'json',
+            data: {salon_ga_code: salonPageHandle},
+            async: false,
+            success: function(res){
+                if(res.status == 'error'){
+                  $('.no-data').show();
+                  $('.transaction-data').hide();
+                }else{
+                  var html = '';
+                  $.each(res.response_data, function(k, v){
+                    html += '<tr>';
+                    html += '<td>'+v.voucher_code+'</td><td>$'+v.voucher_value+'</td><td>'+v.simplified_transaction_date_time+'</td>';
+                    html += '</tr>';
+                  });
+                  $('table#salonVoucherTransactions tbody').html(html);
+                  $('.no-data').hide();
+                  $('.transaction-data').show();
+                }
+            },
+            error: function(err){
+                $('.no-data').show();
+                $('.transaction-data').hide();
+            }
+          });
+          removeReportsHalterOverlay();
+            
+        });
+      </script>
+    {% else %}
+        <script>
+            var shopUrl = '{{ shop.url }}';
+            window.location.href = shopUrl + "/account";
+        </script>
+    {% endif %}
+  {% else %}
+      <script>
+          var shopUrl = '{{ shop.url }}';
+          window.location.href = shopUrl + "/account";
+      </script>
+  {% endif %}
+{% else %}
+  <script>
+      var shopUrl = '{{ shop.url }}';
+      window.location.href = shopUrl + "/account/login?return_url=%2Fpages%2Fsalon-service-book-waitlist";
+  </script>
+{% endif %}

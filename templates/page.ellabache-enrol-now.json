@@ -1,0 +1,45 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "college-apply-now": {
+      "type": "college-apply-now",
+      "settings": {
+        "block_bg_color": "#ffffff",
+        "block_title": "Apply Now",
+        "block_image": "shopify:\/\/shop_images\/StairBAW_663x_0e62895c-d3c5-4798-ba7c-b2b7d5b65258.png",
+        "block_desc": "Please read the information provided in the Terms and Conditions, Schedule of Fees and Charges for Domestic Students, Cancellation and Refund Policy, Student Handbook and other college policies and procedures available on the resource page before you apply.",
+        "block_iframe": "<iframe src=\"https:\/\/clustdoc.com\/cp\/271518-5fd2badb18e4a?embedded=1\" frameborder=\"0\" height=\"600\" width=\"100%\"><\/iframe>"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "college-apply-now",
+    "college-cta5",
+    "shogun-optimizer"
+  ]
+}

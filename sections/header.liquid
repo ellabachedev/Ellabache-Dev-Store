@@ -1,0 +1,250 @@
+{{ 'header-minify.css' | asset_url | stylesheet_tag }}
+{%- capture header-main -%}
+  <div class="header-main">
+    <div class="page-width flex-container">
+      <div class="header-main-left">
+        <div class="header-actions flex-container">
+          <div class="item action-mobile-menu hide-desktop">
+            <button
+              type="button"
+              class="c-nav-header-toggle"
+              aria-label="Hambuger Menu">
+              <span class="c-nav-header-toggle__hamburger hamburger">
+                <span class="hamburger__line hamburger__line1"></span>
+                <span class="hamburger__line hamburger__line2"></span>
+                <span class="hamburger__line hamburger__line3"></span>
+                <span class="hamburger__cross hamburger__cross1"></span>
+                <span class="hamburger__cross hamburger__cross2"></span>
+              </span>
+            </button>
+          </div>
+          {%- if section.settings.enable_header_action_phone != blank -%}
+            <div class="item action-phone hide-mobile">
+              {% assign tel = section.settings.header_action_phone_no | remove: " " %}
+              <a
+                href="tel:{{tel}}"
+                class="telephone"
+                aria-label="Telephone">
+                {{ tel }}
+                <span class="icon icon-phone">
+                  {%- render 'icon-phone' -%}
+                </span>
+                <span class="label">
+                  <span>{{ section.settings.header_action_phone_text }}</span>
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.enable_header_action_location != blank -%}
+            <div class="item action-map-pointer hide-mobile">
+              <a href="{{ section.settings.header_action_find_salon_url }}" aria-label="Find a Salon">
+                <span class="icon icon-map-pointer">
+                  {%- render 'icon-map-pointer' -%}
+                </span>
+                <span class="label">
+                  <span>{{ section.settings.header_action_location_icon_text }}</span>
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="header-main-center">
+        {%- if template.name == 'index' -%}
+          <h1>
+          {%- else -%}
+            <div class="h1">
+            {%- endif -%}
+            <span style="display:none">Ella Bache</span>
+            <a
+              href="/"
+              itemprop="url"
+              class="main-logo"
+              aria-label="EllaBache Logo">
+              {%- render 'icon-ellabache-logo' -%}
+            </a>
+            {%- if template.name == 'index' -%}
+            </h1>
+        {%- else -%}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="header-main-right">
+        <div class="header-actions flex-container">
+          <div class="item action-search">
+            <a
+              href="#"
+              id="searchPopupBtn"
+              aria-label="Search">
+              <span class="icon icon-search">
+                {%- render 'icon-search' -%}
+              </span>
+              <span class="label">
+                <span>Search</span>
+              </span>
+            </a>
+          </div>
+          <div class="item action-user hide-mobile">
+            <a href="/account" aria-label="Login">
+              <span class="icon icon-user">
+                {%- render 'icon-user' -%}
+              </span>
+              <span class="label">
+                <span>Login</span>
+              </span>
+            </a>
+          </div>
+          <div class="item action-cart">
+            <a
+              href="#"
+              class="cart-opener"
+              aria-label="Cart">
+              <span class="icon icon-cart">
+                {%- render 'icon-cart' -%}
+                <span
+                  class="cartCount"
+                  id="mini-cart-count"
+                  data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+              </span>
+              <span class="label">
+                <span>Cart</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+{{ header-main | strip_newlines }}
+<script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+{%- render 'header-menu' -%}
+{%- render 'search-dropdown' -%}
+{%- if request.page_type == 'index' -%}
+  {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+  <script type="application/ld+json">
+  {
+"@context": "https://schema.org",
+"@type": "WebSite",
+"name": "Ella Baché",
+"url": "https://www.ellabache.com.au/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://www.ellabache.com.au/search?q={search_term_string}",
+"query-input": "required name=search_term_string"
+},
+"publisher": {
+"@type": "Organization",
+"url": "https://www.ellabache.com.au/",
+"sameAs": [
+"https://www.facebook.com/ellabache",
+"https://www.instagram.com/ellabacheaus"
+],
+"logo": "https://cdn.shopify.com/s/files/1/2999/1646/files/Ella_Bache_Logo_Navy_45976256-92eb-4d54-ba8f-a22288b161a1.jpg",
+"foundingDate": "1936",
+"name": "Ella Baché",
+"description": "Ella Baché was founded by revolutionary Cosmetic Chemist Madame Baché in Paris, 1936. Ella Baché recognized that the standard way of treating skin types was oversimplified. She invented skincare solutions individually tailored based on the skin’s condition at a cellular level. Ella Baché believed 'No two skins are alike,' a manifesto we continue to follow today.",
+"contactPoint": {
+"@type": "ContactPoint",
+"email": "customercare@ellabache.com.au",
+"telephone": "+61-2-9432-5000",
+"contactType": "Customer Service"
+},
+"address": {
+"@type": "PostalAddress",
+"streetAddress": "2 Lambs Road",
+"addressLocality": "Artarmon",
+"addressRegion": "NSW",
+"postalCode": "2064",
+"addressCountry": "Australia"
+}
+}
+}
+</script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Select Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": "Header Actions"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_action_phone",
+        "label": "Display Action Phone",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "header_action_phone_text",
+        "label": "Phone Text"
+      }, {
+        "type": "text",
+        "id": "header_action_phone_no",
+        "label": "Phone Number"
+      }, {
+        "type": "checkbox",
+        "id": "enable_header_action_location",
+        "label": "Display Action Find Salon",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "header_action_location_icon_text",
+        "label": "Location Icon Text"
+      }, {
+        "type": "url",
+        "id": "header_action_find_salon_url",
+        "label": "Location Icon URL"
+      }, {
+        "type": "header",
+        "content": "Category Module in Product Menu"
+      }, {
+        "type": "checkbox",
+        "id": "enable_cat_mod_products_menu",
+        "label": "Category Module for Product",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "cat_mod_submenu_title",
+        "label": "Menu Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "product1_image",
+        "label": "Image"
+      },
+      {
+        "type": "url",
+        "id": "product1_url",
+        "label": "Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "product2_image",
+        "label": "Image"
+      },
+      {
+        "type": "url",
+        "id": "product2_url",
+        "label": "Link"
+      },
+      {
+        "type": "color",
+        "id": "color_1",
+        "label": "Color",
+        "default": "#404040"
+      }
+    ]
+  }
+{% endschema %}

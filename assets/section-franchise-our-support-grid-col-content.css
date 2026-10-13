@@ -1,0 +1,137 @@
+.two-col-grid-layout {
+    padding: 60px 0;
+}
+@media (max-width: 768px) {
+    .two-col-grid-layout {
+        padding: 30px 0;
+    }
+    .two-col-grid-layout .page-width {
+        max-width: 550px;
+    }
+}
+.two-col-grid-layout .lists.flex-container {
+    justify-content: space-between;
+}
+.two-col-grid-layout .lists .item {
+    width: calc(50% - 25px);
+}
+.two-col-grid-layout .lists .item figure.thumb {
+    margin: 0;
+}
+.two-col-grid-layout .lists .item figure.thumb img {
+    display: block;
+    width: 100%;
+    height:auto;
+}
+.two-col-grid-layout .lists .item .content {
+    width: 100%;
+}
+.two-col-grid-layout .lists .item .content h2.title {
+    font-size: 25px;
+}
+.two-col-grid-layout .lists .item .content ul li {
+    font-size: 16px;
+    padding: 5px 0;
+}
+@media (max-width: 768px) {
+    .two-col-grid-layout .lists .item {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .two-col-grid-layout .lists .item:last-child{
+      margin-bottom:0;
+    }
+}
+.expandableContent {
+    position: relative;
+}
+
+.expandableContent:after {
+    content: '';
+    position: absolute;
+    display: none;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0.74+22,1+100 */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.74) 22%, white 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.74) 22%, white 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.74) 22%, white 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bdffffff', endColorstr='#ffffff', GradientType=0);
+    /* IE6-9 */
+}
+
+.expandableContent.expand:after {
+    display: none;
+}
+
+.expandableContent .content-short {
+    position: relative;
+    height: 225px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+}
+
+.expandableContent .content-full {
+    position: relative;
+    overflow: hidden;
+}
+
+.expandableContent .flex-container {
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+}
+
+.expandableContent ul li {
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.expandableContent.expand .button-expand {
+    border: 2px solid #001e37;
+}
+
+.expandableContent.expand .button-expand:before,
+.expandableContent.expand .button-expand:after {
+    background-color: #001e37;
+}
+
+.expandableContent.expand .button-expand:before {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+}
+
+.expandableContent.expand .button-expand:after {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+    .expandableContent:after {
+        bottom: 10px;
+    }
+
+    .expandableContent .content-short .title {
+        font-size: 25px;
+    }
+
+    .expandableContent .content-short p {
+        font-size: 15px;
+    }
+  .expandableContent .content-full h2{
+    font-size:24px;
+    margin-bottom:15px;
+  }
+}

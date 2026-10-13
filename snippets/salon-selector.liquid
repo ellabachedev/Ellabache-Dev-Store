@@ -1,0 +1,1198 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<style>
+  :root{
+    --ink:        #001e37;
+    --navy:       #001e37;
+    --lightgray:  #efefef;
+    --plum-deep:  #001e37;
+    --blush:      #F3D9DE;
+    --ivory:      #FBF6F1;
+    --white:      #ffffff;
+    --gold:       #001e37;
+    --gold-soft:  #E7C892;
+    --line:       #E7DCDF;
+    --shadow:     0 24px 60px -20px rgba(52, 24, 42, 0.35);
+  }
+  /* ---------- Magnific overrides ---------- */
+  .mfp-bg.salon-mfp-bg{
+    background: rgba(36, 27, 34, 0.55);
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+  body .salon-selector-mfp-wrap .mfp-container{text-align:right;}
+  .salon-selector-mfp-wrap .mfp-container{ padding: 0; }
+  .salon-selector-mfp-wrap .mfp-container{
+  padding:0;
+  }
+  body .salon-selector-mfp-wrap .mfp-container .mfp-content{
+    max-width:500px;
+  }
+
+  /* ---------- Popup shell ---------- */
+  .salon-popup{
+    background: var(--white);
+    width: 100%;
+    max-width: 500px;
+    margin: 0;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .salon-popup__header{
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--navy);
+    color: var(--ivory);
+    padding: 22px 22px 20px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap: 12px;
+  }
+  .salon-popup__title{
+    font-weight: 600;
+    margin: 0 0 2px;
+  }
+  .salon-popup__subtitle{
+    margin:0;
+    color: rgba(251,246,241,0.72);
+  }
+  .salon-popup__close{
+    background: rgba(251,246,241,0.12);
+    border: none;
+    color: var(--ivory);
+    width: 34px;
+    height: 34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .salon-popup__close:hover{ background: rgba(251,246,241,0.22); }
+  .salon-popup__close:focus-visible{ outline: 2px solid var(--gold-soft); outline-offset: 2px; }
+  .salon-popup__close svg{ width:16px; height:16px; }
+
+  /* ---------- Search ---------- */
+  .salon-search{
+    padding: 18px 22px 6px;
+    background: var(--lightgray);
+  }
+  .salon-search__field{
+    position: relative;
+    display:flex;
+    align-items:center;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    padding: 4px 6px 4px 18px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .salon-search__field:focus-within{
+    border-color: var(--navy);
+    box-shadow: 0 0 0 4px rgba(0,30,55,0.14);
+  }
+  .salon-search__field input{
+    flex:1;
+    border:none;
+    outline:none;
+    padding: 10px 6px;
+    background: transparent;
+    color: var(--ink);
+  }
+  .salon-search__field input::placeholder{ color: #9C8E93; }
+
+  .salon-search__wrap{ position: relative; }
+
+  .salon-suggestions{
+    list-style:none;
+    margin: 6px 0 0;
+    padding: 6px;
+    position:absolute;
+    top: 100%;
+    left:0;
+    right:0;
+    z-index: 5;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 34px -18px rgba(52,24,42,0.35);
+    max-height: 260px;
+    overflow-y: auto;
+    display:none;
+  }
+  .salon-suggestions.is-open{ display:block; }
+
+  .salon-suggestions__item{
+    width:100%;
+    display:block;
+    text-align:left;
+    background:none;
+    border:none;
+    padding: 9px 10px;
+    cursor:pointer;
+  }
+  .salon-suggestions__item:hover,
+  .salon-suggestions__item.is-active{
+    background: var(--lightgray);
+  }
+  .salon-suggestions__item:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+  .salon-suggestions__name{
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .salon-suggestions__address{
+    color: #85777C;
+    margin: 0;
+  }
+  .salon-suggestions__empty{
+    padding: 10px 10px;
+    color: #85777C;
+  }
+
+  .salon-search__locate{
+    border:none;
+    background: var(--navy);
+    color: var(--white);
+    width: 38px;
+    height: 38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .salon-search__locate:hover{ transform: scale(1.04); }
+  .salon-search__locate svg{ width:17px; height:17px; }
+  .salon-search__locate.is-loading svg{ animation: spin 0.9s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .salon-search__clear{
+    border:none;
+    background:none;
+    color: var(--navy);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor:pointer;
+    padding: 6px 4px;
+    display:none;
+  }
+  .salon-search__clear.is-visible{ display:inline-block; }
+
+  .salon-search__status{
+    margin: 10px 2px 4px;
+    color: var(--navy);
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    min-height: 18px;
+  }
+  .salon-search__status svg{ width:13px; height:13px; flex-shrink:0; }
+  .salon-search__status.is-muted{ color: #8B7A80; }
+
+  .salon-permission{
+    margin: 4px 2px 8px;
+    padding: 14px 16px;
+    background: var(--blush);
+    display:none;
+    gap: 10px;
+    align-items:flex-start;
+  }
+  .salon-permission.is-visible{ display:flex; }
+  .salon-permission p{
+    margin: 0 0 8px;
+    line-height: 1.45;
+    color: var(--plum-deep);
+  }
+  .salon-permission strong{ display:block; font-size:.9rem; margin-bottom: 2px; }
+  .salon-permission button{
+    border:none;
+    background: var(--navy);
+    color: var(--ivory);
+    font-weight: 600;
+    padding: 8px 16px;
+    cursor:pointer;
+  }
+  .salon-permission button:hover{ background: var(--plum-deep); }
+
+  /* ---------- List ---------- */
+  .salon-list-wrap{
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 14px 22px 22px;
+  }
+  .salon-list-heading{
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 700;
+    margin: 12px 2px 10px;
+  }
+
+  .salon-empty{
+    display:none;
+    flex-direction: column;
+    align-items:center;
+    text-align:center;
+    padding: 46px 20px;
+    color: #766A6F;
+  }
+  .salon-empty.is-visible{ display:flex; }
+  .salon-empty svg{ width:38px; height:38px; margin-bottom: 12px; color: var(--navy); }
+  .salon-empty p{ margin: 4px 0 14px; font-size:12px; max-width: 320px; }
+
+  .salon-item{
+    border: 1px solid var(--line);
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: #fff;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .salon-item.is-open{
+    border-color: var(--navy);
+    box-shadow: 0 10px 26px -16px rgba(75,35,56,0.4);
+  }
+
+  .salon-item__summary{
+    width: 100%;
+    background:none;
+    border:none;
+    text-align:left;
+    padding: 14px 16px;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    cursor:pointer;
+  }
+  .salon-item__summary:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+  .salon-item__body{ flex:1; min-width:0; }
+  .salon-item__name{
+    font-weight: 400;
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size:16px;
+  }
+  .salon-item__meta{
+    margin:0;
+    color: #7E7176;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .salon-item__distance{
+    display:inline-flex;
+    align-items:center;
+    gap: 4px;
+    font-weight: 600;
+    color: var(--plum);
+    background: var(--blush);
+    padding: 2px 9px;
+  }
+  .salon-item__chevron{
+    width: 22px;
+    height: 22px;
+    flex-shrink:0;
+    color: var(--gold);
+    transition: transform .2s ease;
+  }
+  .salon-item.is-open .salon-item__chevron{ transform: rotate(180deg); }
+
+  .salon-item__details{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .28s ease;
+  }
+  .salon-item.is-open .salon-item__details{ max-height: 640px; }
+
+  .salon-item__details-inner{
+    padding: 2px 16px 18px;
+    border-top: 1px solid var(--line);
+    margin-top: 2px;
+    padding-top: 14px;
+  }
+  .salon-item__desc{
+    line-height: 1.55;
+    color: #564C50;
+    margin: 0 0 14px;
+  }
+  .salon-item__row{
+    display:flex;
+    align-items:flex-start;
+    gap: 10px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .salon-item__row svg{ width:16px; height:16px; margin-top:1px; color: var(--gold); flex-shrink:0; }
+  .salon-item__row a{ color: var(--ink); text-decoration: none; }
+  .salon-item__row a:hover{ text-decoration: underline; }
+
+  .salon-book-now{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    margin-top: 6px;
+    padding: 13px 18px;
+    background: var(--gold);
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration:none;
+    transition: background .15s ease, transform .15s ease;
+  }
+  body a[href*="#scs-ols"]{
+    display:inline-flex !important;
+  }
+
+  .salon-list-wrap::-webkit-scrollbar{ width: 8px; }
+  .salon-list-wrap::-webkit-scrollbar-thumb{ background: var(--line); }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 640px){
+    .salon-popup{
+      max-width: 100%;
+      margin: 0;
+      border-radius: 0;
+      max-height: 100vh;
+      height: 100vh;
+    }
+    .salon-book-now{ padding: 15px 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+  body .mfp-content{
+  background:none !important;}
+  
+  .salon-item__distance{display:none;}
+  .salon-popup a[href*="#scs-ols"].scs-show-widget-button{display:inline-flex !important;}
+  body .salon-selector-mfp-wrap .mfp-close{font-family:sans-serif; font-weight:300; font-size:36px; margin-top:5px;}
+</style>
+<button type="button" class="button" id="selectSalonBtn">Book Now</button>
+<!-- Stable proxy link for the Shortcuts (ols-widget.min.js) booking widget.
+     That script binds its click handler once, at page load, to whatever
+     a[href*="#scs-ols-widget"] elements exist at that moment. The real
+     "Book Now" buttons live inside the popup and get re-rendered every
+     time the salon list updates (search, geolocation, popup reopen), so
+     they never end up with that handler attached — clicking them just
+     silently updates the URL hash and nothing opens. This anchor stays
+     in the DOM permanently so the widget script binds to it once; our
+     own click handler (see "SHORTCUTS WIDGET FORWARDING" in the script
+     below) copies the clicked salon's href onto this element and clicks
+     it, which fires the widget's real handler correctly. Do not remove
+     this or move it inside dynamically-rendered markup. -->
+<a id="scsWidgetProxy" href="#scs-ols-widget" aria-hidden="true" tabindex="-1"
+   style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);"></a>
+
+<!-- ================= POPUP ================= -->
+<div id="select-salon-popup" class="salon-popup mfp-hide" role="dialog" aria-modal="true" aria-labelledby="salonPopupTitle">
+
+  <div class="salon-popup__header">
+    <div>
+      <p class="salon-popup__title" id="salonPopupTitle">Select Your Salon</p>
+      {% comment %} <p class="salon-popup__subtitle">Find the nearest location and book in seconds</p> {% endcomment %}
+    </div>
+    {% comment %} <button type="button" class="salon-popup__close" id="salonPopupClose" aria-label="Close salon selector">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button> {% endcomment %}
+  </div>
+
+  <div class="salon-search">
+    <label for="salonSearchInput" class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Search by city, postcode or location</label>
+    <div class="salon-search__wrap">
+      <div class="salon-search__field">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9C8E93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="salonSearchInput" placeholder="Search by city, postcode or location" autocomplete="off"
+               role="combobox" aria-expanded="false" aria-controls="salonSuggestions" aria-autocomplete="list" />
+        <button type="button" class="salon-search__clear" id="salonSearchClear">Clear</button>
+        <button type="button" class="salon-search__locate" id="salonLocateBtn" aria-label="Use my location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+        </button>
+      </div>
+
+      <ul class="salon-suggestions" id="salonSuggestions" role="listbox" aria-label="Matching store addresses"></ul>
+    </div>
+
+    <p class="salon-search__status" id="salonSearchStatus"></p>
+
+    <div class="salon-permission" id="salonPermissionBox" style="display:none !important;">
+      <div>
+        <strong>Find salons near you</strong>
+        <p>Allow location access to find salons near your current location, or search for a city or postcode above.</p>
+        <button type="button" id="salonUseLocationBtn">Use My Location</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="salon-list-wrap">
+    <p class="salon-list-heading" id="salonListHeading">Nearby Salons</p>
+
+    <div id="salonList"></div>
+
+    <div class="salon-empty" id="salonEmptyState">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <h3>No salons found</h3>
+      <p>Try searching for another city, area or postcode.</p>
+      <button type="button" class="salon-search__clear is-visible" id="salonEmptyClear">Clear Search</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  var distanceUnit = "km"; // "km" | "miles"
+
+  var SALONS = [
+    { id:"salon-61837162", title:"Body Essentials By Cilla", description:"", address:"11 William St, Berri SA 5343, Australia", city:"Berri", state:"SA", country:"Australia", postcode:"5343", latitude:-34.2864408, longitude:140.600384, phone:"+61885824599", bookingUrl:"http://www.bodyessentialsbycilla.com.au" },
+    { id:"salon-44516463", title:"Brighton Beauty Therapy", description:"", address:"502 Kooyong Rd, Caulfield South VIC 3162, Australia", city:"Caulfield South", state:"VIC", country:"Australia", postcode:"3162", latitude:-37.89799956803332, longitude:145.01284545232247, phone:"+61395921111", bookingUrl:"https://www.ellabache.com.au/pages/brighton-beauty-therapy" },
+    { id:"salon-9603074", title:"Ella Baché Aitkenvale", description:"", address:"Stockland, Ross River Rd , Aitkenvale QLD 4814", city:"Aitkenvale", state:"QLD", country:"Australia", postcode:"4814", latitude:-19.29886905, longitude:146.76309283766136, phone:"04 7788 4194", bookingUrl:"https://www.ellabache.com.au/pages/aitkenvale" },
+    { id:"salon-9603047", title:"Ella Baché Armidale", description:"", address:"5/111 Dangar Street, Armidale NSW 2350", city:"Armidale", state:"NSW", country:"Australia", postcode:"2350", latitude:-30.5119248, longitude:151.6658905, phone:"02 6772 7089", bookingUrl:"#scs-ols-widget=sites/15623/services"},
+    { id:"salon-9603075", title:"Ella Baché Artarmon", description:"", address:"3A Broughton Rd, Artarmon NSW 2064, Australia", city:"Artarmon", state:"NSW", country:"Australia", postcode:"2064", latitude:-33.8108139, longitude:151.1801374, phone:"02 99046090", bookingUrl:"#scs-ols-widget=sites/14964/services" },
+    { id:"salon-9603118", title:"Ella Baché Bairnsdale", description:"", address:"18 Service Street, Bairnsdale VIC 3875", city:"Bairnsdale", state:"VIC", country:"Australia", postcode:"3875", latitude:-37.8240553, longitude:147.6285324, phone:"03 5152 2699", bookingUrl:"#scs-ols-widget=sites/14780/services" },
+    { id:"salon-9603119", title:"Ella Baché Balwyn", description:"", address:"347 Whitehorse Road, Balwyn VIC 3103", city:"Balwyn", state:"VIC", country:"Australia", postcode:"3103", latitude:-37.8128179, longitude:145.0812049, phone:"03 9836 2346", bookingUrl:"#scs-ols-widget=sites/6690/services" },
+    { id:"salon-9603120", title:"Ella Baché Beaumaris", description:"", address:"351 Balcombe Rd, Beaumaris VIC 3193, Australia", city:"Beaumaris", state:"VIC", country:"Australia", postcode:"3193", latitude:-37.9772477, longitude:145.0313949, phone:"03 9589 5977", bookingUrl:"#scs-ols-widget=sites/35411/services" },
+    { id:"salon-9603048", title:"Ella Baché Bendigo", description:"", address:"168 Queen Street, Bendigo VIC 3550", city:"Bendigo", state:"VIC", country:"Australia", postcode:"3550", latitude:-36.768355, longitude:144.2706849, phone:"03 5441 4022", bookingUrl:"#scs-ols-widget=sites/7171/services" },
+    { id:"salon-9603130", title:"Ella Baché Berwick", description:"", address:"12 Blackburne Square  Berwick VIC", city:"Blackburne Square  Berwick", state:"VIC", country:"Australia", postcode:"", latitude:-38.0299548, longitude:145.3461313, phone:"03 8794 9833", bookingUrl:"#scs-ols-widget=sites/5025/services" },
+    { id:"salon-9603080", title:"Ella Baché Bondi Junction", description:"", address:"Westfield Bondi Junction, Oxford Street, Bondi Junction NSW 2022, Australia", city:"Bondi Junction", state:"NSW", country:"Australia", postcode:"2022", latitude:-33.8919218, longitude:151.2503466, phone:"02 9387 2099", bookingUrl:"#scs-ols-widget=sites/5597/services" },
+    { id:"salon-9603081", title:"Ella Baché Bowral", description:"", address:"273 Bong Bong Street, Bowral NSW 2576", city:"Bowral", state:"NSW", country:"Australia", postcode:"2576", latitude:-34.4782385, longitude:150.4177419310493, phone:"02 4861 1922", bookingUrl:"#scs-ols-widget=sites/53392/services" },
+    { id:"salon-9603083", title:"Ella Baché Brookside", description:"", address:"Brookside Shopping Centre, shop 40a/159 Osborne Rd, Mitchelton QLD 4053, Australia", city:"Mitchelton", state:"QLD", country:"Australia", postcode:"4053", latitude:-27.409039, longitude:152.979808, phone:"07 3855 4111", bookingUrl:"#scs-ols-widget=sites/57076/services" },
+    { id:"salon-9603121", title:"Ella Baché Bundaberg", description:"", address:"Shop 5/130A, Takalvan Street, Stockland Kensington, Bundaberg QLD 4670", city:"Bundaberg", state:"QLD", country:"Australia", postcode:"4670", latitude:-24.881353, longitude:152.326491, phone:"07 41533151", bookingUrl:"#scs-ols-widget=sites/22632/services" },
+    { id:"salon-13264296", title:"Ella Baché Cairns", description:"", address:"Shop 43A Cairns Central Shopping Centre, McLeod Street,  Cairns QLD 4870", city:"Cairns", state:"QLD", country:"Australia", postcode:"4870", latitude:-16.920872, longitude:145.774874, phone:"07 4051 3470", bookingUrl:"#scs-ols-widget=sites/56876/services" },
+    { id:"salon-9603050", title:"Ella Baché Capalaba", description:"", address:"Capalaba Park Shopping Centre, Shop/4 Redland Bay Rd, Capalaba QLD 4157, Australia", city:"Capalaba", state:"QLD", country:"Australia", postcode:"4157", latitude:-27.523383683165854, longitude:153.19069613891125, phone:"07 3245 3799", bookingUrl:"#scs-ols-widget=sites/737/services" },
+    { id:"salon-9603122", title:"Ella Baché Carindale", description:"", address:"Shop 1070, Ground floor, Carindale QLD 4152", city:"Carindale", state:"QLD", country:"Australia", postcode:"4152", latitude:-27.502855, longitude:153.102372, phone:"07 3843 4555", bookingUrl:"#scs-ols-widget=sites/738/services" },
+    { id:"salon-9603051", title:"Ella Baché Charlestown", description:"", address:"Level 2, Charlestown Square, Charlestown NSW 2290", city:"Charlestown", state:"NSW", country:"Australia", postcode:"2290", latitude:-32.964237, longitude:151.697126, phone:"02 4943 6677", bookingUrl:"#scs-ols-widget=sites/18650/services" },
+    { id:"salon-9603139", title:"Ella Baché Chatswood", description:"", address:"16/3-9 Spring St, Chatswood NSW 2067, Australia", city:"Chatswood", state:"NSW", country:"Australia", postcode:"2067", latitude:-33.796815, longitude:151.185148, phone:"02 9411 5126", bookingUrl:"#scs-ols-widget=sites/6499/services" },
+    { id:"salon-9603086", title:"Ella Baché Chermside", description:"", address:"Westfield Chermside, Gympie Road, Chermside QLD, Australia", city:"Chermside", state:"QLD", country:"Australia", postcode:"", latitude:-27.38392705, longitude:153.03147771849655, phone:"07 3359 1330", bookingUrl:"#scs-ols-widget=sites/69279/services" },
+    { id:"salon-9603053", title:"Ella Baché Coffs Harbour", description:"", address:"Shop 22, City Centre, Harbour Drive, Coffs Harbour NSW 2450", city:"Coffs Harbour", state:"NSW", country:"Australia", postcode:"2450", latitude:-30.299132, longitude:153.117481, phone:"02 6650 0800", bookingUrl:"#scs-ols-widget=sites/20571/services" },
+    { id:"salon-9603088", title:"Ella Baché Coogee", description:"", address:"Shop 9, 180 Coogee Bay Road, Coogee NSW 2034", city:"Coogee", state:"NSW", country:"Australia", postcode:"2034", latitude:-33.920156, longitude:151.254038, phone:"02 9315 7585", bookingUrl:"#scs-ols-widget=sites/8882/services" },
+    { id:"salon-9603124", title:"Ella Baché Coolangatta", description:"", address:"Shop 4, 152/154 Griffith Street, Coolangatta QLD 4225", city:"Coolangatta", state:"QLD", country:"Australia", postcode:"4225", latitude:-28.168687, longitude:153.541835, phone:"07 5536 1045", bookingUrl:"#scs-ols-widget=sites/808/services" },
+    { id:"salon-9603125", title:"Ella Baché Coomera", description:"", address:"Coomera City Centre, Upper Coomera QLD 4209, Australia", city:"Upper Coomera", state:"QLD", country:"Australia", postcode:"4209", latitude:-27.8516674, longitude:153.3000894, phone:"07 55800566", bookingUrl:"#scs-ols-widget=sites/15047/services" },
+    { id:"salon-9603090", title:"Ella Baché Dalby", description:"", address:"Shop 4, The New Street Centre, Dalby QLD 4405", city:"Dalby", state:"QLD", country:"Australia", postcode:"4405", latitude:-27.178814, longitude:151.26522, phone:"07 4662 3321", bookingUrl:"#scs-ols-widget=sites/43124/services" },
+    { id:"salon-9603091", title:"Ella Baché Dubbo", description:"", address:"109 Talbragar Street, Dubbo NSW 2830", city:"Dubbo", state:"NSW", country:"Australia", postcode:"2830", latitude:-32.24567415, longitude:148.6047685500814, phone:"02 6885 5944", bookingUrl:"https://www.ellabache.com.au/pages/dubbo" },
+    { id:"salon-9603058", title:"Ella Baché Eltham", description:"", address:"Shop 8/906, Main Road, Eltham VIC 3095", city:"Eltham", state:"VIC", country:"Australia", postcode:"3095", latitude:-37.7149, longitude:145.148431, phone:"03 9431 0955", bookingUrl:"#scs-ols-widget=sites/1826/services" },
+    { id:"salon-9603059", title:"Ella Baché Fannie Bay", description:"", address:"9/9 Fannie Bay Place, Fannie Bay NT 820", city:"Fannie Bay", state:"NT", country:"Australia", postcode:"", latitude:-12.423501, longitude:130.836507, phone:"08 8981 7400", bookingUrl:"#scs-ols-widget=sites/852/services" },
+    { id:"salon-9603060", title:"Ella Baché Fortitude Valley", description:"", address:"38/1000 Ann St, Fortitude Valley QLD 4006, Australia", city:"Fortitude Valley", state:"QLD", country:"Australia", postcode:"4006", latitude:-27.453206822527484, longitude:153.03898366692536, phone:"07 3257 1333", bookingUrl:"#scs-ols-widget=sites/19870/services" },
+    { id:"salon-9603093", title:"Ella Baché Gladesville", description:"", address:"225-227 Victoria Rd, Shop 15, Glades Centre, Gladesville NSW 2111, Australia", city:"Gladesville", state:"NSW", country:"Australia", postcode:"2111", latitude:-33.831675, longitude:151.127237, phone:"02 9879 3211", bookingUrl:"#scs-ols-widget=sites/22548/services" },
+    { id:"salon-9603094", title:"Ella Baché Glenbrook", description:"", address:"Shop 33b, Park Street, Glenbrook NSW 2773", city:"Glenbrook", state:"NSW", country:"Australia", postcode:"2773", latitude:-33.766807, longitude:150.623147, phone:"02 4739 5364", bookingUrl:"#scs-ols-widget=sites/68993/services" },
+    { id:"salon-45352880", title:"Ella Baché Gunnedah", description:"", address:"102 Marquis St, Gunnedah NSW 2380, Australia", city:"Gunnedah", state:"NSW", country:"Australia", postcode:"2380", latitude:-30.977963726325733, longitude:150.25273321947634, phone:"02 6742 0432", bookingUrl:"#scs-ols-widget=sites/69161/services" },
+    { id:"salon-9603111", title:"Ella Baché Hampton", description:"", address:"524 Hampton Street, Hampton VIC 3188", city:"Hampton", state:"VIC", country:"Australia", postcode:"3188", latitude:-37.9389247, longitude:145.0022448, phone:"03 9521 0518", bookingUrl:"#scs-ols-widget=sites/13216/services" },
+    { id:"salon-9603096", title:"Ella Baché Hobart", description:"", address:"7 Criterion Street, Hobart TAS 7000", city:"Hobart", state:"TAS", country:"Australia", postcode:"7000", latitude:-42.881116, longitude:147.3252888, phone:"03 6234 2379", bookingUrl:"#scs-ols-widget=sites/11723/services" },
+    { id:"salon-9603062", title:"Ella Baché Ipswich", description:"", address:"Riverlink Shopping Center, 54A Pine St, Ipswich QLD 4305, Australia", city:"Ipswich", state:"QLD", country:"Australia", postcode:"4305", latitude:-27.606868, longitude:152.758666, phone:"07 3281 5528", bookingUrl:"#scs-ols-widget=sites/43125/services" },
+    { id:"salon-9603115", title:"Ella Baché Joondalup", description:"", address:"shop t28b/420 Joondalup Dr, Joondalup WA 6027, Australia", city:"Joondalup", state:"WA", country:"Australia", postcode:"6027", latitude:-31.743801, longitude:115.766495, phone:"08 9300 9003", bookingUrl:"https://secure.smallbiz.net.au/booking/345/sbiz_345_appbk_v8_bg5.php?_gl=1*rg069i*_gcl_au*MTMyNjUyOTg0Ny4xNzg0MjU1MzA2" },
+    { id:"salon-9603097", title:"Ella Baché Mackay", description:"", address:"47 Wood Street, Mackay QLD 4740, Australia", city:"Mackay", state:"QLD", country:"Australia", postcode:"4740", latitude:-21.1399791, longitude:149.1861114, phone:"07 4957 8299", bookingUrl:"#scs-ols-widget=sites/43744/services" },
+    { id:"salon-9603131", title:"Ella Baché Mordialloc", description:"", address:"485 Main Street, Mordialloc VIC 3195", city:"Mordialloc", state:"VIC", country:"Australia", postcode:"3195", latitude:-38.0063501, longitude:145.0866428, phone:"03 9587 4323", bookingUrl:"#scs-ols-widget=sites/771/services" },
+    { id:"salon-9603100", title:"Ella Baché Newmarket", description:"", address:"Shop 121/400 Newmarket Rd, Newmarket QLD 4051, Australia", city:"Newmarket", state:"QLD", country:"Australia", postcode:"4051", latitude:-27.436939386591238, longitude:153.00809309680673, phone:"07 3356 4200", bookingUrl:"#scs-ols-widget=sites/63351/services" },
+    { id:"salon-9603073", title:"Ella Baché Nowra", description:"", address:"Shops 1/2, 39 Berry Street, Nowra NSW 2541", city:"Nowra", state:"NSW", country:"Australia", postcode:"2541", latitude:-34.877312, longitude:150.600029, phone:"02 4422 1532", bookingUrl:"#scs-ols-widget=sites/7264/services" },
+    { id:"salon-62098947", title:"Ella Baché Orbost", description:"", address:"158 Nicholson Street, Orbost VIC 3888, Australia", city:"Orbost", state:"VIC", country:"Australia", postcode:"3888", latitude:-37.70502211276957, longitude:148.45570722883565, phone:"", bookingUrl:"#scs-ols-widget=sites/79415/services" },
+    { id:"salon-9603116", title:"Ella Baché Pacific Fair", description:"", address:"Shop 302, Level 1, Pacific Fair Shopping Centre, Hooker Boulevard, Broadbeach QLD 4218", city:"Broadbeach", state:"QLD", country:"Australia", postcode:"4218", latitude:-28.035841, longitude:153.426804, phone:"07 5538 9724", bookingUrl:"#scs-ols-widget=sites/12782/services" },
+    { id:"salon-9603064", title:"Ella Baché Palmerston", description:"", address:"Shop 2, Satepak House, 11 Palmerston Circuit, Palmerston City NT 830", city:"Palmerston City", state:"NT", country:"Australia", postcode:"", latitude:-12.480202, longitude:130.984948, phone:"08 8932 2201", bookingUrl:"#scs-ols-widget=sites/3593/services" },
+    { id:"salon-9603101", title:"Ella Baché Penrith", description:"", address:"440c High Street, Penrith NSW 2750", city:"Penrith", state:"NSW", country:"Australia", postcode:"2750", latitude:-33.7536414, longitude:150.6971876, phone:"02 4731 2470", bookingUrl:"#scs-ols-widget=sites/16272/services" },
+    { id:"salon-9603089", title:"Ella Baché Perth", description:"", address:"5/160 Central St Georges Terrace, Perth WA 6000", city:"Perth", state:"WA", country:"Australia", postcode:"6000", latitude:-31.953673, longitude:115.855138, phone:"08 9321 0121", bookingUrl:"https://linktr.ee/ellabacheperth" },
+    { id:"salon-9603065", title:"Ella Baché Port Macquarie", description:"", address:"Shop 4-5, Port Pacific Building, Clarence Street, Port Macquarie NSW 2444", city:"Port Macquarie", state:"NSW", country:"Australia", postcode:"2444", latitude:-31.429128031610773, longitude:152.9111939856343, phone:"02 65836952", bookingUrl:"#scs-ols-widget=sites/3918/services" },
+    { id:"salon-9603134", title:"Ella Baché Rye Beach", description:"", address:"2337 Point Nepean Road, Rye VIC 3941", city:"Rye", state:"VIC", country:"Australia", postcode:"3941", latitude:-38.3709927, longitude:144.8307784, phone:"03 5985 3050", bookingUrl:"#scs-ols-widget=sites/926/services" },
+    { id:"salon-45745244", title:"Ella Baché Secret Harbour", description:"", address:"Shop 108 Secret Harbour Square, 420 Secret Harbour bvd, Secret Harbour WA 6172", city:"Secret Harbour", state:"WA", country:"Australia", postcode:"6172", latitude:-32.393998, longitude:115.743871, phone:"08 9527 4502", bookingUrl:"#scs-ols-widget=sites/69229/services" },
+    { id:"salon-9603136", title:"Ella Baché Springfield", description:"", address:"shop s220/1 Main Street, Springfield Central QLD 4300, Australia", city:"Springfield Central", state:"QLD", country:"Australia", postcode:"4300", latitude:-27.677924, longitude:152.901947, phone:"07 3470 0744", bookingUrl:"#scs-ols-widget=sites/34911/services" },
+    { id:"salon-9603102", title:"Ella Baché Springwood", description:"", address:"130A Macquarie Road, Springwood NSW 2777", city:"Springwood", state:"NSW", country:"Australia", postcode:"2777", latitude:-33.7017059, longitude:150.5730158, phone:"02 4751 1252", bookingUrl:"#scs-ols-widget=sites/60323/services" },
+    { id:"salon-9603067", title:"Ella Baché Tamworth", description:"", address:"Shop 14, Centrepoint, 374 Peel Street, Tamworth NSW 2340", city:"Tamworth", state:"NSW", country:"Australia", postcode:"2340", latitude:-31.090256, longitude:150.930627, phone:"02 6766 9011", bookingUrl:"#scs-ols-widget=sites/15548/services" },
+    { id:"salon-9603068", title:"Ella Baché Toowoomba", description:"", address:"532 Ruthven Street, Toowoomba QLD 4350", city:"Toowoomba", state:"QLD", country:"Australia", postcode:"4350", latitude:-27.56360515, longitude:151.95348664094018, phone:"07 4659 9922", bookingUrl:"#scs-ols-widget=sites/10995/services" },
+    { id:"salon-9603069", title:"Ella Baché Townsville", description:"", address:"3/119 Charters Towers Rd, Hyde Park QLD 4812, Australia", city:"Hyde Park", state:"QLD", country:"Australia", postcode:"4812", latitude:-19.2834817, longitude:146.7976941, phone:"07 4771 6088", bookingUrl:"#scs-ols-widget=sites/43127/services" },
+    { id:"salon-9603103", title:"Ella Baché Upper Mt Gravatt", description:"", address:"Shop 1 & 2, 2012 Logan Rd, Upper Mt Gravatt QLD 4122", city:"Upper Mt Gravatt", state:"QLD", country:"Australia", postcode:"4122", latitude:-27.558857, longitude:153.081227, phone:"07 3849 7974", bookingUrl:"https://www.ellabache.com.au/pages/uppermtgravatt" },
+    { id:"salon-9603070", title:"Ella Baché West Lindfield", description:"", address:"6 Moore Ave, Lindfield NSW 2070, Australia", city:"Lindfield", state:"NSW", country:"Australia", postcode:"2070", latitude:-33.7777231, longitude:151.1501488, phone:"02 9416 3145", bookingUrl:"#scs-ols-widget=sites/41519/services" },
+    { id:"salon-9603071", title:"Ella Baché Whitford", description:"", address:"Westfield Whitford City Shopping Centre, Hillarys WA 6025", city:"Hillarys", state:"WA", country:"Australia", postcode:"6025", latitude:-31.797188, longitude:115.749372, phone:"08 9401 5221", bookingUrl:"#scs-ols-widget=sites/42997/services" },
+    { id:"salon-49641193", title:"Eternal Beauty", description:"", address:"153 Bay St, Port Melbourne VIC 3207, Australia", city:"Port Melbourne", state:"VIC", country:"Australia", postcode:"3207", latitude:-37.83980200000001, longitude:144.940906, phone:"03 9681 9100", bookingUrl:"https://e-beauty.com.au/" },
+    { id:"salon-13501453", title:"Reservoir Skin Fitness Centre", description:"", address:"227A Broadway, Reservoir VIC 3073, Australia", city:"Reservoir", state:"VIC", country:"Australia", postcode:"3073", latitude:-37.7179453, longitude:145.0172177, phone:"(03) 9460 6363", bookingUrl:"http://www.reservoirskinfitness.com.au" },
+    { id:"salon-9603106", title:"Serenity Skin & Body Care", description:"", address:"39 Yarra St, Geelong VIC 3220, Australia", city:"Geelong", state:"VIC", country:"Australia", postcode:"3220", latitude:-38.1484313, longitude:144.36331497607983, phone:"03 5224 1122", bookingUrl:"#scs-ols-widget=sites/66009/services" },
+    { id:"salon-9603108", title:"West Pymble Beauty Therapy", description:"", address:"13/75-77 Kendall St, West Pymble NSW 2073, Australia", city:"West Pymble", state:"NSW", country:"Australia", postcode:"2073", latitude:-33.760923, longitude:151.129019, phone:"02 9499 6429", bookingUrl:"https://www.ellabache.com.au/pages/ella-bache-west-pymble" }
+  ];
+
+  function loadSalons(){
+    return SALONS.slice();
+  }
+
+  var state = {
+    popupOpen: false,
+    searchQuery: "",
+    detectedLocation: null,
+    selectedLocation: null,
+    userLocation: null,
+    salons: loadSalons(),
+    filteredSalons: [],
+    selectedSalon: null,
+    expandedSalon: null,
+    isLoadingLocation: false,
+    locationPermission: "unknown",
+    externalGeoActive: false,   // true once an API geocode result is driving the list
+    externalGeoQuery: null      // the raw search text that produced that result
+  };
+
+  var $search      = document.getElementById("salonSearchInput");
+  var $clear       = document.getElementById("salonSearchClear");
+  var $emptyClear  = document.getElementById("salonEmptyClear");
+  var $locateBtn   = document.getElementById("salonLocateBtn");
+  var $useLocBtn   = document.getElementById("salonUseLocationBtn");
+  var $permBox     = document.getElementById("salonPermissionBox");
+  var $status      = document.getElementById("salonSearchStatus");
+  var $list        = document.getElementById("salonList");
+  var $listHeading = document.getElementById("salonListHeading");
+  var $emptyState  = document.getElementById("salonEmptyState");
+  var $suggestions = document.getElementById("salonSuggestions");
+
+  function toRad(deg){ return deg * Math.PI / 180; }
+
+  function haversineKm(lat1, lon1, lat2, lon2){
+    var R = 6371;
+    var dLat = toRad(lat2 - lat1);
+    var dLon = toRad(lon2 - lon1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  }
+
+  function formatDistance(km){
+    var value = distanceUnit === "miles" ? km * 0.621371 : km;
+    var unitLabel = distanceUnit === "miles" ? "mi" : "km";
+    return value.toFixed(1) + " " + unitLabel;
+  }
+
+  var GEOCODE_INDEX = [
+    { match: ["berri", "berri sa"], lat:-34.2864408, lng:140.600384, label:"Berri, SA" },
+    { match: ["caulfield south", "caulfield south vic"], lat:-37.89799956803332, lng:145.01284545232247, label:"Caulfield South, VIC" },
+    { match: ["aitkenvale", "aitkenvale qld"], lat:-19.29886905, lng:146.76309283766136, label:"Aitkenvale, QLD" },
+    { match: ["armidale", "armidale nsw"], lat:-30.5119248, lng:151.6658905, label:"Armidale, NSW" },
+    { match: ["artarmon", "artarmon nsw"], lat:-33.8108139, lng:151.1801374, label:"Artarmon, NSW" },
+    { match: ["bairnsdale", "bairnsdale vic"], lat:-37.8240553, lng:147.6285324, label:"Bairnsdale, VIC" },
+    { match: ["balwyn", "balwyn vic"], lat:-37.8128179, lng:145.0812049, label:"Balwyn, VIC" },
+    { match: ["beaumaris", "beaumaris vic"], lat:-37.9772477, lng:145.0313949, label:"Beaumaris, VIC" },
+    { match: ["bendigo", "bendigo vic"], lat:-36.768355, lng:144.2706849, label:"Bendigo, VIC" },
+    { match: ["blackburne square  berwick", "blackburne square  berwick vic"], lat:-38.0299548, lng:145.3461313, label:"Blackburne Square  Berwick, VIC" },
+    { match: ["bondi junction", "bondi junction nsw"], lat:-33.8919218, lng:151.2503466, label:"Bondi Junction, NSW" },
+    { match: ["bowral", "bowral nsw"], lat:-34.4782385, lng:150.4177419310493, label:"Bowral, NSW" },
+    { match: ["mitchelton", "mitchelton qld"], lat:-27.409039, lng:152.979808, label:"Mitchelton, QLD" },
+    { match: ["bundaberg", "bundaberg qld"], lat:-24.881353, lng:152.326491, label:"Bundaberg, QLD" },
+    { match: ["cairns", "cairns qld"], lat:-16.920872, lng:145.774874, label:"Cairns, QLD" },
+    { match: ["capalaba", "capalaba qld"], lat:-27.523383683165854, lng:153.19069613891125, label:"Capalaba, QLD" },
+    { match: ["carindale", "carindale qld"], lat:-27.502855, lng:153.102372, label:"Carindale, QLD" },
+    { match: ["charlestown", "charlestown nsw"], lat:-32.964237, lng:151.697126, label:"Charlestown, NSW" },
+    { match: ["chatswood", "chatswood nsw"], lat:-33.796815, lng:151.185148, label:"Chatswood, NSW" },
+    { match: ["chermside", "chermside qld"], lat:-27.38392705, lng:153.03147771849655, label:"Chermside, QLD" },
+    { match: ["coffs harbour", "coffs harbour nsw"], lat:-30.299132, lng:153.117481, label:"Coffs Harbour, NSW" },
+    { match: ["coogee", "coogee nsw"], lat:-33.920156, lng:151.254038, label:"Coogee, NSW" },
+    { match: ["coolangatta", "coolangatta qld"], lat:-28.168687, lng:153.541835, label:"Coolangatta, QLD" },
+    { match: ["upper coomera", "upper coomera qld"], lat:-27.8516674, lng:153.3000894, label:"Upper Coomera, QLD" },
+    { match: ["dalby", "dalby qld"], lat:-27.178814, lng:151.26522, label:"Dalby, QLD" },
+    { match: ["dubbo", "dubbo nsw"], lat:-32.24567415, lng:148.6047685500814, label:"Dubbo, NSW" },
+    { match: ["eltham", "eltham vic"], lat:-37.7149, lng:145.148431, label:"Eltham, VIC" },
+    { match: ["fannie bay", "fannie bay nt"], lat:-12.423501, lng:130.836507, label:"Fannie Bay, NT" },
+    { match: ["fortitude valley", "fortitude valley qld"], lat:-27.453206822527484, lng:153.03898366692536, label:"Fortitude Valley, QLD" },
+    { match: ["gladesville", "gladesville nsw"], lat:-33.831675, lng:151.127237, label:"Gladesville, NSW" },
+    { match: ["glenbrook", "glenbrook nsw"], lat:-33.766807, lng:150.623147, label:"Glenbrook, NSW" },
+    { match: ["gunnedah", "gunnedah nsw"], lat:-30.977963726325733, lng:150.25273321947634, label:"Gunnedah, NSW" },
+    { match: ["hampton", "hampton vic"], lat:-37.9389247, lng:145.0022448, label:"Hampton, VIC" },
+    { match: ["hobart", "hobart tas"], lat:-42.881116, lng:147.3252888, label:"Hobart, TAS" },
+    { match: ["ipswich", "ipswich qld"], lat:-27.606868, lng:152.758666, label:"Ipswich, QLD" },
+    { match: ["joondalup", "joondalup wa"], lat:-31.743801, lng:115.766495, label:"Joondalup, WA" },
+    { match: ["mackay", "mackay qld"], lat:-21.1399791, lng:149.1861114, label:"Mackay, QLD" },
+    { match: ["mordialloc", "mordialloc vic"], lat:-38.0063501, lng:145.0866428, label:"Mordialloc, VIC" },
+    { match: ["newmarket", "newmarket qld"], lat:-27.436939386591238, lng:153.00809309680673, label:"Newmarket, QLD" },
+    { match: ["nowra", "nowra nsw"], lat:-34.877312, lng:150.600029, label:"Nowra, NSW" },
+    { match: ["orbost", "orbost vic"], lat:-37.70502211276957, lng:148.45570722883565, label:"Orbost, VIC" },
+    { match: ["broadbeach", "broadbeach qld"], lat:-28.035841, lng:153.426804, label:"Broadbeach, QLD" },
+    { match: ["palmerston city", "palmerston city nt"], lat:-12.480202, lng:130.984948, label:"Palmerston City, NT" },
+    { match: ["penrith", "penrith nsw"], lat:-33.7536414, lng:150.6971876, label:"Penrith, NSW" },
+    { match: ["perth", "perth wa"], lat:-31.953673, lng:115.855138, label:"Perth, WA" },
+    { match: ["port macquarie", "port macquarie nsw"], lat:-31.429128031610773, lng:152.9111939856343, label:"Port Macquarie, NSW" },
+    { match: ["rye", "rye vic"], lat:-38.3709927, lng:144.8307784, label:"Rye, VIC" },
+    { match: ["sale", "sale vic"], lat:-38.1115816, lng:147.0627935, label:"Sale, VIC" },
+    { match: ["secret harbour", "secret harbour wa"], lat:-32.393998, lng:115.743871, label:"Secret Harbour, WA" },
+    { match: ["springfield central", "springfield central qld"], lat:-27.677924, lng:152.901947, label:"Springfield Central, QLD" },
+    { match: ["springwood", "springwood nsw"], lat:-33.7017059, lng:150.5730158, label:"Springwood, NSW" },
+    { match: ["tamworth", "tamworth nsw"], lat:-31.090256, lng:150.930627, label:"Tamworth, NSW" },
+    { match: ["toowoomba", "toowoomba qld"], lat:-27.56360515, lng:151.95348664094018, label:"Toowoomba, QLD" },
+    { match: ["hyde park", "hyde park qld"], lat:-19.2834817, lng:146.7976941, label:"Hyde Park, QLD" },
+    { match: ["upper mt gravatt", "upper mt gravatt qld"], lat:-27.558857, lng:153.081227, label:"Upper Mt Gravatt, QLD" },
+    { match: ["lindfield", "lindfield nsw"], lat:-33.7777231, lng:151.1501488, label:"Lindfield, NSW" },
+    { match: ["hillarys", "hillarys wa"], lat:-31.797188, lng:115.749372, label:"Hillarys, WA" },
+    { match: ["port melbourne", "port melbourne vic"], lat:-37.83980200000001, lng:144.940906, label:"Port Melbourne, VIC" },
+    { match: ["balmain", "balmain nsw"], lat:-33.8597566, lng:151.1823571, label:"Balmain, NSW" },
+    { match: ["reservoir", "reservoir vic"], lat:-37.7179453, lng:145.0172177, label:"Reservoir, VIC" },
+    { match: ["geelong", "geelong vic"], lat:-38.1484313, lng:144.36331497607983, label:"Geelong, VIC" },
+    { match: ["west pymble", "west pymble nsw"], lat:-33.760923, lng:151.129019, label:"West Pymble, NSW" }
+  ];
+
+  function geocodeQuery(query){
+    var q = query.trim().toLowerCase();
+    if(!q || q.length < 3) return null;
+    for(var i = 0; i < GEOCODE_INDEX.length; i++){
+      var entry = GEOCODE_INDEX[i];
+      for(var j = 0; j < entry.match.length; j++){
+        if(q.indexOf(entry.match[j]) !== -1 || entry.match[j].indexOf(q) === 0){
+          return { lat: entry.lat, lng: entry.lng, label: entry.label };
+        }
+      }
+    }
+    return null;
+  }
+
+  // ---------- External geocoding fallback (Nominatim / OpenStreetMap) ----------
+  // Used only when a search doesn't match the local GEOCODE_INDEX AND doesn't
+  // text-match any salon's address/city/postcode. Results are cached per query.
+  // NOTE: Nominatim's usage policy caps free use at ~1 req/sec and isn't meant
+  // for heavy production traffic. If this page gets significant search volume,
+  // swap this function's fetch URL/response parsing for Google Geocoding API
+  // or Mapbox — everything else in the file stays the same.
+  var geocodeCache = {};
+  var searchSeq = 0;
+
+  function geocodeViaApi(query){
+    var cacheKey = query.trim().toLowerCase();
+    if(geocodeCache.hasOwnProperty(cacheKey)){
+      return Promise.resolve(geocodeCache[cacheKey]);
+    }
+    var url = "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=au&q=" + encodeURIComponent(query);
+    return fetch(url, { headers: { "Accept": "application/json" } })
+      .then(function(res){
+        if(!res.ok) throw new Error("geocode failed");
+        return res.json();
+      })
+      .then(function(data){
+        var result = null;
+        if(data && data.length){
+          var hit = data[0];
+          result = {
+            lat: parseFloat(hit.lat),
+            lng: parseFloat(hit.lon),
+            label: hit.display_name ? hit.display_name.split(",").slice(0, 2).join(",").trim() : query
+          };
+        }
+        geocodeCache[cacheKey] = result;
+        return result;
+      });
+  }
+
+  // Reverse-geocodes lat/lng into a short place label (e.g. "Fitzroy, VIC")
+  // via Nominatim, so the UI can show the user's actual suburb instead of
+  // a generic "your current location" string. Same rate-limit caveat as
+  // geocodeViaApi above applies.
+  function reverseGeocodeViaApi(lat, lng){
+    var url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + lat + "&lon=" + lng + "&zoom=14";
+    return fetch(url, { headers: { "Accept": "application/json" } })
+      .then(function(res){
+        if(!res.ok) throw new Error("reverse geocode failed");
+        return res.json();
+      })
+      .then(function(data){
+        if(!data || !data.address) return null;
+        var addr = data.address;
+        var locality = addr.suburb || addr.neighbourhood || addr.village || addr.town || addr.city_district || addr.city;
+        var region = addr.state_district || addr.state || addr.city;
+        var parts = [locality, region].filter(Boolean);
+        // avoid "Melbourne, Melbourne" style dupes
+        if(parts.length === 2 && parts[0] === parts[1]) parts = [parts[0]];
+        return parts.length ? parts.join(", ") : null;
+      })
+      .catch(function(){ return null; });
+  }
+
+  function textMatches(salon, query){
+    if(!query) return true;
+    var haystack = [salon.title, salon.address, salon.city, salon.country, salon.state, salon.country, salon.postcode]
+      .filter(Boolean).join(" ").toLowerCase();
+    return haystack.indexOf(query.toLowerCase()) !== -1;
+  }
+
+  function recalc(){
+    var origin = state.selectedLocation || state.detectedLocation;
+    var geoMatch = state.searchQuery ? geocodeQuery(state.searchQuery) : null;
+    // apiActive: an external (Nominatim) geocode is currently backing the *current* search text
+    var apiActive = state.externalGeoActive && state.externalGeoQuery === state.searchQuery;
+    var skipTextFilter = !!geoMatch || apiActive;
+
+    var effectiveOrigin = geoMatch || (apiActive ? state.selectedLocation : null) || origin;
+
+    var list = state.salons.map(function(s){
+      var withDistance = Object.assign({}, s);
+      if(effectiveOrigin){
+        withDistance.distance = haversineKm(effectiveOrigin.lat, effectiveOrigin.lng, s.latitude, s.longitude);
+      }
+      return withDistance;
+    });
+
+    if(state.searchQuery && !skipTextFilter){
+      list = list.filter(function(s){ return textMatches(s, state.searchQuery); });
+    }
+
+    list.sort(function(a, b){
+      if(a.distance != null && b.distance != null) return a.distance - b.distance;
+      return a.title.localeCompare(b.title);
+    });
+
+    state.filteredSalons = list;
+    render();
+  }
+
+  function escapeHtml(str){
+    return String(str || "").replace(/[&<>"']/g, function(c){
+      return { "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c];
+    });
+  }
+
+  function buildBookingUrl(salon){
+    if(!salon.bookingUrl) return "";
+
+    var hash = "";
+    if(salon.bookingWidgetSiteId){
+      hash = "scs-ols-widget=sites/" + salon.bookingWidgetSiteId + "/services";
+    } else if(salon.bookingHash){
+      hash = salon.bookingHash.replace(/^#/, "");
+    }
+
+    if(!hash) return salon.bookingUrl;
+
+    var base = salon.bookingUrl.split("#")[0];
+    return base + "#" + hash;
+  }
+
+  function salonRowTemplate(salon, index){
+    var isOpen = state.expandedSalon === salon.id;
+    var distanceHtml = salon.distance != null
+      ? '<span class="salon-item__distance">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m3 11 18-7-7 18-2-7-9-4Z"/></svg>' +
+          formatDistance(salon.distance) +
+        '</span>'
+      : "";
+
+    var phoneHtml = salon.phone
+      ? '<div class="salon-item__row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.11 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92Z"/></svg>' +
+          '<a href="tel:' + escapeHtml(salon.phone.replace(/\s+/g,'')) + '">' + escapeHtml(salon.phone) + '</a></div>'
+      : "";
+
+    var bookingUrl = buildBookingUrl(salon);
+    var isEnquiry = /^https?:\/\//i.test(salon.bookingUrl || "");
+    var bookHtml = bookingUrl
+      ? '<a class="button button--full-width ' + (isEnquiry ? 'scs-enquiry-button' : 'scs-show-widget-button select-salon-shortcutsbooking') + '" href="' + escapeHtml(bookingUrl) + '"' +
+          (isEnquiry ? ' target="_blank" rel="noopener"' : '') +
+          '>' + (isEnquiry ? 'Enquire Now' : 'Book Now') + '</a>'
+      : "";
+
+    var cityLine = [salon.city, salon.state].filter(Boolean).join(" ");
+    var descHtml = salon.description
+      ? '<p class="salon-item__desc">' + escapeHtml(salon.description) + '</p>'
+      : "";
+
+    return (
+      '<div class="salon-item' + (isOpen ? ' is-open' : '') + '" data-salon-id="' + salon.id + '">' +
+        '<button type="button" class="salon-item__summary" aria-expanded="' + isOpen + '" aria-controls="salon-details-' + index + '">' +
+          '<div class="salon-item__body">' +
+            '<p class="salon-item__name">' + escapeHtml(salon.title) + '</p>' +
+            '<p class="salon-item__meta">' + escapeHtml(cityLine) + distanceHtml + '</p>' +
+          '</div>' +
+          '<svg class="salon-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>' +
+        '</button>' +
+        '<div class="salon-item__details" id="salon-details-' + index + '">' +
+          '<div class="salon-item__details-inner">' +
+            descHtml +
+            '<div class="salon-item__row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>' +
+              '<span>' + escapeHtml(salon.address) + '</span></div>' +
+            phoneHtml +
+            bookHtml +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function render(){
+    var hasResults = state.filteredSalons.length > 0;
+    $emptyState.classList.toggle("is-visible", !hasResults);
+    $list.style.display = hasResults ? "" : "none";
+
+    $listHeading.textContent = state.selectedLocation
+      ? "Nearest to " + state.selectedLocation.label
+      : (state.searchQuery ? "Search Results" : "Nearby Salons");
+
+    if(hasResults){
+      $list.innerHTML = state.filteredSalons.map(salonRowTemplate).join("");
+    } else {
+      $list.innerHTML = "";
+    }
+
+    $clear.classList.toggle("is-visible", !!state.searchQuery);
+  }
+
+  var debounceTimer = null;
+  function debounce(fn, wait){
+    return function(){
+      var args = arguments;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function(){ fn.apply(null, args); }, wait);
+    };
+  }
+
+  function applySearchQuery(value){
+    state.searchQuery = value;
+    state.externalGeoActive = false;
+
+    var geoMatch = geocodeQuery(value);
+    if(geoMatch){
+      state.selectedLocation = geoMatch;
+      setStatus('📍 Showing salons near ' + geoMatch.label, false);
+      recalc();
+      return;
+    }
+
+    if(!value.trim()){
+      state.selectedLocation = state.detectedLocation || null;
+      setStatus(state.detectedLocation ? "📍 Using your current location" : "", true);
+      recalc();
+      return;
+    }
+
+    setStatus('Filtering by "' + value.trim() + '"', true);
+    recalc();
+
+    // Only fall back to the geocoding API when the local index AND the text
+    // filter both come up empty (e.g. a postcode or suburb not in our list).
+    if(value.trim().length < 3 || state.filteredSalons.length > 0) return;
+
+    var seq = ++searchSeq;
+    setStatus('Searching for "' + value.trim() + '"…', true);
+
+    geocodeViaApi(value.trim()).then(function(result){
+      if(seq !== searchSeq) return; // user kept typing — ignore this stale response
+      if(!result){
+        setStatus('No salons found near "' + value.trim() + '". Try another postcode, suburb or city.', true);
+        return;
+      }
+      state.selectedLocation = result;
+      state.externalGeoActive = true;
+      state.externalGeoQuery = value;
+      setStatus('📍 No exact match for "' + value.trim() + '" — showing all salons sorted by distance from ' + result.label, false);
+      recalc();
+    }).catch(function(){
+      if(seq !== searchSeq) return;
+      setStatus("Couldn't look up that location — check your connection and try again.", true);
+    });
+  }
+
+  var handleSearchInput = debounce(applySearchQuery, 220);
+
+  $search.addEventListener("input", function(e){
+    var value = e.target.value;
+    handleSearchInput(value);
+    updateSuggestions(value);
+  });
+
+  $search.addEventListener("focus", function(e){
+    updateSuggestions(e.target.value);
+  });
+
+  function clearSearch(){
+    $search.value = "";
+    state.searchQuery = "";
+    state.selectedLocation = state.detectedLocation;
+    state.externalGeoActive = false;
+    state.externalGeoQuery = null;
+    setStatus(state.detectedLocation ? "📍 Using your current location" : "", true);
+    recalc();
+    closeSuggestions();
+    $search.focus();
+  }
+  $clear.addEventListener("click", clearSearch);
+  $emptyClear.addEventListener("click", clearSearch);
+
+  function setStatus(text, muted){
+    $status.textContent = text || "";
+    $status.classList.toggle("is-muted", !!muted);
+  }
+
+  var suggestionItems = [];
+  var suggestionActiveIndex = -1;
+
+  function matchesSuggestion(salon, q){
+    var haystack = [salon.title, salon.address, salon.city, salon.state, salon.postcode]
+      .filter(Boolean).join(" ").toLowerCase();
+    return haystack.indexOf(q) !== -1;
+  }
+
+  function updateSuggestions(rawValue){
+    var q = (rawValue || "").trim().toLowerCase();
+
+    if(!q){
+      closeSuggestions();
+      return;
+    }
+
+    suggestionItems = state.salons.filter(function(s){ return matchesSuggestion(s, q); }).slice(0, 8);
+    suggestionActiveIndex = -1;
+    renderSuggestions(q);
+  }
+
+  function renderSuggestions(q){
+    if(!suggestionItems.length){
+      $suggestions.innerHTML = '<li class="salon-suggestions__empty">No matching store addresses</li>';
+      $suggestions.classList.add("is-open");
+      $search.setAttribute("aria-expanded", "true");
+      return;
+    }
+
+    $suggestions.innerHTML = suggestionItems.map(function(s, i){
+      return (
+        '<li role="option" id="salon-suggestion-' + i + '">' +
+          '<button type="button" class="salon-suggestions__item' + (i === suggestionActiveIndex ? ' is-active' : '') + '" data-suggestion-index="' + i + '">' +
+            '<p class="salon-suggestions__name">' + escapeHtml(s.title) + '</p>' +
+            '<p class="salon-suggestions__address">' + escapeHtml(s.address) + '</p>' +
+          '</button>' +
+        '</li>'
+      );
+    }).join("");
+
+    $suggestions.classList.add("is-open");
+    $search.setAttribute("aria-expanded", "true");
+  }
+
+  function closeSuggestions(){
+    suggestionItems = [];
+    suggestionActiveIndex = -1;
+    $suggestions.classList.remove("is-open");
+    $suggestions.innerHTML = "";
+    $search.setAttribute("aria-expanded", "false");
+  }
+
+  function selectSuggestion(index){
+    var salon = suggestionItems[index];
+    if(!salon) return;
+
+    $search.value = salon.address;
+    state.searchQuery = "";
+    state.externalGeoActive = false;
+    state.externalGeoQuery = null;
+    state.selectedLocation = {
+      lat: salon.latitude,
+      lng: salon.longitude,
+      label: [salon.city, salon.state].filter(Boolean).join(", ") || salon.title
+    };
+    setStatus('📍 Showing salons near ' + salon.address, false);
+    closeSuggestions();
+    recalc();
+
+    state.expandedSalon = salon.id;
+    state.selectedSalon = salon.id;
+    render();
+    syncWithMapbox(salon.id);
+    var openedEl = $list.querySelector('[data-salon-id="' + salon.id + '"]');
+    if(openedEl) openedEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+
+  $suggestions.addEventListener("click", function(e){
+    var btn = e.target.closest(".salon-suggestions__item");
+    if(!btn) return;
+    selectSuggestion(parseInt(btn.getAttribute("data-suggestion-index"), 10));
+  });
+
+  $search.addEventListener("keydown", function(e){
+    if(!$suggestions.classList.contains("is-open") || !suggestionItems.length) return;
+
+    if(e.key === "ArrowDown"){
+      e.preventDefault();
+      suggestionActiveIndex = Math.min(suggestionActiveIndex + 1, suggestionItems.length - 1);
+      renderSuggestions();
+    } else if(e.key === "ArrowUp"){
+      e.preventDefault();
+      suggestionActiveIndex = Math.max(suggestionActiveIndex - 1, 0);
+      renderSuggestions();
+    } else if(e.key === "Enter"){
+      if(suggestionActiveIndex >= 0){
+        e.preventDefault();
+        selectSuggestion(suggestionActiveIndex);
+      }
+    } else if(e.key === "Escape"){
+      closeSuggestions();
+    }
+  });
+
+  document.addEventListener("click", function(e){
+    if(!e.target.closest(".salon-search__wrap")){
+      closeSuggestions();
+    }
+  });
+
+  function requestLocation(){
+    if(!("geolocation" in navigator)){
+      state.locationPermission = "unavailable";
+      $permBox.classList.add("is-visible");
+      setStatus("Location isn't available on this device — search manually instead.", true);
+      return;
+    }
+
+    state.isLoadingLocation = true;
+    $locateBtn.classList.add("is-loading");
+    setStatus("Finding salons near you…", true);
+
+    navigator.geolocation.getCurrentPosition(
+      function(position){
+        state.isLoadingLocation = false;
+        $locateBtn.classList.remove("is-loading");
+        state.locationPermission = "granted";
+        $permBox.classList.remove("is-visible");
+
+        var coords = { lat: position.coords.latitude, lng: position.coords.longitude, label: "your current location" };
+        state.userLocation = coords;
+        state.detectedLocation = coords;
+
+        if(!state.searchQuery){
+          state.selectedLocation = coords;
+          $search.value = "";
+          setStatus("📍 Finding your location…", true);
+        }
+        recalc();
+
+        reverseGeocodeViaApi(coords.lat, coords.lng).then(function(label){
+          if(!label) return;
+          coords.label = label; // updates in place — selectedLocation/detectedLocation both reference this object
+
+          if(state.selectedLocation === coords){
+            setStatus("📍 Near " + label, false);
+          }
+          render(); // refresh the "Nearest to …" heading with the real label
+        });
+      },
+      function(error){
+        state.isLoadingLocation = false;
+        $locateBtn.classList.remove("is-loading");
+        state.locationPermission = "denied";
+        $permBox.classList.add("is-visible");
+        setStatus("Couldn't detect your location — search by city or postcode instead.", true);
+        recalc();
+      },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 5 * 60 * 1000 }
+    );
+  }
+
+  $locateBtn.addEventListener("click", requestLocation);
+  $useLocBtn.addEventListener("click", requestLocation);
+
+  $list.addEventListener("click", function(e){
+    var summary = e.target.closest(".salon-item__summary");
+    if(summary){
+      var item = summary.closest(".salon-item");
+      var id = item.getAttribute("data-salon-id");
+
+      state.expandedSalon = (state.expandedSalon === id) ? null : id;
+      state.selectedSalon = state.expandedSalon;
+
+      render();
+
+      if(state.expandedSalon === id){
+        syncWithMapbox(id);
+      }
+      return;
+    }
+
+    forwardShortcutsWidgetClick(e);
+  });
+
+  /* SHORTCUTS WIDGET FORWARDING
+     Book Now links whose href points at the Shortcuts booking widget
+     (contains "scs-ols-widget") get re-rendered every time the salon
+     list updates, so ols-widget.min.js's own one-time, page-load click
+     binding never reaches them. We intercept the click ourselves, copy
+     the real href onto the always-present #scsWidgetProxy anchor (which
+     the widget script DID bind to at page load), and click that instead
+     — its handler reads the href off the clicked element, so this opens
+     the widget for the correct site/service. Any other Book Now link
+     (https, tel:, plain "#anchor", etc.) is left completely alone. */
+  function forwardShortcutsWidgetClick(e){
+    var bookLink = e.target.closest('a[href*="scs-ols-widget"]');
+    if(!bookLink) return;
+
+    e.preventDefault();
+
+    var proxy = document.getElementById("scsWidgetProxy");
+    if(!proxy) return;
+
+    proxy.setAttribute("href", bookLink.getAttribute("href"));
+    proxy.click();
+  }
+
+  function syncWithMapbox(salonId){
+    var salon = state.salons.find(function(s){ return s.id === salonId; });
+    if(!salon) return;
+    document.dispatchEvent(new CustomEvent("salon:selected", { detail: salon }));
+  }
+
+  jQuery(function($){
+    $("#selectSalonBtn").magnificPopup({
+      items: {
+        src: "#select-salon-popup",
+        type: "inline"
+      },
+      mainClass: "salon-selector-mfp-fade",
+      removalDelay: 200,
+      closeBtnInside: false,
+      focus: "#salonSearchInput",
+      midClick: true,
+      callbacks: {
+        beforeOpen: function(){
+          this.st.mainClass = "salon-selector-mfp-fade";
+          this.wrap.addClass("salon-selector-mfp-wrap");
+          this.bgOverlay.addClass("salon-selector-mfp-bg");
+        },
+        open: function(){
+          state.popupOpen = true;
+          recalc();
+          if(state.locationPermission === "unknown"){
+            requestLocation();
+          }
+        },
+        close: function(){
+          state.popupOpen = false;
+        }
+      }
+    });
+
+    {% comment %} $("#salonPopupClose").on("click", function(){
+      $.magnificPopup.close();
+    }); {% endcomment %}
+  });
+
+  recalc();
+
+})();
+</script>
+<link rel="stylesheet" href="https://bookingscontent.shortcutssoftware.com/ols-onlinebooking-ui/assets/ols-widget/dist/ols-widget.min.css" />
+<script
+  data-origin="https://home.shortcutssoftware.com/ellabache"
+  data-company-id="489"
+  data-widget="_s"
+  data-floating-button="false"
+  data-floating-button-text="Book now"
+  data-floating-button-color="#2196F3"
+  data-floating-button-text-color="#FFFFFF"
+  data-side-widget-position="right"
+  data-floating-button-position="right"
+  type="text/javascript"
+  src="{{ 'ols-widget.min.js' | asset_url }}" 
+  defer="defer" >
+</script>

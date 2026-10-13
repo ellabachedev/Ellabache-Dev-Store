@@ -1,0 +1,358 @@
+<style>
+  .gift-card-form{border-bottom:1px solid #b9c0c9; padding-bottom:20px; margin-bottom: 20px;}
+  .gift-card-form .line-item-property__field {display:flex; flex-wrap:nowrap; align-items:center; }
+  .gift-card-form .line-item-property__field label{width:185px; padding:0; color:#001b39;}
+  .gift-card-form .line-item-property__field input[type="text"],
+  .gift-card-form .line-item-property__field input[type="email"]{height:40px;}
+  .gift-card-form .line-item-property__field input[type="text"],
+  .gift-card-form .line-item-property__field input[type="email"],
+  .gift-card-form .line-item-property__field textarea
+  {padding:10px; width:calc(100% - 185px); resize:none; border:1px solid #001e37; }
+  .gift-card-form .input-datepicker{ width:calc(100% - 185px); position:relative;}
+  .gift-card-form .input-datepicker input{width:100% !important;}
+  .gift-card-form .line-item-property__field input[type='checkbox']{margin:0;}
+  .msg.error{border:1px solid #990000; background:#ffe5e5; color:#900; line-height:1.4; padding:5px 10px; font-size:14px;}
+  .gift-card-form .line-item-property__field .input-datepicker:after {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+  content:"";
+  background:url('https://cdn.shopify.com/s/files/1/2999/1646/t/503/assets/icon-calendar.svg') no-repeat;
+  width:14px;
+  height:14px;
+  background-size:14px 14px;
+}
+  @media only screen and (max-width: 480px){
+    .gift-card-form .line-item-property__field{flex-wrap:wrap;}
+    .gift-card-form .line-item-property__field label, .gift-card-form .line-item-property__field input[type="text"], .gift-card-form .line-item-property__field input[type="email"], .gift-card-form .line-item-property__field textarea{width:100%;}
+  }
+</style>
+{% comment %} https://ui-elements-generator.myshopify.com/pages/line-item-property {% endcomment %}
+{% if product.title == 'Beauty Gift Cards' %}
+  <div class="gift-card-form">
+	<p class="line-item-property__field recipientEmailWrap">
+		<label for="recipient-email">Recipient Email</label>
+		<input required class="required" id="recipient-email" type="email" name="properties[RecipientEmail]">
+	</p>
+	<p class="line-item-property__field confirmRecipientEmailWrap">
+		<label for="confirm-recipient-email">Confirm Recipient Email</label>
+		<input required class="required" id="confirm-recipient-email" type="email" name="properties[_ConfirmRecipientEmail]" oninput="check(this)">
+	</p>
+	<p class="line-item-property__field senderNameWrap">
+		<label for="sender-name">Sender Name</label>
+		<input required class="required" id="sender-name" type="text" name="properties[SenderName]">
+	</p>
+	<p class="line-item-property__field recipientNameWrap">
+		<label for="recipient-name">Recipient Name</label>
+		<input required class="required" id="recipient-name" type="text" name="properties[RecipientName]">
+	</p>
+	<p class="line-item-property__field">
+		<label for="gift-card-message">Gift Card Message</label>
+		<textarea id="gift-card-message" name="properties[GiftCardMessage]"></textarea>
+	</p>
+	<p class="line-item-property__field">
+		<label for="send-later">Send on a Specific Date</label>
+		<input id="send-later" type="checkbox">
+	</p>
+	<p class="line-item-property__field senddate sendDateWrap" style="display: none;">
+	</p>
+  </div>
+  <link rel="stylesheet" href="{{ 'ui-datepicker.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'jquery-ui-datepicker.js' | asset_url }}" defer="defer"></script>
+  <script>
+    var datePickerDateFormat = "yy-mm-dd";
+    var reValid = false;
+    var reCreMatch = false;
+    var reFilled = false;
+    var creFilled = false;
+    var snFilled = false;
+    var rnFilled = false;
+    var sdFilled = true;
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( datePickerDateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+      return date;
+    }
+    function isValidEmail(email){
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var isValidEmail = false;
+      if( email != undefined && email != null && email.trim().length > 0 ){
+        isValidEmail = re.test(String(email).toLowerCase());
+      }
+      return isValidEmail;
+    }
+    function removeEmojis(text) {
+      return text.replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, '');
+    }
+    jQuery(document).ready(function($){
+        $('form[data-cart-submit]').on('keyup keypress', function(e) {
+          var keyCode = e.keyCode || e.which;
+          if (keyCode === 13) { 
+            e.preventDefault();
+            return false;
+          }
+        });
+        setTimeout(function(){
+          $('.gift-card-form #recipient-email').val('');
+          $('.gift-card-form #confirm-recipient-email').val('');
+          $('.gift-card-form #sender-name').val('');
+          $('.gift-card-form #recipient-name').val('');
+          $('.gift-card-form #gift-card-message').val('');
+          $('.gift-card-form #send-later').prop('checked', false);
+          if($('.gift-card-form #send-date').length > 0){
+            $('.gift-card-form #send-date').val('');
+          }
+        }, 1000);
+
+        $('#recipient-email').on('focusout', function(){
+          var re = $('#recipient-email').val().trim();
+          $('#recipient-email').val(re);
+          var cre = $('#confirm-recipient-email').val().trim();
+          $('#confirm-recipient-email').val(cre);
+          if(re.length > 0){
+            if(!isValidEmail(re)){
+              $('#reMsg').remove();
+              $('#recipient-email').parents(".recipientEmailWrap").after("<p id='reMsg' class='msg error'>Recipient Email is invalid. Please enter a valid email.</p>");
+              reValid = false;
+              reFilled = true;
+              $(document).trigger('formcustomvalidated');
+            }else{
+              $('#reMsg').remove();
+              reValid = true;
+              reFilled = true;
+              $(document).trigger('formcustomvalidated');
+            }
+          }else{
+            $('#reMsg').remove();
+            $('#recipient-email').parents(".recipientEmailWrap").after("<p id='reMsg' class='msg error'>This is a required field.</p>");
+            reValid = false;
+            reFilled = false;
+            $(document).trigger('formcustomvalidated');
+          }
+          if(re.length > 0 && cre.length > 0){
+            if(re.toLowerCase() == cre.toLowerCase()){ console.log("condition 1-1");
+              $('#creMsg').remove();
+              reCreMatch = true;
+              $(document).trigger('formcustomvalidated');
+            }else{ console.log("condition 1-2");
+              $('#creMsg').remove();
+              $('#confirm-recipient-email').parents(".confirmRecipientEmailWrap").after("<p id='creMsg' class='msg error'>Confirm Recipient Email does not match the Recipient Email</p>");
+              reCreMatch = false;
+              $(document).trigger('formcustomvalidated');
+            }
+          }else{ console.log("condition 1-3");
+            $('#creMsg').remove();
+            reCreMatch = false;
+            $(document).trigger('formcustomvalidated');
+          }
+        });
+        $('#confirm-recipient-email').on('focusout', function(){
+          var re = $('#recipient-email').val().trim();
+          $('#recipient-email').val(re);
+          var cre = $('#confirm-recipient-email').val().trim();
+          $('#confirm-recipient-email').val(cre);
+          if(cre.length < 1){
+            $('#creMsg').remove();
+            $('#confirm-recipient-email').parents(".confirmRecipientEmailWrap").after("<p id='creMsg' class='msg error'>This is a required field.</p>");
+            creFilled = false;
+            $(document).trigger('formcustomvalidated');
+          }else{
+            $('#creMsg').remove();
+            creFilled = true;
+            $(document).trigger('formcustomvalidated');
+          }
+          if(re.length > 0 && cre.length > 0){
+            if(re.toLowerCase() == cre.toLowerCase()){ console.log("condition 2-1");
+              $('#creMsg').remove();
+              reCreMatch = true;
+              $(document).trigger('formcustomvalidated');
+            }else{ console.log("condition 2-2");
+              $('#creMsg').remove();
+              $('#confirm-recipient-email').parents(".confirmRecipientEmailWrap").after("<p id='creMsg' class='msg error'>Confirm Recipient Email does not match the Recipient Email</p>");
+              reCreMatch = false;
+              $(document).trigger('formcustomvalidated');
+            }
+          }else{ console.log("condition 2-3");
+            $('#creMsg').remove();
+            reCreMatch = false;
+            $(document).trigger('formcustomvalidated');
+          }
+        });
+        $('#sender-name').on('focusout', function(){
+          var sn = $('#sender-name').val().trim();
+          $('#sender-name').val(sn);
+          if(sn.length < 1){
+            $('#snMsg').remove();
+            $('#sender-name').parents(".senderNameWrap").after("<p id='snMsg' class='msg error'>This is a required field.</p>");
+            snFilled = false;
+            $(document).trigger('formcustomvalidated');
+          }else{
+            $('#snMsg').remove();
+            snFilled = true;
+            $(document).trigger('formcustomvalidated');
+          }
+        });
+        $('#recipient-name').on('focusout', function(){
+          var rn = $('#recipient-name').val().trim();
+          $('#recipient-name').val(rn);
+          if(rn.length < 1){
+            $('#rnMsg').remove();
+            $('#recipient-name').parents(".recipientNameWrap").after("<p id='rnMsg' class='msg error'>This is a required field.</p>");
+            rnFilled = false;
+            $(document).trigger('formcustomvalidated');
+          }else{
+            $('#rnMsg').remove();
+            rnFilled = true;
+            $(document).trigger('formcustomvalidated');
+          }
+        });
+        $('.sendDateWrap').on('change', '#send-date', function(){
+          var sd = $('#send-date').val().trim();
+          $('#send-date').val(sd);
+          if(sd.length < 1){
+            $('#sdMsg').remove();
+            $('#send-date').parents(".sendDateWrap").after("<p id='sdMsg' class='msg error'>This is a required field.</p>");
+            sdFilled = false;
+            $(document).trigger('formcustomvalidated');
+          }else{
+            $('#sdMsg').remove();
+            sdFilled = true;
+            $(document).trigger('formcustomvalidated');
+          }
+        });
+        $('.add-to-cart').on('mouseover', function(){ console.log('Mouse over Add to Cart');
+          if($('#send-date').length > 0){
+            var sd = $('#send-date').val().trim();
+            $('#send-date').val(sd);
+            if(sd.length < 1){
+              sdFilled = false;
+              $(document).trigger('formcustomvalidated');
+            }else{
+              sdFilled = true;
+              $(document).trigger('formcustomvalidated');
+            }
+          }else{
+            sdFilled = true;
+            $(document).trigger('formcustomvalidated');
+          }
+          if(reFilled === false){
+            $('#reMsg').remove();
+            $('#recipient-email').parents(".recipientEmailWrap").after("<p id='reMsg' class='msg error'>This is a required field.</p>");
+          }else if(reValid === false){
+            $('#reMsg').remove();
+            $('#recipient-email').parents(".recipientEmailWrap").after("<p id='reMsg' class='msg error'>Recipient Email is invalid. Please enter a valid email.</p>");
+          }else{
+            $('#reMsg').remove();
+          }
+          if(creFilled === false){
+            $('#creMsg').remove();
+            $('#confirm-recipient-email').parents(".confirmRecipientEmailWrap").after("<p id='creMsg' class='msg error'>This is a required field.</p>");
+          }else if(reCreMatch === false){
+            $('#creMsg').remove();
+            $('#confirm-recipient-email').parents(".confirmRecipientEmailWrap").after("<p id='creMsg' class='msg error'>Confirm Recipient Email does not match the Recipient Email</p>");
+          }else{
+            $('#creMsg').remove();
+          }
+          if(snFilled === false){
+            $('#snMsg').remove();
+            $('#sender-name').parents(".senderNameWrap").after("<p id='snMsg' class='msg error'>This is a required field.</p>");
+          }
+          if(rnFilled === false){
+            $('#rnMsg').remove();
+            $('#recipient-name').parents(".recipientNameWrap").after("<p id='rnMsg' class='msg error'>This is a required field.</p>");
+          }
+          if(sdFilled === false){
+            $('#sdMsg').remove();
+            $('#send-date').parents(".sendDateWrap").after("<p id='sdMsg' class='msg error'>This is a required field.</p>");
+          }
+        });
+        $(document).on('formcustomvalidated', function(){
+          if(reValid === true && reCreMatch === true && reFilled === true && creFilled === true && snFilled === true && rnFilled === true && sdFilled === true){
+            $('.add-to-cart button').prop('disabled', false);
+          }else{
+            $('.add-to-cart button').prop('disabled', true);
+          }
+        });
+
+        $('.gift-card-form #recipient-email').on('keyup change', function(){
+          var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+          var cartAddClaims = JSON.parse(cartAddClaimsStr);
+          cartAddClaims[0].properties.RecipientEmail = $(this).val();
+          cartAddClaimsStr = JSON.stringify(cartAddClaims);
+          $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+        });
+        $('.gift-card-form #confirm-recipient-email').on('keyup change', function(){
+          var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+          var cartAddClaims = JSON.parse(cartAddClaimsStr);
+          cartAddClaims[0].properties._ConfirmRecipientEmail = $(this).val();
+          cartAddClaimsStr = JSON.stringify(cartAddClaims);
+          $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+        });
+        $('.gift-card-form #sender-name').on('keyup change', function(){
+          var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+          var cartAddClaims = JSON.parse(cartAddClaimsStr);
+          cartAddClaims[0].properties.SenderName = $(this).val();
+          cartAddClaimsStr = JSON.stringify(cartAddClaims);
+          $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+        });
+        $('.gift-card-form #recipient-name').on('keyup change', function(){
+          var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+          var cartAddClaims = JSON.parse(cartAddClaimsStr);
+          cartAddClaims[0].properties.RecipientName = $(this).val();
+          cartAddClaimsStr = JSON.stringify(cartAddClaims);
+          $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+        });
+        $('.gift-card-form #gift-card-message').on('keyup change', function(){
+          var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+          var cartAddClaims = JSON.parse(cartAddClaimsStr);
+          cartAddClaims[0].properties.GiftCardMessage = $(this).val();
+          cartAddClaimsStr = JSON.stringify(cartAddClaims);
+          $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+        });
+
+      	$('#send-later').on('click', function(e){
+              $('#sdMsg').remove();
+      		if($(this).is(':checked')){
+      			$('.senddate').show();
+      			$('.senddate').html('<label for="send-date">Date to Send on</label><div class="input-datepicker notranslate" translate="no"><input required class="required notranslate" id="send-date" type="text" name="properties[EcertDeliveryDate]" placeholder="YYYY-MM-DD" readonly></div>');
+      			var sendDate = $( "#send-date" )
+            .datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate : 1,
+              numberOfMonths: 1
+            })
+            .on( "change", function() {
+              sendDate.datepicker();
+              $('.ui-datepicker').addClass('notranslate');
+
+              var cartAddClaimsStr = $('button#pdp-addtocart').attr('data-cart-addclaims');
+              var cartAddClaims = JSON.parse(cartAddClaimsStr);
+              cartAddClaims[0].properties.EcertDeliveryDate = $(this).val();
+              cartAddClaimsStr = JSON.stringify(cartAddClaims);
+              $('button#pdp-addtocart').attr('data-cart-addclaims', cartAddClaimsStr);
+            });
+                $('.ui-datepicker').addClass('notranslate');
+                sdFilled = false;
+                $(document).trigger('formcustomvalidated');
+                $('.add-to-cart button').prop('disabled', false);
+      		}else{
+      			$('.senddate').hide();
+      			$('.senddate').html('');
+                  sdFilled = true;
+                  $(document).trigger('formcustomvalidated');
+      		}
+      	});
+    });
+    function check(input) {
+      if (input.value.toLowerCase() != document.getElementById('recipient-email').value.toLowerCase()) {
+          input.setCustomValidity('Recipient email and confirmation must match.');
+      } else {
+          input.setCustomValidity('');
+      }
+    }
+  </script>
+{% endif %}

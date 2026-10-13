@@ -1,0 +1,61 @@
+.breadcrumbs {
+  border-bottom: 1px solid #00000026;
+  margin-bottom: 20px; /* Mobile default */
+  border-top: 1px solid #00000026;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  background-color: #ffffff;
+}
+.breadcrumbs.page-width {
+  max-width: 100%;
+}
+.breadcrumbs ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.breadcrumbs ol li {
+  list-style: none;
+  display: inline-block;
+  flex-shrink: 0; /* prevents shrinking when overflowed */
+}
+.breadcrumbs ol li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000000;
+  letter-spacing: 0.2px;
+  display: block;
+  padding: 10.5px 13px; /* Mobile default */
+  line-height: 1.4;
+  font-weight: 400;
+  font-size: 10px; /* Mobile default */
+  position: relative;
+}
+.breadcrumbs ol li:first-child a {
+  padding-left: 0;
+}
+.breadcrumbs ol li a:after {
+  content: '/';
+  position: absolute;
+  right: -2.5px;
+  top: 50%;
+  color: #cacaca;
+  line-height: 1.4;
+  padding: 5px 0;
+  transform: translateY(-50%);
+}
+.breadcrumbs ol li:last-child a:after {
+  display: none;
+}
+/* Scale up styles for tablets and above */
+@media only screen and (min-width: 768px) {
+  .breadcrumbs {
+    margin-bottom: 50px;
+  }
+  .breadcrumbs ol li a {
+    font-size: inherit; /* Let it inherit default or global font-size */
+    padding: 15px;
+  }
+}

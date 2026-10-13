@@ -1,0 +1,281 @@
+{%- if product.price > 0 -%}
+  {%- if product.price > 0 -%}
+    {%- if product.available -%}
+      {%- if product.template_suffix != 'gift_card' -%}
+        {%- if product.tags contains 'badge new' -%}
+          <span class="badge new">New</span>
+        {%- endif -%}
+        <span
+          data-w-variant-quantity="{{ product.variants[0].inventory_quantity }}"
+          data-w-variant-sku="{{ product.variants[0].sku }}"
+          data-w-variant-title="{{ product.variants[0].title }}"
+          data-w-product-handle="{{ product.handle }}"
+          data-w-product-title="{{ product.title }}"
+          data-w-quantity="1"
+          data-w-product-image="{{ product.featured_image.src | img_url: 'grande' }}"
+          data-w-product-price="{{ product.variants[0].price | money | remove: '.00' }}"
+          data-w-variant-id="{{ product.variants[0].id }}"
+          data-w-product-id="{{ product.id }}"
+          id="addToWishlist"
+          class="add_to_wishlist">{%- render 'icon-heart' -%}</span>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  <div class="inner">
+    <div class="img-wrapper {{indexP}} {% if indexP == 10 %}flex-container align-item--center{% endif %}">
+      <a class="anchor-link" href="{{ product.url }}">
+      {%- if product.featured_image.src != blank -%}
+          <img class="has-hover-img" width="200" height="225" alt="Product Hover Image" src="{{ product.featured_image.src | img_url: '200x' }}"
+            {%- if template == 'collection' -%}{% if indexP > 3 %}loading="lazy"{% endif %}{% else %}loading="lazy"{% endif %}alt="{{
+              product.featured_image.alt }}" />
+          {%- if product.images[1].src != blank -%}
+            <img width="200" height="225" class="hover-img" loading="lazy" src="{{ product.images[1] | img_url: '200x' }}" alt="{{ product.images[1].alt | escape }}" />
+          {% else %}
+            <img class="hover-img" width="200" height="225" loading="lazy" alt="Product Hover Image" src="{{ product.featured_image.src | img_url: '200x' }}"
+              {%- if template == 'collection' -%}{% if indexP > 3 %}loading="lazy"{% endif %}{% else %}loading="lazy"{% endif %}alt="{{ product.featured_image.alt }}" />
+          {%- endif -%}
+      {%- else -%}
+        <img src="https://cdn.shopify.com/s/files/1/0119/6028/7313/files/no-image.png" {% if indexP > 3 %}loading="lazy"{% endif %}alt="no image">
+      {%- endif -%}
+      {%- comment -%}<a href="#quick-view--{{ count }}" class="btn-quick-view">Quick View</a>{%- endcomment -%}
+      {%- assign productCollectionHandles = '' -%}
+      {%- for prodColl in product.collections -%}
+        {%- if forloop.first == true -%}
+          {%- assign productCollectionHandles = prodColl.handle -%}
+        {%- else -%}
+          {%- assign productCollectionHandles = productCollectionHandles | append: ',' | append: prodColl.handle -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign isEligiable = 0 -%}
+      {%- assign isFreeSample = 0 -%}
+      {%- if settings.enable_buyX_getY -%}
+        {%- assign isEligiable = 0 -%}
+        {%- for prodCollection in product.collections -%}
+          {%- if prodCollection.handle == settings.X_collection -%}
+            {%- assign isEligiable = 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign isFreeSample = 0 -%}
+        {%- if product.handle == settings.free_product_1 -%}
+          {%- assign isFreeSample = 1 -%}
+        {%- elsif product.handle == settings.free_product_2 -%}
+          {%- assign isFreeSample = 1 -%}
+        {%- elsif product.handle == settings.free_product_3 -%}
+          {%- assign isFreeSample = 1 -%}
+        {%- elsif product.handle == settings.free_product_4 -%}
+          {%- assign isFreeSample = 1 -%}
+        {%- elsif product.handle == settings.free_product_5 -%}
+          {%- assign isFreeSample = 1 -%}
+        {%- else -%}
+          {%- assign isFreeSample = 0 -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if product.available -%}
+        {%- assign productAvailable = 1 -%}
+      {%- else -%}
+        {%- assign productAvailable = 0 -%}
+      {%- endif -%}
+      {%- assign productVariants = product.variants -%}
+      {%- assign variantsStr = "" -%}
+      {%- for variant in productVariants -%}
+        {%- assign variantId = variant.id -%}
+        {%- assign variantTitle = variant.title -%}
+        {%- assign variantPrice = variant.price | money -%}
+        {%- assign variantCompareAtPrice = variant.compare_at_price | money -%}
+        {%- assign addToCartTextDefault = 'products.product.add_to_cart' | t -%}
+        {%- assign addToCartText = 'products.product.add_to_cart' | t -%}
+        {%- assign hasCompareAtPriceDefault = 0 -%}
+        {%- assign hasCompareAtPrice = 0 -%}
+        {%- assign variantImageSrc = variant.image.src -%}
+        {%- assign variantImageUrl = variant.image.src | img_url: '720x720' -%}
+        {%- assign variantImageUrlThumb = variant.image.src | img_url: '115x115' -%}
+        {%- if variant.compare_at_price > variant.price -%}
+          {%- assign hasCompareAtPrice = 1 -%}
+        {%- else -%}
+          {%- assign hasCompareAtPrice = 0 -%}
+        {%- endif -%}
+        {%- if variant.available -%}
+          {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity == 0 -%}
+            {%- assign addToCartText = 'products.product.preorder' | t -%}
+          {%- else -%}
+            {%- assign addToCartText = 'products.product.add_to_cart' | t -%}
+          {%- endif -%}
+          {%- assign addToCartTextDefault = addToCartText -%}
+        {%- else -%}
+          {%- assign addToCartText = 'products.product.sold_out' | t -%}
+          {%- assign addToCartTextDefault = addToCartText -%}
+        {%- endif -%}
+        {%- if variant.available -%}
+          {%- assign variantAvailable = 1 -%}
+        {%- else -%}
+          {%- assign variantAvailable = 0 -%}
+        {%- endif -%}
+        {%- if variant.id == product.selected_or_first_available_variant.id -%}
+          {%- assign variantSelected = 1 -%}
+          {%- assign addToCartTextDefault = addToCartText -%}
+          {%- assign hasCompareAtPriceDefault = hasCompareAtPrice -%}
+        {%- else -%}
+          {%- assign variantSelected = 0 -%}
+        {%- endif -%}
+        {%- if forloop.first -%}
+          {%- assign variantsStr = variantsStr | append: variantId | append: "|" | append: variantTitle | append: "|" 
+            | append: variantPrice | append: "|" | append: variantImageSrc | append: "|" | append: variantImageUrl
+            | append: "|" | append: variantImageUrlThumb | append: "|" | append: variantAvailable | append: "|" | append:
+            variantSelected | append: "|" | append: addToCartText | append: "|" | append: variantCompareAtPrice
+            | append: "|" | append: hasCompareAtPrice -%}
+        {%- else -%}
+          {%- assign variantsStr = variantsStr | append: "|#|" | append: variantId | append: "|" | append: 
+            variantTitle | append: "|" | append: variantPrice | append: "|" | append: variantImageSrc | append: "|"
+            | append: variantImageUrl | append: "|" | append: variantImageUrlThumb | append: "|" | append:
+            variantAvailable | append: "|" | append: variantSelected | append: "|" | append: addToCartText | append: "|"
+            | append: variantCompareAtPrice | append: "|" | append: hasCompareAtPrice -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign imagesStr = "" -%}
+      {%- for image in product.images -%}
+        {%- assign imgUrl = image.src | img_url: '500x' -%}
+        {%- assign imgUrlThumb = image.src | img_url: '115x115' -%}
+        {%- if forloop.first -%}
+          {%- assign imagesStr = imagesStr | append: image.src | append: "|" | append: imgUrl | append: "|" | append: 
+            imgUrlThumb -%}
+        {%- else -%}
+          {%- assign imagesStr = imagesStr | append: "|#|" | append: image.src | append: "|" | append: imgUrl 
+            | append: "|" | append: imgUrlThumb -%}
+        {%- endif -%}
+      {%- endfor -%}
+      </a>
+    </div>
+    {% comment %}
+    <div id="productInfos-{{ collection.handle }}-{{ product.id }}" style="display:none;">
+      <div id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
+        <span
+          class="stamped-product-reviews-badge stamped-main-badge"
+          data-id="{{ product.id }}"
+          data-product-sku="{{ product.handle }}"
+          style="display: inline-block;">{{
+  product.metafields.stamped.badge }}</span>
+      </div>
+      <div id="afterpayBadge-{{ collection.handle }}-{{ product.id }}">
+        {% render 'afterpay', product: product %}
+      </div>
+    </div>
+    {% endcomment %}
+    {%- unless isTreatmentProduct -%}
+      <a class="anchor-link" href="{{ product.url }}">
+      {%- endunless -%}
+      <div class="product-grid-details">
+        <h3 class="product-grid-details-info title">
+          {%- if isTreatmentProduct -%}
+            {{ product.title }}
+          {%- else -%}
+            {{ product.title }}
+          {%- endif -%}
+        </h3>
+        <span class="size" style="display:block; min-height:37px;">{{ product.metafields.global.prod_size }}</span>
+        {%- if isTreatmentProduct or showDescription -%}
+          <p class="product-grid-details-info desc">{{ product.description | strip_html | truncate: 80, "<span
+class='dotdotdot'>...</span>" }}</p>
+        {%- else -%}
+          <p class="product-grid-details-info desc">{{ product.description | strip_html | truncate: 80, "<span
+class='dotdotdot'>...</span>" }}</p>
+        {%- endif -%}
+        <span
+          class="stamped-product-reviews-badge"
+          data-product-sku="{{ product.handle }}"
+          data-id="{{ product.id }}">{{ product.metafields.stamped.badge }}</span>
+        <p class="price">
+          {%- if product.compare_at_price > product.price -%}
+            {% comment %} {% if product.price_varies %}
+            {%- assign sale_price = product.price | money -%}
+            {% capture sale_price %}<span data-styleprice>{{sale_price}}</span>{% endcapture %}
+            {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+            {% else %}
+            <span data-styleprice>{{ product.price | money }}</span>
+            {% endif %} {% endcomment %}
+            <span data-styleprice>{{ product.price | money }}</span>
+          {%- else -%}
+            {%- if product.price_varies -%}
+              {%- assign price = product.price | money -%}
+              {% capture price %}
+                <span data-styleprice>{{ price }}</span>
+              {% endcapture %}
+              {{ 'products.product.from_text_html' | t: price: price }}
+            {%- else -%}
+              <span data-styleprice>{{ product.price | money }}</span>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if product.compare_at_price > product.price -%}
+            <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+            <s>
+              <span data-styleprice>{{ product.compare_at_price | money }}</span>
+            </s>
+          {%- endif -%}
+        </p>
+      </div>
+      {%- unless isTreatmentProduct -%}
+      </a>
+    {%- endunless -%}
+  </div>
+  <div class="call-to-actions">
+    {% comment %}
+      {%- if product.template_suffix == 'gift_card' -%}
+      <div class="action-item">
+        <a href="{{ product.url }}" class="btn btn-outline btn-quick-view-gift">
+          View
+        </a>
+      </div>
+      {% else %}
+      <div class="action-item">
+        <a
+          href="#quickView"
+          class="btn btn-outline btn-quick-view"
+          data-product-title="{{ product.title }}"
+          data-variant-quantity="{{ product.variants[0].inventory_quantity }}"
+          data-variant-sku="{{ product.variants[0].sku }}"
+          data-variant-title="{{ product.variants[0].title }}"
+          data-product-handle="{{ product.handle }}"
+          data-product-quantity="1"
+          data-product-image="{{ product.featured_image.src | img_url: '500x' }}"
+          data-product-images="{{ imagesStr }}"
+          data-product-price="{{ product.variants[0].price | money }}"
+          data-product-compareatprice="{{ product.variants[0].compare_at_price | money }}"
+          data-product-hascompareatprice="{{ hasCompareAtPriceDefault }}"
+          data-w-product-price="{{ product.variants[0].price | money | remove: '.00' }}"
+          data-variant-id="{{ product.variants[0].id }}"
+          data-product-id="{{ product.id }}"
+          data-product-globalsize="{{ product.metafields.global.prod_size }}"
+          data-product-desc="{{ product.description | strip_html | truncatewords: 45, " ..." }}"
+          data-collection-handles="{{ productCollectionHandles }}"
+          data-eligiable="{{ isEligiable }}"
+          data-freesample="{{ isFreeSample }}"
+          data-product-available="{{ productAvailable }}"
+          data-variants-count="{{ productVariants.size }}"
+          data-defaultvariantid="{{ product.selected_or_first_available_variant.id }}"
+          data-variants="{{ variantsStr }}"
+          data-addtocart-text="{{ addToCartTextDefault }}"
+          aria-label="Product Quick View"
+          data-unique-collection="{{ collection.handle }}">
+          View
+        </a>
+      </div>
+    {% endif %}
+      {% endcomment %}
+      {%- if product.price > 0 -%}
+        {%- if product.available -%}
+          {%- if product.template_suffix != 'gift_card' -%}
+          <div class="action-item">
+            <form action="/cart/add" data-cart-submit="" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                {% assign cartAddClaimsStr = '[{&quot;id&quot;:&quot;' | append: variantId | append: '&quot;,&quot;properties&quot;:{&quot;_collection_handles&quot;:&quot;' | append: productCollectionHandles | append: '&quot;,&quot;_eligiable&quot;:' | append: isEligiable | append: ',&quot;_freesample&quot;:' | append: isFreeSample | append: '},&quot;quantity&quot;:1}]' %}
+                <button class="button btn" type="submit" name="add" aria-label="Add this item to cart" data-cart-addclaims="{{ cartAddClaimsStr }}">
+                  <span data-add-to-cart-text="">
+                    Add to cart
+                  </span>
+                </button>
+            </form>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

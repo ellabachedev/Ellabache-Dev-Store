@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="{{ 'stamped-widget.css' | asset_url }}">
+<div style="margin-top:40px;" data-product-title="{{ product.title }}" data-aggregateRatingValue="{{ product.metafields.stamped.reviews_average | round:2 }}" data-aggregateReviewCount="{{ product.metafields.stamped.reviews_count }}" class="stamped-widget">
+  <div
+    class="productReviewsBlock"
+    id="stamped-main-widget"
+    data-widget-style="standard"
+    {% if product.metafields.accentuate.eb_product_ids != blank %}
+    data-product-ids="{{ product.metafields.accentuate.eb_product_ids }}"
+    {% else %}
+    data-product-id="{{ product.id }}"
+    {% endif %}
+    data-name="{{ product.title | escape }}"
+    data-url="{{ shop.url }}{{ product.url }}"
+    data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?' , '%3F' | replace: '&' ,'%26'}}"
+    data-description="{{ product.description | escape }}"
+    data-product-sku="{{product.handle}}"></div>
+</div>
+<script src="{{ 'stampedio.js' | asset_url }}" defer="defer"></script>

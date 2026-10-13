@@ -1,0 +1,74 @@
+<style>
+    .banner {
+    position: relative;
+}
+
+.banner__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.banner__text-wrapper {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+.banner__inner {
+    max-width: 500px;
+    width: 100%;
+}
+
+.banner__title {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.31;
+    letter-spacing: 0.3px;
+    margin: 0.8em 0;
+    color: #001e37;
+}
+
+.banner__subtitle {
+    font-size: 16.5px;
+    letter-spacing: 0.3px;
+    color: #001e37;
+    line-height: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .banner__title {
+        font-size: 24px;
+    }
+
+    .banner__subtitle {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+</style>
+<section class="banner banner--mini"> 
+    <div class="banner__image">
+        <picture>
+        <source 
+            media="(min-width: 768px)" 
+            srcset="https://cdn.shopify.com/s/files/1/2999/1646/files/career.jpg?v=1755743805">
+        <img
+            src="https://cdn.shopify.com/s/files/1/2999/1646/files/career-mobile_f5316d5f-43cf-4298-868f-b40b16c92e06.jpg?v=1755744193"
+            alt="Build your career with Ella Baché"
+            style="width:100%;"
+        >
+        </picture>
+    </div>
+    <div class="banner__text-wrapper">
+        <div class="page-width">
+            <div class="banner__inner">
+                <h1 class="banner__title">{{ page.title | escape }}</h1>
+                <div class="banner__subtitle">Build your career with Ella Baché</div>
+            </div>
+        </div>
+    </div>
+</section>

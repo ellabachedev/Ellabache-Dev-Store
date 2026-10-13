@@ -1,0 +1,106 @@
+{{ 'grid-content-block.css' | asset_url | stylesheet_tag }}
+{%- capture grid-content-block -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="grid-content-block" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="lists flex-container">
+      {%- for block in section.blocks -%}
+      <div class="item">
+        <a href="{%- if block.settings.item_btn_url != blank -%}{{ block.settings.item_btn_url }}{%- else -%}#{%- endif -%}" class="link-wrapper">
+          {%- if block.settings.item_thumb != blank -%}
+          <figure class="thumb">
+            <img width="170" height="120" src="{{ block.settings.item_thumb | img_url:'350x' }}" loading="lazy" alt="">
+          </figure>
+          {%-endif -%}
+          <div class="content">
+            {%- if block.settings.item_title != blank -%}
+            <h2 class="title">{{ block.settings.item_title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.item_tag != blank -%}
+            <span class="tag">Your bright new career</span>
+            {%- endif -%}
+            {%- if block.settings.item_desc != blank -%}
+            <p>{{ block.settings.item_desc }}</p>
+            {%- endif -%}
+            {%- if block.settings.item_btn_text != blank -%}
+            <div class="button-holder">
+              <span class="button">{{ block.settings.item_btn_text }}</span>
+            </div>
+            {%- endif -%}
+          </div>
+        </a>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ grid-content-block | strip_newlines }}
+{% schema %}
+  {
+    "name": "Grid Content Block",
+    "settings": [
+    {
+      "id" : "block_switch",
+    "type" : "checkbox",
+    "label" : "Enable",
+    "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    }  
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "limit": 4,
+      "settings": [
+        {
+          "id": "item_thumb",
+          "type": "image_picker",
+          "label": "Image (Thumbnail)",
+          "info": "Image Dimension 700X458"
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_tag",
+          "type": "text",
+          "label": "Tag"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "id": "item_btn_text",
+          "type": "text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "item_btn_url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

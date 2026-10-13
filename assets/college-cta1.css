@@ -1,0 +1,269 @@
+.college-cta1 {
+    padding: 60px 0
+}
+.college-cta1 .page-width > .flex-container.center{
+    align-items: center;
+}
+.college-cta1 .page-width > .flex-container.bottom {
+    align-items: flex-end;
+}
+@media (max-width: 768px) {
+    .college-cta1 {
+        padding: 30px 0
+    }
+    .college-cta1 .page-width {
+        max-width: 550px
+    }
+}
+.college-cta1 h2.block-title {
+    font-size: 34px;
+    margin-bottom: 30px;
+    margin-top: 0
+}
+.college-cta1 p {
+    font-size: 16px;
+    color: #7e7e7e;
+    line-height: 1.5;
+    margin-top: 0;
+    font-weight: 400;
+    margin-bottom: 0
+}
+@media (max-width: 768px) {
+  .college-cta1 h2.block-title{
+    font-size:22px;
+    margin-bottom:15px;
+  }
+    .college-cta1 p {
+        font-size: 14px
+    }
+}
+.college-cta1 .main-content {
+    width: 56%
+}
+@media (max-width: 768px) {
+    .college-cta1 .main-content {
+        width: 100%
+    }
+}
+.college-cta1 .main-content video {
+    width: 100%;
+    display: block;
+    margin-top: 30px
+}
+.college-cta1 .sidebar {
+    width: 44%;
+    padding-left: 50px;
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar {
+        width: 100%;
+        padding-left: 0;
+        margin-top: 30px
+    }
+}
+.college-cta1 .sidebar h2.block-title {
+    margin-top: 0
+}
+.college-cta1 .sidebar .sidebar-intro-text {
+    margin-bottom: 30px
+}
+.college-cta1 .sidebar .lists {
+    max-width: 420px;
+    width: 100%;
+    float: right
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists {
+        max-width: 100%;
+        float: none
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item {
+    position: relative;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: 40px
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists.custom_icon .item {
+        margin-bottom: 20px
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item .icon {
+    width: 57px;
+    height: auto
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists.custom_icon .item .icon {
+        width: 45px
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item .icon img {
+    display: block;
+    max-width: 57px;
+    width: 100%;
+    height:auto;
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists.custom_icon .item .icon img {
+        max-width: 45px
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item .content {
+    width: calc(100% - 57px);
+    padding-left: 32px
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists.custom_icon .item .content {
+        padding-left: 20px
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item .content h2.title {
+    font-size: 34px;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #001e37
+}
+@media (max-width: 991px) {
+    .college-cta1 .sidebar .lists.custom_icon .item .content h2.title {
+        font-size: 24px
+    }
+}
+.college-cta1 .sidebar .lists.custom_icon .item:last-child {
+    margin-bottom: 0
+}
+.college-cta1 .sidebar .lists.normal_bullet {
+    max-width: 100%
+}
+.college-cta1 .sidebar .lists.normal_bullet .item {
+    position: relative;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: 25px
+}
+.college-cta1 .sidebar .lists.normal_bullet .item:before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background: #001E37;
+    position: absolute;
+    left: 0;
+    top: 6px
+}
+@media (max-width: 768px) {
+    .college-cta1 .sidebar .lists.normal_bullet .item {
+        margin-bottom: 20px
+    }
+}
+.college-cta1 .sidebar .lists.normal_bullet .item .content {
+    padding-left: 25px
+}
+.college-cta1 .sidebar .lists.normal_bullet .item .content h2.title {
+    font-size: 34px;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #001e37
+}
+@media (max-width: 991px) {
+    .college-cta1 .sidebar .lists.normal_bullet .item .content h2.title {
+        font-size: 24px
+    }
+}
+.college-cta1 .sidebar .lists.normal_bullet .item:last-child {
+    margin-bottom: 0
+}
+.college-cta1 .sidebar.with-bottom-button .inner {
+    height: 100%;
+    padding-bottom: 60px;
+    position: relative
+}
+.college-cta1 .sidebar.with-bottom-button .inner .lists {
+    max-height: 315px;
+    overflow-Y: auto;
+    float: none
+}
+.college-cta1 .sidebar.with-bottom-button .button-holder {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%
+}
+.college-cta1 .sidebar.with-bottom-button .button-holder a.button {
+    background-color: #001e37;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 15.5px 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 auto;
+    width: 100%;
+    letter-spacing: .2px;
+    font-weight: 500;
+    display: inline-block
+}
+.college-cta1.international-student .flex-container {
+    align-items: flex-end
+}
+.college-cta1.international-student .sidebar .normal_bullet .item {
+    margin-bottom: 19px
+}
+table.shogun-table {
+    width: auto !important;
+}
+table.shogun-table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+table.shogun-table thead tr td {
+    font-weight: bold;
+    font-size: 14px;
+}
+table.shogun-table.custom {
+    table-layout: fixed;
+    width: 100% !important;
+    width: 100% !important;
+}
+table.shogun-table.custom tr td {
+    border: 5px solid #f7f7f7;
+    padding: 10px;
+}
+table.shogun-table.custom tr td p {
+    font-weight: 300;
+    font-size: 14px;
+    padding: 1em 0;
+    color:#7e7e7e;
+}
+table.shogun-table.custom thead tr td {
+    border: 5px solid #f7f7f7;
+    padding: 10px;
+}
+
+table.shogun-table.custom .icon-holder img {
+    max-width: 31px;
+}
+
+thead.shogun-table-column-container {
+    font-weight: bold;
+}

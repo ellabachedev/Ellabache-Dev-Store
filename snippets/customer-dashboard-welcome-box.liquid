@@ -1,0 +1,42 @@
+<div class="content-body-box welcome">
+    <div class="profile-wrapper">
+        <div class="profile">
+        <div class="avatar-box">
+            <span>{{ customer.first_name | slice: 0 | upcase }}{{ customer.last_name | slice: 0 | upcase }}</span>
+        </div>
+        <div class="user">
+            <h3>{{ customer.first_name }} {{ customer.last_name }}</h3>
+            {% comment %} <p>{{ customer.default_address.country }}, {{ customer.default_address.address1 }} {{ customer.default_address.address2 }}</p> {% endcomment %}
+        </div>
+        <div class="profile-dropdown-menu">
+            <ul>
+                <li><a href="/account/logout" class="logout" title="Logout">Logout</a></li>
+            </ul>
+        </div>
+        </div>
+    </div> 
+    <div class="welcome-header text-center">
+        {%- if customer.metafields.accentuate.access_to_salon_portal -%}
+        <h2>ELLA BACHÉ, <span>SALON PORTAL</span></h2>
+        <p>Your destination for salon support, seamless operations, and growth.</p>
+        {% else %}
+        <h2>Welcome <span>{{ customer.first_name }}</span></h2>
+        <p>Track orders and manage your profile easily.</p>
+        {%- endif -%}
+    </div>
+</div>
+<script>
+    const userProfile = document.querySelector('.user');
+    const dropdownMenu = document.querySelector('.profile-dropdown-menu');
+
+    userProfile.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', (event) => {
+        if (!userProfile.contains(event.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+</script>

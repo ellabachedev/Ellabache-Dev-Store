@@ -1,0 +1,168 @@
+<style>
+.collapsible-box{
+  margin-bottom:30px;
+  padding-bottom:30px;
+  overflow:hidden;
+  position:relative;
+}
+.collapsible-box:after {
+    content: '';
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 71%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 71%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 71%, rgba(255, 255, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+}
+.collapsible-box.open:after{
+  display:none;
+}
+.collapsible-box .page-width{
+  max-width:1300px;
+  position:relative;
+}
+.collapsible-box__content {
+  display: none;
+  color: #001E37;
+  transition: all 0.3s ease;
+}
+.collapsible-box__toggle {
+  background: none;
+  border: none;
+  color: #001E37;
+  cursor: pointer;
+  padding: 8px 30px 8px 0px;
+  margin-top:15px;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform:translateX(-50%);
+  bottom: 0;
+  z-index: 2;
+  text-transform:none;
+  gap:8px;
+}
+.collapsible-box__toggle[aria-expanded="true"] .collapsible-box__icon {
+  transform: rotate(180deg);
+}
+.collapsible-box h4{
+  line-height:1.4;
+}
+</style>
+{%- style -%}
+  .collapsible-info {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .collapsible-info  {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="collapsible-box">
+  <div class="page-width">
+  {%- if section.settings.title != blank -%}<h2>{{ section.settings.title }}</h2>{%- endif -%}
+  {% if section.settings.desc1 != blank %}
+  <div class="collapsible-box__summary">
+    {{ section.settings.desc1 }}
+  </div>
+  {% endif %}
+  {% if section.settings.desc2 != blank %}
+  <div class="collapsible-box__content" id="collapsible-content">
+    {{ section.settings.desc2 }}
+  </div>
+  </div>
+  {% endif %}
+  <button class="collapsible-box__toggle" aria-expanded="false" aria-controls="collapsible-content">
+    <span class="collapsible-box__toggle-text">{{ section.settings.expand_ctn_txt }}</span><span class="collapsible-box__icon"><svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.8953 1.74384C14.8887 1.95655 14.7997 2.15841 14.647 2.30673L8.08528 8.86845L8.08528 8.8686C7.93132 9.02302 7.72228 9.10999 7.50423 9.10999C7.28603 9.10999 7.07696 9.02302 6.92302 8.8686L0.3613 2.30688L0.3613 2.30673C0.199862 2.15445 0.106937 1.94311 0.104038 1.7211C0.10114 1.4991 0.188265 1.28548 0.345737 1.12892C0.503055 0.972362 0.717288 0.886303 0.939136 0.890268C1.16115 0.894388 1.37203 0.988381 1.52355 1.15058L7.50402 7.13105L13.4845 1.15058C13.6384 0.99067 13.8508 0.900034 14.0728 0.899424C14.295 0.898814 14.5079 0.988381 14.6628 1.14753C14.8176 1.30668 14.9014 1.52183 14.8949 1.74386L14.8953 1.74384Z" fill="#222222"/>
+</svg>
+</span>
+  </button>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const toggleButton = document.querySelector('.collapsible-box__toggle');
+  const toggleButtonTxt = document.querySelector('.collapsible-box__toggle-text');
+  const toggleButtonTxtCopy = document.querySelector('.collapsible-box__toggle-text').text;
+  const content = document.querySelector('.collapsible-box__content');
+  const contentBox = document.querySelector('.collapsible-box');
+
+  toggleButton.addEventListener('click', function () {
+    const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+    toggleButton.setAttribute('aria-expanded', !isExpanded);
+    content.style.display = isExpanded ? 'none' : 'block';
+    if (isExpanded) {
+        contentBox.classList.remove('open');
+        toggleButtonTxt.textContent = toggleButtonTxtCopy;
+      } else {
+        contentBox.classList.add('open');
+        toggleButtonTxt.textContent = 'Read less';
+      }
+  });
+});
+</script>
+{% schema %}
+  {
+    "name": "Collapsible Info",
+    "class": "collapsible-info",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "desc1",
+        "label": "Description Summary"
+      },
+      {
+        "type": "richtext",
+        "id": "desc2",
+        "label": "Full Description"
+      },
+      {
+        "type": "text",
+        "id": "expand_ctn_txt",
+        "label": "Expand Button Text",
+        "default": "Read more"
+      },
+      {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bobttom",
+      "default": 36
+    }
+    ],
+    "presets": [
+      {
+        "name": "Collapsible Info"
+      }
+    ]
+  }
+{% endschema %}

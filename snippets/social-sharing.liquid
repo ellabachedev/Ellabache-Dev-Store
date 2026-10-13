@@ -1,0 +1,24 @@
+<!-- /snippets/social-sharing.liquid -->
+<div class="social-sharing">
+  {%- if settings.share_facebook -%}
+    <a rel="noopener" target="_blank" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}">
+      {% render 'icon-facebook' %}
+      <span {% if is_article %}class="hiddenText"{% endif %} aria-hidden="true">{{ 'Share on Facebook' }}</span>
+      <span class="visually-hidden">Share on Facebook</span>
+    </a>
+  {%- endif -%}
+  {%- if settings.share_twitter -%}
+    <a rel="noopener" target="_blank" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}">
+      {% render 'icon-twitter' %}
+      <span {% if is_article %}class="hiddenText"{% endif %} aria-hidden="true">{{ 'Share on Twitter' }}</span>
+      <span class="visually-hidden">Share on Twitter</span>
+    </a>
+  {%- endif -%}
+  {%- if settings.share_pinterest -%}
+    <a rel="noopener" target="_blank" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+      {% render 'icon-pinterest' %}
+      <span {% if is_article %}class="hiddenText"{% endif %} aria-hidden="true">{{ 'Share on Pinterest' }}</span>
+      <span class="visually-hidden">Share on Pinterest</span>
+    </a>
+  {%- endif -%}
+</div>

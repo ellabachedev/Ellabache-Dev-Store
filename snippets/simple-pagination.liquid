@@ -1,0 +1,39 @@
+{{ 'component-custom-pagination.css' | asset_url | stylesheet_tag }}
+{% if paginate.previous.is_link or paginate.next.is_link %}
+  <div class="simple pagination">
+    <div class="previous">
+      {% if paginate.previous.is_link %}
+        <a href="{{ paginate.previous.url }}">
+          <i class="icon-left"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+        </svg></i>
+          {{ "collections.pagination.previous" | t }}
+        </a>
+      {% else %}
+        <span class="disabled">
+          <i class="icon-left"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+        </svg></i>
+          {{ "collections.pagination.previous" | t }}
+        </span>
+      {% endif %}
+    </div>
+    <div class="next">
+      {% if paginate.next.is_link %}
+        <a href="{{ paginate.next.url }}">
+          {{ "collections.pagination.next" | t }}
+          <i class="icon-right"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+        </svg></i>
+        </a>
+      {% else %}
+        <span class="disabled">
+          {{ "collections.pagination.next" | t }}
+          <i class="icon-right"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+        </svg></i>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

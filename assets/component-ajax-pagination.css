@@ -1,0 +1,61 @@
+#AjaxinatePagination {
+    margin-top: 25px;
+    display: none;
+}
+#AjaxinatePagination.infinite-scroll{
+    display:block;
+}
+#AjaxinatePagination .loading-img {
+    display: none;
+}
+#AjaxinatePagination.infinite-scroll .loading-img {
+    display: block;
+}
+#AjaxinatePagination img {
+    max-width: 50px;
+    display: block;
+    margin: 0 auto;
+}
+#AjaxinatePagination.infinite-scroll img {
+    max-width:170px;
+}
+#AjaxinatePagination a {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    background-color: #001e37;
+    border: 2px solid transparent;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.1;
+    cursor: pointer;
+}
+#AjaxinatePagination.infinite-scroll a {
+    width:100%;
+    background-color:transparent;
+    border:none;
+    color: #001e37;
+    display: none;
+}
+#AjaxinatePagination a:hover {
+    border: 2px solid #001e37;
+    background-color: transparent;
+    color: #001e37;
+}
+#AjaxinatePagination.infinite-scroll a:hover {
+    background-color: transparent;
+    border: none;
+}
+#AjaxinatePagination.loading .loading-img {
+    display: block;
+}
+@media only screen and (max-width: 767px){
+    #AjaxinatePagination {
+        display: block;
+    }
+}

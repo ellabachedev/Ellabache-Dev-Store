@@ -1,0 +1,77 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'ui-datepicker.css' | asset_url | stylesheet_tag }}
+{% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and
+customer.metafields.salon.salon_type != "With Website" %}
+<div class="dashboard-customer">
+  <div class="flex-container">
+    {% include 'customer-dashboard-sidebar' %}
+    <div class="content-body">
+      {%  render 'customer-dashboard-welcome-box' %}
+      {% if customer.metafields.accentuate.access_to_salon_portal %}
+        {% section 'salon-portal-resources' %}
+      {% else %}
+        <div class="content-body-box">
+          <h3 class="sub-history">My Account</h3>
+          {% include 'account-form' %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="dashboard-customer">
+  <div class="flex-container">
+    {% include 'customer-dashboard-sidebar' %}
+    <div class="content-body">
+      {%  render 'customer-dashboard-welcome-box' %}
+      
+      {% paginate customer.orders by 20 %}
+      {% if customer.orders.size != 0 %}
+      <div class="content-body-box">
+        <h3 class="sub-history">Order History</h3>
+        <div style="overflow-x: auto;">
+          <table class="default" style="">
+            <thead>
+              <tr>
+                <th style="width:65px;">{{ 'customer.orders.order_number' | t }}</th>
+                <th>{{ 'customer.orders.date' | t }}</th>
+                <th>{{ 'customer.orders.payment_status' | t }}</th>
+                <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th style="width:90px;">{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+              <tr>
+                <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}
+                </td>
+                <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: 'month_day_year' }}
+                </td>
+                <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% else %}
+        <div class="content-body-box">
+          <h3 class="sub-history">Order History</h3>
+          <p class="form-success">{{ 'customer.orders.none' | t }}</p>
+        </div>
+      {% endif %}
+
+      {% if paginate.pages > 1 %}
+      {% include 'pagination' %}
+      {% endif %}
+      {% endpaginate %}
+      <div class="content-body-box">
+        <h3 class="sub-address">User Profile</h3>
+        {% include 'account-form' %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

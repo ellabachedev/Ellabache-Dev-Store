@@ -1,0 +1,316 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify:\/\/shop_images\/Colour4.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>FIND YOUR<\/span><span> PASSION<\/span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "Enrol now for July 2023 Online<br> or September On Campus",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "Enrol now for July 2023 Online<br> or September On Campus",
+            "slider-secondary-text": "Sydney | Melbourne | Brisbane",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Enrol Now",
+            "slider-button-url": "https:\/\/www.ellabache.com.au\/pages\/new-college-apply-now",
+            "button-style": "3",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5"
+      ],
+      "settings": {
+        "autoplay": true,
+        "autoplay_int": "3000"
+      }
+    },
+    "grid-content-block": {
+      "type": "grid-content-block",
+      "blocks": {
+        "207b46f3-0da8-4e01-b5cc-cd65656c66de": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Enquire Now",
+            "item_btn_url": "https:\/\/www.ellabache.com.au\/pages\/college-request-course-information"
+          }
+        },
+        "a8ff3fa6-2fff-4e28-9684-e1719db2ab0d": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Request Course Guide",
+            "item_btn_url": "shopify:\/\/pages\/college-request-course-information"
+          }
+        },
+        "a229f09f-0060-4ca1-979f-80fa60a095be": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Book A Phone Consultation",
+            "item_btn_url": "https:\/\/calendly.com\/ellabachecollege\/diploma?month=2023-07"
+          }
+        },
+        "cebf2a39-0610-4b2e-a918-d66dc0e805c6": {
+          "type": "Article",
+          "disabled": true,
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Register now",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "207b46f3-0da8-4e01-b5cc-cd65656c66de",
+        "a8ff3fa6-2fff-4e28-9684-e1719db2ab0d",
+        "a229f09f-0060-4ca1-979f-80fa60a095be",
+        "cebf2a39-0610-4b2e-a918-d66dc0e805c6"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "grid-content-block-v2": {
+      "type": "grid-content-block-v2",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {}
+    },
+    "college-cta1": {
+      "type": "college-cta1",
+      "blocks": {
+        "e6ddc6db-8dcd-43a6-9c35-92b61196bde3": {
+          "type": "Article",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon-screen.png",
+            "item_desc": "Flexible study options and blended learning in skin and beauty therapy courses."
+          }
+        },
+        "cb542022-a403-497f-acf8-225a103f4a74": {
+          "type": "Article",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon-user.png",
+            "item_desc": "Access to our team of highly experienced beauty educators."
+          }
+        },
+        "d4f72352-76fc-4f4a-8a30-dab41bbb14c7": {
+          "type": "Article",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon-calendar.png",
+            "item_desc": "Industry connections and practical work-experience placement."
+          }
+        },
+        "40ac78f4-e3d0-40cc-bbe8-2b561feed53b": {
+          "type": "Article",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon-social-network.png",
+            "item_desc": "An engaged community of passionate students and therapists nationwide."
+          }
+        },
+        "a6a19d9d-ac74-4692-94f3-b356cf8c514d": {
+          "type": "Article",
+          "settings": {
+            "item_icon": "shopify:\/\/shop_images\/icon-star.png",
+            "item_desc": "A career pathway to not just our 150+ Ella Baché salons, and David Jones locations but the wider world of professional skincare and wellness opportunities including days spas, hotels and resorts, and cruise ships."
+          }
+        }
+      },
+      "block_order": [
+        "e6ddc6db-8dcd-43a6-9c35-92b61196bde3",
+        "cb542022-a403-497f-acf8-225a103f4a74",
+        "d4f72352-76fc-4f4a-8a30-dab41bbb14c7",
+        "40ac78f4-e3d0-40cc-bbe8-2b561feed53b",
+        "a6a19d9d-ac74-4692-94f3-b356cf8c514d"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "block_title": "Our Unique Approach to Learning",
+        "block_desc": "<p>We’re proud to offer the same customised approach to your education as we do our clients and their skin care regime. Our innovative Ella Baché EdFlex™ program delivers the best beauty therapy education tailored to suit you: from how and where you want to study, to the pace you prefer.<\/p>",
+        "block_video": "03_30SEC_ABBEY_JUSTDOIT1.mp4",
+        "sidebar_ver_pos": "top",
+        "sidebar_title": "",
+        "sidebar_intro_text": "",
+        "sidebar_bullet_type": "custom_icon",
+        "accordion_switch": false,
+        "accordion_item_Header": "",
+        "accordion_item_content": "",
+        "sidebar_btn_switch": false,
+        "sidebar_btn_txt": "",
+        "sidebar_btn_link": "",
+        "popup_content": ""
+      }
+    },
+    "college-cta4": {
+      "type": "college-cta4",
+      "blocks": {
+        "e503dd6e-3204-40d2-9484-5291f5b236c0": {
+          "type": "accordion_content",
+          "settings": {
+            "accordion_item_switch": false,
+            "accordion_item_Header": "Learn More about your study options",
+            "accordion_item_content": "<!-- Table Content -->\n    <table width=\"100%\" border=\"none\" class=\"shogun-table custom\">\n      <thead class='shogun-table-column-container\"\"'>\n        <tr>\n          <td class=\"shogun-table-column\">Program<\/td>\n          <td class=\"shogun-table-column\">EdFlex™ Campus (Sydney)<\/td>\n          <td class=\"shogun-table-column\">EdFlex™ Blended<\/td>\n        <\/tr>\n      <\/thead>\n      <tbody>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Course length<\/strong><\/p><\/td>\n          <td class=\"text-center\"><p>12 months <small>(3 x 15 week terms plus breaks)<\/small><\/p><\/td>\n          <td class=\"text-center\"><p>15 months <small>(3 x 18 week terms plus breaks)<\/small><\/p><\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Flexible monthly start dates<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\"><p>February - June - September<\/p><\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Dedicated Trainer support<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Study theory online<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Attend on-campus<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\"><p>2.5 days per week \/ per term<\/p><\/td>\n          <td class=\"text-center shogun-table-row\"><p>10 days per term minimum<small>(Minimum of 8 days practical and 2 days assessment per term. 30 days total for the course.)<\/small><\/p><\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Practical training & assessment<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\"><p>On-campus <small>(During 2.5 days per week \/ per term)<\/small><\/p><\/td>\n          <td class=\"text-center shogun-table-row\"> \n              <p>- Supervised on-campus practical sessions (24 days minimum in course); and​<\/p>\n              <p>- Supervised on-campus assessment sessions (6 days minimum in course); and​<\/p>\n              <p>- Supervised training in student’s workplace if employed in a Beauty Salon; or​<\/p>\n              <p>- Unsupervised practice on family and friends; or​<\/p>\n              <p>- Supervised training during work placement\/experience.​<\/p>\n            <p>\n              <small>Note: Students are required to complete other assessments on top of the 2 days per term\/6 days total for course, on campus. These other assessments can be completed remotely or on campus. ​<\/small>\n            <\/p>\n            <p>\n              <small>Students completing assessments remotely will be required to have appropriate equipment, product and video conference hardware (PC with camera and microphone).​<\/small>\n            <\/p>\n            <p>\n              <small>The days are given as guidelines, some students will take more or less time​.<\/small>\n            <\/p>\n            <p><\/p>\n          <\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Campus training location(s)<\/strong><\/p><\/td>\n          <td class=\"text-center\"><p>Sydney<br><a href=\"https:\/\/www.ellabache.com.au\/pages\/locations\" target=\"_blank\">Learn more<\/a><\/p><\/td>\n          <td class=\"text-center\"><p>Sydney, Melbourne, Brisbane<br><a href=\"https:\/\/www.ellabache.com.au\/pages\/locations\" target=\"_blank\">Learn more<\/a><\/p><\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Ella Baché external work experience (150 hours)<\/strong><\/p><\/td>\n          <td class=\"text-center\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n        <\/tr>\n        <tr class=\"shogun-table-row-container\">\n          <td class=\"shogun-table-row\"><p><strong>Suitable for international students<\/strong><\/p><\/td>\n          <td class=\"text-center shogun-table-row\">\n            <div class=\"icon-holder\">\n              <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/foursquare-check-in.svg?v=1590110078\" alt=\"tick\">\n            <\/div>\n          <\/td>\n          <td class=\"text-center shogun-table-row\"> <\/td>\n        <\/tr>\n      <\/tbody>\n    <\/table>\n    <!-- Table Content -->"
+          }
+        }
+      },
+      "block_order": [
+        "e503dd6e-3204-40d2-9484-5291f5b236c0"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Your Study Options",
+        "block_description": "<p>At Ella Baché College, we champion the individual by offering different study options to allow you to design the best learning experience for you. No matter which option you choose, you’ll learn both theory and practical knowledge as part of your SHB50121 Diploma of Beauty Therapy. You can access the My Ella Baché student learning portal to find your online theory components and learning materials while also attending practical training sessions in our student salon environment. You’ll be a part of a learning community of students and supported by our team of experienced trainers who will mentor you through part of your studies.<\/p>",
+        "block_shogun_content": "<div class=\"shogun-2-col-grid\">\n      <div class=\"flex-container\">\n        <div class=\"col-item\">\n          <h3>EdFlex™ Campus (Sydney)<\/h3>\n          <p><strong>EdFlex™ Campus is for you if:<\/strong><\/p>\n          <div class=\"lists\">\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You prefer a structured learning environment<\/strong><\/p>\n              <p>A timetable of practical classes and tutorials over 2.5 days each week at our training rooms are supplemented with online theory studies.<\/p>\n            <\/div>\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You want an on-campus experience<\/strong><\/p>\n              <p>Conveniently located, our College training rooms are just a train ride from the city center and are easily accessible by car or bus.<\/p>\n            <\/div>\n          <\/div>\n        <\/div>\n        <div class=\"col-item\">\n          <h3>EdFlex™ Blended<\/h3>\n          <p><strong>EdFlex™ Blended is available Australia wide with practical training undertaken in Sydney, Melbourne or Brisbane:<\/strong><\/p>\n          <div class=\"lists\">\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                 <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You prefer to do most of your study online and at your own pace<\/strong><\/p>\n            <\/div>\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                 <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You want a custom blend of on-campus and online learning for your beauty therapy course<\/strong><\/p>\n            <\/div>\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                 <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You have work or family commitments so need to design your own timetable that works for you<\/strong><\/p>\n            <\/div>\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                 <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You want to supplement your learning with additional electives including practical training sessions<\/strong><\/p>\n            <\/div>\n            <div class=\"item\">\n              <div class=\"icon-holder\">\n                 <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0119\/6028\/7313\/files\/tick.svg?v=1590109719\" alt=\"tick\">\n              <\/div>\n              <p><strong>You need to fast-track your education<\/strong><\/p>\n              <p>With EdFlex™ Blended learning you can not only work at your own pace but also accelerate your learning and graduate sooner.<\/p>\n            <\/div>\n          <\/div>\n        <\/div>\n      <\/div>\n    <\/div>",
+        "block_shogun_content_2": ""
+      }
+    },
+    "reviews-block": {
+      "type": "reviews-block",
+      "blocks": {
+        "01d1b014-f6d8-471a-b0ba-80ea08b90485": {
+          "type": "Reviews",
+          "settings": {
+            "review": "Just as no two skins are alike, no two students are alike either. Which is why we champion and support the individual to learn in a way that suits them.",
+            "author": "Pippa Hallas, Ella Baché CEO"
+          }
+        },
+        "043217b2-be3a-4ed6-abc9-66519d2761da": {
+          "type": "Reviews",
+          "settings": {
+            "review": "I wouldn't want to learn anywhere else. I learnt so much from the Ella Baché Trainers who had a lot of knowledge to share. They really cared about your progress and wanted you to be the best you could be.",
+            "author": "LAURA ADAMSON, ELLA BACHÉ COLLEGE ALUMNI"
+          }
+        },
+        "eafbc6b9-cc58-46c1-a26d-b81651d5a601": {
+          "type": "Reviews",
+          "settings": {
+            "review": "Once you step foot in the College you become a part of the Ella Baché brand and family. We work extremely hard behind the scenes for real outcomes, which means jobs and career opportunities for our students.",
+            "author": "MEREDITH SCHAERF, ELLA BACHÉ COLLEGE EDUCATION MANAGER"
+          }
+        }
+      },
+      "block_order": [
+        "01d1b014-f6d8-471a-b0ba-80ea08b90485",
+        "043217b2-be3a-4ed6-abc9-66519d2761da",
+        "eafbc6b9-cc58-46c1-a26d-b81651d5a601"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "college-enquire-block": {
+      "type": "college-enquire-block",
+      "blocks": {
+        "468dea47-592e-4b54-8809-bbe2a29287f6": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-edu-hat.png",
+            "item_iconContent_title": "Campus and class",
+            "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+          }
+        },
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-treatment.png",
+            "item_iconContent_title": "Campus and treatment",
+            "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+          }
+        },
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-screen-1.png",
+            "item_iconContent_title": "Virtual Campus tour",
+            "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+          }
+        }
+      },
+      "block_order": [
+        "468dea47-592e-4b54-8809-bbe2a29287f6",
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef",
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Got questions?",
+        "block_desc": "<p><\/p>",
+        "sidebar_title": "Discover more about us",
+        "typeform_data-url": "https:\/\/ellabache.typeform.com\/to\/yKFW7A"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    },
+    "college-cta6": {
+      "type": "college-cta6",
+      "disabled": true,
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#f2f2f2",
+        "block_Text": "<p>Ella Baché College of Skin and Beauty Therapy <br\/>RTO Provider No 6704<br\/>CRICOS ID 01474B<\/p>"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "grid-content-block",
+    "grid-content-block-v2",
+    "college-cta1",
+    "college-cta4",
+    "reviews-block",
+    "college-enquire-block",
+    "college-cta5",
+    "college-cta6"
+  ]
+}

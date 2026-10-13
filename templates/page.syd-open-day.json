@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "https:\/\/www.eventbrite.com.au\/e\/ella-bache-college-sydney-open-day-may-2023-tickets-630532799577",
+            "slider-image-desktop": "shopify:\/\/shop_images\/College_Sydney_Open_Day_Banner.png",
+            "slider-image-mobile": "shopify:\/\/shop_images\/College_Open_Day_Mobile.png",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "",
+            "slider-button-url": "https:\/\/www.eventbrite.com.au\/e\/ella-bache-college-sydney-open-day-may-2023-tickets-630532799577",
+            "button-style": "3",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        },
+        "f2c16971-f1dd-4571-ad26-36fcec31b29c": {
+          "type": "slider",
+          "disabled": true,
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "2",
+            "full-slider-link": "",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "1",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Shop Now",
+            "slider-button-url": "",
+            "button-style": "2",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#ffffff",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#ffffff",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5",
+        "f2c16971-f1dd-4571-ad26-36fcec31b29c"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "hero_content": {
+      "type": "hero-content-virtual-info-sessions",
+      "settings": {
+        "hero_title_1": "It's not too late to register",
+        "hero_desc_1": "<h3>Bring along your family and friends to hear from the best in the business. You'll gain access to: <\/h3><ul><li><h3>an on-campus tour<\/h3><\/li><li><h3>meet Industry leaders in Beauty and Skincare<\/h3><\/li><li><h3>experience mini masterclasses with our leading Educators. <\/h3><\/li><li><h3>exclusive gift bag on your arrival.<\/h3><\/li><\/ul>",
+        "hero_title_2": "",
+        "hero_desc_2": "",
+        "hero_title_3": "",
+        "hero_desc_3": "",
+        "hero_btn_text": "RSVP your spot",
+        "hero_btn_url": "https:\/\/www.eventbrite.com.au\/e\/ella-bache-college-sydney-open-day-may-2023-tickets-630532799577"
+      }
+    },
+    "5c4ae155-65bc-4159-9f09-5d7ed61063c6": {
+      "type": "rich-text",
+      "blocks": {
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "It's not too late to register",
+            "heading_size": "h1"
+          }
+        },
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-1": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Join us for a morning where you’ll get to hear from the best in the business, gain access to what college life is like and experience mini masterclasses with our leading educators. You’ll also enjoy an Ella Baché exclusive gift bag on your arrival.<\/h2><h2><strong>Register now to secure your spot<\/strong>{{ shop.brand.slogan }}<\/h2>"
+          }
+        },
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "rsvp yOUR SPOT",
+            "button_link": "shopify:\/\/pages\/openday",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-0",
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-1",
+        "template--14436660281393__5c4ae155-65bc-4159-9f09-5d7ed61063c6-1683180640f0d71c3f-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "inverse",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "hero_content",
+    "5c4ae155-65bc-4159-9f09-5d7ed61063c6"
+  ]
+}

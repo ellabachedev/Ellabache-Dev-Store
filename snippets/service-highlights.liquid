@@ -1,0 +1,18 @@
+<div class="service-highlight">
+  <a href="{{ sp_url }}">
+    <div class="service-highlight-image">
+      {% case sp_icon %}
+      {% when 'giftbox' %}
+        {% render 'icon-ella-display-gift' %}
+      {% when 'shipping' %}
+        {% render 'icon-ella-display-shipping' %}
+      {% when 'cosmetics' %}
+        {% render 'icon-ella-display-cosmetics' %}
+      {% endcase %}
+    </div>
+    <div class="service-highlight-text">
+      <h3>{{ sp_title }}</h3>
+      <p>{{ sp_sub-title }}</p>
+    </div>
+  </a>
+</div>

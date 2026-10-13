@@ -1,0 +1,320 @@
+<div class="desktop-navigation">
+    <nav>
+        <div>
+            <ul class="site-nav">
+              {%- for main_link in linklists[section.settings.main_linklist].links%}
+                {%- assign child_list_handle = main_link.title | handleize -%}
+                {%- if menus[child_list_handle].links != blank -%}
+                <li class=" {% if forloop.last %} last-desktop-site-nav {% endif %} site-nav--has-submenu {% if link.active %} site-nav--active{% endif %}">
+                  <a href="{{ main_link.url }}" class="site-nav__link">
+                    {{ main_link.title }}
+                  <span class="icon-arrow"></span>
+                  </a>
+                  <div class="site-nav__submenu-wrapper">
+                      <div class="site-nav__submenu-wrapper-width">
+                          <ul class="site-nav__submenu">
+                              {%- for child_link in menus[child_list_handle].links -%}
+                                {%- assign childlink_handle = child_link.title | handleize -%}
+                                <li
+                                    class="{% if menus[childlink_handle].links != blank %}site-nav--has-submenu {% else %}site-nav--standalone {% endif %}{% if child_link.active %}site-nav--active{% endif %} {{ childlink_handle }}">
+                                    <a href="{{ child_link.url }}"
+                                        class="site-nav__link {% if menus[childlink_handle].links != blank %} primary{% endif %}"
+                                        {% if menus[childlink_handle].links !=blank %}
+                                        data-submenu-target="site-nav__submenu_2-{{forloop.index}}" {% endif %}>{{
+                                        child_link.title | escape }}{% if menus[childlink_handle].links != blank %}<span
+                                            class="icon-arrow"></span>{% endif %}</a>
+                                    {%- if menus[childlink_handle].links != blank -%}
+                                    <ul class="site-nav__submenu_2">
+                                      {%- assign accordion_buckets = '' -%}
+                                      {%- assign accordion_names = '' -%}
+                                    
+                                      {%- for grand_child_link in menus[childlink_handle].links -%}
+                                        {%- assign parts = grand_child_link.title | split: '||' -%}
+                                        {%- assign label = parts[0] | strip -%}
+                                        {%- assign meta = parts[1] | default: '' | strip -%}
+                                    
+                                        {%- if meta contains '#' -%}
+                                          <li>
+                                            <a href="{{ grand_child_link.url }}" class="site-nav__link" style="border-bottom: 2px solid {{ meta }};">
+                                              {{ label }}
+                                            </a>
+                                          </li>
+                                    
+                                        {%- elsif meta contains 'accordion' -%}
+                                          <li class="accordion-item">
+                                            <div class="accordion-toggle" href="{{ grand_child_link.url }}" class="site-nav__link">{{ label }}<span
+                                            class="icon-arrow"></span></div>
+                                          {% if meta == 'accordion1' %}
+                                            {%- assign index1 = 0 -%}
+                                            <div class="accordion-content">
+                                              <ul>
+                                                {%- for accordionItem1 in  shop.metafields.globals.by_category_accordion_1_title -%}
+                                                  <li><a href="{{ shop.metafields.globals.by_category_accordion_1_link[index1] }}">{{ accordionItem1 }}</a></li>
+                                                  {%- assign index1 = index1 | plus: 1 -%}
+                                                {%- endfor -%}
+                                              </ul>
+                                            </div>
+                                          {% elsif meta == 'accordion2' %}
+                                            {%- assign index2 = 0 -%}
+
+                                            <div class="accordion-content">
+                                              <ul>
+                                                {%- for accordionItem2 in  shop.metafields.globals.by_category_accordion2_title -%}
+                                                  <li><a href="{{ shop.metafields.globals.by_category_accordion_2_link[index2] }}">{{ accordionItem2 }}</a></li>
+                                                  {%- assign index2 = index2 | plus: 1 -%}
+                                                {%- endfor -%}
+                                              </ul>
+                                            </div>
+                                          {% elsif meta == 'accordion3' %}
+                                            {%- assign index3 = 0 -%}
+                                            <div class="accordion-content">
+                                              <ul>
+                                                {%- for accordionItem3 in  shop.metafields.globals.by_category_accordion3_title -%}
+                                                  <li><a href="{{ shop.metafields.globals.by_category_accordion_3_link[index3] }}">{{ accordionItem3 }}</a></li>
+                                                  {%- assign index3 = index3 | plus: 1 -%}
+                                                {%- endfor -%}
+                                              </ul>
+                                            </div>
+                                          {% elsif meta == 'accordion4' %}
+                                            {%- assign index4 = 0 -%}
+                                            <div class="accordion-content">
+                                              <ul>
+                                                {%- for accordionItem4 in  shop.metafields.globals.by_category_accordion4_title -%}
+                                                  <li><a href="{{ shop.metafields.globals.by_category_accordion_4_link[index4] }}">{{ accordionItem4 }}</a></li>
+                                                  {%- assign index4 = index4 | plus: 1 -%}
+                                                {%- endfor -%}
+                                              </ul>
+                                            </div>
+                                          {% endif %}
+                                          </li>
+                                        {%- else -%}
+                                          {% if childlink_handle == 'by-category' %}
+                                            <li class="accordion-item blank">
+                                              <a href="{{ grand_child_link.url }}" class="site-nav__link">{{ grand_child_link.title }}</a>
+                                            </li>
+                                            {% else %}
+                                            <li>
+                                              <a href="{{ grand_child_link.url }}" class="site-nav__link">{{ grand_child_link.title }}</a>
+                                            </li>
+                                          {% endif %}
+                                        {%- endif -%}
+                                      {%- endfor -%}
+                                    </ul>
+                                    {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+                  
+                              {%- if child_list_handle == "products" -%}
+                                {%- if section.settings.enable_cat_mod_products_menu != blank -%}
+                                <li class="site-nav--has-submenu best-sellers grid_2">
+                                    {%- if section.settings.cat_mod_submenu_title != blank -%}
+                                      <a href="#" class="site-nav__link primary">{{ section.settings.cat_mod_submenu_title }}</a>
+                                    {%- endif -%}
+                                    <div class="flex-container">
+                                        {% if section.settings.product1_image != blank %}
+                                            <div class="item">
+                                                <div class="inner">
+                                                    <a href="{{ section.settings.product1_url }}">
+                                                        {%- assign CatImg = section.settings.product1_image | img_url: '400x' -%}
+                                                        <img src="{{CatImg}}" loading="lazy" alt="{{ section.settings.product1_image.alt | escape }}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        {% if section.settings.product2_image != blank %}
+                                            <div class="item">
+                                                <div class="inner">
+                                                    <a href="{{ section.settings.product2_url }}">
+                                                        {%- assign CatImg = section.settings.product2_image | img_url: '400x' -%}
+                                                        <img src="{{CatImg}}" loading="lazy" alt="{{ section.settings.product2_image.alt | escape }}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                {%- endif -%}
+                              {%- endif -%}
+                  
+                              {%- if child_list_handle == "treatments" -%}
+                              <li class="site-nav--has-submenu best-treatments">
+                                  <a href="#" class="site-nav__link primary">Most Popular Treatments</a>
+                                  <div class="flex-container">
+                                      {%- for product in collections.treatments.products limit:4 -%}
+                                      <div class="item">
+                                          <div class="inner">
+                                              <a class="flex-container" href="{{ product.url }}">
+                                                  <figure class="product-image">
+                                                      <img src="{{ product.featured_image.src | img_url: '100x' }}" loading="lazy" alt="{{ block.settings.desktop_image.alt | escape }}">
+                                                  </figure>
+                                                  <div class="product-content">
+                                                      <h3>{{ product.title }}</h3>
+                                                  </div>
+                                              </a>
+                                          </div>
+                                      </div>
+                                      {%- endfor -%}
+                                  </div>
+                              </li>
+                              {%- endif -%}
+                          </ul>
+                      </div>
+                  </div>
+                </li>
+                {%- else -%}
+                <li class="site-nav--no-submenu {% if forloop.last %} last {% endif %} {% if main_link.active %} site-nav--active{% endif %} ">
+                            <a href="{{ main_link.url }}" class="site-nav__link {% if main_link.title == 'Sale' %}red{% endif %}" data-featured-product-reset="reset">
+                        {{ main_link.title }}
+                    </a>
+                </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+        </div>
+    </nav>
+  <div class="header-actions header-actions-mobile hide-desktop flex-container">
+        <div class="item action-phone">
+            {% assign tel = section.settings.header_action_phone_no | remove:" " %}
+            <a href="tel:{{tel}}" class="telephone" aria-label="Telephone">
+                {{tel}}
+                <span class="icon icon-phone">
+                    {%- render 'icon-phone' -%}
+                </span>
+            </a>
+        </div>
+        {%- if section.settings.enable_header_action_location != blank -%}
+        <div class="item action-map-pointer">
+            <a href="{{ section.settings.header_action_find_salon_url }}" aria-label="Find a Salon">
+                <span class="icon icon-map-pointer">
+                    {%- render 'icon-map-pointer' -%}
+                </span>
+            </a>
+        </div>
+        {%- endif -%}
+        <div class="item action-user">
+            <a href="/account" aria-label="Login">
+                <span class="icon icon-user">
+                    {%- render 'icon-user' -%}
+                </span>
+                <span class="label"><span>Login</span></span>
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+  $('.site-nav__submenu_2 .accordion-item .accordion-toggle').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if($(this).hasClass('is-open')){
+      $(this).removeClass('is-open').next('.accordion-content').stop().slideUp();
+    }
+    else{
+    $('.site-nav__submenu_2 .accordion-item .accordion-toggle').removeClass('is-open').next('.accordion-content').stop().slideUp();
+      $(this).addClass('is-open').next('.accordion-content').stop().slideDown();
+    }
+  });
+  $('ul.site-nav > li > a:contains("Mid Season Sale")').css("color", "red");
+});
+$(window).on('load', function () {
+  handleMobileMenu();
+});
+$(window).on("resize", function () {
+    handleMobileMenu();
+  });
+function handleMobileMenu() {
+  const isMobile = window.matchMedia('(max-width: 767px)').matches;
+  const menu = $(".mobile-menu .site-nav .site-nav--has-submenu:first-child .site-nav__submenu-wrapper .site-nav__submenu");
+
+  if (isMobile) {
+    if (menu.find(".all-products-item").length === 0) {
+      menu.prepend("<li class='site-nav--has-submenu all-products-item'><a href='/collections/all'>All Products</a></li>");
+    }
+  } else {
+    menu.find(".all-products-item").remove();
+  }
+}
+</script>
+<style>
+.accordion-item {
+  border-bottom: 1px solid #A2A2A2;
+}
+.accordion-toggle {
+  position:relative;
+  width: 100%;
+  padding: 14px;
+  font-size: 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  color:#001939;
+}
+@media only screen and (max-width: 768px) {
+  .accordion-toggle {
+    padding:14px 30px;
+  }
+}
+.accordion-toggle span.icon-arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right:10px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+}
+.accordion-toggle span.icon-arrow:after {
+    content: "";
+    border: solid #ccc;
+    padding: 3px;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    position: absolute;
+    right: 6px;
+    top: 5px;
+    transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.accordion-toggle.is-open span.icon-arrow:after {
+  transform: rotate(225deg) !important;
+  -webkit-transform: rotate(225deg) !important;
+  top:8px !important;
+}
+.accordion-content {
+  display:none;
+  padding: 0 16px;
+  list-style: none;
+  margin: 0;
+}
+@media only screen and (max-width: 768px) {
+  .accordion-content {
+    padding:0 30px;
+  }
+}
+.accordion-item .accordion-content {
+  padding-bottom: 10px;
+}
+.accordion-content ul{
+  padding:0;
+}
+.accordion-content a {
+  color:#001e37;
+  padding:5px 0 !important;
+}
+.accordion-item.blank a{
+  padding:14px !important;
+  line-height:1.2 !important;
+  text-transform:uppercase !important;
+}
+@media only screen and (max-width: 768px) {
+  .accordion-item.blank a{
+    padding:14px 30px !important;
+  }
+}
+</style>

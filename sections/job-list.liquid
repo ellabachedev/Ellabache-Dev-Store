@@ -1,0 +1,169 @@
+{%- if section.blocks.size > 0 -%}
+<style>
+.job-list__detail-icon svg path{
+    fill:#001e37;
+}
+.job-list__detail-icon svg circle{
+    fill:transparent;
+}
+.job-list {
+  margin-bottom: 50px;
+}
+.job-list__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns desktop */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .job-list__items {
+    grid-template-columns: 1fr; /* 1 column mobile */
+  }
+}
+.job-list__item {
+  border: 2px solid #f0f0f0;
+  margin: -2px 0 0 -2px;
+  padding: 3rem;
+}
+.job-list__title {
+  margin-top: 0;
+  line-height: 1.4;
+}
+.job-list__link {
+  text-decoration: none;
+  color: inherit;
+}
+.job-list__meta {
+  margin-top: 1rem;
+}
+.job-list__details {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+.job-list__detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.job-list__detail-icon {
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+.job-list__detail-text {
+  margin: 0;
+}
+.button--apply {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #001e37;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+</style>
+<div id="jobResults" class="job-list">
+  <ul class="job-list__items">
+    {%- for block in section.blocks -%}
+      <li class="job-list__item" {{ block.shopify_attributes }}>
+        <h3 class="job-list__title">
+          <a href="{{ block.settings.job_url }}" class="job-list__link">
+            {{ block.settings.job_title }}
+          </a>
+        </h3>
+        <div class="job-list__meta">
+          <dl class="job-list__details">
+            {%- if block.settings.location != blank -%}
+            <div class="job-list__detail">
+              <dt class="job-list__detail-icon">
+                <!-- Location Icon -->
+                <svg aria-hidden="true" class="icon icon--location" viewBox="0 0 24 24">
+                  <path d="M12 2a8 8 0 0 1 8 8c0 4.418-7.635 11.645-7.635 11.645a.52.52 0 0 1-.72.01l-.025-.024C9.273 19.283 4 13.669 4 10a8 8 0 0 1 8-8zm0 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+                </svg>
+              </dt>
+              <dd class="job-list__detail-text">
+                {{ block.settings.location }}
+              </dd>
+            </div>
+            {%- endif -%}
+            {%- if block.settings.job_type != blank -%}
+            <div class="job-list__detail">
+              <dt class="job-list__detail-icon">
+                <!-- Clock Icon -->
+                <svg aria-hidden="true" class="icon icon--clock" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"></path>
+                  <path d="M10.503 14a.497.497 0 0 1-.503-.505V7.503c0-.278.214-.503.505-.503h.99c.279 0 .505.233.505.503V12h4.497c.278 0 .503.214.503.505v.99a.509.509 0 0 1-.503.505h-5.994z"></path>
+              </svg>
+              </dt>
+              <dd class="job-list__detail-text">
+                {{ block.settings.job_type }}
+              </dd>
+            </div>
+            {%- endif -%}
+          </dl>
+          {%- if block.settings.job_url != blank -%}
+            <a href="{{ block.settings.job_url }}" class="button button--apply">
+              {{ block.settings.apply_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Job Listings",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "job",
+      "name": "Job",
+      "settings": [
+        {
+          "type": "text",
+          "id": "job_title",
+          "label": "Job title",
+          "default": "Beauty Therapist"
+        },
+        {
+          "type": "url",
+          "id": "job_url",
+          "label": "Job apply URL"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Sydney NSW"
+        },
+        {
+          "type": "text",
+          "id": "job_type",
+          "label": "Job type",
+          "default": "Full time"
+        },
+        {
+          "type": "text",
+          "id": "apply_label",
+          "label": "Apply button label",
+          "default": "Apply Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Job Listings",
+      "category": "Careers"
+    }
+  ]
+}
+{% endschema %}

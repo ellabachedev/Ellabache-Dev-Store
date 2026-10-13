@@ -1,0 +1,220 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "product-landing-header",
+      "settings": {}
+    },
+    "banner": {
+      "type": "product-landing-banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/Glow-drops-landing-page-banner_11.png",
+        "banner_image-mob": "shopify:\/\/shop_images\/1023_INNOVATION_Mobile_800x800px.png",
+        "cta_url": "shopify:\/\/products\/glow-serum-drops"
+      }
+    },
+    "reviews": {
+      "type": "marquee-product-reviews",
+      "blocks": {
+        "0833d9d4-937c-49ef-997d-6111e3b94c54": {
+          "type": "review_content",
+          "settings": {
+            "reviewer_name": "Lans K, Online Customer",
+            "reviewer_content": "This serum is an absolute game-changer",
+            "reviewer_rating": "5"
+          }
+        },
+        "2fd7de7a-9b14-413b-9be1-6bac04a057b4": {
+          "type": "review_content",
+          "settings": {
+            "reviewer_name": "AK,  salon visitor",
+            "reviewer_content": "My complexion looked more even, and those pesky dark spots seemed to fade away.",
+            "reviewer_rating": "5"
+          }
+        }
+      },
+      "block_order": [
+        "0833d9d4-937c-49ef-997d-6111e3b94c54",
+        "2fd7de7a-9b14-413b-9be1-6bac04a057b4"
+      ],
+      "settings": {}
+    },
+    "grid_content": {
+      "type": "product-landing-grid-content",
+      "blocks": {
+        "136253c8-aba5-4ec1-a917-437d9c7bab75": {
+          "type": "Article",
+          "settings": {
+            "item_title": "On-the-GLOW",
+            "item_desc": "<p style=\"font-size: 20px\">\nIntroducing Ella Baché's latest multi-tasking serum-emulsion innovation.  Boasting the ability to elevate your complexion with a radiant, illuminated, and smooth finish using just a few drops of this transformative product.\n\n<\/p>",
+            "item_btn_text": "Get glowing",
+            "item-btn-url": "shopify:\/\/products\/glow-serum-drops",
+            "item-btn-color": "#65bebd",
+            "item_image": "shopify:\/\/shop_images\/Glow-drops-landing-page_14.png",
+            "item_video": ""
+          }
+        },
+        "a4249b84-2675-4478-9178-3c73800314a2": {
+          "type": "Article",
+          "settings": {
+            "item_title": "The Power of Antioxidant Rich Ingredients",
+            "item_desc": "<p style=\"font-size: 20px\"> \n• <b>Brightness:<\/b> Embrace the radiance with Kakadu Plum bringing forth Vitamin C’s high potency, effectively combating dark spots, enhancing skin immunity, and improving the texture of dull-looking skin.\n<\/p><p><\/p><p style=\"font-size: 20px\"> \n• <b>Hydration:<\/b> Experience the ultimate moisture surge with a fusion of Hyaluronic Acid and marine algae. This blend deeply hydrates the skin, dispersing moisture evenly for up to 72 hours.\n\n<\/p><p><\/p><p style=\"font-size: 20px\"> \n• <b>Anti-Aging: <\/b> Celebrate youthful skin with Peptide Complexes and White Lupin Seeds. These components work synergistically to diminish the appearance of wrinkles, enhance skin texture and luminosity, while promoting skin elasticity and collagen production. \n\n<\/p>",
+            "item_btn_text": "Learn more",
+            "item-btn-url": "shopify:\/\/products\/glow-serum-drops",
+            "item-btn-color": "#65bebd",
+            "item_image": "shopify:\/\/shop_images\/placeholder-image-for-glow-drops_14.png",
+            "item_video": ""
+          }
+        },
+        "b4363796-6f86-4187-8826-dab4d746f1c8": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Add a touch of glow",
+            "item_desc": "<p style=\"font-size: 20px\">\nThe Glow Serum Drops offer multiple applications for on-the-go radiance. \n\n<\/p><p><\/p><p style=\"font-size: 20px\">\n<b>Add to your skincare routine <\/b>\n<\/p><p><\/p><p style=\"font-size: 20px\">\nSimply pump 1-2 drops and blend with your fingertips, applying it as a final step in your skincare routine for a fresh and enduring glow. \n\n<\/p><p><\/p><p style=\"font-size: 20px\">\n<b>Prime and illuminate <\/b>\n<\/p><p><\/p><p style=\"font-size: 20px\">\nFor makeup looks, use it as a primer before foundation to achieve a dew base or apply it as an illuminator to accentuate the high point of your face. \n\n<\/p><p>\nAdditionally, you can use it as a glow-inducing highlighter all over after completing your makeup application. \n\n<\/p>",
+            "item_btn_text": "Learn more",
+            "item-btn-url": "shopify:\/\/products\/glow-serum-drops",
+            "item-btn-color": "#65bebd",
+            "item_video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/9ae11734ca1b4a189fe63fdf45b4e6ab.mp4"
+          }
+        },
+        "3ee87981-e665-430b-af6d-09b34c2ce39c": {
+          "type": "Article",
+          "settings": {
+            "item_title": "The Sun and Glow Station",
+            "item_desc": "<p style=\"font-size: 20px\">\nVisit your local salon to indulge in our Sun & Glow station. Receive a complimentary* skin diagnosis to determine your sun damage levels and discover the perfect shade match with our award winning tinted SPF foundations.\n <\/p>",
+            "item_btn_text": "Book at your local salon",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/pages\/find-a-salon",
+            "item-btn-color": "#65bebd",
+            "item_image": "shopify:\/\/shop_images\/Glow-Drops-model-shot_14.png",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "136253c8-aba5-4ec1-a917-437d9c7bab75",
+        "a4249b84-2675-4478-9178-3c73800314a2",
+        "b4363796-6f86-4187-8826-dab4d746f1c8",
+        "3ee87981-e665-430b-af6d-09b34c2ce39c"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "service_highlights": {
+      "type": "service-highlights",
+      "blocks": {
+        "f18c6d31-0b2e-4b1c-8b0c-8cfd7cfa82cb": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "Protect",
+            "icon": "giftbox",
+            "url": ""
+          }
+        },
+        "4edbac0a-7858-4c33-b708-db5177dc5724": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "<big> Smooth<\/big>",
+            "icon": "giftbox",
+            "url": ""
+          }
+        },
+        "6f8b2997-0d95-4c64-9503-0b2b576ca957": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "<big> Firm<\/big>",
+            "icon": "cosmetics",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "f18c6d31-0b2e-4b1c-8b0c-8cfd7cfa82cb",
+        "4edbac0a-7858-4c33-b708-db5177dc5724",
+        "6f8b2997-0d95-4c64-9503-0b2b576ca957"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "how_to_use": {
+      "type": "product-landing-how-to-use",
+      "disabled": true,
+      "settings": {
+        "bg_color": "#b1ba95",
+        "how_to_video": "",
+        "youtube_video": "https:\/\/www.youtube.com\/embed\/CTYMwsSZUL4",
+        "how_to_title": "<center>Stop The Clock  <\/center>",
+        "how_to_desc": "<center> <p style=\"font-size: 20px\"> Learn how to slow your skins biological ageing process with Gina Cook, National Training Manager at Ella Baché. <\/p>\n<\/center>"
+      }
+    },
+    "best_seller": {
+      "type": "best-seller",
+      "blocks": {
+        "eb6118fe-ea82-4c9a-824d-c20b66ffbd77": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "label": "",
+            "collection": "spirulineslift"
+          }
+        }
+      },
+      "block_order": [
+        "eb6118fe-ea82-4c9a-824d-c20b66ffbd77"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Activate Your Skin With spirulina"
+      }
+    },
+    "slider": {
+      "type": "slider-product-landing",
+      "blocks": {
+        "c916dcde-4d78-4860-bf1f-391d5f167442": {
+          "type": "image-slide",
+          "disabled": true,
+          "settings": {
+            "banner_enable": true,
+            "desktop_image": "shopify:\/\/shop_images\/0423_INNOVATION_Web_Banners_1900x650px_700adda7-162b-4907-911b-dac803aa0e9e.png"
+          }
+        }
+      },
+      "block_order": [
+        "c916dcde-4d78-4860-bf1f-391d5f167442"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "social_media": {
+      "type": "feed-social-media",
+      "disabled": true,
+      "settings": {
+        "title": "Follow us on Instagram",
+        "user_id": "17841400417663213",
+        "feed_token": "IGQVJXT2IxOG9wU01CSTZAyU3pYeUdHSWRZAVEx0bElCR0EtdTRzcUpQVmhiUEhxMnVDT2E0SlhKM0pyMlM3UXVkQk1wWDg5OFBjb3RjSUdhdFJERHZAlUjI1bzMzX0hqVjcxeC1na3lYZAG8yVHRxZAWVlUQZDZD"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "banner",
+    "reviews",
+    "grid_content",
+    "service_highlights",
+    "how_to_use",
+    "best_seller",
+    "slider",
+    "social_media"
+  ]
+}

@@ -1,0 +1,272 @@
+
+{%- capture collegeCTA1 -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-cta1.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.accordion_switch != blank -%}
+{{ 'accordion-block.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+<section class="college-cta1" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="flex-container {% if section.settings.sidebar_ver_pos == 'top' %}top {% elsif section.settings.sidebar_ver_pos == 'center' %}center {% elsif section.settings.sidebar_ver_pos == 'bottom' %}bottom{% endif %}">
+      <div class="main-content">
+        {%- if section.settings.block_title != blank -%}
+        <h2 class="block-title">{{ section.settings.block_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.block_desc != blank -%}
+        {{ section.settings.block_desc }}
+        {%- endif -%}
+        {%- if section.settings.block_video != blank -%}
+        <video controls="controls">
+          <source src="{{ section.settings.block_video | asset_url }}" type="video/mp4" />
+        </video>
+        {%- endif -%}
+      </div>
+      <div class="sidebar {% if section.settings.sidebar_btn_switch != blank %}with-bottom-button{% endif %}">
+        <div class="inner">
+        {%- if section.settings.sidebar_title != blank -%}
+        <h2 class="block-title">{{ section.settings.sidebar_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.sidebar_intro_text != blank -%}
+          <div class="sidebar-intro-text">
+          {{ section.settings.sidebar_intro_text }}
+        </div>
+        {%- endif -%}
+        <div class="lists {% if section.settings.sidebar_bullet_type == 'custom_icon' %}
+        custom_icon{% elsif section.settings.sidebar_bullet_type == 'normal_bullet' %}normal_bullet{% endif %}">
+          {%- for block in section.blocks -%}
+          <div class="item">
+            {%- if block.settings.item_icon != blank -%}
+            <div class="icon">
+                <img width="57" height="50" src="{{ block.settings.item_icon | img_url:'57x' }}" loading="lazy" alt="">
+            </div>
+            {%- endif -%}
+            {%- if block.settings.item_desc != blank -%}
+            <div class="content">
+              <p>{{ block.settings.item_desc }}</p>
+            </div>
+            {%- endif -%}
+          </div>
+          {%- endfor -%}
+        </div>
+        {%- if section.settings.sidebar_btn_switch != blank -%}
+        
+        <div class="button-holder">
+          <a href="{{ section.settings.sidebar_btn_link }}" class="button popup-cta1">{{ section.settings.sidebar_btn_txt }}</a>
+          {%- if section.settings.popup_content != blank -%}
+          {{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+          <div style="display:none">
+          {{ section.settings.popup_content }}
+          </div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- if section.settings.accordion_switch != blank -%}
+    <div class="space" style="height:40px;"></div>
+    <div class="accordion-block">
+      {%- if section.settings.accordion_item_Header != blank -%}
+      <div class="item grey-bg">
+        <div class="header">
+          <h3>{{ section.settings.accordion_item_Header }}</h3>
+        </div>
+        <div class="content">
+          {{ section.settings.accordion_item_content }}
+        </div>
+      </div>
+      {%- endif -%}
+    </div>
+    <script defer="defer">
+      $(document).ready(function () {
+       $('div.accordion-block div.item div.header').addClass('is-open').next('div.content').stop().slideDown();
+        $('div.accordion-block div.item div.header').on('click', function () {
+          if ($(this).hasClass('is-open')) {
+            $(this).removeClass('is-open').next('div.content').stop().slideUp();
+          } else {
+            $('div.accordion-block div.item div.header').removeClass('is-open').next('div.content').stop().slideUp();
+            $(this).addClass('is-open').next('div.content').stop().slideDown();
+          }
+        });
+      });
+    </script>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ collegeCTA1 | strip_newlines }}
+{%- if section.settings.popup_content != blank -%}
+<script defer="defer">
+  $(document).ready(function () {
+    $('a.popup-cta1').magnificPopup({
+      type: 'inline',
+      midClick: true,
+      closeOnBgClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: true
+    });
+  });
+</script>
+{%- endif -%}
+{% schema %}
+{
+    "name": "College CTA 1",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "block_title",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "id": "block_desc",
+      "type": "textarea",
+      "label": "Description"
+    },
+    {
+      "id": "block_video",
+      "type": "text",
+      "label": "Full Video File Name"
+    },
+    {
+      "type": "header",
+      "content": {
+      "en": "Sidebar"
+      }
+    },
+    {
+      "id": "sidebar_ver_pos",
+      "type": "select",
+      "label": "Sidebar Postion",
+      "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+        ],
+      "default": "top"
+    },
+    {
+      "id": "sidebar_title",
+      "type": "text",
+      "label": "Sidebar Title"
+    },
+    {
+      "id": "sidebar_intro_text",
+      "type": "textarea",
+      "label": "Sidebar Intro Text"
+    },
+    {
+      "id": "sidebar_bullet_type",
+      "type": "select",
+      "label": "Sibebar Bullet Type",
+      "options": [
+            {
+              "value": "normal_bullet",
+              "label": "Normal Bullet"
+            },
+            {
+              "value": "custom_icon",
+              "label": "Custom Icon"
+            }
+        ],
+      "default": "custom_icon"
+    },
+    {
+      "type": "header",
+      "content": {
+      "en": "Accordion Content"
+      }
+    },
+    {
+      "id" : "accordion_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : false
+    },
+    {
+      "id": "accordion_item_Header",
+      "type": "text",
+      "label": "Header"
+    },
+    {
+      "id": "accordion_item_content",
+      "type": "textarea",
+      "label": "Content"
+    },
+    {
+      "type": "header",
+      "content": {
+      "en": "Sidebar Button"
+      }
+    },
+    {
+      "id" : "sidebar_btn_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : false
+    },
+    {
+      "id" : "sidebar_btn_txt",
+      "type" : "text",
+      "label" : "Button Text"
+    },
+    {
+      "id" : "sidebar_btn_link",
+      "type" : "url",
+      "label" : "Button Link"
+    },
+    {
+      "id" : "popup_content",
+      "type" : "textarea",
+      "label" : "Popup Content"
+    } 
+    ],
+    "blocks": [
+        {
+        "type": "Article",
+        "name": "Item",
+        "settings": [
+                {
+                "id": "item_icon",
+                "type": "image_picker",
+                "label": "Icon"
+                },
+                {
+                "id": "item_desc",
+                "type": "textarea",
+                "label": "Description"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

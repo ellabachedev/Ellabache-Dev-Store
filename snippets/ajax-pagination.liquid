@@ -1,0 +1,40 @@
+{{ 'component-ajax-pagination.css' | asset_url | stylesheet_tag }}
+<div id="AjaxinatePagination">
+  {%- if paginate.next -%}
+    <div class="loading-img"><img
+        src="{{ 'loader-small.gif' | asset_url }}"
+        loading="lazy"
+        alt="loading"></div>
+    <a href="{{ paginate.next.url }}">Load More</a>
+  {%- endif -%}
+</div>
+<script>
+  $(document).ready(function() {
+    var ajaxinateLoop = check('#AjaxinateLoop');
+    if (ajaxinateLoop > 0) {
+      var productLength = $("#AjaxinateLoop > .item").length;
+      if (productLength < 1) {
+        $("#noMatches").css("display", 'block');
+      }
+    }
+  });
+  $(window).on('load', function() {
+    $("#AjaxinatePagination").on('click', function() {
+      $(this).addClass('loading');
+    });
+    var ajaxinateLoop = check('#AjaxinateLoop');
+    if (ajaxinateLoop > 0) {
+      var endlessClick = new Ajaxinate({
+        method: 'click',
+        container: '#AjaxinateLoop',
+        pagination: '#AjaxinatePagination',
+        callback: function() {
+          $("#AjaxinatePagination").removeClass('loading');
+        }
+      });
+    }
+  });
+  function check(type) {
+    return $('body').find(type).length;
+  }
+</script>

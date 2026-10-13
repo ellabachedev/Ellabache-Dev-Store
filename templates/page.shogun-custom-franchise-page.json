@@ -1,0 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "announcement-bar2": {
+      "type": "announcement-bar2",
+      "settings": {
+        "enable_announcement_bar2": true,
+        "text": "For Franchising opportunities, call <a href=\"tel:1800%20789%20234\">1800 789 234<\/a>",
+        "link": "",
+        "bg_color": "#f2f2f2",
+        "font_color": "#000000"
+      }
+    },
+    "main": {
+      "type": "main-cms-page",
+      "settings": {
+        "title_switch": true,
+        "page_title": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "announcement-bar2",
+    "main",
+    "shogun-optimizer"
+  ]
+}

@@ -1,0 +1,108 @@
+{%- capture collegeApplyNow -%}
+<style>
+figure{
+    margin:0;
+}
+figure img{
+    display:block;
+}
+.apply-now-wrapper .flex-container{
+    justify-content: space-between;
+}
+.apply-now-wrapper .flex-container .flex-item{
+    width:48%;
+}
+.apply-now-wrapper{
+    padding:60px 0;
+}
+.apply-now-wrapper h2{
+    font-size: 34px;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+@media only screen and (max-width: 768px){
+    .apply-now-wrapper h2{
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .apply-now-wrapper{
+        padding:0 0 30px 0;
+    }
+    .apply-now-wrapper .flex-container{
+        flex-direction:column-reverse
+    }
+    .apply-now-wrapper .flex-container .flex-item{
+        width:100%;
+    }
+}
+</style>
+<section class="apply-now-wrapper" style="{{ section.settings.block_bg_color }}">
+    <div class="page-width">
+        <div class="flex-container">
+            <div class="flex-item">
+                {%- if section.settings.block_title != blank -%}
+                    <h2>{{ section.settings.block_title }}</h2>
+                {%- endif-%}
+                {%- if section.settings.block_image != blank -%}
+                <figure class="thumb">            
+                    <img src="{{ section.settings.block_image | img_url:'663x'  }}" loading="lazy" alt="Apply Now">
+                </figure>
+                {%- endif-%}
+                {%- if section.settings.block_desc != blank -%}
+                    <p>{{ section.settings.block_desc }}</p>
+                {%- endif-%}
+            </div>
+            <div class="flex-item">
+                {%- if section.settings.block_iframe != blank -%}
+                    {{ section.settings.block_iframe }}
+                {%- endif-%}
+            </div>
+        </div>
+    </div>
+</section>
+{%- endcapture -%}
+{{ collegeApplyNow | strip_newlines }}
+{% schema %}
+  {
+    "name": "College CTA 2",
+    "settings": [
+        {
+            "id" : "block_bg_color",
+            "type" : "color",
+            "label" : "Block Background Color",
+            "default": "#ffffff"
+        },
+        {
+            "id" : "block_title",
+            "type" : "text",
+            "label" : "Title",
+            "default": "Apply Now"
+        },
+        {
+            "id" : "block_image",
+            "type" : "image_picker",
+            "label" : "Image"
+        },
+        {
+            "id" : "block_desc",
+            "type" : "textarea",
+            "label" : "Description",
+            "default": "Please read the information provided in the Terms and Conditions, Schedule of Fees and Charges for Domestic Students, Cancellation and Refund Policy, Student Handbook and other college policies and procedures available on the resource page before you apply."
+        },
+        {
+            "id" : "block_iframe",
+            "type" : "textarea",
+            "label" : "Iframe",
+            "default": "<iframe src='https://clustdoc.com/cp/271518-5fd2badb18e4a?embedded=1' frameborder='0' height='600' width='100%''></iframe>"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

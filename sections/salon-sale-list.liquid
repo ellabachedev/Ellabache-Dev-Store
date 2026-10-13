@@ -1,0 +1,147 @@
+{%- if section.blocks.size > 0 -%}
+<style>
+.salon-sale-list__detail-icon svg path{
+    fill:#001e37;
+}
+.salon-sale-list__detail-icon svg circle{
+    fill:transparent;
+}
+.salon-sale-list {
+  margin-bottom: 50px;
+}
+.salon-sale-list__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns desktop */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .salon-sale-list__items {
+    grid-template-columns: 1fr; /* 1 column mobile */
+  }
+}
+.salon-sale-list__item {
+  border: 2px solid #f0f0f0;
+  margin: -2px 0 0 -2px;
+  padding: 3rem;
+}
+.salon-sale-list__title {
+  margin-top: 0;
+  line-height: 1.4;
+}
+.salon-sale-list__link {
+  text-decoration: none;
+  color: inherit;
+}
+.salon-sale-list__meta {
+  margin-top: 1rem;
+}
+.salon-sale-list__details {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+.salon-sale-list__detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.salon-sale-list__detail-icon {
+  flex-shrink: 0;
+  margin-right: 0.75rem;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+.salon-sale-list__detail-text {
+  margin: 0;
+}
+.button--cta {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #001e37;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+</style>
+<div class="salon-sale-list">
+  <ul class="salon-sale-list__items">
+    {%- for block in section.blocks -%}
+      <li class="salon-sale-list__item" {{ block.shopify_attributes }}>
+        <h3 class="salon-sale-list__title">
+          <a href="{{ block.settings.salon_url }}" class="salon-sale-list__link">
+            {{ block.settings.salon_title }}
+          </a>
+        </h3>
+        <div class="salon-sale-list__meta">
+          <dl class="salon-sale-list__details">
+            {%- if block.settings.location != blank -%}
+            <div class="salon-sale-list__detail">
+              <dt class="salon-sale-list__detail-icon">
+                <!-- Location Icon -->
+                <svg aria-hidden="true" class="icon icon--location" viewBox="0 0 24 24">
+                  <path d="M12 2a8 8 0 0 1 8 8c0 4.418-7.635 11.645-7.635 11.645a.52.52 0 0 1-.72.01l-.025-.024C9.273 19.283 4 13.669 4 10a8 8 0 0 1 8-8zm0 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+                </svg>
+              </dt>
+              <dd class="salon-sale-list__detail-text">
+                {{ block.settings.location }}
+              </dd>
+            </div>
+            {%- endif -%}
+          </dl>
+          {%- if block.settings.salon_url != blank -%}
+            <a href="{{ block.settings.salon_url }}" class="button button--cta">
+              {{ block.settings.cta_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Salon Sale Listings",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "sale",
+      "name": "Salon Sale",
+      "settings": [
+        {
+          "type": "text",
+          "id": "salon_title",
+          "label": "Salon title"
+        },
+        {
+          "type": "url",
+          "id": "salon_url",
+          "label": "Salon URL"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Sydney NSW"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button label",
+          "default": "Enquire Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Job Listings",
+      "category": "Careers"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,46 @@
+{%- assign show_popup = false  %}
+{%- assign include_list = settings.welcome_popup1_include | split: "|" -%}
+{%- for include_url in include_list -%}
+  {%- assign strippedUrl = include_url | strip -%} 
+  {%- if request.path contains strippedUrl -%}
+    {%- assign show_popup = true  -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if show_popup %}
+<link rel="stylesheet" href="{{ 'component-welcome-popup1.css' | asset_url }}" media="print" onload="this.media='all'">
+<div class="welcome_popup" data-popup-open-delay="{{ settings.welcome_popup1_open_delay }}" data-welcome-popup>
+    <div class="flex-container">
+        <div class="banner left-col">
+            <div class="image">
+                <img src="{{ settings.welcome_popup1_banner_img | img_url: '503x'  }}" loading="lazy" alt="Banner Image">
+            </div>
+        </div>
+        <div class="right-col">
+            <div class="flex-container vertical-middle">
+                <h2 class="title">{{ settings.welcome_popup1_title }}</h2>
+                <p>{{ settings.welcome_popup1_desc }}</p>
+                <div class="buttons">
+                    {%- if settings.welcome_popup1_Btn1 != blank -%}
+                    <div class="item">
+                        <a href="{{ settings.welcome_popup1_Btn1-link }}" data-ga-welcomepopup1Cat="College popup" data-ga-welcomepopup1Action="Button click" data-ga-welcomepopup1Label="Enquire Now" class="btn-primary">{{ settings.welcome_popup1_Btn1 }}</a>
+                    </div>
+                    {%- endif -%}
+                    {%- if settings.welcome_popup1_Btn2 != blank -%}
+                    <div class="item">
+                        <a href="{{ settings.welcome_popup1_Btn2-link }}" data-ga-welcomepopup1Cat="College popup" data-ga-welcomepopup1Action="Button click" data-ga-welcomepopup1Label="Schedule a call" class="btn-primary">{{ settings.welcome_popup1_Btn2 }}</a>
+                    </div>
+                    {%- endif -%}
+                    {%- if settings.welcome_popup1_Btn3 != blank -%}
+                    <div class="item">
+                        <a href="{{ settings.welcome_popup1_Btn3-link }}" data-ga-welcomepopup1Cat="College popup" data-ga-welcomepopup1Action="Button click" data-ga-welcomepopup1Label="Download resources" class="btn-primary">{{ settings.welcome_popup1_Btn3 }}</a>
+                    </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" data-ga-welcomepopup1Cat="College popup" data-ga-welcomepopup1Action="Button click" data-ga-welcomepopup1Label="Close" class="popup-close" id="popupClose"></a>
+</div>
+<script src="{{ 'welcome-popup1.js' | asset_url }}" defer="defer"></script>
+{% endif -%}

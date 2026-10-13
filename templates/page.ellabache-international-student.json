@@ -1,0 +1,250 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify:\/\/shop_images\/Help-Me-Hydrate_c056fa63-3d93-49bf-bc03-832b8c42f739.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>DREAMING OF<br> A CAREER IN<\/span><span>BEAUTY<\/span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "Enrol now for July 2023 Online<br> or September On Campus",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "Enrol now for July 2023 Online<br> or September On Campus",
+            "slider-secondary-text": "Sydney | Melbourne | Brisbane",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Enrol Now",
+            "slider-button-url": "https:\/\/www.ellabache.com.au\/pages\/new-college-apply-now",
+            "button-style": "1",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "college-cta2": {
+      "type": "college-cta2",
+      "blocks": {
+        "0f1b415e-1a7e-4579-82d0-7c5dfb807b9c": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_row-reverse": true,
+            "item_thumb": "shopify:\/\/shop_images\/CollegeGirls.png",
+            "item_title": "International Students",
+            "item_desc": "<p>International Students are eligible to apply for the EdFlex™ Sydney program. EdFlex™ Blended is not a CRICOS approved course format for international students.<\/p>",
+            "item_btn_switch": true,
+            "item_btn_text": "View All Requirements",
+            "item_btn_url": "#viewAllRequirementsInternationalStudents",
+            "item_popup_switch": true,
+            "popup_content": "<!-- Popup STARTS -->\n  <div id=\"viewAllRequirementsInternationalStudents\" class=\" white-popup-block\" style=\"padding:20px 0;\">\n    <div class=\"page-width\">\n      <h2>International Students<\/h2>\n      <p>Our SHB50115 - Diploma of Beauty Therapy will enable you to become a professionally qualified beauty therapist with skills that are recognised. This well-respected beauty therapy course will give you an education in the fundamentals of the skin paired with all-important practical and diagnostic skills, allowing you to be confident and proficient in performing a wide range of specialised facial and body treatments.<\/p>\n      <h3>What will you learn?<\/h3>\n      <ul>\n        <li>Conduct client consultations and perform professional salon services<\/li>\n        <li>Apply a solid understanding of skin biology, anatomy and physiology of major body systems in designing suitable treatments according to the skin type and skin conditions of the client<\/li>\n        <li>Recommend appropriate products for treatments utilising your knowledge of cosmetic chemistry<\/li>\n        <li>Perform a range of body treatments with the latest equipment and different massage techniques including Swedish, lymphatic, stone massage, reflexology and Indian head massage<\/li>\n        <li>Perform specialised professional treatments such as electrolysis and diathermy safely and effectively<\/li>\n        <li>Blend and apply a range of aromatherapy oils for aromatherapy massage and various beauty treatments<\/li>\n        <li>Perform a range of professional waxing treatments hygienically and with minimum discomfort to the client<\/li>\n        <li>Provide professional lash and brow treatments<\/li>\n        <li>Provide nail treatments including manicure and pedicure<\/li>\n        <li>Design and apply makeup to enhance facial features<\/li>\n        <li>Apply small business knowledge in operating and managing salon business<\/li>\n      <\/ul>\n      <h3>Course outline<\/h3>\n      <p>To achieve your SHB50115 -Diploma of Beauty Therapy qualification, 25 Units of Competency must be completed. The 25 Units of Competency are comprised of 13 Core Units, 10 General Elective Units plus 3 Specialisation Elective units. At the commencement of Trimester 3, students will be invited to select one Specialisation Stream.<\/p>\n      <h3>International students course entry requirements<\/h3>\n      <p>There are no entry requirements stated in the Training Package rules for SHB50115 Diploma of Beauty Therapy. Ella Bache College however has the following requirements for entry into this qualification as an international student:<\/p>\n      <p>International students must be 18 years of age or above and must provide evidence of the following published entry requirements as stated below:<\/p>\n      <ul>\n        <li>Current passport identification<\/li>\n        <li>Current student visa<\/li>\n        <li>Overseas Student Health Cover<\/li>\n      <\/ul>\n      <h4>Unique Student Identifier (USI):<\/h4>\n      <p>All students undertaking nationally recognised training are required to create a Unique Student Identifier (USI). Create your USI <a href=\"https:\/\/www.usi.gov.au\/students\/get-a-usi\" target=\"_blank\">here<\/a><\/p>\n      <h4>Academic Entry Requirements:<\/h4>\n      <ul>\n        <li>Completion of Year 12 or equivalent and above, and<\/li>\n      <\/ul>\n      <h4>English Language Entry Requirements:<\/h4>\n      <ul>\n        <li>IELTS score 5.5 minimum (no lower than 5.0 in each band); or<\/li>\n        <li>Cambridge First Certificate of English – Grade C (162-168); or<\/li>\n        <li>TOEFL Paper based (PBT) score of 525; or<\/li>\n        <li>TOEFL Internet based (iBT) score 70; or<\/li>\n        <li>TOEIC (list\/Read-620; Speak\/Writ-260)<\/li>\n      <\/ul>\n      <p>A prospective student does not need to provide evidence of an English test score with his\/her application if one of the following applies:<\/p>\n      <ul>\n        <li>Prospective student is a citizen and holds a passport from UK, USA, Canada, NZ, or Republic of Ireland.<\/li>\n        <li>Prospective student has completed at least 5 years’ study in English in one or more of the following countries: Australia, UK, USA, Canada, New Zealand, South Africa, or the Republic of Ireland.<\/li>\n        <li>In the 2 years before applying for the student visa with Ella Baché College, the prospective student completed, while the prospective student held a student visa, in Australia and in the English language:<\/li>\n      <\/ul>\n      <p>a Senior Secondary Certificate of Education or<\/p>\n      <p>a substantial component of a course leading to a qualification from the Australian Qualifications Framework at the Certificate IV or higher level, or an ELICOS English language course with an approved NEAS English provider and provides certified evidence of English Placement test results at upper intermediate level across all bands.<\/p>\n      <h4>Language and Literacy Entry Requirements:<\/h4>\n      <p>All prospective students are required to complete an ACER LLN assessment to assess their suitability & capacity to undertake the course to ensure they have an Australian Core Skills Framework (ACSF) at or above Exit level of 3 in both reading and numeracy. <\/p>\n      <h4>Physical capabilities:<\/h4>\n      <ul>\n        <li>Physical capability to perform the role of a beauty therapist, this includes the ability to stand for lengthy periods of time.<\/li>\n        <li>It is important to note that prior to practicing on clients, students are expected to perform treatments on each other during practical training sessions throughout the course.<\/li>\n      <\/ul>\n      <h4>Technology\/Technology Literacy:<\/h4>\n      <p>Students are required to provide their own laptop computer or device that is loaded with Microsoft Office 365 software or Open Office 365 (open source). Microsoft Office 2007 or above, and Microsoft Windows 2000 or Mac OS X, Adobe Acrobat Reader and Macro Flash Media.<\/p>\n      <p>Intermediate level computer skills are required that include using intermediate level Word features. Ability to produce and present word-processed documents\/ reports and undertake internet research.<\/p>\n      <h4>Other requirements:<\/h4>\n      <p>Must be able to commit to the course duration and time commitments including:<\/p>\n      <ul>\n        <li>Course duration: deliver over 52 weeks including college breaks<\/li>\n        <li>Trimester: 15 weeks per trimester over three (3) trimester<\/li>\n        <li>Face to face: 2 ½ days per week (20 hours) of face to face classes at our Sydney campus over three x 15 week trimesters<\/li>\n        <li>Self-study: 7 hours per week self-study including learning and assessment tasks x 45 weeks<\/li>\n        <li>Work-placement: one day (6 hours per week) x 25 weeks<\/li>\n      <\/ul>\n      <h4>Entry and Enrolment Process<\/h4>\n      <p>All prospective students are required to participate in an interview with the Course Career Advisor or the Education Manager. The interview may be in person or via the phone\/skype. The information obtained from the interview and the outcome of the ACER LLN test report will be assessed by the Education Manager for the suitability & capacity to undertake the course.<\/p>\n      <h3>Living and Studying in Australia<\/h3>\n      <p>All international students need to be aware of the average costs of living and studying in Australia as an essential part of your application and financial preparation. For more information, please follow the links below:<\/p>\n      <ul>\n        <li>Study in Australia - Living Costs<\/li>\n        <li>Departament of Education and Training - International Education<\/li>\n      <\/ul>\n      <h3>Overseas Student Health Cover (OSHC)<\/h3>\n      <p>It is mandatory for all overseas students to have Overseas Student Health Cover (OSHC) or the duration of their student VISA (VLC). Our preferred OSHC provider is nib. Please advise the College if you would like us to organise OSHC on your behalf.<\/p>\n      <h3>Fees<\/h3>\n      <p>All International Students that apply for a Course are required to pay a $1000, non-refundable enrolment fee to secure their place.Please refer to the Terms and Conditions, Schedule of Fees and Charges for International Students, Cancellation and Refund Policy, Student Handbook and other college policies and procedures on the resource page for more information prior to your enrolment.<\/p>\n      <ul>\n        <li>SHB50115 - Diploma of Beauty Therapy: $17,500<\/li>\n      <\/ul>\n  <\/div>\n  <\/div>\n  <!-- Popup ENDS -->"
+          }
+        }
+      },
+      "block_order": [
+        "0f1b415e-1a7e-4579-82d0-7c5dfb807b9c"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "popup_js_switch": true
+      }
+    },
+    "grid-content-block": {
+      "type": "grid-content-block",
+      "blocks": {
+        "207b46f3-0da8-4e01-b5cc-cd65656c66de": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Enquire Now",
+            "item_btn_url": "https:\/\/www.ellabachecollege.edu.au\/signup"
+          }
+        },
+        "a8ff3fa6-2fff-4e28-9684-e1719db2ab0d": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Request Course Guide",
+            "item_btn_url": "https:\/\/www.ellabachecollege.edu.au\/signup"
+          }
+        },
+        "a229f09f-0060-4ca1-979f-80fa60a095be": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_tag": "",
+            "item_desc": "",
+            "item_btn_text": "Book A Phone Consultation",
+            "item_btn_url": "https:\/\/calendly.com\/ellabachecollege\/diploma?month=2023-07"
+          }
+        }
+      },
+      "block_order": [
+        "207b46f3-0da8-4e01-b5cc-cd65656c66de",
+        "a8ff3fa6-2fff-4e28-9684-e1719db2ab0d",
+        "a229f09f-0060-4ca1-979f-80fa60a095be"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "college-cta3": {
+      "type": "college-cta3",
+      "blocks": {
+        "de14f91a-fced-4145-8a2b-f6c6e01729ce": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/Defend.jpg",
+            "item_title": "CRICOS",
+            "item_tag": "",
+            "item_desc": "<p>The Department of Education and Training is responsible for the Commonwealth Register of Institutions and Courses for Overseas Students (CRICOS). Only education providers registered under the ESOS Act and listed in CRICOS can enrol overseas students to study in Australia on a Student VISA. This protects Australia’s reputation for delivering quality education services and the interests of overseas students, by setting minimum standards and providing tuition and financial assurance.<\/p>\n<p>Ella Baché College of Skin and Beauty Therapy is registered with <a href=\"https:\/\/cricos.education.gov.au\/\" target=\"_blank\">CRICOS<\/a>, Provider No: 01474B, to deliver nationally accredited beauty therapy courses for Overseas Students.\n<\/p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        },
+        "6ba1dc2f-4928-4328-8cf9-9f345f5dd817": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/StairBAW_676d45d5-a370-4793-9b98-4ac15b97bdcd.png",
+            "item_title": "ESOS",
+            "item_tag": "",
+            "item_desc": "<p>The Education Services for Overseas Students (ESOS) framework is a set of regulations related to international students studying in Australia on a Student VISA. Before accepting an offer to study with Ella Bache College, overseas students should be familiar with the ESOS framework. Please read the <a href=\"https:\/\/www.studyinaustralia.gov.au\/english\/australian-education\/education-system\/esos-act\/Education-Services-for-Overseas-Students-Act\" target=\"_blank\">ESOS Student Fact Sheet<\/a> carefully.<\/p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "de14f91a-fced-4145-8a2b-f6c6e01729ce",
+        "6ba1dc2f-4928-4328-8cf9-9f345f5dd817"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "college-cta4": {
+      "type": "college-cta4",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "How to Apply",
+        "block_description": "",
+        "block_image": "shopify:\/\/shop_images\/HeaderThree_copy.jpg",
+        "block_shogun_content": "<div class=\"shogun-2-col-grid\">\n      <div class=\"flex-container\">\n        <div class=\"col-item\">\n          <h3>Find an education agent<\/h3>\n          <p><strong>If you are thinking of studying in Australia, an Education Agent can give you advice about Ella Baché College and courses. They can also provide you with VISA information and help you complete your application to study in Australia.<\/strong><\/p>\n          <div class=\"lists\">\n            <ul>\n              <li><p><a href=\"https:\/\/www.gostudy.com.au\/\" target=\"_blank\">GO STUDY Australia<\/a><\/p><\/li>\n              <li><p><a href=\"http:\/\/www.johokan.jp\/company_profile.php\" target=\"_blank\">International Communications Network Japan<\/a><\/p><\/li>\n              <li><p><a href=\"http:\/\/www.brightannica.com\/\" target=\"_blank\">Brightannica<\/a><\/p><\/li> \n              <li><p><a href=\"http:\/\/www.australiaonline.agency\/\" target=\"_blank\">Australia Online<\/a><\/p><\/li>\n              <li><p><a href=\"https:\/\/www.chiceducation.com\/\" target=\"_blank\">Chic Education<\/a><\/p><\/li>\n              <li><p><a href=\"https:\/\/www.aussie-study.com\/\" target=\"_blank\">Aussie Study<\/a><\/p><\/li>\n              <li><p><a href=\"https:\/\/deow.jp\/\" target=\"_blank\">Deow<\/a><\/p><\/li>\n              <!-- <li><p><a href=\"https:\/\/pathwaytoaus.com\/\" target=\"_blank\">Pathway to Aus<\/a><\/p><\/li>\n              <li><p><a href=\"https:\/\/www.letsgoplanet.com\/\" target=\"_blank\">Lets Go Planet<\/a><\/p><\/li> -->\n              <li><p><a href=\"http:\/\/easyoz.com.au\" target=\"_blank\">Easy Oz<\/a><\/p><\/li>\n              <li><p><a href=\"http:\/\/www.study-au.com\" target=\"_blank\">Homestay & Education Australia Pty Ltd<\/a><\/p><\/li>\n              <li><p><a href=\"https:\/\/www.iibit.edu.au\/agents\/t-n-sydney-international-education-consultancy-pty-ltd-2\/\" target=\"_blank\">T&N<\/a><\/p><\/li>\n            <\/ul>\n          <\/div>\n          <p><strong>Interested in becoming an Ella Bache Education Agent?<\/strong><\/p>\n          <p><strong>Please contact Balthazar at: bboutry@thestudyconsult.com<\/strong><\/p>\n        <\/div>\n        <div class=\"col-item\">\n          <h3>Apply directly to Ella Baché College<\/h3>\n          <p><strong>Step 1: Apply using the <a href=\"https:\/\/www.ellabache.com.au\/pages\/college-enrolment-form-and-agreement\" target=\"_blank\">International Student Application Form<\/a><\/strong><\/p>\n          <p><strong>Step 2: Prepare you supporting documents:<\/strong><\/p>\n          <div class=\"lists\">\n            <ul>\n              <li><p>Proof of age (all applicants must be 18 years of age or older)<\/p><\/li>\n              <li><p>IELST 5.5 or equivalent English test result<\/p><\/li>\n              <li><p>Copy of passport<\/p><\/li>\n              <li><p>Overseas Student Health Cover (OSHC)<\/p><\/li>\n            <\/ul>\n          <\/div>\n          <p><strong>Step 3: Accept your Written Agreement. Your Course and Careers Advisor will issue a Written Agreement outlining all fees you are required to pay, current and accurate information about the course, entry requirements and mode of study.<\/strong><\/p>\n          <p><strong>Step 4: Pay a course deposit of $1000 and OSHC or supply OSHC certificate<\/strong><\/p>\n          <p><strong>Step 5: Apply for your student VISA<\/strong><\/p>\n        <\/div>\n      <\/div>\n    <\/div>",
+        "block_shogun_content_2": ""
+      }
+    },
+    "college-enquire-block": {
+      "type": "college-enquire-block",
+      "blocks": {
+        "468dea47-592e-4b54-8809-bbe2a29287f6": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-edu-hat.png",
+            "item_iconContent_title": "Campus and class",
+            "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+          }
+        },
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-treatment.png",
+            "item_iconContent_title": "Campus and treatment",
+            "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+          }
+        },
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-screen-1.png",
+            "item_iconContent_title": "Virtual Campus tour",
+            "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+          }
+        }
+      },
+      "block_order": [
+        "468dea47-592e-4b54-8809-bbe2a29287f6",
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef",
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Got questions?",
+        "block_desc": "",
+        "sidebar_title": "Discover more about us",
+        "typeform_data-url": "https:\/\/ellabache.typeform.com\/to\/yKFW7A"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    },
+    "college-cta6": {
+      "type": "college-cta6",
+      "disabled": true,
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#f2f2f2",
+        "block_Text": "<p>Ella Baché College of Skinand Beauty Therapy <br\/>RTO Provider No 6704<br\/>CRICOS ID 01474B<\/p>"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "college-cta2",
+    "grid-content-block",
+    "college-cta3",
+    "college-cta4",
+    "college-enquire-block",
+    "college-cta5",
+    "college-cta6"
+  ]
+}

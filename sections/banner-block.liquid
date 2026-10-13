@@ -1,0 +1,117 @@
+{{ 'section-banner-block.css' | asset_url | stylesheet_tag }}
+{%- capture banner-block -%}
+<div class="banner-block">
+  <div class="page-width">
+    <div class="block-item" style="background-color:{{ section.settings.banner-bg-color }};">
+      <div class="flex-container {% if section.settings.reverse-position != blank %} row-reverse{%- endif -%}">
+        <div class="block-media">
+          {%- if section.settings.banner-image != blank -%}
+            {%- if section.settings.banner-link-url != blank -%}
+            <a href="{{ section.settings.banner-link-url }}">
+            {%- endif -%}
+            <picture>
+              {%- if section.settings.banner-image-mobile != blank -%}
+              <source srcset="{{ section.settings.banner-image-mobile | img_url: '480x', format: 'pjpg' }}" media="(max-width: 480px)">
+              <source srcset="{{ section.settings.banner-image-mobile | img_url: '768x', format: 'pjpg' }}" media="(max-width: 768px)">
+              {%- endif -%}
+              <source srcset="{{ section.settings.banner-image | img_url: '1900x', format: 'pjpg' }}" media="(max-width: 1900px)">
+              <img width="730" height="1095" src="{{ section.settings.banner-image-mobile | img_url: '480x', format: 'pjpg' }}" loading="lazy" alt="Banner">
+            </picture>
+            {%- if section.settings.banner-link-url != blank -%}
+            </a>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+        <div class="block-content flex-container">
+          <div class="center-align">
+            {%- if section.settings.banner-title != blank -%}
+              {%- if section.settings.banner-link-url != blank -%}
+              <a href="{{ section.settings.banner-link-url }}">
+              {%- endif -%}
+                <h2>{{ section.settings.banner-title }}</h2>
+              {%- if section.settings.banner-link-url != blank -%}
+              </a>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if section.settings.banner-tag-text != blank -%}
+              <span class="tag">{{ section.settings.banner-tag-text }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{{ banner-block | strip_newlines }}
+{% schema %}
+  {
+    "name": "Banner Block",
+    "settings": [
+      {
+        "type": "color",
+        "id": "banner-bg-color",
+        "label": "Background Color",
+        "default": "#001E37"
+      },
+      {
+        "type": "checkbox",
+        "id": "reverse-position",
+        "label": "Reverse Image Content Position"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-image",
+        "label": "Image (Desktop)"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-image-mobile",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "text",
+        "id": "banner-title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "banner-tag-text",
+        "label": "Tag Text"
+      },
+      {
+        "type": "url",
+        "id": "banner-link-url",
+        "label": "Link URL"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner Block",
+        "category": "Custom Content"
+      }
+    ]
+  }
+{% endschema %}
+<script>
+  window.addEventListener('load', (event) => {
+  // Animate On Screen  -------------------------------
+    function offscrnTarget_banner_blocks(){
+      if($('div.banner_block_loaded').length<1){
+        var targetPosition_top = $('div.banner-block').offset().top + 100;
+        var winScrollposition = $(window).scrollTop();
+        var winHt = $(window).height();
+        if(targetPosition_top - winHt < winScrollposition){
+          $('div.banner-block').addClass('banner_block_loaded');
+          setTimeout(function(){
+            $('div.banner-block').addClass('animate');
+          }, 400);
+          
+        }
+      }
+    }
+    $(window).on('scroll', function(){
+      offscrnTarget_banner_blocks();
+    });
+  });
+</script>

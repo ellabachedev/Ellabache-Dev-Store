@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="{{ 'component-search-dropdown.css' | asset_url }}" media="print" onload="this.media='all'">
+<script src="{{ 'search-dropdown.js' | asset_url }}" defer="defer"></script>
+{% capture searchForm %}
+  <form
+    style="background-color:rgb(221, 221, 221);"
+    action="/search"
+    method="get"
+    class="search-dropdown"
+    role="search">
+    <div class="center">
+      <input type="hidden" name="type" value="product">
+      <div class="row">
+        <input type="search" name="q" id="Search" class="label-left header_search-form" value="{{ search.terms | escape }}" placeholder="Search">
+        <button id="resetBtn" class="reset" type="reset">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Clear Search text" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16ZM8.00263 8.86758L10.4906 11.3515L11.3601 10.4805L8.87292 7.9973L11.3605 5.50972L10.4902 4.63943L8.00193 7.12772L5.50926 4.63908L4.63968 5.51007L7.13164 7.998L4.63932 10.4903L5.50961 11.3606L8.00263 8.86758Z" fill="black"></path></svg>
+            <span class="visuallyHidden">Clear Search text</span>
+        </button>
+      </div>
+      <div class="actions">
+        <button class="search">
+          {%- render 'icon-search' -%}
+        </button>
+        <span class="close" aria-label="close"></span>
+      </div>
+    </div>
+  </form>
+{% endcapture %}
+{{ searchForm | strip_newlines }}
+<script>
+  const searchInput = document.getElementById("Search");
+  const resetBtn = document.getElementById("resetBtn");
+
+  searchInput.addEventListener("input", function () {
+      resetBtn.style.display = this.value ? "block" : "none";
+  });
+
+  resetBtn.addEventListener("click", function () {
+    
+    resetBtn.style.display = "none";
+      searchInput.focus();
+    searchInput.value = "";
+    setTimeout(function(){
+      searchInput.value = "";
+    },200)
+  });
+</script>

@@ -1,0 +1,94 @@
+{{ 'component-product-landing-how-to-use.css' | asset_url | stylesheet_tag }}
+<section class="how-to-video">
+  <div class="parallax-window" style="background-color:{{ section.settings.bg_color }};" data-parallax="scroll" {% if section.settings.bg_image != blank %}data-image-src="{{ section.settings.bg_image | img_url }}{% endif %}">
+    <div class="page-width">
+      <div class="overlay-box">
+        <div class="flex-container v-align-center">
+          <div class="content">
+            {% if section.settings.how_to_title != blank %}
+              <h2>{{ section.settings.how_to_title }}</h2>
+            {% endif %}
+            {% if section.settings.how_to_desc != blank %}
+            {{ section.settings.how_to_desc }}
+            {% endif %}
+          </div>
+          <div class="video">
+            {% if section.settings.how_to_video  != blank %}
+            <video id="howToVideo" loop="loop" class="video-promo" controls="false" muted>
+              <source src="{{ section.settings.how_to_video }}" type="video/mp4">
+            </video>
+            {% endif %}
+            {% if section.settings.youtube_video  != blank %}
+              <iframe width="560" height="450" src="{{ section.settings.youtube_video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $(window).scroll(function(){
+    $('section.how-to-video').each(function () {
+        var hasVideo = $(this).find('.video-promo').length;
+        console.log(hasVideo);
+        if(hasVideo >= 1){
+            if (isScrolledIntoView($(this))) {
+                var videoID = $(this).find('.video-promo').attr('id');
+                if (videoID) {
+                    var myVideo = document.getElementById(videoID);
+                    myVideo.play();
+                    console.log('play' + videoID);
+                }
+            }
+            else {
+                $(this).find('.video-promo').get(0).pause();
+            }
+        }
+    });
+  });
+</script>
+{% schema %}
+  {
+    "name": "How to use",
+    "settings": [
+      {
+        "id": "bg_image",
+        "type": "image_picker",
+        "label": "Background Video"
+      },
+      {
+        "id": "bg_color",
+        "type": "color",
+        "label": "Background Color",
+        "default": "#b1ba95"
+      },
+      {
+        "id": "how_to_video",
+        "type": "text",
+        "label": "Video URL"
+      },
+      {
+        "id": "youtube_video",
+        "type": "text",
+        "label": "Youtube Embed Video URL"
+      },
+      {
+        "id": "how_to_title",
+        "type": "textarea",
+        "label": "Title"
+      },
+      {
+        "id": "how_to_desc",
+        "type": "textarea",
+        "label": "Description"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

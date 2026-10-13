@@ -1,0 +1,22 @@
+{% comment %} iterate section blocks and find matching collection {% endcomment %}
+{%- assign matching_block = null -%}
+data-link="{{ url }}"
+{%- for block in section.blocks -%}
+{%- if url == block.settings.linkurl -%}
+{%- assign matching_block = block -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+{% if matching_block %}
+{% if matching_block.settings.imageurl != blank %}
+{% assign urlx = matching_block.settings.imageurl %}
+{% else %}
+{% assign urlx = link.url %}
+{% endif %}
+data-featured-product='{
+"url": "{{ urlx }}",
+"image": "{{ matching_block.settings.image | img_url: '520x', scale: 2, format: 'pjpg' }}"
+}'
+{% else %}
+data-featured-product
+{% endif %}

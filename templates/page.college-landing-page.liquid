@@ -1,0 +1,141 @@
+{{ 'college-landing-page.css' | asset_url | stylesheet_tag }}
+<div class="landing-page college">
+    <div class="page-width">
+        <h1 class="text-center">Face your exciting career in Beauty</h1>
+        <section class="two-col-content advisor-book">
+            <div class="flex-container">
+                <div class="col-item image" style="width:60.25%;">
+                    <img width="892" height="651" src="https://cdn.shopify.com/s/files/1/0119/6028/7313/files/speak-to-a-career-advisor.jpg?v=1647923955" alt="">
+                </div>
+                <div class="col-item content" style="background-color:#c5e2e0; width:37.92%;">
+                    <div class="header">
+                        <h2>Speak to a Careers Advisor</h2>
+                    </div>
+                    <div class="text">
+                        <p>Speak with our team today about how start your career with a Diploma in Beauty to make your career goals come true.</p>
+                    </div>
+                    <div class="button-holder">
+                        <a href="https://calendly.com/ellabachecollege/course-and-careers-advisor-call?month=2022-03" class="btn btn-white">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="two-col-content why-choose">
+            <div class="flex-container">
+                <div class="col-item content" style="background-color:#f1f1f1; width:60.25%;">
+                    <div class="header">
+                        <h2><span>Why </span><span>Choose </span><span>Ella </span><span>Baché </span><span>College</span></h2>
+                    </div>
+                    <div class="lists custom_icon">
+                        <div class="item">
+                            <div class="icon">
+                                <img width="44" height="39" src="//cdn.shopify.com/s/files/1/2999/1646/files/icon-screen_57x.png?v=1597312885" loading="lazy" alt="">
+                            </div>
+                            <div class="content">
+                                <p>Flexible study options and blended learning in skin and beauty therapy courses.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                <img width="44" height="39" src="//cdn.shopify.com/s/files/1/2999/1646/files/icon-user_57x.png?v=1597312894" loading="lazy" alt="">
+                            </div>
+                            <div class="content">
+                                <p>Access to our team of highly experienced beauty educators.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                <img width="44" height="39" src="//cdn.shopify.com/s/files/1/2999/1646/files/icon-calendar_57x.png?v=1597312903" loading="lazy" alt="">
+                            </div>
+                            <div class="content">
+                                <p>Industry connections and practical work-experience placement.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                <img width="44" height="39" src="//cdn.shopify.com/s/files/1/2999/1646/files/icon-social-network_57x.png?v=1597312911" loading="lazy" alt="">
+                            </div>
+                            <div class="content">
+                                <p>An engaged community of passionate students and therapists nationwide.</p>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                <img width="44" height="39" src="//cdn.shopify.com/s/files/1/2999/1646/files/icon-star_57x.png?v=1597312920" loading="lazy" alt="">
+                            </div>
+                            <div class="content">
+                                <p>A career pathway to not just our 150+ Ella Baché salons, and David Jones locations but the wider world of professional skincare and wellness opportunities including days spas, hotels and resorts, and cruise ships.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-item image" style="width:37.92%;">
+                    <img width="561" height="598" src="https://cdn.shopify.com/s/files/1/0119/6028/7313/files/why-choose-ella-bache-college.jpg?v=1647936804" loading="lazy" alt="">
+                </div>
+            </div>
+        </section>
+        <section class="two-col-content college-blog-reviews">
+            <div class="flex-container">
+                <div class="col-item blogs">
+                    {%- for link in linklists.blogs-ella-bache-college.links -%}
+                        {%- assign blog = link.object -%}
+                        {%- for article in blog.articles limit:2 -%}
+                        <div class="articleBlock {% cycle 'block-even', 'block-odd' %}">
+                            <a href="{{ article.url }}">
+                                <div class="articleImage">
+                                    {% if article.image %}
+                                    {{ article | img_url: '1024x1024' | img_tag: article.title }}
+                                    {% endif %}
+                                </div>
+                            </a>
+                            <div class="articleBoxDetails">
+                                <p class="article-publish-date">
+                                    {{ article.published_at | date: "%d/%m/%Y" }}
+                                </p>
+                                <h3 class="article-block-title">
+                                    <a href="{{ article.url }}">{{ article.title }}</a>
+                                </h3>
+                                <div class="rte article-block-text">
+                                    {% if article.excerpt.size > 0 %}
+                                    {{ article.excerpt | truncatewords: 15 }}
+                                    {% else %}
+                                    <p>
+                                        {{ article.content | strip_html | truncatewords: 15 }}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                                {% if blog.comments_enabled? or article.tags.size > 0 %}
+                                <ul>
+                                    {% if blog.comments_enabled? %}
+                                    <li>
+                                        <a href="{{ article.url }}#comments">
+                                            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if article.tags.size > 0 %}
+                                    {% for tag in article.tags %}
+                                    <li>
+                                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+                                        {% unless forloop.last %}, {% endunless %}
+                                    </li>
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                {% endif %}
+                                <p>
+                                    <a class="article-button" href="{{ article.url }}">Read More</a>
+                                </p>
+                            </div>
+                        </div>
+                        {%- endfor -%}
+                    {%- endfor -%}
+                </div>
+                <div class="col-item reviews-block" style="background-color:#f2f2f2;">
+                    {%- section 'reviews-block' -%}
+                </div>
+            </div>
+        </section>
+    </div>
+    {%- section 'college-enquire-block-2' -%}
+</div>

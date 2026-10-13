@@ -1,0 +1,16 @@
+<script>
+    var RESOURCES = {
+        cartJSON : {{ cart | json }},
+        free_shipping_threshold_warning_enabled: {{ settings.free_shipping_threshold_warning_enabled | json }},
+        threshold_one_ammount: {{ settings.free_shipping_threshold_1_amt | times:100 | json }},
+        threshold_two_ammount: {{ settings.free_shipping_threshold_2_amt | times:100 | json }},
+        threshold_three_ammount: {{ settings.free_shipping_threshold_3_amt | times:100 | json }},
+        threshold_one_message: {{ settings.free_shipping_threshold_1_message | json }},
+        threshold_two_message: {{ settings.free_shipping_threshold_2_message | json }},
+        threshold_three_message: {{ settings.free_shipping_threshold_3_message | json }},
+        threshold_3_output_msg: {{ settings.threshold_3_output_message | json }},
+        free_express_shipping: {{ settings.free_express_shipping | json }},
+        free_shipping: {{ settings.free_shipping | json }},
+        money_format: {{ shop.money_format | json }}
+    }
+</script>

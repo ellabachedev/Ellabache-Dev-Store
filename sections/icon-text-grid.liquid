@@ -1,0 +1,208 @@
+{{ 'icon-text-grid.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="icon-text-grid section-{{ section.id }}-padding" style="
+    --icon-bg: {{ section.settings.icon_bg }};
+    --text-color: {{ section.settings.text_color }};
+    --icon-size: {{ section.settings.icon_size }}px;
+    --icon-padding: {{section.settings.icon_padding }}px;
+  ">
+  <div class="page-width">
+    <div class="marquee1">
+      <div class="icon-text-grid__wrapper marquee__content" style="--columns: {{ section.settings.columns_desktop }};">
+        {%- for block in section.blocks -%}
+          <div class="icon-text-grid__item" {{ block.shopify_attributes }}>
+            <div class="icon-text-grid__icon">
+              {%- if block.settings.icon_svg != blank -%}
+                {{ block.settings.icon_svg }}
+              {%- elsif block.settings.icon_image != blank -%}
+                <picture>
+                  {%- if block.settings.icon_image_mob != blank -%}
+                    <source media="(max-width: 767px)" srcset="{{ block.settings.icon_image_mob | image_url: width: 300 }}">
+                  {%- endif -%}
+                  {%- if block.settings.icon_image != blank -%}
+                    <source media="(min-width: 768px)" srcset="{{ block.settings.icon_image | image_url: width: 300 }}">
+                  {%- endif -%}
+                  <img
+                    src="{{ block.settings.icon_image | image_url: width: 300 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    width="300"
+                    height="300">
+                </picture>
+              {%- else -%}
+                <span class="icon-text-grid__emoji">
+                  {{ block.settings.emoji }}
+                </span>
+              {%- endif -%}
+            </div>
+            <p class="icon-text-grid__text">
+              {{ block.settings.title }}
+            </p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const marequee1ViewportObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      if (isMobile) {
+      //1 class selector for marquee
+      //2 marquee speed 0.2
+      setTimeout(function(){
+        entry.target.classList.add("enable-animation");
+        window.addEventListener('load', Marquee('.enable-animation', 0.2));
+      },1000);
+      }
+      marequee1ViewportObserver.unobserve(entry.target); // run once
+    }
+  });
+}, {
+  threshold: 1.0
+});
+const marequee1Element = document.querySelector(".marquee1");
+if (marequee1Element) {
+  marequee1ViewportObserver.observe(marequee1Element);
+}
+function Marquee(selector, speed) {
+  const parentSelector = document.querySelector(selector);
+  const clone = parentSelector.innerHTML;
+  const firstElement = parentSelector.children[0];
+  console.log(firstElement);
+  parentSelector.insertAdjacentHTML('beforeend', clone);
+}
+</script>
+{% schema %}
+  {
+    "name": "Icon text grid",
+    "tag": "section",
+    "class": "section-icon-text-grid",
+    "settings": [
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "label": "Columns (desktop)",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "color",
+        "id": "icon_bg",
+        "label": "Icon background color",
+        "default": "#EDE4D8"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#1F2A44"
+      },
+      {
+        "type": "range",
+        "id": "icon_size",
+        "label": "Icon size",
+        "min": 40,
+        "max": 300,
+        "step": 4,
+        "default": 72
+      }, {
+        "type": "range",
+        "id": "icon_padding",
+        "label": "Icon Padding",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "default": 0
+      }, {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 36
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Icon item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Text",
+            "default": "CONFIDENCE IN YOUR OWN SKIN"
+          },
+          {
+            "type": "textarea",
+            "id": "icon_svg",
+            "label": "SVG icon (optional)",
+            "info": "Paste inline SVG code"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon image (optional)"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon_image_mob",
+            "label": "Icon image mobile(optional)"
+          }, {
+            "type": "text",
+            "id": "emoji",
+            "label": "Emoji fallback",
+            "default": "✨"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Icon text grid",
+        "blocks": [
+          {
+            "type": "item"
+          }, {
+            "type": "item"
+          }, {
+            "type": "item"
+          }, {
+            "type": "item"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

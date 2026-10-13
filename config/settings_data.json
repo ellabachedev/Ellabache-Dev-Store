@@ -1,0 +1,1355 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "colors_accent_1": "#001e37",
+    "page_width": 1300,
+    "favicon": "shopify://shop_images/2026_EB_Fav_icon_32x32px_NAVY.svg",
+    "social_facebook_link": "http://www.facebook.com/ellabache",
+    "social_instagram_link": "http://www.instagram.com/ellabacheaus",
+    "social_linkedin_link": "https://www.linkedin.com/company/ellabache?originalSubdomain=au",
+    "free_shipping_threshold_1_amt": "100",
+    "free_shipping_threshold_1_message": "XXX more to get <strong>FREE STANDARD SHIPPING</strong>",
+    "free_shipping": "<strong>Enjoy free standard shipping on us</strong>",
+    "free_shipping_threshold_2_amt": "",
+    "free_shipping_threshold_2_message": "XXX more to get <strong>FREE EXPRESS SHIPPING</strong>",
+    "free_express_shipping": "<strong>Enjoy free standard shipping on us</strong>",
+    "free_shipping_threshold_3_amt": "",
+    "free_shipping_threshold_3_message": "Order XXX more to get Free Standard Shipping (save $10",
+    "threshold_3_output_message": "",
+    "free_gwp_warning_enabled": false,
+    "free_gwp_message": "Add NNN more Skincare Product & receive<br><strong>YOUR COMPLIMENTARY GWP</strong>",
+    "free_gwp_message_amount_case": "NNN <strong>left</strong> to get<br><strong>YOUR COMPLIMENTARY GIFT</strong>*",
+    "continue_to_collection": "bonus-gifts",
+    "enable_welcome_popup1": false,
+    "welcome_popup1_open_delay": 350,
+    "welcome_popup1_include": "college | college-diploma-of-beauty-therapy | college-international-students | college-career-opportunities | college-resources | college-student-salon | college-locations | college-make-an-enquiry | college-enrolment-form-and-agreement",
+    "welcome_popup1_banner_img": "shopify://shop_images/looking-for-a-carer-in-beauty.jpg",
+    "welcome_popup1_title": "LOOKING FOR A <br>CAREER IN BEAUTY?",
+    "welcome_popup1_desc": "Discover an exciting career in beauty by booking a virtual on campus tour or chatting to our careers advisor to find out more.",
+    "welcome_popup1_Btn1": "Enquire Now",
+    "welcome_popup1_Btn1-link": "https://calendly.com/ellabachecollege",
+    "welcome_popup1_Btn2": "Schedule a call with our careers advisor",
+    "welcome_popup1_Btn2-link": "https://calendly.com/ellabachecollege",
+    "welcome_popup1_Btn3": "Download course information",
+    "welcome_popup1_Btn3-link": "shopify://pages/college-resources",
+    "welcome_popup1-success-message": "Thank you!",
+    "enable_welcome_popup2": false,
+    "welcome_popup2_open_delay": 120,
+    "welcome_popup2_include": "college | college-diploma-of-beauty-therapy | college-international-students | college-career-opportunities | college-resources | college-student-salon | college-locations | college-make-an-enquiry | college-enrolment-form-and-agreement | ella-bache-x-the-gloss-giveaway | products | who-is-elijah-x-ella-bache-spring-refresh",
+    "welcome_popup2_banner_img": "shopify://shop_images/popup_background_desktop_929cbc9a-af29-4651-8b7d-6412cf2c9a21.png",
+    "welcome_popup2_title": "JOIN OUR NEWSLETTER",
+    "welcome_popup2_sub_title": "and receive $20 off*",
+    "welcome_popup2_desc": "Subscribe now and be the first to know of new product launches, early access promotions and bonus luxe offers.",
+    "welcome_popup2_form_desc": "Receive $20 off your Facial Treatment in salon* or <br>$20 off your online order when you spend $50.",
+    "welcome_popup2_Btn_text": "Subscribe Now",
+    "welcome_popup2_success_message": "Thank you for your Subscription.",
+    "enable_home_popup": false,
+    "home_popup_banner_img": "shopify://shop_images/unnamed_1024x1024_991x_6530893b-062a-4f00-8034-4d6859826220.png",
+    "home_popup_banner_link": "shopify://pages/bold-blog",
+    "enable_datalayer": true,
+    "show_unhashed_email_in_datalayer": true,
+    "claim_free_samples_text": "claim your free gift",
+    "choose_x_text": "Choose your MAXGIFT bonus gits",
+    "limit_reached_text": "(Deselect your current choice to choose a different gifts, otherwise click CONTINUE to proceed)",
+    "next_btn_text": "NEXT",
+    "done_btn_text": "CONTINUE",
+    "done_btn_disabled_text": "CHOOSE YOUR BONUS GIFTS",
+    "minimum_required_samples": 0,
+    "enable_minicart-notification": false,
+    "minicart-notification-txt-1": "Choose your BONUS Gift",
+    "minicart-notification-txt-2": "Spend $150*",
+    "enable_minicart_upsell": true,
+    "shortcuts_consumer_key": "r7nfAlq0ILg4jhZMlRxv",
+    "shortcuts_consumer_secret": "YSgXTSpZl1bN1K9X5hnL",
+    "shortcuts_access_token_key": "qVSkMJsw67WKPFZeC06V",
+    "shortcuts_access_token_secret": "T73IfVgFBBMum2EcpQHJ",
+    "shortcuts_widget_base_uri": "d19ujuohqco9tx.cloudfront.net/webwidgets/7-49-1-9",
+    "shortcuts_api_version": "7.49.1.9",
+    "salon_featured_image": "shopify://shop_images/Ella_Bache_SalonX-v1763615346145.jpg",
+    "dropbox-app-key": "ob3miy5v579g40k",
+    "account_first_time_user_title": "Hello",
+    "account_first_time_user_text": "",
+    "account_returning_user_text": "",
+    "newsletter-header": "SIGN UP TO RECEIVE $20 OFF YOUR FIRST PURCHASE OR TREATMENT, SKIN TIPS & EXCLUSIVE OFFERS*",
+    "newsletter-caption": "Sign up for exclusive offers, skin tips  and more",
+    "newsletter-placeholder": "your email",
+    "newsletter-submit-text": "SignUp",
+    "enable_preferred_salons_in_cart": true,
+    "preferred_salons_in_cart": "Ella Baché Aitkenvale:AITKENVALE,\nElla Baché Armidale:ARMIDALE,\nElla Baché Artarmon:ARTARMON,\nElla Baché Bairnsdale:BAIRNSDALE,\nNovember Beauty:BALMAIN,\nElla Baché Balwyn:BALWYN,\nElla Baché Beaumaris:BEAUMARIS,\nElla Baché Bendigo:BENDIGO,\nElla Baché Bondi Junction:BONDI_JUNCTION,\nElla Baché Bowral:BOWRAL,\nElla Baché Brookside:BROOKSIDE,\nElla Baché Bundaberg:BUNDABERG,\nElla Baché Cairns:CAIRNS,\nElla Baché Capalaba:CAPALABA,\nElla Baché Carindale:CARINDALE,\nElla Baché Charlestown:CHARLESTOWN,\nElla Baché Chatswood:CHATSWOOD,\nElla Baché Chermside:CHERMSIDE,\nElla Baché Secret Harbour:Secret_Harbour,\nElla Bache Gunnedah:Gunnedah,\nElla Baché Cleveland:CLEVELAND,\nElla Baché Coffs Harbour:COFFS_HARBOUR,\nElla Baché Collins Square:COLLINS_SQUARE,\nElla Baché Coogee:COOGEE,\nElla Baché Coolangatta:COOLANGATTA,\nElla Baché Coomera:COOMERA,\nElla Baché Dalby:DALBY,\nElla Baché Dubbo:DUBBO,\nElla Baché Eltham:ELTHAM,\nElla Baché Fannie Bay:FANNIE_BAY,\nElla Baché Fortitude Valley:FORTITUDE_VALLEY,\nElla Baché Berwick:BERWICK,\nElla Baché Gladesville:GLADESVILLE,\nElla Baché Glenbrook:GLENBROOK,\nElla Baché Hampton:HAMPTON,\nElla Baché Hobart:HOBART,\nElla Baché Ipswich:IPSWICH,\nElla Baché Joondalup:JOONDALUP,\nJust Baché:JUST_BACHE,\nElla Baché Mackay:MACKAY,\nElla Baché Mordialloc:MORDIALLOC,\nElla Baché Newmarket:NEWMARKET,\nElla Baché Nowra:NOWRA,\nElla Baché Pacific Fair:PACIFIC_FAIR,\nElla Baché Palmerston:PALMERSTON,\nElla Baché Penrith:PENRITH,\nElla Baché Perth:PERTH,\nElla Baché Port Macquarie:PORT_MACQUAIRE,\nElla Baché Rye Beach Salon & Spa:RYE_BEACH,\nSerenity Skin & Body Care:SERENITY_SKIN_&_BODY_CARE,\nSkin Logics:SKIN_LOGICS,\nElla Baché Springfield:SPRINGFIELD,\nElla Baché Springwood:SPRINGWOOD,\nElla Baché Subiaco:SUBIACO,\nElla Baché Tamworth:TAMWORTH,\nElla Baché Toowoomba:TOOWOOMBA,\nElla Baché Townsville:TOWNSVILLE,\nElla Baché Upper Mt Gravatt:UPPER_MT_GRAVATT,\nElla Baché Wagga Wagga:WAGGA_WAGGA,\nElla Baché West Lindfield:WEST_LINDFIELD,\nElla Baché Whitford:WHITFORD,\nElla Baché Wollongong:WOLLONGONG,\nElla Baché Young:YOUNG,\nBeauty for You:BEAUTY_FOR_YOU,\nBeauty On The Beach:BEAUTY_ON_THE_BEACH,\nBeauty Secrets Norwood:BEAUTY_SECRETS_NORWOOD,\nBody Essentials by Cilla:BODY_ESSENTIALS_BY_CILLA,\nBrighton Beauty Therapy:BRIGHTON_BEAUTY_THERAPY,\nCarol Da Silva Beauty Therapy:CAROL_DA_SILVA_BEAUTY_THERAPY,\nCatherine Ann's Beauty Therapy:CATHERINE_ANNS_BEAUTY_THERAPY,\nCliché Face & Body:CLICHE_FACE_&_BODY,\nElla Express Warwick:ELLA_EXPRESS_WARWICK,\nEternal Beauty Salon:ETERNAL_BEAUTY_SALON,\nJenny K's Beauty Centre:JENNY_KS_BEAUTY_CENTRE,\nJudy's Vogue Nail & Beauty Salon:JUDYS_VOGUE_NAIL_&_BEAUTY_SALON,\nMona Vale Skin & Soul:MONA_VALE_SKIN_&_SOUL,\nNortham Skin & Body Care Centre:NORTHAM_SKIN_&_BODY_CARE_CENTRE,\nInfinite Beauty & Wellness:INFINITE_BEAUTY_&_WELLNESS,\nRejuvenation Skin & Beauty:REJUVENATION_SKIN_&_BEAUTY,\nSkin Review:SKIN_REVIEW,\nSynergy Beauty Therapy:SYNERGY_BEAUTY_THERAPY,\nWarnbro Skin & Body Clinic:WARNBRO_SKIN_&_BODY_CLINIC,\nBeaute On The Mall:BEAUTE_ON_THE_MALL,\nBody Skin and Spa:BODY_SKIN_AND_SPA,\nComplete Skin Care:COMPLETE_SKIN_CARE,\nRockingham Beach Skin & Body Clinic:ROCKINGHAM_BEACH_SKIN_&_BODY_CLINIC,\nBusselton Skin & Body Centre:BUSSELTON_SKIN_&_BODY_CENTRE,\nWest Pymble Beauty Therapy:WEST_PYMBLE_BEAUTY_THERAPY",
+    "enable_checkout_shipping_message": false,
+    "checkout_shipping_message_text": "",
+    "checkout_shipping_message_border_color": "#FFFFFF",
+    "checkout_shipping_message_bg_color": "#001e37",
+    "checkout_shipping_message_text_color": "#FFFFFF",
+    "enable_checkout_message2": false,
+    "checkout_message2_text": "",
+    "checkout_logo_image": "shopify://shop_images/Ella_Bache_Logo_Navy.jpg",
+    "checkout_logo_size": "small",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#001e38",
+    "checkout_button_color": "#001e38",
+    "enable_competition": false,
+    "competition_subtotal_min": "100.00",
+    "competition_collection": "cleansers",
+    "competition_title": "Win a years’ supply of Ella Baché products",
+    "competition_instruction": "Tell us in 25 words or less how you would create the ultimate self-care ritual with a years’ worth of Ella Baché skincare.",
+    "tnc_page": "terms",
+    "afterpay_enabled": true,
+    "predictive_search_enabled": false,
+    "predictive_search_show_price": false,
+    "first_menu_item_collection_title": "By Best Sellers",
+    "enable_first_menu_item_collection": true,
+    "first_menu_item_collection": "best-sellers-mega-menu",
+    "enable_buyX_getY": false,
+    "X_collection": "all",
+    "free_product_1": "",
+    "free_product_2": "great-tan-without-sun-8ml-complimentary-sample",
+    "free_product_3": "",
+    "free_product_4": "",
+    "free_product_5": "",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement_hQkT8F": {
+            "type": "announcement",
+            "settings": {
+              "text": "FREE STANDARD SHIPPING* ON $100+ ORDERS",
+              "link": "https://www.ellabache.com.au/collections/all"
+            }
+          },
+          "announcement_N9wyPV": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Valentine's Day Special: Buy 3 skincare products & receive 2 full-size gifts*. REDEEM NOW.",
+              "link": "shopify://collections/in-my-own-skin"
+            }
+          },
+          "announcement_mfXyj4": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Give the gift of choice. SHOP E-GIFT CARD.",
+              "link": "https://www.ellabache.com.au/products/gift-card"
+            }
+          }
+        },
+        "block_order": [
+          "announcement_hQkT8F",
+          "announcement_N9wyPV",
+          "announcement_mfXyj4"
+        ],
+        "settings": {
+          "bg_color": "#001e37",
+          "font_color": "#ffffff",
+          "auto_rotate": true,
+          "change_slides_speed": 5
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "main_linklist": "main-menu",
+          "enable_header_action_phone": true,
+          "header_action_phone_text": "1800 789 234",
+          "header_action_phone_no": "1800 789 234",
+          "enable_header_action_location": true,
+          "header_action_location_icon_text": "Find a Salon",
+          "header_action_find_salon_url": "shopify://pages/find-a-salon",
+          "enable_cat_mod_products_menu": true,
+          "cat_mod_submenu_title": "",
+          "product1_image": "shopify://shop_images/blue-hydra.jpg",
+          "product1_url": "https://www.ellabache.com.au/collections/hydra",
+          "product2_image": "shopify://shop_images/Serum_Range_600x600_82e10f52-b51d-4a9d-8586-2ea1dc260d76.jpg",
+          "product2_url": "https://www.ellabache.com.au/collections/serums",
+          "color_1": "#404040"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "34a31530-fedd-44be-9514-db43876eea74": {
+            "type": "column",
+            "settings": {
+              "header": "Help",
+              "footer_linklist": "help"
+            }
+          },
+          "column_UkNLbQ": {
+            "type": "column",
+            "settings": {
+              "header": "Shop Products",
+              "footer_linklist": "footer-menu-4"
+            }
+          },
+          "266e0ad4-78ff-490e-9699-0bedbe70b940": {
+            "type": "column",
+            "settings": {
+              "header": "Skincare & Services",
+              "footer_linklist": "footer-main-menu"
+            }
+          },
+          "edd9f514-042c-42fa-a512-d18ab42ef1b8": {
+            "type": "column",
+            "settings": {
+              "header": "Get Involved",
+              "footer_linklist": "footer-about-menu"
+            }
+          }
+        },
+        "block_order": [
+          "34a31530-fedd-44be-9514-db43876eea74",
+          "column_UkNLbQ",
+          "266e0ad4-78ff-490e-9699-0bedbe70b940",
+          "edd9f514-042c-42fa-a512-d18ab42ef1b8"
+        ],
+        "settings": {
+          "footer-title": "",
+          "footer_bg_color": "#ffffff",
+          "show_footer_social_icons": true,
+          "show_footer_newsletter": true
+        }
+      },
+      "main-password-header": {
+        "type": "main-password-header",
+        "settings": {}
+      },
+      "main-password-footer": {
+        "type": "main-password-footer",
+        "settings": {}
+      },
+      "product-launch-hero-block": {
+        "type": "product-launch-hero-block",
+        "settings": {
+          "block_switch": true,
+          "block-title": "YOUR RETINOL SKIN SOLUTION",
+          "block-image": "shopify://shop_images/retinol-launch-banner.png",
+          "block-text": "Our vision was to create a leading Retinol skin solution, adaptive to all skins. Rejuvenate your skin tone, texture and radiance with our advanced range of Retinol products and treatments. To complete your Retinol evening routine, we are thrilled to be launching the gold standard in our eye care, our NEW Retinol Renewal Eye Serum. Discover how Retinol can work for your skin solution today."
+        }
+      },
+      "product-launch-cta1": {
+        "type": "product-launch-cta1",
+        "blocks": {
+          "52373f15-fc00-4ed5-b7c1-e43804af55d9": {
+            "type": "content",
+            "settings": {
+              "block_col_reverse": false,
+              "block-title-sm": "The hero",
+              "block-title-big": "Ingredients",
+              "block-text": "<p>Our Retinol range has been formulated with a range of active ingredients to support your skin.</p>\n<ul>\n<li>Peptides: To strengthen and rebuild</li>    <li>Ceramides: To boost and support skin barrier function as well as hydration levels</li>    <li>Hyaluronic acid: To plump and hydrate</li>    <li>Kakadu plum: To reinforce the skin’s protective barrier</li>    <li>Niacinimide: To smooth the skin and counter any redness</li>    <li>Liquid shea: To intensely hydrate the skin</li>\n</ul>",
+              "content-padding-right": 0,
+              "block-image": "shopify://shop_images/Retinol-Caraousel-1.jpg",
+              "block-video": "",
+              "block-button1-text": "",
+              "block-button1-url": "",
+              "block-button2-text": "",
+              "block-button2-url": ""
+            }
+          },
+          "53f13137-6b7e-42eb-8071-a0a8fda54169": {
+            "type": "content",
+            "settings": {
+              "block_col_reverse": true,
+              "block-title-sm": "The Gold",
+              "block-title-big": "Standard",
+              "block-text": "<p>For results you can see, our NEW Retinol Renewal Eye Serum is formulated with 0.3% encapsulated Retinol to specifically hydrate, firm and brighten the delicate eye area of all skin types.</p>",
+              "content-padding-right": 215,
+              "block-video": "https://cdn.shopify.com/s/files/1/2999/1646/files/retinol_eye.mp4?v=1645349066",
+              "block-inline-image": "shopify://shop_images/retinol-renewal-eye-serum-15ml_1.png",
+              "block-button1-text": "",
+              "block-button1-url": "",
+              "block-button2-text": "",
+              "block-button2-url": ""
+            }
+          },
+          "c67f7637-59b9-4740-8960-245995f4e6f7": {
+            "type": "content",
+            "settings": {
+              "block_col_reverse": false,
+              "block-title-sm": "The Right",
+              "block-title-big": "Retinol",
+              "block-text": "<p>A highly active and multi-action Retinol Night Treatment serum, formulated with 0.5% Encapsulated Retinol which assists in achieving a dynamic anti-ageing boost and instantly brighter skin.</p>",
+              "content-padding-right": 215,
+              "block-image": "shopify://shop_images/retinol-night-treatment-serum-30ml-lifestyle_1.png",
+              "block-video": "",
+              "block-button1-text": "",
+              "block-button1-url": "",
+              "block-button2-text": "",
+              "block-button2-url": ""
+            }
+          }
+        },
+        "block_order": [
+          "52373f15-fc00-4ed5-b7c1-e43804af55d9",
+          "53f13137-6b7e-42eb-8071-a0a8fda54169",
+          "c67f7637-59b9-4740-8960-245995f4e6f7"
+        ],
+        "settings": {
+          "block_switch": true
+        }
+      },
+      "product-launch-cta2": {
+        "type": "product-launch-cta2",
+        "blocks": {
+          "84815277-286f-4b30-ad22-30672a74167e": {
+            "type": "content",
+            "settings": {
+              "step-icon-image": "shopify://shop_images/instant.png",
+              "step-text": "Gently tap and reawaken the eye area"
+            }
+          },
+          "7bdc938a-fa90-43ea-bc6a-6e43e73683c1": {
+            "type": "content",
+            "settings": {
+              "step-icon-image": "shopify://shop_images/instant.png",
+              "step-text": "Gently exfoliate around the eye area with the Revealing Fruit Enzyme Exfoliant once per week"
+            }
+          },
+          "2de619e9-0b87-4c7c-b6b9-c64877bd7664": {
+            "type": "content",
+            "settings": {
+              "step-icon-image": "shopify://shop_images/retinol.png",
+              "step-text": "Apply the Retinol Renewal Eye Serum every second night"
+            }
+          },
+          "c18a7a57-1c60-419d-8bad-40931ac9e476": {
+            "type": "content",
+            "settings": {
+              "step-icon-image": "shopify://shop_images/moisture-protective.png",
+              "step-text": "Complete your ritual with your choice of moisture protective for targeted results"
+            }
+          }
+        },
+        "block_order": [
+          "84815277-286f-4b30-ad22-30672a74167e",
+          "7bdc938a-fa90-43ea-bc6a-6e43e73683c1",
+          "2de619e9-0b87-4c7c-b6b9-c64877bd7664",
+          "c18a7a57-1c60-419d-8bad-40931ac9e476"
+        ],
+        "settings": {
+          "block_switch": true,
+          "block-title-sm": "Your Guide to",
+          "block-title-big": "Retinol",
+          "block-text": "<p>What is Retinol and how can I incorperate it into my skin ritual? Retinol is an ingredient derived from vitamin A. It’s become an incredibly popular ingredient in anti-ageing skincare due to its almost magical ability to renew the complexion.</p>\t\t\t\t\t\t\t<p>Retinisation is the process your skin will go through over 6-8 weeks while building tolerance to Retinol. Regular exfoliation and supporting moisture protective will ensure you see the best results from your Retinol products.</p>"
+        }
+      },
+      "product-how-to": {
+        "type": "product-how-to",
+        "settings": {
+          "block_switch": true,
+          "block-title-sm": "How to",
+          "block-title-big": "Retinol",
+          "block-text": "<p>Learn from our beauty therapists the best tips on how to incorporate retinol into your skin solution.</p>\n<p>Learn from our beauty therapists the best tips on how to incorporate retinol into your skin solution.</p>",
+          "block-vid1": "https://cdn.shopify.com/s/files/1/2999/1646/files/Skin-Regimen9-16.mp4?v=1645346905",
+          "block-vid2": "https://cdn.shopify.com/s/files/1/2999/1646/files/retinol-night-2.mp4?v=1645346931",
+          "block-vid3": "https://cdn.shopify.com/s/files/1/2999/1646/files/Anthea-Eye-Care-Ritual.mp4?v=1645346780"
+        }
+      },
+      "product-launch-cta3": {
+        "type": "product-launch-cta3",
+        "blocks": {
+          "f1d4fea3-d614-4c70-9955-0f35c577031b": {
+            "type": "content",
+            "settings": {
+              "block_col_reverse": false,
+              "block-title-sm": "Reawaken My",
+              "block-title-big": "Rejuvenation",
+              "block-text": "<p>Rejuvenate skin tone, texture and radiance with this advanced treatment featuring a highly concentrated and supercharged Retinol Treatment Mask. The powerful combination of potent Retinol with a Qigong infusion technique, intensely kick starts a dynamic skin result – accelerating an ongoing improvement in skin tone and texture. Advanced treatment featuring a highly concentrated and supercharged Retinol Treatment Mask, formulated with 1% Encapsulated Retinol.</p>",
+              "content-padding-right": 0,
+              "block-image": "shopify://shop_images/quiGongMassage_1.png",
+              "block-button1-text": "",
+              "block-button1-url": "",
+              "block-button2-text": "",
+              "block-button2-url": ""
+            }
+          }
+        },
+        "block_order": [
+          "f1d4fea3-d614-4c70-9955-0f35c577031b"
+        ],
+        "settings": {
+          "block_switch": true
+        }
+      },
+      "reviews-block": {
+        "type": "reviews-block",
+        "blocks": {
+          "32663a8d-c327-4255-979d-3515ac08caf2": {
+            "type": "Reviews",
+            "settings": {
+              "review": "Just as no two skins are alike, no two students are alike either. Which is why we champion and support the individual to learn in a way that suits them.",
+              "author": "Pippa Hallas, Ella Baché CEO"
+            }
+          },
+          "cbfda2cd-1230-40ef-8212-8349124624fd": {
+            "type": "Reviews",
+            "settings": {
+              "review": "I wouldn't want to learn anywhere else. I learnt so much from the Ella Baché Trainers who had a lot of knowledge to share. They really cared about your progress and wanted you to be the best you could be.",
+              "author": "LAURA ADAMSON, ELLA BACHÉ COLLEGE ALUMNI"
+            }
+          },
+          "90a8e6b9-11c0-4846-ad5d-b46063762177": {
+            "type": "Reviews",
+            "settings": {
+              "review": "Once you step foot in the College you become a part of the Ella Baché brand and family. We work extremely hard behind the scenes for real outcomes, which means jobs and career opportunities for our students.",
+              "author": "MEREDITH SCHAERF, ELLA BACHÉ COLLEGE EDUCATION MANAGER"
+            }
+          }
+        },
+        "block_order": [
+          "32663a8d-c327-4255-979d-3515ac08caf2",
+          "cbfda2cd-1230-40ef-8212-8349124624fd",
+          "90a8e6b9-11c0-4846-ad5d-b46063762177"
+        ],
+        "settings": {
+          "block_switch": true,
+          "block_bg_color": "#f2f2f2"
+        }
+      },
+      "college-enquire-block-2": {
+        "type": "college-enquire-block-2",
+        "blocks": {
+          "c901c4e8-79eb-462a-9987-ef7c94f28a56": {
+            "type": "iconContent",
+            "settings": {
+              "block_iconContent_switch": true,
+              "item_iconContent_icon": "shopify://shop_images/icon-edu-hat.png",
+              "item_iconContent_title": "Campus and class",
+              "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+            }
+          },
+          "a2481533-8073-4a36-b719-c5aa37dd986b": {
+            "type": "iconContent",
+            "settings": {
+              "block_iconContent_switch": true,
+              "item_iconContent_icon": "shopify://shop_images/icon-treatment.png",
+              "item_iconContent_title": "Campus and treatment",
+              "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+            }
+          },
+          "eb92e121-8bc8-4352-bd3d-cbfbc1dad239": {
+            "type": "iconContent",
+            "settings": {
+              "block_iconContent_switch": true,
+              "item_iconContent_icon": "shopify://shop_images/icon-screen-1.png",
+              "item_iconContent_title": "Virtual Campus tour",
+              "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+            }
+          }
+        },
+        "block_order": [
+          "c901c4e8-79eb-462a-9987-ef7c94f28a56",
+          "a2481533-8073-4a36-b719-c5aa37dd986b",
+          "eb92e121-8bc8-4352-bd3d-cbfbc1dad239"
+        ],
+        "settings": {
+          "block_switch": true,
+          "block_bg_color": "#ffffff",
+          "block_title": "Got questions?",
+          "block_desc": "",
+          "sidebar_title": "Discover more about us",
+          "typeform_data-url": "https://ellabache.typeform.com/to/yKFW7A"
+        }
+      },
+      "hero-slider": {
+        "type": "hero-slider",
+        "blocks": {
+          "de945f5d-943c-4037-af6a-b5ea1202f52b": {
+            "type": "slider",
+            "settings": {
+              "slider_switch": true,
+              "banner_layout": "1",
+              "full-slider-link": "",
+              "slider-image-desktop": "shopify://shop_images/Landing_Page_Banner_for_FB_Ads_1900_x_751.jpg",
+              "slider-video-url": "",
+              "slider_content_switch": true,
+              "slider_content_layout": "1",
+              "slider_column_reverse": "1",
+              "slider_content_bg_color": "#001E37",
+              "slider-main-title": "",
+              "slider-main-title-mb": 0,
+              "slider-main-title-animate": false,
+              "slider-description": "",
+              "slider-desc-max-width": 600,
+              "slider-description-mobile": "",
+              "slider-desc-bgcolor-mob": "#DDDDDD",
+              "slider-button-text": "",
+              "slider-button-url": "",
+              "button-style": "2",
+              "slider-bg-color": "#001E37",
+              "slider-title-color": "#001E37",
+              "slider-title-bgcolor": "#ffffff",
+              "slider-desc-color": "#ffffff",
+              "slider-btn-font-color": "#ffffff",
+              "slider-btn-border-color": "#ffffff",
+              "slider-btn-bg-color": "#001E37"
+            }
+          }
+        },
+        "block_order": [
+          "de945f5d-943c-4037-af6a-b5ea1202f52b"
+        ],
+        "settings": {
+          "autoplay": false,
+          "autoplay_int": "3000"
+        }
+      },
+      "service-highlights": {
+        "type": "service-highlights",
+        "blocks": {
+          "7da89d77-51a7-4f57-8cc4-d16fe89a0d03": {
+            "type": "text",
+            "settings": {
+              "title": "Enjoy Free Shipping*",
+              "icon": "shipping",
+              "url": "https://www.ellabache.com.au/products/hyaluronic-intensive-treatment-booster"
+            }
+          },
+          "f00d8395-2336-47d8-bcb0-03b8d3cc0709": {
+            "type": "text",
+            "settings": {
+              "title": "Plus 2 Free samples",
+              "icon": "cosmetics",
+              "url": "https://www.ellabache.com.au/pages/ha_booster"
+            }
+          },
+          "d4b68368-6f20-4965-b68a-e6b11284c25c": {
+            "type": "text",
+            "settings": {
+              "title": "Order now, glow later",
+              "icon": "giftbox",
+              "url": "https://www.ellabache.com.au/products/hyaluronic-intensive-treatment-booster"
+            }
+          }
+        },
+        "block_order": [
+          "7da89d77-51a7-4f57-8cc4-d16fe89a0d03",
+          "f00d8395-2336-47d8-bcb0-03b8d3cc0709",
+          "d4b68368-6f20-4965-b68a-e6b11284c25c"
+        ],
+        "settings": {}
+      },
+      "best-seller": {
+        "type": "best-seller",
+        "blocks": {
+          "bd7cb9d4-8605-4bb0-bdd3-5bdaf443f1fb": {
+            "type": "collection",
+            "settings": {
+              "label": "PAIR WITH OUR MOST LOVED PRODUCTS FOR THE STRONGEST RESULTS",
+              "collection": "products-to-pair-with-hyaluronic-booster"
+            }
+          }
+        },
+        "block_order": [
+          "bd7cb9d4-8605-4bb0-bdd3-5bdaf443f1fb"
+        ],
+        "settings": {
+          "title": ""
+        }
+      },
+      "product-landing-banner": {
+        "type": "product-landing-banner",
+        "custom_css": [],
+        "settings": {
+          "banner_image": "shopify://shop_images/Homepage_05.png",
+          "banner_image-mob": "shopify://shop_images/Homepage-Mobile-V2_03.png",
+          "cta_url": "https://www.ellabache.com.au/products/hyaluronic-intensive-treatment-booster"
+        }
+      },
+      "product-landing-grid-content": {
+        "type": "product-landing-grid-content",
+        "blocks": {
+          "c48ee034-fc50-4ae1-906a-e89546110587": {
+            "type": "Article",
+            "settings": {
+              "item_title": "The Advanced <br>Formulation",
+              "item_desc": "<p>An Intensive Treatment Booster with a unique formula reinforced with 5 different molecular weights of Hyaluronic Acid  that penetrates through multiple layers of the skin, effectively infusing the skin with concentrated super hydrating benefits and long-lasting intense hydration.\n<br>\n<br>\nNo Silicone. No Paraben. No Mineral Oil. Fragrance Free. \n</p>",
+              "item_btn_text": "Discover the benefits for yourself",
+              "item-btn-url": "shopify://products/hyaluronic-intensive-treatment-booster",
+              "item-btn-color": "#7dabbd",
+              "item_video": "https://cdn.shopify.com/videos/c/o/v/a0e36103ff154c90a047c8412532ce19.mp4"
+            }
+          },
+          "13bfa887-459d-44b9-ab7b-b3a502e593f8": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Lifting",
+              "item_desc": "<p>Essential for skin health, tone and vitality, the addition of Spirulina makes the booster a powerful skin re-charging, anti-ageing ingredient.\nA single drop and one swipe onto the skin to instantly hydrate and smooth at multiple levels.\n.</p>",
+              "item_btn_text": "Get your boost  in a bottle",
+              "item-btn-url": "https://www.ellabache.com.au/products/hyaluronic-intensive-treatment-booster",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/HA-Booster---Revised-pics_03.png",
+              "item_video": ""
+            }
+          },
+          "914f67cd-79a5-44db-a326-92ce5522f06f": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Hydration <br> For Your Skin",
+              "item_desc": "<p>Refresh a dull and lack lustre appearance with the ultimate hydration booster that penetrates and locks in moisture, delivering a smoother and plumper complexion.</p>\n<ul>\n             <li>\nTo boost hydration, apply morning and evening for 7 consecutive days.\n\n             </li>\n<li>\nAfter cleansing apply 1-2 drops over face and neck before applying moisture protective.\n</li>\n<li> \nTherapist Tip: After intense treatment to maintain moisture levels apply 2-3 times a week with recommended skin solution specific treatment serum to maintain optimal hydration.  </li>\n</ul>",
+              "item_btn_text": "Start your intensive hydration treatment",
+              "item-btn-url": "https://www.ellabache.com.au/products/hyaluronic-intensive-treatment-booster",
+              "item-btn-color": "#7dabbd",
+              "item_video": "https://cdn.shopify.com/videos/c/o/v/3f0f5e2064b94d27936bd8900fcd1e05.mp4"
+            }
+          },
+          "cdeb7fc5-7e20-47a2-a9ea-880105e096e7": {
+            "type": "Article",
+            "settings": {
+              "item_title": "All About <br> Hyaluronic Acid",
+              "item_desc": "<p> Your body naturally produces hyaluronic acid and its main function is to retain water to keep your tissues lubricated and moist. By attracting water to the skin, Hyaluronic Acid will act as your ultimate hydrator. Strengthening your skin’s natural moisture barrier, it works to replenish your skin’s moisture reservoir to help maintain a plumper and smoother appearance.\n</p>",
+              "item_btn_text": "Learn more",
+              "item-btn-url": "https://www.ellabache.com.au/blogs/ella-bache/the-new-serum-that-is-more-than-just-instant-gratification",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/HA-revised_01.png",
+              "item_video": ""
+            }
+          },
+          "3ef46b35-59f9-49d2-94a5-c662d23f7e2b": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Intensive Hydration",
+              "item_desc": "<p>Daily protection can be achieved through the use of the Hyaluronic Intensive Treatment Booster with its ability to restore moisture while building reservoirs. Replenish moisture levels in dehydrated and extremely dry skin with our intensive results driven Help Me Hydrate facial, creating instantly smooth glowy skin. </p>",
+              "item_btn_text": "Find your nearest salon",
+              "item-btn-url": "https://www.ellabache.com.au/pages/find-a-salon",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/mobile-ver-HA-booster_05.png",
+              "item_video": ""
+            }
+          }
+        },
+        "block_order": [
+          "c48ee034-fc50-4ae1-906a-e89546110587",
+          "13bfa887-459d-44b9-ab7b-b3a502e593f8",
+          "914f67cd-79a5-44db-a326-92ce5522f06f",
+          "cdeb7fc5-7e20-47a2-a9ea-880105e096e7",
+          "3ef46b35-59f9-49d2-94a5-c662d23f7e2b"
+        ],
+        "settings": {
+          "enable_parallax": true
+        }
+      },
+      "product-landing-how-to-use": {
+        "type": "product-landing-how-to-use",
+        "settings": {
+          "bg_color": "#b1ba95",
+          "how_to_video": "",
+          "youtube_video": "https://www.youtube.com/embed/d2qTEL1M22c",
+          "how_to_title": "Learn how to layer your skincare.",
+          "how_to_desc": ""
+        }
+      },
+      "feed-social-media": {
+        "type": "feed-social-media",
+        "settings": {
+          "title": "We want to hear from you! Share your skin highlights",
+          "user_id": "17841400417663213",
+          "feed_token": "IGQVJVakdqa0dEQnNteE1WUUY5UHdUUnc1SEFZANDQ2RkdyWmpITlVmb3FrVHItUVBGZAUY5aWlzLVJmZA3k3R1ZACNHpHYkFwUVRlQmlFOThwU2d2ejBSbGZAvTU5vNEw1RmFTTnd6dkdnNDBreWNMb1BETQZDZD"
+        }
+      },
+      "slider-product-landing": {
+        "type": "slider-product-landing",
+        "blocks": {
+          "2ccbf441-5648-4f28-8281-45ebcb2318c3": {
+            "type": "image-slide",
+            "disabled": true,
+            "settings": {
+              "banner_enable": true,
+              "desktop_image": "shopify://shop_images/0423_INNOVATION_Web_Banners_1900x650px.png"
+            }
+          },
+          "922739d3-17ed-4c99-8498-33fbbb38c194": {
+            "type": "image-slide",
+            "disabled": true,
+            "settings": {
+              "banner_enable": true
+            }
+          }
+        },
+        "block_order": [
+          "2ccbf441-5648-4f28-8281-45ebcb2318c3",
+          "922739d3-17ed-4c99-8498-33fbbb38c194"
+        ],
+        "custom_css": [],
+        "settings": {}
+      },
+      "marquee-product-reviews": {
+        "type": "marquee-product-reviews",
+        "blocks": {
+          "635efaf1-24e6-4050-9bf2-0a55ac929ba1": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Rae K",
+              "reviewer_content": "I've tried a lot of Hyaluronic products before but this is far superior. I've been using this product for two weeks and my skin really is super hydrated and I can tell the difference. I'm getting more benefits out of the serum and moisturiser. Cannot reccomend enough!",
+              "reviewer_rating": "4"
+            }
+          },
+          "ddf124a3-4784-4378-815f-5c6e5362b02f": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Sarah K",
+              "reviewer_content": "Wow! I am so impressed by this product. My skin is instantly plump, fresh and radiant from the time I apply, to the time I wash my face at night. HG!",
+              "reviewer_rating": "5"
+            }
+          },
+          "cd222aac-7fdf-4597-b3a1-158f5e198c13": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Zara",
+              "reviewer_content": "I have been pleasantly surprised by this treatment booster after just 7 days of use. My skin has never glowed like this before and it makes me feel more confident in my own skin. I get excited to do my skin routine now. Definitely recommend!",
+              "reviewer_rating": "4"
+            }
+          },
+          "6cc661c3-76e3-430f-a9ce-b5382d47da03": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Amanda",
+              "reviewer_content": "First time using a Hyaluronic product before, love how hydrated my skin feels. Makes my make up go on easier, blending better and staying on longer. Game changer!",
+              "reviewer_rating": "5"
+            }
+          },
+          "001088d4-51be-49ad-864a-2f90268865db": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Andy",
+              "reviewer_content": "I LOVE this NEW product! If you are looking for a high-quality hydration booster to add to your skin treatment ritual, this is THE product. It feels very lux to apply, i use day & night now to max my skin hydration. Great work Ella Baché.",
+              "reviewer_rating": "5"
+            }
+          },
+          "b3342135-09ac-46ae-bca8-f5e23cd7a1f8": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Pippa Hallas",
+              "reviewer_content": "After trying lots of different products and getting no where, the Therapist at Bondi Junction salon recommended this after telling as my skin felt dry. After a week it’s now feeling much better, no more dryness and looks healthier",
+              "reviewer_rating": "5"
+            }
+          },
+          "08340226-c865-4567-9be7-7b672b34788f": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Rose E",
+              "reviewer_content": "I’ve tried many Hyaluronic products and this one has been a clear stand out. Using it morning and night underneath my regular serum I have seen an improvement in skin brightness and smoothness.",
+              "reviewer_rating": "5"
+            }
+          },
+          "418052c7-d878-42a9-aea9-b1a8fff75cbf": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Jodi J",
+              "reviewer_content": "I absolutely love this Ella Bache product. I did the 7 days introduction to my skincare routine day and night, and I cannot stop using it! I have noticed my skin is brighter and comments from friends that my skin is more plumped.",
+              "reviewer_rating": "5"
+            }
+          },
+          "2f41a8c5-7824-4205-8ced-00df87bb7702": {
+            "type": "review_content",
+            "settings": {
+              "reviewer_name": "Alana K",
+              "reviewer_content": "I didn't expect to see or feel the fast results of this product HOWEVER, after 1 week my skin was smoother and super hydrated! Didn't break me out and was so easy to add into my routine.",
+              "reviewer_rating": "5"
+            }
+          }
+        },
+        "block_order": [
+          "635efaf1-24e6-4050-9bf2-0a55ac929ba1",
+          "ddf124a3-4784-4378-815f-5c6e5362b02f",
+          "cd222aac-7fdf-4597-b3a1-158f5e198c13",
+          "6cc661c3-76e3-430f-a9ce-b5382d47da03",
+          "001088d4-51be-49ad-864a-2f90268865db",
+          "b3342135-09ac-46ae-bca8-f5e23cd7a1f8",
+          "08340226-c865-4567-9be7-7b672b34788f",
+          "418052c7-d878-42a9-aea9-b1a8fff75cbf",
+          "2f41a8c5-7824-4205-8ced-00df87bb7702"
+        ],
+        "settings": {}
+      },
+      "product-landing-banner-2": {
+        "type": "product-landing-banner-2",
+        "settings": {
+          "banner_image": "shopify://shop_images/give_away_desktop_v3.png",
+          "banner_image-mob": "shopify://shop_images/800_800_mobile.png",
+          "cta_url": "https://r3.dotdigital-pages.com/p/6ZUA-8VY/sign-up-to-our-newsletter-to-secure-your-entry"
+        }
+      },
+      "product-landing-2-grid-content": {
+        "type": "product-landing-2-grid-content",
+        "blocks": {
+          "3d8861fa-41f1-4f19-8160-31d642d156d5": {
+            "type": "Article",
+            "settings": {
+              "item_title": "your chance to win big",
+              "item_desc": "<font size=\"3\"><p>Cold weather is upon us! Ella Baché and Gloss are giving two lucky winners* the chance to win our ultimate Winter Hydration favourites & Help Me Hydrate facial valued at over $500 each.</p>\n<p>\nWinners will receive* our NEW INNOVATION that has just been restocked: The Hyaluronic Intensive Treatment Booster PLUS a nourishing Help Me Hydrate Facial* alongside our ultimate Winter favourites: The Hydra Hyaluronic Cellular Serum, Hydra Velvety Soft Cream & our Daily Hydration Mist valued at over $500*.</p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "{{ shop.brand.colors.primary[0].background }}",
+              "item_image": "shopify://shop_images/Gloss-2_03.png",
+              "item_video": ""
+            }
+          },
+          "ab8f2662-b544-4f5d-8c72-0ae7c9ca90a0": {
+            "type": "Article",
+            "settings": {
+              "item_title": "how to enter",
+              "item_desc": "<font size=\"3\"> 1. Be sure to follow both @ellabacheaus & @gloss.etc on instagram.<p>\n\n2. Finalise your entry by completing the form below. </p>\n<p>\n\nEntries close: Monday 21st July, at 6pm AEDT.\n</p>\n<p>\nTwo Winners will receive a direct message ONLY from the @ellabacheaus account and announced via Instagram story on Monday 31st of July, 2023 at 6pm.</p></font>",
+              "item_btn_text": "*T&C's apply",
+              "item-btn-url": "https://cdn.shopify.com/s/files/1/2999/1646/files/Ella_Bache_X_Gloss_etc_terms_and_conditions.pdf?v=1689897714",
+              "item-btn-color": "#001e37",
+              "item_image": "shopify://shop_images/Gloss_03.png",
+              "item_video": ""
+            }
+          },
+          "8eacdee3-3f89-4119-8532-f61af736ec07": {
+            "type": "Article",
+            "disabled": true,
+            "settings": {
+              "item_title": "",
+              "item_desc": "",
+              "item_btn_text": "Shop Now",
+              "item-btn-url": "",
+              "item-btn-color": "#7dabbd",
+              "item_video": ""
+            }
+          }
+        },
+        "block_order": [
+          "3d8861fa-41f1-4f19-8160-31d642d156d5",
+          "ab8f2662-b544-4f5d-8c72-0ae7c9ca90a0",
+          "8eacdee3-3f89-4119-8532-f61af736ec07"
+        ],
+        "settings": {
+          "enable_parallax": false
+        }
+      },
+      "product-landing-banner-3": {
+        "type": "product-landing-banner-3",
+        "settings": {
+          "banner_image": "shopify://shop_images/LADYBRAINS_Tile_1920x900px_1.png",
+          "banner_image-mob": "shopify://shop_images/LADYBRAINS_Tile_1080x1080px_3.png",
+          "cta_url": "https://r3.dotdigital-pages.com/p/6ZUA-8VY/sign-up-to-our-newsletter-to-secure-your-entry"
+        }
+      },
+      "product-landing-3-grid-content": {
+        "type": "product-landing-3-grid-content",
+        "blocks": {
+          "dacd5b67-e888-445d-bd56-97e69fa76862": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Make your bold move",
+              "item_desc": "<font size=\"5\">\n\n\n<b>Embrace Inner Boss\n</b><p>\nElla Baché and the lady-brains Podcast are giving two individuals the opportunity to win an exclusive one-hour mentor session with the esteemed lady-brains founder,  Caitlin Judd valued at $500. \n</p>\n<p></p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "#ffffff",
+              "item_image": "shopify://shop_images/Spirulines-Lift-Page_19_26bd1b61-4a04-4c1b-9979-5534a82f4015.png",
+              "item_video": ""
+            }
+          },
+          "35d11094-d161-4596-ba1c-cc343a52aa57": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Achieve your skin goals",
+              "item_desc": "<font size=\"5\">\n<b>Glow up with Ella Baché\n</b><p>\nWinners will also receive Ella Baché's Spring Skin package including the Radiance Foaming Cleanser, Radiance C Defensive Antioxidant Mist, Neobright Correcting Serum, Neobright  Correcting Day Cream and ultra nourishing Neobright Correcting Night Cream, valued at $500. </p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "{{ shop.brand.colors.primary[0].background }}",
+              "item_image": "shopify://shop_images/EllaBache-1221-1_f952250e-b93a-4d72-9da0-7998f845e3ea.png",
+              "item_video": ""
+            }
+          },
+          "b9e39178-a536-485d-a69e-965f224cb41c": {
+            "type": "Article",
+            "settings": {
+              "item_title": "How to enter",
+              "item_desc": "<font size=\"5\"> <b>\n\nSimply follow the steps below to enter:\n\n</b><p>\n1. Follow @ellabacheaus & @lady.brains on Instagram.\n</p>\n<p>\n2. Complete the form below to finalise your submission. </p>\n<p>\n<b>Entries close: 6pm AEDT, Monday 4th of September 2023.* </b>\n\n\n\n</p></font>",
+              "item_btn_text": "*T&C's apply",
+              "item-btn-url": "https://cdn.shopify.com/s/files/1/2999/1646/files/Ella_Bache_x_lady-brains_T_C_s_4d82ed7e-0c68-4816-8110-54cf612016c6.pdf?v=1692661025",
+              "item-btn-color": "#001e37",
+              "item_image": "shopify://shop_images/EllaBache-1221-12.png",
+              "item_video": ""
+            }
+          }
+        },
+        "block_order": [
+          "dacd5b67-e888-445d-bd56-97e69fa76862",
+          "35d11094-d161-4596-ba1c-cc343a52aa57",
+          "b9e39178-a536-485d-a69e-965f224cb41c"
+        ],
+        "settings": {
+          "enable_parallax": false
+        }
+      },
+      "product-landing-banner-4": {
+        "type": "product-landing-banner-4",
+        "settings": {
+          "banner_image": "shopify://shop_images/1023_EBxWhoIsElijah_DESKTOP_1920x900px.png",
+          "banner_image-mob": "shopify://shop_images/1023_EBxWhoIsElijah_MOBILE_1903_x753px.png",
+          "cta_url": "#6ZUA-9JV"
+        }
+      },
+      "product-landing-4-grid-content": {
+        "type": "product-landing-4-grid-content",
+        "blocks": {
+          "9f8562c5-abaf-4ecb-bb47-a0b495276959": {
+            "type": "Article",
+            "settings": {
+              "item_title": "WHO IS ELIJAH?",
+              "item_desc": "Meet the founder and mastermind of perfume brand WHO IS ELIJAH, Raquel Bouris. Ella Baché is thrilled to be sharing her BOLD story. Her hard work, determination has taken her on an extraordinary journey from a start-up founder to a multi-million dollar business.",
+              "item_btn_text": "READ RAQUEL'S BOLD STORY",
+              "item-btn-url": "https://www.ellabache.com.au/blogs/bold-beyond-beauty/bold-women-raquel-bouris",
+              "item-btn-color": "#000000",
+              "item_image": "shopify://shop_images/Raquel_New_York_5cdee848-b401-4256-a9a7-34f300f83a69.jpg",
+              "item_video": ""
+            }
+          },
+          "f6de19f3-f135-456c-9fb9-a1356b6b9dec": {
+            "type": "Article",
+            "settings": {
+              "item_title": "SEASONAL REFRESH",
+              "item_desc": "In need of a seasonal refresh? Ella Baché and WHO IS ELIJAH is here to provide you with a personalised season skin and fragrance refresh. To win, firstly, follow both WHO IS ELIJAH and Ella Baché via Instagram and finally, enter your details via the form below.",
+              "item_btn_text": "ENTER NOW",
+              "item-btn-url": "#6ZUA-9JV",
+              "item-btn-color": "#000000",
+              "item_image": "shopify://shop_images/RAQUEL_ONE.jpg",
+              "item_video": ""
+            }
+          }
+        },
+        "block_order": [
+          "9f8562c5-abaf-4ecb-bb47-a0b495276959",
+          "f6de19f3-f135-456c-9fb9-a1356b6b9dec"
+        ],
+        "settings": {
+          "enable_parallax": false
+        }
+      },
+      "product-landing-banner-5": {
+        "type": "product-landing-banner-5",
+        "settings": {
+          "banner_image": "shopify://shop_images/1223_ELCE_x_EB_1920x900px.png",
+          "banner_image-mob": "shopify://shop_images/1223_ELCE_x_EB_1080x1080px_v2_3.png",
+          "cta_url": ""
+        }
+      },
+      "product-landing-5-grid-content": {
+        "type": "product-landing-5-grid-content",
+        "blocks": {
+          "36c3d519-aff8-4e5a-8ec5-366fdc21ea32": {
+            "type": "Article",
+            "settings": {
+              "item_title": "Make your bold move",
+              "item_desc": "<font size=\"5\">\n\n\n<b>The ultimate Summer giveaway\n</b><p>\nElla Baché and ELCE Swim have partnered together to give two individuals the opportunity to win* the ultimate Summer skincare bundle PLUS a $300 (1st prize) or $200 (2nd prize) Elce swim voucher. The total prize pool is valued at over $1,000.\n</p>\n<p></p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/1.png",
+              "item_video": ""
+            }
+          },
+          "0e9c27af-f810-462e-b23b-fc52bc707c08": {
+            "type": "Article",
+            "settings": {
+              "item_title": "ELCE Swim",
+              "item_desc": "<font size=\"5\">\n\n\n<b>Conscious fashion\n</b><p>\nELCE Swim is reimagining what it means to be fashion-forward - creating quality, timeless garments that positively impact people and planet.\n</p>\n<p></p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/2_34dd47df-a0fa-46d6-9787-fc3968512d45.png",
+              "item_video": ""
+            }
+          },
+          "88ab1d68-226f-4355-b45b-6154c429b46c": {
+            "type": "Article",
+            "settings": {
+              "item_title": "How to enter",
+              "item_desc": "<font size=\"5\"> <b>\n\nSimply follow the steps below to enter:\n\n</b><p>\n1. Follow @ellabacheaus & @elceswim on Instagram.\n</p>\n<p>\n2. Complete the form below to finalise your submission. </p>\n<p>\n<b>Entries close: 6pm AEDT, Monday, 1st of January, 2023*.</b> \n\n\n\n</p></font>",
+              "item_btn_text": "",
+              "item-btn-url": "",
+              "item-btn-color": "#7dabbd",
+              "item_image": "shopify://shop_images/3.png",
+              "item_video": ""
+            }
+          }
+        },
+        "block_order": [
+          "36c3d519-aff8-4e5a-8ec5-366fdc21ea32",
+          "0e9c27af-f810-462e-b23b-fc52bc707c08",
+          "88ab1d68-226f-4355-b45b-6154c429b46c"
+        ],
+        "settings": {
+          "enable_parallax": false
+        }
+      },
+      "announcement-bar3": {
+        "type": "announcement-bar3",
+        "blocks": {
+          "announcement_4xxpah": {
+            "type": "announcement",
+            "settings": {
+              "text": "FREE STANDARD SHIPPING* ON ORDERS OVER $100",
+              "link": "https://www.ellabache.com.au/collections/all"
+            }
+          }
+        },
+        "block_order": [
+          "announcement_4xxpah"
+        ],
+        "settings": {
+          "bg_color": "#001e37",
+          "font_color": "#ffffff",
+          "auto_rotate": false,
+          "change_slides_speed": 5
+        }
+      },
+      "job-list": {
+        "type": "job-list",
+        "blocks": {
+          "job_CkL4Qz": {
+            "type": "job",
+            "settings": {
+              "job_title": "State Business & Training Manager - NSW",
+              "job_url": "https://au.seek.com/job/93794557",
+              "location": "Sydney NSW (Hybrid)",
+              "job_type": "Full time",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_zbPNGU": {
+            "type": "job",
+            "settings": {
+              "job_title": "Beauty Therapist",
+              "job_url": "https://au.seek.com/job/93850636",
+              "location": "Broadbeach, Gold Coast QLD",
+              "job_type": "Casual/Vacation",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_HjeXWp": {
+            "type": "job",
+            "settings": {
+              "job_title": "State Business & Training Manager - WA/SA",
+              "job_url": "https://au.seek.com/job/93794111",
+              "location": "Perth WA (Hybrid)",
+              "job_type": "Full time",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_gX3q7z": {
+            "type": "job",
+            "settings": {
+              "job_title": "Experienced Skin & Beauty Therapist",
+              "job_url": "https://au.seek.com/job/93536553",
+              "location": "Mordialloc, Melbourne VIC",
+              "job_type": "Casual/Vacation",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_KQLTrp": {
+            "type": "job",
+            "settings": {
+              "job_title": "Experienced Beauty therapist",
+              "job_url": "https://au.seek.com/job/93567953",
+              "location": "Penrith, Sydney NSW",
+              "job_type": "Full time",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_WD6kHk": {
+            "type": "job",
+            "settings": {
+              "job_title": "Senior Beauty Therapist",
+              "job_url": "https://au.seek.com/job/93793150",
+              "location": "Ipswich, Brisbane QLD",
+              "job_type": "Casual/Vacation",
+              "apply_label": "Apply Now"
+            }
+          },
+          "job_XcCLN8": {
+            "type": "job",
+            "settings": {
+              "job_title": "Graduate Beauty Therapist",
+              "job_url": "https://au.seek.com/job/93297629",
+              "location": "Artarmon, Sydney NSW",
+              "job_type": "Part time",
+              "apply_label": "Apply Now"
+            }
+          }
+        },
+        "block_order": [
+          "job_CkL4Qz",
+          "job_zbPNGU",
+          "job_HjeXWp",
+          "job_gX3q7z",
+          "job_KQLTrp",
+          "job_WD6kHk",
+          "job_XcCLN8"
+        ],
+        "settings": {}
+      },
+      "salon-sale-list": {
+        "type": "salon-sale-list",
+        "blocks": {
+          "sale_LXWX33": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Unlock Your Dream with an Ella Bachè Salon Franchise Opportunity in Perth",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/unlock-your-dream-with-an-ella-bache-salon-franchise-opportunity-in-perth/757326",
+              "location": "Perth - Greater, Perth WA 6000",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_q3kpFk": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Unlock Your Dream with an Ella Bachè Salon Franchise Opportunity - Brisbane",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/unlock-your-dream-with-an-ella-bache-salon-franchise-opportunity-brisbane/757325",
+              "location": "Brisbane - Greater, Brisbane City QLD 4000",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_QAhgga": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Unlock Your Dream with an Ella Bachè Salon Franchise Opportunity - Sydney",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/unlock-your-dream-with-an-ella-bache-salon-franchise-opportunity-sydney/757324",
+              "location": "Sydney - Greater, Sydney NSW 2000",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_gUzgXJ": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Unlock Your Dream with an Ella Bachè Salon Franchise Opportunity - Subiaco",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/unlock-your-dream-with-an-ella-bache-salon-franchise-opportunity-subiaco/757323",
+              "location": "Perth - Greater, Subiaco WA 6008",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_weETEX": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Premium Coastal Beauty Salon for Sale – Ella Baché Rye Beach",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/premium-coastal-beauty-salon-for-sale-ella-bache-rye-beach/757321",
+              "location": "Melbourne - Greater, Mornington VIC 3931",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_Y7jmD3": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Established Beauty Salon - Prime Location in Townsville Shopping Centre",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/established-beauty-salon-prime-location-in-townsville-shopping-centre/756836",
+              "location": "Regional QLD, Aitkenvale QLD 4814",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_tAMAVJ": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Established Ella Baché Franchise in Wollongong – Prime CBD Location",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/established-ella-bache-franchise-in-wollongong-prime-cbd-location/756834",
+              "location": "Regional NSW, Wollongong NSW 2500",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_KDkdcL": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Salon for sale - Ella Baché Cleveland QLD (Available for Immediate Acquisition)",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/salon-for-sale-ella-bache-cleveland-qld-available-for-immediate-acquisition/765961",
+              "location": "Cleveland | Brisbane - Greater",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_x9NMXJ": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Unlock Your Dream with an Ella Bachè Salon Franchise Opportunity - Melbourne",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/unlock-your-dream-with-an-ella-bache-salon-franchise-opportunity-melbourne/756311",
+              "location": "Melbourne - Greater, Melbourne VIC 3000",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_74YYdY": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Award-Winning Ella Baché Salon – Pacific Fair Shopping Centre",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/award-winning-ella-bache-salon-pacific-fair-shopping-centre/756116",
+              "location": "Gold Coast, Broadbeach QLD 4218",
+              "cta_text": "Enquire Now"
+            }
+          },
+          "sale_X9qJd3": {
+            "type": "sale",
+            "settings": {
+              "salon_title": "Salon for sale -Ella Bache Wagga Wagga NSW",
+              "salon_url": "https://www.seekbusiness.com.au/business-listing/salon-for-sale-ella-bache-wagga-wagga-nsw/767482",
+              "location": "Regional NSW, Wagga Wagga NSW 2650",
+              "cta_text": "Enquire Now"
+            }
+          }
+        },
+        "block_order": [
+          "sale_LXWX33",
+          "sale_q3kpFk",
+          "sale_QAhgga",
+          "sale_gUzgXJ",
+          "sale_weETEX",
+          "sale_Y7jmD3",
+          "sale_tAMAVJ",
+          "sale_KDkdcL",
+          "sale_x9NMXJ",
+          "sale_74YYdY",
+          "sale_X9qJd3"
+        ],
+        "settings": {}
+      },
+      "salon-portal-resources": {
+        "type": "salon-portal-resources",
+        "blocks": {
+          "resource_74PpHC": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/request-custom-design-assets.png",
+              "heading_color": "#6174a3",
+              "title": "WHAT’S ON",
+              "subtitle": "Stay connected. Stay inspired. Stay ahead.",
+              "content": "",
+              "url": "shopify://pages/whats-on",
+              "resource-access-level": "both"
+            }
+          },
+          "resource_948GPT": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/Ella_Bache_SalonX-v1763615346145.jpg",
+              "heading_color": "#9c8875",
+              "title": "TRAINING & EDUCATION",
+              "subtitle": "Elevating your knowledge. Empowering every Therapist.",
+              "content": "",
+              "url": "shopify://pages/training-and-education",
+              "resource-access-level": "both"
+            }
+          },
+          "resource_9rEEMz": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/Group1.jpg",
+              "heading_color": "#79797c",
+              "title": "SALON ORDERING",
+              "subtitle": "Everything you need for skin solutions.",
+              "content": "",
+              "url": "shopify://pages/salon-ordering",
+              "resource-access-level": "skin-owner"
+            }
+          },
+          "resource_JJEWdj": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/Frame_27-5.png",
+              "heading_color": "#2a8074",
+              "title": "BRAND & MARKETING",
+              "subtitle": "Bringing the Ella Baché brand to life.",
+              "content": "",
+              "url": "shopify://pages/brand-marketing",
+              "resource-access-level": "skin-owner"
+            }
+          },
+          "resource_eFVB49": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/Frame33.jpg",
+              "heading_color": "#6174a3",
+              "title": "SALON LOCAL AREA MARKETING",
+              "subtitle": "Connect your community with expert-led skincare solutions.",
+              "content": "",
+              "url": "shopify://pages/salon-local-area-marketing",
+              "resource-access-level": "skin-owner"
+            }
+          },
+          "resource_VxyUTc": {
+            "type": "resource",
+            "settings": {
+              "image": "shopify://shop_images/Frame27.jpg",
+              "heading_color": "#9c8875",
+              "title": "YOUR FRANCHISE BUSINESS",
+              "subtitle": "Supporting you to run a successful & aligned salon.",
+              "content": "",
+              "url": "shopify://pages/your-franchise-business",
+              "resource-access-level": "skin-owner"
+            }
+          }
+        },
+        "block_order": [
+          "resource_74PpHC",
+          "resource_948GPT",
+          "resource_9rEEMz",
+          "resource_JJEWdj",
+          "resource_eFVB49",
+          "resource_VxyUTc"
+        ],
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "8605505498557855500": {
+        "type": "shopify://apps/bogos-free-gift-buy-x-get-y/blocks/app-embed/0432bba6-720a-4e95-be5a-b868386f7aa6",
+        "disabled": false,
+        "settings": {}
+      },
+      "6143736321357441667": {
+        "type": "shopify://apps/tidio-live-chat-chatbots/blocks/app-embed/1002274d-fb18-4939-98f6-5f05a8deeadc",
+        "disabled": false,
+        "settings": {}
+      },
+      "6610233760104865948": {
+        "type": "shopify://apps/pushowl/blocks/pushowl-app-embed-3d2ff2b5/fa20c3ba-38bf-43e0-ba5c-431f6ae07d95",
+        "disabled": false,
+        "settings": {}
+      },
+      "6251270934270006384": {
+        "type": "shopify://apps/stape-server-gtm/blocks/gtm/7e13c847-7971-409d-8fe0-29ec14d5f048",
+        "disabled": false,
+        "settings": {}
+      },
+      "17428600031447253342": {
+        "type": "shopify://apps/attentive/blocks/attn-tag/8df62c72-8fe4-407e-a5b3-72132be30a0d",
+        "disabled": false,
+        "settings": {}
+      },
+      "12526071353035850722": {
+        "type": "shopify://apps/amp-back-in-stock/blocks/app-embed/bfa6a8c4-24e2-411a-9396-e35031b33f34",
+        "disabled": true,
+        "settings": {}
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "color_1": "#404040"
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {}
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {}
+        }
+      }
+    }
+  }
+}

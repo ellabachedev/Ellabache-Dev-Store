@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "product": {
+      "type": "product-new",
+      "settings": {
+        "afterpay_enabled": true,
+        "klarna_enabled": true,
+        "show_related_products": true,
+        "related_title": "Complete your routine",
+        "related_grid_num": 4,
+        "related_grid_row": 1,
+        "show_upsell_products": true,
+        "upsell_title": "We think you will also love",
+        "upsell_sub_title": "For stronger results, we recommend pairing with these products",
+        "upsell_count": "10"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "thumbnail",
+        "media_size": "large",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "color_scheme": "background-1",
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "best-seller": {
+      "type": "best-seller",
+      "blocks": {
+        "952e4341-ed9d-413b-b709-61c3bd1c27e3": {
+          "type": "collection",
+          "settings": {
+            "label": "Activate your skin with",
+            "collection": "spirulines-recommendation"
+          }
+        }
+      },
+      "block_order": [
+        "952e4341-ed9d-413b-b709-61c3bd1c27e3"
+      ],
+      "settings": {
+        "title": ""
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "settings": {
+        "title": "Follow us on Instagram",
+        "link": "https:\/\/www.instagram.com\/ellabacheaus\/?hl=en",
+        "caption": "@ellabacheaus",
+        "user_id": "17841400417663213",
+        "feed_token": "IGQVJYSUxfTXJVR0o2VGQxYjJRUW9NMlI3QzhkQzJFdmhPSWpqb1d0QkdOYkhub3dEdzFSTHFzbXFOZAV85Mml2aXctcjBjTXVwRFdQTldteVRuZA1RzQXZAKekg2YlUtMVVPWFVsVkRjQ3BkV3B2N21PNQZDZD"
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "product",
+    "main",
+    "product-recommendations",
+    "best-seller",
+    "instagram_feed",
+    "shogun-below"
+  ]
+}

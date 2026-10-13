@@ -1,0 +1,627 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner_slider_PdpVUC": {
+      "type": "hero-banner-slider",
+      "blocks": {
+        "slide_PhN4LP": {
+          "type": "slide",
+          "settings": {
+            "layout": "full_image",
+            "reverse_layout": false,
+            "image__primary": "shopify://shop_images/1026_GWP_MainBanner_Desktop_1920x760px_2c73d74a-16a4-4736-a1b9-03144f766534.jpg",
+            "image__primary_mobile": "shopify://shop_images/1026_GWP_MainBanner_Mobile_750x1000px.jpg",
+            "enable_content": true,
+            "title": "",
+            "description": "",
+            "cta_link": "shopify://collections/in-my-own-skin",
+            "cta_text": "",
+            "enable_image_overlay": false,
+            "image_overlay_opacity": 0,
+            "image_overlay_color": "",
+            "show_text_box": true
+          }
+        },
+        "slide_Rcbjma": {
+          "type": "slide",
+          "settings": {
+            "layout": "full_image",
+            "reverse_layout": false,
+            "image__primary": "shopify://shop_images/GWP_upgrade_desktop.jpg",
+            "image__primary_mobile": "shopify://shop_images/GWP_upgrade_mobile.jpg",
+            "enable_content": true,
+            "title": "",
+            "description": "",
+            "cta_link": "shopify://collections/in-my-own-skin",
+            "cta_text": "",
+            "enable_image_overlay": false,
+            "image_overlay_opacity": 0,
+            "image_overlay_color": "",
+            "show_text_box": true
+          }
+        },
+        "slide_KGXmhi": {
+          "type": "slide",
+          "settings": {
+            "layout": "full_video",
+            "reverse_layout": false,
+            "video": "shopify://files/videos/October 2026 Homepage.mp4",
+            "video_mobile": "shopify://files/videos/October 2026 Homepage (1).mp4",
+            "enable_content": true,
+            "title": "",
+            "description": "",
+            "cta_link": "shopify://products/brighten-me-up",
+            "cta_text": "",
+            "enable_image_overlay": false,
+            "image_overlay_opacity": 0,
+            "image_overlay_color": "",
+            "show_text_box": true
+          }
+        },
+        "slide_f8Ng6F": {
+          "type": "slide",
+          "settings": {
+            "layout": "full_image",
+            "reverse_layout": false,
+            "image__primary": "shopify://shop_images/Multi_Renewal_Treatment_desktop.jpg",
+            "image__primary_mobile": "shopify://shop_images/Multi_Renewal_Treatment_mobile.jpg",
+            "enable_content": true,
+            "title": "",
+            "description": "",
+            "cta_link": "shopify://products/multi-renewal-brightening-facial-with-led",
+            "cta_text": "",
+            "enable_image_overlay": false,
+            "image_overlay_opacity": 0,
+            "image_overlay_color": "",
+            "show_text_box": true
+          }
+        }
+      },
+      "block_order": [
+        "slide_PhN4LP",
+        "slide_Rcbjma",
+        "slide_KGXmhi",
+        "slide_f8Ng6F"
+      ],
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_speed": 10
+      }
+    },
+    "featured_product_slider_kRLaAc": {
+      "type": "featured-product-slider",
+      "custom_css": [
+        "h2 {color: #001e37;}",
+        "@media (max-width: 767px) {h2 span {display: block; }}"
+      ],
+      "settings": {
+        "title": "DISCOVER YOUR SPRING SKIN SOLUTION",
+        "paragraph": "",
+        "candy_banner_link": "shopify://collections/in-my-own-skin",
+        "collection": "neobright",
+        "padding_top": 0,
+        "padding_bottom": 56
+      }
+    },
+    "video_with_text_KwXKKV": {
+      "type": "video-with-text",
+      "blocks": {
+        "heading_pkqkNM": {
+          "type": "heading",
+          "settings": {
+            "heading": "IN MY OWN SKIN"
+          }
+        },
+        "sub_heading_xBJQCj": {
+          "type": "sub-heading",
+          "settings": {
+            "sub-heading": "with Jessica Gomes"
+          }
+        },
+        "text_JyNXr9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Celebrates confidence, authenticity and the quiet strength that comes from feeling truly comfortable in your own skin.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_pkqkNM",
+        "sub_heading_xBJQCj",
+        "text_JyNXr9"
+      ],
+      "custom_css": [
+        "h2,.video-with-text__subtitle {color: #001e37;}",
+        "@media screen and (min-width: 750px) {p {font-size: 1.3237vw; }}"
+      ],
+      "name": "Video with Text",
+      "settings": {
+        "bg_color": "#f8f8f8",
+        "video": "shopify://files/videos/9.mp4",
+        "video_mobile": "shopify://files/videos/10.mp4",
+        "video_poster": "shopify://shop_images/ezgif-frame-003.jpg",
+        "button_label": "",
+        "button_link": "https://www.ellabache.com.au/collections/gifting-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "video_with_text_FwJC8f": {
+      "type": "video-with-text",
+      "blocks": {
+        "heading_A3ae6N": {
+          "type": "heading",
+          "settings": {
+            "heading": "For Her. <br>For You. <br>For Generations."
+          }
+        },
+        "text_FUcBEV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Celebrating 90 years of knowing skin. This Mother’s Day we celebrate, not one generation but many with skincare rituals, knowledge and trusted formulas passed from grandmother to mother to daughter.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_A3ae6N",
+        "text_FUcBEV"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2,.video-with-text__subtitle {color: #001e37;}",
+        "@media screen and (min-width: 750px) {p {font-size: 1.3237vw; }}"
+      ],
+      "name": "Video with Text",
+      "settings": {
+        "bg_color": "#f8f8f8",
+        "video": "shopify://files/videos/MD VIDEO DESKTOP.mp4",
+        "video_mobile": "shopify://files/videos/MD VIDEO MOBILE.mp4",
+        "video_poster": "shopify://shop_images/video-poster.jpg",
+        "button_label": "Explore Curated Gifts",
+        "button_link": "https://www.ellabache.com.au/collections/gifting-1",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "collection_block_x3": {
+      "type": "collection-block-x3",
+      "blocks": {
+        "7b4e7f0b-b2e3-45ae-a961-25d1b8298a08": {
+          "type": "block",
+          "settings": {
+            "block-title": "Salon treatments",
+            "block-img": "shopify://shop_images/treatment_web_banner_520x590_27ed1924-fab1-412b-833b-d2f8f68e4e1b.jpg",
+            "block-url": "https://www.ellabache.com.au/collections/treatments"
+          }
+        },
+        "block_jN8Pt3": {
+          "type": "block",
+          "settings": {
+            "block-title": "BEST SELLERS",
+            "block-img": "shopify://shop_images/category_banner_800x800_02.jpg",
+            "block-url": "shopify://collections/best-sellers"
+          }
+        },
+        "block_cfhpcU": {
+          "type": "block",
+          "settings": {
+            "block-title": "New Innovation",
+            "block-img": "shopify://shop_images/nw_innovation.jpg",
+            "block-url": "shopify://collections/new"
+          }
+        }
+      },
+      "block_order": [
+        "7b4e7f0b-b2e3-45ae-a961-25d1b8298a08",
+        "block_jN8Pt3",
+        "block_cfhpcU"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Salon treatments & products<span class=\"small\" style=\"display:block; font-size:24px;\"> made to love the skin that you're in</span>"
+      }
+    },
+    "best_seller": {
+      "type": "best-seller",
+      "blocks": {
+        "21e8f62c-4f17-4420-be75-98e989714be2": {
+          "type": "collection",
+          "settings": {
+            "label": "Suncare",
+            "collection": "suncare-category"
+          }
+        },
+        "collection_DtGaa3": {
+          "type": "collection",
+          "settings": {
+            "label": "Age Correction",
+            "collection": "age-correction"
+          }
+        },
+        "7d8f8912-e3e0-410a-be4e-e186c3c3a882": {
+          "type": "collection",
+          "settings": {
+            "label": "Hydration",
+            "collection": "hydration"
+          }
+        }
+      },
+      "block_order": [
+        "21e8f62c-4f17-4420-be75-98e989714be2",
+        "collection_DtGaa3",
+        "7d8f8912-e3e0-410a-be4e-e186c3c3a882"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Shop skincare favourites"
+      }
+    },
+    "collection_tile_EGMjCx": {
+      "type": "collection-tile",
+      "blocks": {
+        "block_4Nk4TE": {
+          "type": "block",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_51.jpg",
+            "heading": "Exfoliants",
+            "description": "brighten | smooth | reveal",
+            "link": "shopify://collections/exfoliants"
+          }
+        },
+        "block_4EBArE": {
+          "type": "block",
+          "settings": {
+            "image": "shopify://shop_images/2_1.jpg",
+            "heading": "Classics",
+            "description": "cleansing | rebalancing | preparing",
+            "link": "https://www.ellabache.com.au/collections/classics"
+          }
+        },
+        "block_AkNeG4": {
+          "type": "block",
+          "settings": {
+            "image": "shopify://shop_images/3_1.jpg",
+            "heading": "Hydra",
+            "description": "hydrating | plumping | revitalising",
+            "link": "https://www.ellabache.com.au/collections/hydra"
+          }
+        },
+        "block_8PXdpn": {
+          "type": "block",
+          "settings": {
+            "image": "shopify://shop_images/4_1.jpg",
+            "heading": "SpirulinesLift",
+            "description": "supercharged | firming | protecting",
+            "link": "https://www.ellabache.com.au/collections/spirulineslift"
+          }
+        }
+      },
+      "block_order": [
+        "block_4Nk4TE",
+        "block_4EBArE",
+        "block_AkNeG4",
+        "block_8PXdpn"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "content_grid_fB6YWB": {
+      "type": "content-grid",
+      "blocks": {
+        "item_4JbGQr": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_1.jpg",
+            "title": "",
+            "link": "shopify://collections/age-prevention"
+          }
+        },
+        "item_nVEfLq": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_2.jpg",
+            "title": "",
+            "link": "shopify://collections/age-correction"
+          }
+        },
+        "item_6TwCFQ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_3.jpg",
+            "title": "",
+            "link": "shopify://collections/hydration"
+          }
+        },
+        "item_HVjdkY": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_4.jpg",
+            "title": "",
+            "link": "shopify://collections/brightening"
+          }
+        },
+        "item_mxpWCL": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_5.jpg",
+            "title": "",
+            "link": "shopify://collections/sensitivity"
+          }
+        },
+        "item_Lm4Miz": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/category_6.jpg",
+            "title": "",
+            "link": "shopify://collections/sun-protection"
+          }
+        }
+      },
+      "block_order": [
+        "item_4JbGQr",
+        "item_nVEfLq",
+        "item_6TwCFQ",
+        "item_HVjdkY",
+        "item_mxpWCL",
+        "item_Lm4Miz"
+      ],
+      "custom_css": [
+        "h2 {color: #001e37;}",
+        "@media (max-width: 767px) {h2 span {display: block; }}"
+      ],
+      "name": "Content Grid Banner",
+      "settings": {
+        "heading": "<span>DISCOVER SKIN</span><span> SOLUTIONS FOR YOU</span>",
+        "subheading": "Curated skincare, delivering refined, results-driven personalised skin solutions.",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_logos_XUnV7y": {
+      "type": "featured-logos",
+      "blocks": {
+        "logo_i9mHkX": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/featured_1.jpg",
+            "logo_svg": "",
+            "text_logo": "",
+            "logo_link": "shopify://pages/as-featured-in",
+            "alt_text": "Elle"
+          }
+        },
+        "logo_VJLgfD": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/featured_2.jpg",
+            "logo_svg": "",
+            "text_logo": "",
+            "logo_link": "shopify://pages/as-featured-in",
+            "alt_text": "VOGUE"
+          }
+        },
+        "logo_bRNADA": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/featured_3.jpg",
+            "logo_svg": "",
+            "text_logo": "",
+            "logo_link": "shopify://pages/as-featured-in",
+            "alt_text": "Marie Claire"
+          }
+        },
+        "logo_7iiAA8": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/featured_4.jpg",
+            "logo_svg": "",
+            "text_logo": "",
+            "logo_link": "shopify://pages/as-featured-in",
+            "alt_text": "Beauty Directory"
+          }
+        }
+      },
+      "block_order": [
+        "logo_i9mHkX",
+        "logo_VJLgfD",
+        "logo_bRNADA",
+        "logo_7iiAA8"
+      ],
+      "name": "Featured Logos",
+      "settings": {
+        "heading": "AS FEATURED IN",
+        "logo_height": 50,
+        "text_color": "#1f2a44",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "full_width_banner_B9BptK": {
+      "type": "full-width-banner",
+      "custom_css": [
+        "@media (max-width: 767px) {.full-width-banner {border-radius: 15px; }}"
+      ],
+      "name": "Full Width Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/treatments_desktop_1.jpg",
+        "mobile_image": "shopify://shop_images/mobile_750x1000_4_6bfaf56c-1379-4b21-8d14-9730e9354e10.jpg",
+        "link": "shopify://collections/treatments",
+        "open_new_tab": false,
+        "alt_text": "Salon Treatments"
+      }
+    },
+    "icon_text_grid_qmypTq": {
+      "type": "icon-text-grid",
+      "blocks": {
+        "item_G67Caz": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/icons-05.png",
+            "emoji": ""
+          }
+        },
+        "item_dz7ME7": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/icons-07.png",
+            "emoji": "✨"
+          }
+        },
+        "item_MW4hi9": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/icons-08.png",
+            "emoji": "✨"
+          }
+        },
+        "item_rBaC48": {
+          "type": "item",
+          "settings": {
+            "title": "",
+            "icon_svg": "",
+            "icon_image": "shopify://shop_images/icons-06.png",
+            "emoji": "✨"
+          }
+        }
+      },
+      "block_order": [
+        "item_G67Caz",
+        "item_dz7ME7",
+        "item_MW4hi9",
+        "item_rBaC48"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "name": "Icon text grid",
+      "settings": {
+        "columns_desktop": 4,
+        "icon_bg": "#ffffff",
+        "text_color": "#1f2a44",
+        "icon_size": 200,
+        "icon_padding": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "full_width_banner_nfKbXp": {
+      "type": "full-width-banner",
+      "disabled": true,
+      "custom_css": [
+        "@media (max-width: 767px) {.full-width-banner {border-radius: 15px; }}"
+      ],
+      "name": "Full Width Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/treatments_desktop-1_1.jpg",
+        "mobile_image": "shopify://shop_images/mobile_750x1000-1_1.jpg",
+        "link": "shopify://pages/skin-quiz",
+        "open_new_tab": false,
+        "alt_text": "Skin Quiz"
+      }
+    },
+    "collection_card_grid_kWFKgC": {
+      "type": "collection-card-grid",
+      "blocks": {
+        "card_xFXeCV": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Oct_blog.jpg",
+            "title": "Spring Skin Renewal: The Secret to Your Event-Season Glow",
+            "description": "Spring has arrived, bringing longer days, warmer weather and a calendar filled with celebrations. From Spring Racing events and weddings to weekend gatherings, now is the perfect time to refresh your skin and prepare for the season ahead.",
+            "link": "https://www.ellabache.com.au/blogs/ella-bache/spring-skin-renewal-the-secret-to-your-event-season-glow"
+          }
+        },
+        "card_iBfWmr": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/1-7.jpg",
+            "title": "In My Own Skin with Charli Hately: Finding Confidence Beyond the Waves",
+            "description": "Meet the young Gold Coast surfer embracing self-belief, resilience and the freedom to be entirely herself",
+            "link": "shopify://blogs/ella-bache/in-my-own-skin-with-charli-finding-confidence-beyond-the-waves"
+          }
+        },
+        "card_QEWwGx": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/800x800.jpg",
+            "title": "Radiance Revealed: Your Spring Skin Reset Starts Here",
+            "description": "As the seasons shift and spring begins to bloom, your skin is ready for a fresh start too. After months of cooler temperatures, many of us notice our complexion looking dull, dehydrated and lacking its usual luminosity.",
+            "link": "shopify://blogs/ella-bache/radiance-revealed-your-spring-skin-reset-starts-here"
+          }
+        }
+      },
+      "block_order": [
+        "card_xFXeCV",
+        "card_iBfWmr",
+        "card_QEWwGx"
+      ],
+      "custom_css": [
+        "h2 {text-align: center; color: #001e37;}"
+      ],
+      "name": "Collection Card Grid",
+      "settings": {
+        "title": "SKIN STORY EDIT",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "custom_css": [
+        "h2 {color: #001e37;}"
+      ],
+      "settings": {
+        "title": "FOLLOW US ON INSTAGRAM",
+        "link": "https://www.instagram.com/ellabacheaus/?hl=en",
+        "caption": "@ellabacheaus",
+        "user_id": "17841400417663213",
+        "feed_token": "{{ localization.market.metafields.instagram.access_token.value }}",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "custom_liquid_jFziiX": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script>\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  document.querySelectorAll(\".site-nav__link\").forEach(function (link) {\n    if (link.textContent.trim().toLowerCase() === \"sale\") {\n      link.style.color = \"red\";\n    }\n  });\n});\n</script>",
+        "color_scheme": "background-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "hero_banner_slider_PdpVUC",
+    "featured_product_slider_kRLaAc",
+    "video_with_text_KwXKKV",
+    "video_with_text_FwJC8f",
+    "collection_block_x3",
+    "best_seller",
+    "collection_tile_EGMjCx",
+    "content_grid_fB6YWB",
+    "featured_logos_XUnV7y",
+    "full_width_banner_B9BptK",
+    "icon_text_grid_qmypTq",
+    "full_width_banner_nfKbXp",
+    "collection_card_grid_kWFKgC",
+    "instagram_feed",
+    "custom_liquid_jFziiX"
+  ]
+}

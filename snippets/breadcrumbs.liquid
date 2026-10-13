@@ -1,0 +1,289 @@
+{{ 'component-breadcrumbs.css' | asset_url | stylesheet_tag }}
+{%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+{%- assign t = template | split: '.' | first -%}
+<nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs" style="padding:0 15px;">
+  <div class="page-width" style="max-width:1440px;">
+  <ol>
+    <li>
+      <a href="/" title="Home">Home</a>
+    </li>
+  {%- case t -%}
+  {%- when 'page' -%}
+    <li>
+      <a href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+    </li>
+  {%- when 'product' -%}
+    
+    <li>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const bcContainer = document.querySelector('.breadcrumbs ol');
+    
+        const handle = localStorage.getItem('breadcrumb_collection_handle');
+        const title = localStorage.getItem('breadcrumb_collection_title');
+        const url = localStorage.getItem('breadcrumb_collection_url');
+    
+        // Check if user arrived from collection page by testing referrer or presence of data
+        const cameFromCollection = document.referrer.includes('/collections/') && handle && title && url;
+    
+        if (cameFromCollection) {
+          // Add collection breadcrumb <li> if not present
+          if (bcContainer) {
+            const existingCollectionLi = bcContainer.querySelector('li.collection-breadcrumb');
+            if (!existingCollectionLi) {
+              const li = document.createElement('li');
+              li.className = 'collection-breadcrumb';
+              const a = document.createElement('a');
+              a.href = url;
+              a.textContent = title;
+              li.appendChild(a);
+              // Insert after Home (assuming Home is first)
+              if (bcContainer.children.length > 1) {
+                bcContainer.insertBefore(li, bcContainer.children[1]);
+              } else {
+                bcContainer.appendChild(li);
+              }
+            }
+          }
+        } else {
+          // User came directly or no collection info -> clear localStorage & remove collection breadcrumb <li>
+          localStorage.removeItem('breadcrumb_collection_handle');
+          localStorage.removeItem('breadcrumb_collection_title');
+          localStorage.removeItem('breadcrumb_collection_url');
+    
+          if (bcContainer) {
+            const existingCollectionLi = bcContainer.querySelector('li.collection-breadcrumb');
+            if (existingCollectionLi) existingCollectionLi.remove();
+          }
+        }
+      });
+    </script>
+      <a href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+    </li>
+  {%- when 'collection' -%}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const productLinks = document.querySelectorAll('a[href*="/products/"]');
+        productLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            localStorage.setItem('breadcrumb_collection_handle', '{{ collection.handle }}');
+            localStorage.setItem('breadcrumb_collection_title', '{{ collection.title | escape }}');
+            localStorage.setItem('breadcrumb_collection_url', '{{ collection.url }}');
+          });
+        });
+      });
+    </script>
+    {% if current_tags %}
+      <li>{{ collection.title | link_to: collection.url }}</li>
+      <li>
+        {%- capture tag_url %}{{ collection.url }}/{{ current_tags | join: "+"}}{% endcapture -%}
+        {% comment %}<a href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + "}}</a>{% endcomment %}
+        <a href="" aria-current="page">{{ current_tags | join: " + "}}</a>
+      </li>
+    {%- else -%}
+      <li>
+        <a href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+      </li>
+    {%- endif -%}
+  {%- when 'blog' -%}
+    {%- if current_tags -%}
+      <li>{{ blog.title | link_to: blog.url }}</li>
+      <li>
+        {% capture tag_url %}{{blog.url}}/tagged/{{ current_tags | join: "+" }}{% endcapture %}
+        {% comment %}<a href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>{% endcomment %}
+        <a href="" aria-current="page">{{ current_tags | join: " + " }}</a>
+      </li>
+    {%- else -%}
+      <li>
+        <a href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+      </li>
+    {%- endif -%}
+  {%- when 'article' -%}
+    <li>{{ blog.title | link_to: blog.url }}</li>
+    <li>
+      <a href="{{ article.url }}" aria-current="page">{{ article.title }}</a>
+    </li>
+  {%- else -%}
+    <li aria-current="page">
+      <a href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+    </li>
+  {%- endcase -%}
+  </ol>
+</div>
+</nav>
+{%- endunless -%}
+{%- if template != 'product' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ shop.url }}"
+    }
+    {%- assign position = 2 -%}
+    {%- case t -%}
+
+    {%- when 'page' -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ page.title | escape }}",
+      "item": "{{ shop.url }}{{ page.url | absolute_url }}"
+    }
+
+    {%- when 'collection' -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ collection.title | escape }}",
+      "item": "{{ shop.url }}{{ collection.url | absolute_url }}"
+    }
+    {%- assign position = position | plus: 1 -%}
+    {%- if current_tags -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ current_tags | join: ' + ' | escape }}",
+      "item": "" 
+    }
+    {%- endif -%}
+
+    {%- when 'product' -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ product.title | escape }}",
+      "item": "{{ shop.url }}{{ product.url | absolute_url }}"
+    }
+
+    {%- when 'blog' -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ blog.title | escape }}",
+      "item": "{{ shop.url }}{{ blog.url | absolute_url }}"
+    }
+    {%- assign position = position | plus: 1 -%}
+    {%- if current_tags -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ current_tags | join: ' + ' | escape }}",
+      "item": ""
+    }
+    {%- endif -%}
+
+    {%- when 'article' -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ blog.title | escape }}",
+      "item": "{{ shop.url }}{{ blog.url | absolute_url }}"
+    }
+    ,{
+      "@type": "ListItem",
+      "position": {{ position | plus: 1 }},
+      "name": "{{ article.title | escape }}",
+      "item": "{{ shop.url }}{{ article.url | absolute_url }}"
+    }
+
+    {%- else -%}
+    ,{
+      "@type": "ListItem",
+      "position": {{ position }},
+      "name": "{{ page_title | escape }}",
+      "item": "{{ shop.url }}{{ request.path | absolute_url }}"
+    }
+
+    {%- endcase -%}
+  ]
+}
+</script>
+{%- endif -%}
+{%- if template contains 'product' -%}
+<!-- Fallback JSON-LD (Home > Product only) -->
+<script id="p" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ routes.root_url | absolute_url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ product.title | escape }}",
+      "item": "{{ shop.url }}{{ product.url | absolute_url }}"
+    }
+  ]
+}
+</script>
+<!-- Dynamic override with collection breadcrumb via JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const breadcrumbLi = document.querySelector('li.collection-breadcrumb');
+  if (!breadcrumbLi) return;
+
+  const collectionAnchor = breadcrumbLi.querySelector('a');
+  if (!collectionAnchor) return;
+
+  const collectionName = collectionAnchor.textContent.trim();
+  const collectionUrl = collectionAnchor.href;
+
+  if (!collectionName || !collectionUrl) return;
+
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "{{ routes.root_url | absolute_url }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": collectionName,
+        "item": collectionUrl
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ product.title | escape }}",
+        "item": "{{ shop.url }}{{ product.url | absolute_url }}"
+      }
+    ]
+  };
+
+  const existingScript = document.getElementById('p');
+  if (existingScript) {
+    const newScript = document.createElement('script');
+    newScript.type = 'application/ld+json';
+    newScript.id = 'p';
+    newScript.textContent = JSON.stringify(breadcrumb);
+
+    existingScript.replaceWith(newScript);
+  }
+});
+</script>
+{%- endif -%}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- when 'collection' and collection.handle -%}"
+  to: "{%- when 'collection' -%}"
+  position: 2668..2693
+{% endcomment %}

@@ -1,0 +1,125 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "Header": {
+      "type": "giveaway_header",
+      "settings": {}
+    },
+    "Banner": {
+      "type": "giveaway_hero_banner",
+      "settings": {
+        "banner_image": "shopify://shop_images/desktop_960x760_13f5380c-386a-44c1-8774-bcf7870f88dc.jpg",
+        "banner_image-mob": "shopify://shop_images/mobile_750x1000_14769a5b-dab8-46ee-bfbd-01d88033ef3e.jpg",
+        "cta_url": ""
+      }
+    },
+    "featured_product_slider_yT88pm": {
+      "type": "featured-product-slider",
+      "custom_css": [
+        ".featured-product-slider .page-width {max-width: 1090px;}",
+        ".featured-product-slider .section-header {text-align: left;}",
+        ".featured-product-slider .section-header h2 {font-family: \"Helvetica Neue LT Std 67 MdCn\"; font-size: 50px; color: #001e37; line-height: 1; margin-bottom: 20px;}",
+        ".featured-product-slider .section-header p {font-size: 18px;}",
+        "@media (min-width: 1280px) {.product-grid__item {width: 15.2rem; }}"
+      ],
+      "name": "Featured Product Slider",
+      "settings": {
+        "title": "Curated Gifts",
+        "paragraph": "<p>Step into the world of Curated Gift Sets, available exclusively in-salon and online for a limited time. Explore limited-edition collections thoughtfully designed at every price point, featuring your favourite skincare essentials wrapped in an elegant, luxe gift box.</p>",
+        "candy_banner_link": "",
+        "collection": "curated-gifts"
+      }
+    },
+    "featured_product_slider_HC3dMk": {
+      "type": "featured-product-slider",
+      "custom_css": [
+        ".featured-product-slider .page-width {max-width: 1090px;}",
+        ".featured-product-slider .section-header {text-align: left;}",
+        ".featured-product-slider .section-header h2 {font-family: \"Helvetica Neue LT Std 67 MdCn\"; font-size: 50px; color: #001e37; line-height: 1; margin-bottom:20px;}",
+        ".featured-product-slider .section-header p {font-size: 18px;}",
+        "@media (min-width: 1024px) {.has-candy-banner {padding-left: 400px; } .featured-product-slider .candy-banner {width: 380px; }}",
+        "@media (min-width: 1280px) {.product-grid__item {width: 15.2rem; }}"
+      ],
+      "name": "Featured Product Slider",
+      "settings": {
+        "title": "Skin Collections",
+        "paragraph": "<p>Experience our Limited-Edition Skin Collections with additional 40% value*. Wrapped in rich, jewel-toned hues inspired by the Australian summer, every pack is thoughtfully tailored to your skin’s needs, bringing effortless radiance to your festive season.</p>",
+        "candy_banner": "shopify://shop_images/square_800x800-2.jpg",
+        "candy_banner_link": "",
+        "collection": "xmas-skin-collection"
+      }
+    },
+    "Grid": {
+      "type": "giveaway_2col_grid_content",
+      "blocks": {
+        "article_AyGgwd": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Personalised Treatments",
+            "item_desc": "<p>Prepare your skin for every celebration with our exclusive range of indulgent Skin Treatment Packages. Perfect as a thoughtful gift or a special day of pampering, each package is tailored to address the unique needs of your skin. designed to rejuvenate, restore, and leave you radiating confidence.</p>",
+            "item_btn_text": "BOOK NOW",
+            "item-btn-url": "shopify://products/christmas-treatment-package",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify://shop_images/square_800x800-1.jpg",
+            "item_video": ""
+          }
+        },
+        "article_YgewYK": {
+          "type": "Article",
+          "settings": {
+            "item_title": "E-Gift Card",
+            "item_desc": "<p>Tough to choose? Take the pressure off with an E-Gift Card. Give the gift of choice, whether it’s skincare essentials or indulgent pampering treatments.</p>",
+            "item_btn_text": "SHOP NOW",
+            "item-btn-url": "shopify://products/gift-card",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify://shop_images/square_800x800-3.jpg",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "article_AyGgwd",
+        "article_YgewYK"
+      ],
+      "custom_css": [
+        ".product-landing-grid-content .page-width {max-width: 1090px !important;}"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "Survey_Form": {
+      "type": "giveaway_survey_form",
+      "disabled": true,
+      "settings": {
+        "survey_form": "<div data-tf-live=\"01J4P092789SD632YT7K9PN0CE\"></div><script src=\"//embed.typeform.com/next/embed.js\"></script>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "Header",
+    "Banner",
+    "featured_product_slider_yT88pm",
+    "featured_product_slider_HC3dMk",
+    "Grid",
+    "Survey_Form",
+    "shogun-optimizer"
+  ]
+}

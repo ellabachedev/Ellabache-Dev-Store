@@ -1,0 +1,200 @@
+<div class="checkoutSalonField" style="display: none">    
+{% if settings.enable_preferred_salons_in_cart %}
+  <div class="specialLabelWrap prefSalon">
+    <div class="field__input-wrapper field__input-wrapper--select">
+    {% assign salonEntries = settings.preferred_salons_in_cart | strip_newlines | split: ',' %}
+    <label class="field__label specialLabel">{{ 'additional_customer_information.preferred_salon_option_blank' | t }}</label>
+    <select class="preferredSalonSelector field__input" id="preferredSalonSelectorField" placeholder="{{ 'additional_customer_information.preferred_salon_placeholder' | t | escape }}"
+    name="checkout[attributes][Preferred Salon Code]"
+    >
+      <option value="" disabled>{{ 'additional_customer_information.preferred_salon_placeholder' | t | escape }}</option>
+      {% if salonEntries.size > 1 %}
+      <option value="" >{{ 'additional_customer_information.preferred_salon_no_salon' | t }}</option>  
+      {% endif %}
+      {% for sEntry in salonEntries %}
+        {% assign salonEntry = sEntry | split: ':' %}
+        {% assign selectedOption = '' %}
+        {% if salonEntry[1] == customerPreferredSalon %}
+          {% assign selectedOption = 'selected' %}
+          {% assign selectedSalonFullName = salonEntry[0] %}
+        {% endif %}
+        <option value="{{ salonEntry[1] | escape }}" {{ selectedOption }}>{{ salonEntry[0] | escape }}</option>
+      {% endfor %}
+      <option value="" >{{ 'additional_customer_information.preferred_salon_no_salon' | t }}</option>
+    </select>
+    <div class="field__caret shown-if-js">
+      <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" aria-hidden="true" focusable="false"> <use xlink:href="#caret-down"></use> </svg>
+    </div>
+    <p class="field__message field__message--error" id="error-for-preferred-salon">{{ 'additional_customer_information.preferred_salon_error_message' | t }}</p>
+    </div>
+  </div>
+{% endif %}        
+</div>
+
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+  var checkField = '<div class="specialLabelWrap"> <div class="fieldset-description"> <div class="section__content"> <div class="checkbox-wrapper"> <div class="checkbox__input"> <input type="hidden" value="no" id="data-authority_to_leave" name="checkout[attributes][{{'note_attributes.authority_to_leave.name' | t}}]"><input class="input-checkbox" type="checkbox" id="authority_to_leave"> </div><label class="checkbox__label" for="authority_to_leave">{{'note_attributes.authority_to_leave.label' | t}}</label> </div></div></div><div class=""> <div class="field__input-wrapper"> <label class="field__label specialLabel">{{'note_attributes.special_instructions.label' | t}}</label> <input type="hidden" name="checkout[attributes][{{'note_attributes.special_instructions.name' | t}}]" id="data-special_instructions" value=" "> <input class="field__input" size="30" type="text" id="special_instructions" id="special_instructions" placeholder="{{'note_attributes.special_instructions.placeholder' | t}}"> </div></div></div>';
+
+  var prefSalon = ''; 
+  if ($('.checkoutSalonField .prefSalon').length != 0) {
+    prefSalon = $('.checkoutSalonField').html();
+    $('.checkoutSalonField').html('');
+  }
+
+
+  //$('.section--shipping-address > .section__content').append(checkField);
+  
+  //$('.section--shipping-address > .section__content').append(prefSalon);
+  
+  $('.section--shipping-method > .section__content').append(checkField);
+  
+  $('.section--shipping-method > .section__content').append(prefSalon);
+
+  
+  var atl = getCookie('authority_to_leave');
+  var si = getCookie('special_instructions');
+  var ps = getCookie('preferred_salon');  
+
+  $('#authority_to_leave').change(function() {
+    if ($(this).is(":checked")) {
+      $('#data-authority_to_leave').val('yes'); 
+    } else {
+      $('#data-authority_to_leave').val('no'); 
+    }
+    document.cookie = 'authority_to_leave=' + $('#data-authority_to_leave').val();
+    atl = getCookie('authority_to_leave');
+    
+  });
+  $('#special_instructions').change(function() {
+    var xv = $(this).val();
+    if (xv == '') { 
+      $('#data-special_instructions').val(' '); 
+    } else {
+      $('#data-special_instructions').val(xv); 
+    }
+    document.cookie = 'special_instructions=' + $('#special_instructions').val();
+    si = getCookie('special_instructions');
+    
+  });
+  {% if customer %}
+    document.cookie = 'preferred_salon=';
+  {% else %}
+    $('#preferredSalonSelectorField').change(function() {
+      var psv = $(this).val();
+      
+      ps = getCookie('preferred_salon');
+      if (psv == '') {
+        // blank
+        document.cookie = 'preferred_salon=';
+      } else {
+        // not blank
+        document.cookie = 'preferred_salon=' + psv;
+
+      } 
+      
+    });
+    // on load guest
+    if (ps != null) { 
+      $('#preferredSalonSelectorField').val(ps);
+    } else {
+      $('#preferredSalonSelectorField').val('');
+    }
+  {% endif %}
+  if (atl != null) {
+    $('#data-authority_to_leave').val(atl); 
+    if (atl == 'yes') {
+        $('#authority_to_leave').prop('checked', true);
+    } else {
+      $('#authority_to_leave').prop('checked', false);
+    }
+  }
+  if (si != null) {
+    $('#special_instructions').val(si); 
+    $('#data-special_instructions').val(si); 
+  }
+  
+});
+function getCookie(name){
+  var re = new RegExp(name + '=([^;]+)');
+  var value = re.exec(document.cookie);
+  return (value != null) ? unescape(value[1])  : null;
+}
+</script>
+
+{% if customer %}
+<script src="https://app.accentuate.io/dist/proxy.js" defer="defer"></script>
+{% endif %}
+
+<script type="text/javascript" defer="defer">
+  $(document).ready(function() {
+
+    var salonSelectBox = document.getElementById('preferredSalonSelectorField');
+    var inputSalonName = $('#preferredSalonName');
+    var customerMetafields = $("#customer_metafields");
+    var inputCustomerField = $('#customerFieldPreferredSalon');
+
+    $(salonSelectBox).change(function () {
+      inputSalonName.val(this.options[this.selectedIndex].text);
+
+      {% if customer %}
+      inputCustomerField.val(this.value);
+      {% endif %}
+    });
+
+    {% if customer %}
+    // Adding on value change event handler for the hidden input field
+    catchOnValueChange($("#customerFieldPreferredSalon")[0], "value", function(obj, property, value) { 
+      $("#customer_metafields").submit();
+      $('.step__footer__continue-btn').attr('disabled', 'disabled');
+    });
+
+    function catchOnValueChange(obj, property, callback) {
+      Object.defineProperty(obj, property, new function() {
+        var _value = obj[property];
+        return {
+          set: function(value) {
+            _value = value;
+            callback(obj, property, value)
+          },
+          get: function() {
+            return _value;
+          }
+        }
+      });
+    }
+
+    // Setting customer_metafields for saving values
+    Accentuate($("#customer_metafields"), function(data) {
+      $('.step__footer__continue-btn').removeAttr('disabled');
+    });
+    {% endif %}
+
+    {% if customer and customer.metafields.global.preferred_salon %}
+    if (salonSelectBox && salonSelectBox.options.length > 1) {
+      salonSelectBox.value = '{{ customer.metafields.global.preferred_salon }}';
+      inputSalonName.val(salonSelectBox.options[salonSelectBox.selectedIndex].text);
+    }
+    {% endif %}
+
+    // Add error message in the preferred salon selector if none is selected
+    $('.step__footer__continue-btn').on('click', function() {
+      var salonSelectorElement = $('#preferredSalonSelectorField');
+      if ($(salonSelectorElement).prop('selectedIndex') <= 0) {
+        $('.specialLabelWrap.prefSalon').addClass('field--error');
+        return false;
+      }
+    });
+
+  });
+</script>
+{% comment %}
+This form is for updating the customer metafield for preferred salon.
+{% endcomment %}
+{% if customer %}
+<form id="customer_metafields">
+  <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+  <input id="customerFieldPreferredSalon" type="hidden" name="metafield[accentuate.preferred_salon]" value="" />
+</form>
+{% endif %}

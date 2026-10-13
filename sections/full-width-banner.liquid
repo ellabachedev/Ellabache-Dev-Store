@@ -1,0 +1,67 @@
+{{ 'full-width-banner.css' | asset_url | stylesheet_tag }}
+{% if section.settings.link != blank %}
+  <a
+    href="{{ section.settings.link }}"
+    class="full-width-banner"
+    {% if section.settings.open_new_tab %}target="_blank" rel="noopener"{% endif %}
+  >
+{% else %}
+  <div class="full-width-banner">
+{% endif %}
+  {% if section.settings.desktop_image != blank %}
+    <picture>
+      {% if section.settings.mobile_image != blank %}
+        <source
+          media="(min-width: 768px)"
+          srcset="{{ section.settings.desktop_image | image_url: width: 2400 }}"
+        >
+      {% endif %}
+      <img src="{{ section.settings.mobile_image | image_url: width: 900 }}" alt="{{ section.settings.alt_text | escape }}" class="full-width-banner__image" loading="lazy">
+    </picture>
+  {% endif %}
+{% if section.settings.link != blank %}
+  </a>
+{% else %}
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "Full Width Banner",
+  "tag": "section",
+  "class": "section-full-width-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image alt text",
+      "default": "Banner image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full Width Banner"
+    }
+  ]
+}
+{% endschema %}

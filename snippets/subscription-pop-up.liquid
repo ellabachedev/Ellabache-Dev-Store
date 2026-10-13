@@ -1,0 +1,88 @@
+{%- assign hide_popup = true -%}
+{%- assign current_path_url_split = request.path| split: "/" -%}
+{%- assign exclude_list = section.settings.subscription_popup_exclude | split: "," -%}
+{%- for exclude_url in exclude_list -%}
+{%- assign strippedUrl = exclude_url | strip -%}
+{%- if request.path contains strippedUrl -%}
+{%- assign hide_popup = true -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+{%- for link in linklists[section.settings.subscription_popup_linklist].links -%}
+{%- if link.title == page.title -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if page.handle == 'sign-up-for-the-launch' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if template == 'signup-landing-page1' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if template == 'index' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if template == 'signup-landing-page2' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-diploma-of-beauty-therapy' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-international-students' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-career-opportunities' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-resources' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-student-salon' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-locations' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-make-an-enquiry' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'college-enrolment-form-and-agreement' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+{%- if page.handle == 'ella-awards-2021' -%}
+{%- assign hide_popup = true -%}
+{%- endif -%}
+<div class="subscription__form-wrapper {%- if hide_popup %} hide {% endif -%}"
+  data-popup-open-delay="{{ section.settings.subscription_popup_open_delay }}" data-subscription-popup>
+  <h3>{{ section.settings.subscription-header }}</h3>
+  {%- form 'customer', id: 'customer-subscription-form' -%}
+  {{ form.errors | default_errors }}
+  {%- if form.posted_successfully? -%}
+  <div class="subscription__form-message">
+    <h4 class="subscription__form-message__text">{{ section.settings.subscription-success-message }}</h4>
+  </div>
+  {%- else -%}
+  <p>{{ section.settings.subscription-caption }}</p>
+  <div class="newletter__form">
+    <div class="input-wrapper">
+      <input type="hidden" name="contact[tags]" value="subscription">
+      <input type="hidden" name="customer[accepts_marketing]" value="true" />
+      <input type="email" name="contact[email]" id="Email" class="subscription__input"
+        value="{% if customer %}{{ customer.email }}{% endif %}"
+        placeholder="{{ section.settings.subscription-placeholder }}" spellcheck="true" autocapitalize="off">
+    </div>
+    <div class="button-wrapper">
+      <button type="submit" class="" name="commit" id="popUpSubscribe">{{ section.settings.subscription-submit-text
+        }}</button>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- if section.settings.subscription-policy-text != blank -%}
+  <a href="{{ section.settings.subscription-policy-link }}"> {{ section.settings.subscription-policy-text }} </a>
+  {%- endif -%}
+  {%- endform -%}
+  <a href="#" id="popup-close"><i class="fas fa-times"></i></a>
+</div>

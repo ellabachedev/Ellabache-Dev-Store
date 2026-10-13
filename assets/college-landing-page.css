@@ -1,0 +1,302 @@
+.lists.custom_icon .item {
+    position: relative;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+.lists.custom_icon .item .icon {
+    width: 57px;
+    height: auto;
+}
+.lists.custom_icon .item .icon img {
+    display: block;
+    width:100%;
+    height:auto;
+}
+.lists.custom_icon .item .content {
+    width: calc(100% - 57px);
+    padding-left: 32px;
+}
+.lists.custom_icon .item .content p {
+    font-size: 16px;
+    color: #7e7e7e;
+    line-height: 1.5;
+    margin-top: 0;
+    font-weight: 400;
+    margin-bottom: 0;
+    letter-spacing: 0;
+}
+.lists.custom_icon .item:last-child {
+    margin-bottom: 0;
+}
+
+.articleBlock .articleImage img {
+    height: 100% !important;
+    object-fit: cover;
+    width:100%;
+}
+@media only screen and (min-width: 750px){
+    .articleBlock .articleImage {
+        height: 243px;
+        overflow: hidden;
+        width: auto;
+    }
+}
+
+.articleBlock .articleBoxDetails {
+    padding: 0 20px 20px;
+}
+.articleBlock.block-odd{
+    background-color: #c4e4e4;
+}
+.articleBlock.block-even{
+    background-color: #001e37;
+}
+.articleBlock .article-publish-date {
+    font-size: 12px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+}
+.articleBlock .article-block-title {
+    font-size: 20px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: normal;
+}
+.articleBlock.block-odd .article-publish-date, .articleBlock.block-odd .article-block-title > a{
+    color: #001e37;
+    text-decoration:none;
+}
+.articleBlock.block-even .article-publish-date, .articleBlock.block-even .article-block-title > a{
+    color: #ffffff;
+    text-decoration:none;
+}
+.articleBlock.block-odd .article-block-text{
+    color: #4a4a4a;
+}
+.articleBlock.block-even .article-block-text {
+    color: #ffffff;
+}
+.articleBlock .article-button {
+    color: #001e37;
+    background-color: transparent;
+    border: 2px solid #001e37;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    width: 177px;
+}
+.articleBlock.block-even .article-button {
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+.landing-page.college .two-col-content{margin-bottom:50px;}
+.landing-page.college .page-width{
+    max-width:1540px;
+}
+.landing-page h1{
+    font-family: 'Helvetica Neue LT Std 57 Condensed';
+    text-transform: uppercase;
+    font-size: calc(100vw * 0.03080);
+    color: #001b39;
+    padding: 0 30px;
+}
+.landing-page.college .two-col-content .flex-container{
+    justify-content: space-between;
+}
+.landing-page.college .advisor-book .image img{
+    display:block;
+    height:100%;
+    object-fit: cover;
+}
+.landing-page.college .two-col-content.advisor-book .col-item.content{
+    padding:48px;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:column;
+    justify-content:center;
+}
+.landing-page.college .advisor-book .content h2{
+    text-transform: uppercase;
+    font-size: calc(100vw * 0.03417);
+    font-family:'Helvetica Neue LT Std 57 Condensed';
+    color:#ffffff;
+    margin:0;
+    line-height:1.2;
+}
+.landing-page.college .advisor-book .content .text{
+    max-width:350px;
+}
+.landing-page.college .advisor-book .content .text p{
+    color:#ffffff;
+    font-size:20px;
+}
+.landing-page.college .advisor-book .content .button-holder{
+    margin-top:10px;
+}
+.landing-page.college .advisor-book .content .button-holder a.btn{
+    background-color:#ffffff;
+    color:#001939;
+    padding:20px;
+    text-align:center;
+    width:220px;
+    font-size:20px;
+    text-transform:uppercase;
+    font-family: 'Helvetica Neue LT Std 35 Thin',sans-serif;
+    font-weight:500;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+.landing-page.college .two-col-content.why-choose .col-item.content{
+    padding:48px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content: space-evenly;
+}
+.landing-page.college .two-col-content.why-choose .col-item.content .header{
+    width:50%;
+    max-width:250px;
+    padding-right:20px;
+}
+.landing-page.college .two-col-content.why-choose .col-item.content .header h2{
+    margin:0;
+}
+.landing-page.college .two-col-content.why-choose .col-item.content .header h2 span{
+    font-size:calc(100vw * 0.031545);
+    display: block;;
+    color:#001939;
+    text-transform:uppercase;
+    font-family: 'Helvetica Neue LT Std 57 Condensed';
+    line-height: 1.2;
+}
+.landing-page.college .two-col-content.why-choose .col-item.content .custom_icon{
+    width:50%;
+    max-width: 300px;
+}
+.landing-page.college .why-choose .image img{
+    display:block;
+    height:100%;
+    object-fit: cover;
+    width:100%;
+}
+.landing-page.college .two-col-content.why-choose .lists.custom_icon .item .icon{
+    width:44px;
+}
+.landing-page.college .two-col-content.why-choose .lists.custom_icon .item .content {
+    width: calc(100% - 44px);
+    padding-left: 25px;
+}
+.landing-page.college .two-col-content.why-choose .lists.custom_icon .item .content p{
+    font-size: 13px;
+}
+
+.landing-page.college .two-col-content.college-blog-reviews .col-item.blogs{
+    display:flex;
+    justify-content: space-between;
+    width:calc(50% - 20px);
+    flex-wrap:wrap;
+}
+.landing-page.college .two-col-content.college-blog-reviews .col-item.reviews-block{
+    width:calc(50% - 20px);
+}
+.landing-page.college .two-col-content.college-blog-reviews .col-item.blogs .articleBlock{
+    width:calc(50% - 13px);
+}
+
+.landing-page.college .college-blog-reviews .reviews-block .reviews{padding:35px 25px;}
+.landing-page.college .college-blog-reviews .reviews-block .reviews blockquote .quote svg{max-width:56px;}
+.landing-page.college .college-blog-reviews .reviews-block .reviews blockquote p{font-size:28px;}
+.landing-page.college .college-blog-reviews .reviews-block .reviews blockquote .author{font-size:16px;}
+.landing-page.college .college-blog-reviews .reviews-block .reviews ul.slick-dots li button{width:12px; height:12px;}
+
+@media (max-width: 950px){
+    .landing-page.college .advisor-book .content .text p,
+    .landing-page.college .advisor-book .content .button-holder a.btn
+    {
+        font-size:16px;
+    }
+    .landing-page.college .two-col-content .col-item{width:100% !important;}
+    .landing-page.college .two-col-content.why-choose > .flex-container{
+        flex-direction: column-reverse;
+    }
+}
+@media (max-width: 768px){
+    .landing-page h1 {
+        font-size: calc(100vw * 0.052083);
+        padding: 0 15px;
+        margin: 10px 0;
+    }
+    
+    .landing-page.college .advisor-book .content h2{
+        font-size:42px;
+    }
+    .landing-page.college .two-col-content.why-choose .col-item.content .header h2 span{
+        font-size:40px;
+    }
+    .landing-page.college .two-col-content.college-blog-reviews .col-item.blogs{
+        margin-bottom:25px;
+    }
+    .landing-page.college .advisor-book .content .text p,
+    .landing-page.college .advisor-book .content .button-holder a.btn
+    {
+        font-size:14px;
+    }
+    .landing-page.college .two-col-content.why-choose .col-item.content,
+    .landing-page.college .two-col-content.why-choose .col-item.content,
+    .landing-page.college .two-col-content.advisor-book .col-item.content
+    {
+        padding:20px;
+    }
+    .landing-page.college .two-col-content{
+        margin-bottom:25px;
+    }
+}
+@media (max-width: 767px){
+    .landing-page.college .two-col-content.college-blog-reviews .col-item.blogs .articleBlock
+    {
+        width:calc(50% - 7.5px);
+    }
+}
+@media (max-width: 600px){
+    .landing-page.college .two-col-content.college-blog-reviews .col-item.blogs .articleBlock{
+        width:100%;
+        margin-bottom:15px;
+    }
+    .landing-page.college .two-col-content.college-blog-reviews .col-item.blogs .articleBlock:last-child{
+        margin-bottom:0;
+    }
+    .landing-page.college .two-col-content.why-choose .col-item.content .header{
+        width:100%;
+        margin-bottom:25px;
+        text-align: center;
+        max-width: 300px;
+    }
+    .landing-page.college .two-col-content.why-choose .col-item.content .header h2 span{
+        display: inline;
+    }
+    .landing-page.college .two-col-content.why-choose .col-item.content .custom_icon{
+        width:100%;
+        max-width:400px;
+    }
+}

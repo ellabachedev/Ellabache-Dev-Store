@@ -1,0 +1,521 @@
+.page-product-launch h1 {
+    font-family: 'Helvetica Neue LT Std 57 Condensed';
+    text-transform: uppercase;
+    font-size: calc(100vw * 0.03080);
+    color: #001b39;
+    padding: 0 30px;
+}
+@media (max-width: 768px) {
+    .page-product-launch h1 {
+        font-size: calc(100vw * 0.052083);
+        padding: 0 15px;
+        margin: 10px 0;
+    }
+}
+.page-product-launch .full-width-banner picture img {
+    display: block;
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+}
+.page-product-launch .rich-text__text {
+    margin-top: calc(100vw * 0.04206);
+    margin-bottom: 37px;
+}
+@media (max-width: 950px) {
+    .page-product-launch .rich-text__text {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+}
+.page-product-launch .rich-text__text p {
+    max-width: 870px;
+    letter-spacing: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #001b39;
+}
+@media (max-width: 950px) {
+    .page-product-launch .rich-text__text p {
+        font-size: 14px;
+    }
+}
+.page-product-launch .rich-text__text p:first-child {
+    margin: 0;
+}
+.page-product-launch .two-col-content {
+    padding: 60px 0;
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content {
+        padding: 25px 0;
+    }
+}
+.page-product-launch .two-col-content .flex-container {
+    align-items: center;
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .flex-container {
+        flex-direction: column-reverse;
+    }
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .flex-container .button-holder.flex-container {
+        flex-direction: inherit;
+    }
+}
+.page-product-launch .two-col-content .col-item {
+    width: 50%;
+}
+.page-product-launch .two-col-content .col-item.image,
+.page-product-launch .two-col-content .col-item.video {
+    width: 45%;
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .col-item.image,
+    .page-product-launch .two-col-content .col-item.video {
+        width: 100%;
+    }
+}
+.page-product-launch .two-col-content .col-item.image img,
+.page-product-launch .two-col-content .col-item.image video,
+.page-product-launch .two-col-content .col-item.video img,
+.page-product-launch .two-col-content .col-item.video video {
+    width: 100%;
+    display: block;
+}
+.page-product-launch .two-col-content .col-item.content {
+    width: 55%;
+    padding-right: 50px;
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .col-item.content {
+        width: 100%;
+        margin-top: 30px;
+        padding-right: 0;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .header {
+    margin-bottom: calc(100vw * 0.02365);
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content .col-item.content .header {
+        margin-bottom: 15px;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .header h2 {
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.9;
+    color: #14213d;
+}
+.page-product-launch .two-col-content .col-item.content .header h2.first {
+    font-size: calc(100vw * 0.025023);
+    text-transform: uppercase;
+    display: block;
+    color: #14213d;
+    font-family: 'Helvetica Neue LT Std 47 Light Condensed';
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content .col-item.content .header h2.first {
+        font-size: 24.5px;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .header h2.second {
+    font-size: calc(100vw * 0.044270);
+    display: inline-block;
+    border-bottom: 2px solid #9b7f6a;
+    padding-bottom: 10px;
+    font-family: 'Helvetica Neue LT Std MdCn';
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content .col-item.content .header h2.second {
+        font-size: 42px;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .content-inner {
+    position: relative;
+}
+@media (max-width: 480px) {
+    .page-product-launch .two-col-content .col-item.content .content-inner {
+        padding-right: 0 !important;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .content-inner .inline-img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 220px;
+    height: 100%;
+}
+@media (max-width: 768px) {
+    .page-product-launch .two-col-content .col-item.content .content-inner .inline-img {
+        width: 160px;
+    }
+}
+@media (max-width: 480px) {
+    .page-product-launch .two-col-content .col-item.content .content-inner .inline-img {
+        position: static;
+        margin-top: 20px;
+    }
+}
+.page-product-launch .two-col-content .col-item.content .content-inner .inline-img img {
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.page-product-launch .two-col-content .col-item.content .text {
+    max-width: 500px;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder {
+    margin-top: 35px;
+    margin-left: -7.5px;
+    margin-right: -7.5px;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder .btn {
+    font-size: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 19px 10px;
+    width: 100%;
+    text-align: center;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder .btn.btn-primary {
+    background-color: #001e38;
+    color: #ffffff;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder .btn.btn-primary-accent {
+    background-color: transparent;
+    color: #001e38;
+    border: 1px solid #001e38;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder .item {
+    padding: 0 7.5px;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder.col-1 .item {
+    width: 100%;
+}
+.page-product-launch .two-col-content .col-item.content .button-holder.col-2 .item {
+    width: 50%;
+}
+.page-product-launch .two-col-content .col-item.content p {
+    font-size: 18px;
+    letter-spacing: 0;
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content .col-item.content p {
+        font-size: 14px;
+    }
+}
+.page-product-launch .two-col-content .col-item.content ul {
+    list-style: none;
+    padding-left: 0;
+}
+.page-product-launch .two-col-content .col-item.content ul li {
+    font-size: 18px;
+}
+@media (max-width: 950px) {
+    .page-product-launch .two-col-content .col-item.content ul li {
+        font-size: 14px;
+    }
+}
+.page-product-launch .two-col-content .row-reverse {
+    flex-direction: row-reverse;
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .row-reverse {
+        flex-direction: column-reverse;
+    }
+}
+.page-product-launch .two-col-content .row-reverse .col-item.content {
+    padding-left: 50px;
+    padding-right: 0;
+}
+@media (max-width: 767px) {
+    .page-product-launch .two-col-content .row-reverse .col-item.content {
+        padding-left: 0;
+    }
+}
+.page-product-launch .two-col-content.has-video-gallery .flex-container {
+    flex-direction: inherit;
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item.content {
+    width: 400px;
+}
+@media (max-width: 1024px) {
+    .page-product-launch .two-col-content.has-video-gallery .col-item.content {
+        width: 100%;
+    }
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery {
+    width: calc(100% - 400px);
+}
+@media (max-width: 1024px) {
+    .page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery {
+        width: 100%;
+    }
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery .flex-container {
+    margin: 0 -10px;
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery.col-3 .item {
+    width: 33.33%;
+    padding: 10px;
+}
+@media (max-width: 480px) {
+    .page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery.col-3 .item {
+        width: 100%;
+    }
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery.col-3 .item video,
+.page-product-launch .two-col-content.has-video-gallery .col-item.video-gallery.col-3 .item img {
+    width: 100%;
+    display: block;
+    height: 390px;
+    object-fit: cover;
+}
+.page-product-launch .two-col-content.has-video-gallery .col-item .content-inner {
+    padding-right: 20px;
+}
+.page-product-launch .product-instruction-guide {
+    padding: 45px 0;
+    background-color: #e9cec5;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide {
+        padding: 25px 0;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container {
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 767px) {
+    .page-product-launch .product-instruction-guide .flex-container {
+        flex-direction: column-reverse;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item {
+    width: 50%;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics {
+    width: 57%;
+    padding-right: 50px;
+}
+@media (max-width: 767px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics {
+        width: 100%;
+        margin-top: 30px;
+        padding-right: 0;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item {
+    width: 100%;
+    max-width: 495px;
+    position: relative;
+    padding-left: calc(100vw * 0.06883);
+    padding-right: calc(100vw * 0.06883);
+    background-color: #ffeee3;
+    border-radius: 70px;
+    height: calc(100vw * 0.06883);
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    -webkit-transition: all .5s linear;
+    -ms-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item {
+        height: 85px;
+        padding-left: 85px;
+        padding-right: 85px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .artwork {
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: calc(100vw * 0.06883);
+    height: calc(100vw * 0.06883);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transition: all .5s linear;
+    -ms-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    opacity: 0;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .artwork {
+        height: 85px;
+        width: 85px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .artwork img {
+    display: block;
+    width: 100%;
+    transform: scale(0.6);
+    -webkit-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -webkit-transition: all .5s linear;
+    -ms-transition: all .5s linear;
+    -moz-transition: all .5s linear;
+    opacity: 0;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .step-count {
+    position: absolute;
+    right: 42px;
+    right: calc(100vw * 0.022082);
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .step-count {
+        right: 24px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .step-count span {
+    display: block;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue LT Std 57 Condensed';
+    font-size: calc(100vw * 0.009463);
+    color: #031c3d;
+    letter-spacing: 0;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item .step-count span {
+        font-size: 14px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item:nth-child(2n) {
+    background-color: #dfa179;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item:nth-child(2n) .artwork {
+    left: inherit;
+    right: 0;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item:nth-child(2n) .step-count {
+    right: inherit;
+    left: calc(100vw * 0.022082);
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item:nth-child(2n) .step-count {
+        left: 24px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item.animate .artwork {
+    opacity: 1;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics .item.animate .artwork img {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics p {
+    padding: 0 21px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #031c3d;
+    letter-spacing: 0;
+    line-height: 1.2;
+}
+@media (max-width: 1200px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics p {
+        font-size: 16px;
+    }
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.infographics p {
+        font-size: 14px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.infographics p:first-child {
+    margin: 0;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content {
+    width: 43%;
+}
+@media (max-width: 767px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content {
+        width: 100%;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content .header {
+    margin-bottom: calc(100vw * 0.02365);
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content .header {
+        margin-bottom: 15px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content .header h2 {
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.9;
+    color: #14213d;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content .header h2.first {
+    font-size: calc(100vw * 0.025023);
+    text-transform: uppercase;
+    display: block;
+    color: #14213d;
+    font-family: 'Helvetica Neue LT Std 47 Light Condensed';
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content .header h2.first {
+        font-size: 24.5px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content .header h2.second {
+    font-size: calc(100vw * 0.044270);
+    display: inline-block;
+    border-bottom: 2px solid #9b7f6a;
+    padding-bottom: 10px;
+    font-family: 'Helvetica Neue LT Std MdCn';
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content .header h2.second {
+        font-size: 42px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content p {
+    font-size: 18px;
+    letter-spacing: 0;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content p {
+        font-size: 14px;
+    }
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content p:first-child {
+    margin: 0;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content ul {
+    list-style: none;
+    padding-left: 0;
+}
+.page-product-launch .product-instruction-guide .flex-container .col-item.content ul li {
+    font-size: 18px;
+}
+@media (max-width: 950px) {
+    .page-product-launch .product-instruction-guide .flex-container .col-item.content ul li {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,243 @@
+{% assign shipping_value = 15000 %}
+{% assign cart_total = cart.total_price %}
+{% assign shipping_value_left = shipping_value | minus: cart_total %}
+{% comment %}
+<p class="shipping-savings-message">
+  {% if shipping_value_left > 0 %}
+  You are {{ shipping_value_left | money }} away from free shipping!  <a href="/collections/all">Continue shopping</a> to add more products to your cart and receive free shipping for orders over $49.
+  {% else %}
+    You've got free shipping!
+  {% endif %}
+</p>
+{% endcomment %}
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+
+<div class="cartPage"> 
+  <div class="page-width"> 
+  {% if cart.item_count > 0 %}
+    <h1>{{ 'cart.general.title' | t }}</h1>
+
+    {% include 'shipping-threshold-warning' %}
+    <div class="shipping-warning">
+      {{ 'cart.general.shipping_to_au_only' | t }}
+    </div>
+    <form action="/cart" method="post" novalidate>
+     <div class="table-wrapper">
+        <table width="100%" style="min-width:800px;">
+          <thead>
+            <tr>
+              <th>{{ 'cart.label.product' | t }}</th>
+              <th>{{ 'cart.label.price' | t }}</th>
+              <th class="center">{{ 'cart.label.qty' | t }}</th>
+              <th>{{ 'cart.label.total' | t }}</th>
+              <th class="cartRemove"></th>
+            </tr>
+          </thead>
+          <tbody>
+  
+            {% for item in cart.items %}
+  
+            {% comment %}
+  
+            Cart Item Template
+            =====================
+            The data-label attributes on <td> elements are mobile-friendly
+            helpers used for responsive-table labels
+            {% endcomment %}
+  
+              <tr class="{% if item.price < 1 %}sample-product{% endif %}">
+                <td data-label="{{ 'customer.order.product' | t }}">
+                  <div class="flex-container" style="justify-content:flex-start; align-items:center;">
+                    {% if item.image != blank %}
+                        {% if item.price > 0 %}
+                        <a class="product_thumb" href="{{ item.url | within: collections.all }}">
+                          {{ item | img_url: '100x100' | img_tag: item.title }}
+                        </a>
+                        {% else %}
+                        <a class="product_thumb" href="#">
+                          {{ item | img_url: '100x100' | img_tag: item.title }}
+                        </a>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if item.price > 0 %}
+                    <h5 class="product_title" style="margin-left:8px;">
+                      <a href="{{ item.url }}">{{ item.product.title }}</a>
+                    </h5>
+                    {% else %}
+                    <h5 class="product_title" style="margin-left:8px;"> 
+                      <span>{{ item.product.title }}</span>
+                    </h5>
+                    {% endif %}
+                    {% if item.price > 0 %}
+                    {% unless item.product.has_only_default_variant %}
+                      <p>{{ item.variant.title }} {% if item.price < 1 %}{% render 'free-sample-tag' %}{% endif %}</p>
+                    {% endunless %}
+                   {% endif %}
+                  </div>
+                </td>
+                {% if item.price > 0 %}
+                <td data-label="{{ 'cart.label.price' | t }}">
+                  {{shop.currency}} 
+                  {% if item.original_line_price != item.line_price %}
+                    <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+                    {{ item.price | money }}
+                    <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                    <s>{{ item.original_price | money }}</s>
+                  {% else %}
+                    {{ item.price | money }}
+                  {% endif %}
+                </td>
+                {% else %}
+                  <td> &nbsp;</td>
+                {% endif %}
+                {% if item.price > 0 %}
+                <td data-label="{{ 'cart.label.quantity' | t }}" class="center">
+                
+                    {% include 'number-spinner', id: spinner_id, name: "updates[]", value: item.quantity, ariaLabel: 'cart.general.item_quantity', min: 1 %}
+                 
+                </td>
+                 {% else %}
+                <td> &nbsp;</td>
+                {% endif %}
+               {% if item.price > 0 %}
+                <td data-label="{{ 'cart.label.total' | t }}">
+                  {{shop.currency}} {{ item.line_price | money }}
+                </td>
+                 {% else %}
+                <td> {% include 'free-sample-tag.liquid' %}</td>
+                {% endif %}
+              {% if item.price > 0 %}
+                <td class="cartRemove">
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="removeLink">
+                    <img style="max-width:12px;" src="{{ 'icon-cross-light-grey-small.png' | asset_url }}" loading="lazy" alt="close">
+                    <small style="display:none;">{{ 'cart.general.remove' | t }}</small>
+                  </a>
+                </td>  
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            <tr>
+                <td style="font-size:25px; text-align:center;" colspan="3">{{ 'cart.general.subtotal' | t }}</td>
+                <td style="font-size:20px;">{{ cart.total_price | money }}</td>
+                <td>&nbsp;</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cartActionBox">
+        {% comment %}
+          {%- section 'cart-note' -%} 
+        {% endcomment %}
+          <div class="cartAction">  
+    {% comment %}
+          <div class="dl">
+            <p class="dt" >{{ 'cart.general.subtotal' | t }}</p>
+            <p class="dd" ></p>
+          </div>
+    {% endcomment %}
+          {%- if settings.klarna_enabled -%}
+            {%- include 'klarna' -%}
+          {%- endif -%}
+          {% if cart.total_discounts > 0 %}
+            <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money }}</p>
+          {% endif %}
+          <p>{{ 'cart.general.shipping_at_checkout' | t }}</p>
+          <div class="cartButtonBox">
+            <input type="submit" name="update" value="{{ 'cart.general.update' | t }}">
+            {% comment %}<input type="submit" name="checkout" class="btn" value="{{ 'cart.general.checkout' | t }}">{% endcomment %}
+            <input type="button" name="checkout_open_minicart" id="btnOpenMinicart" class="button primary medium" value="{{ 'cart.general.checkout' | t }}">
+          </div>  
+          <a href="/collections/all" class="continueShop">{{ "cart.general.continue_shopping" | t }}</a>
+             {% comment %}
+          <div class="payIcon">
+            {% include 'payment-methods' %}
+          </div>
+     {% endcomment %}
+        </div>  
+      </div>  
+      
+    </form>
+  {% else %}
+    {% comment %}
+    <h1>{{ 'cart.general.title' | t }}</h1>
+    {% endcomment %}
+    {% comment %}
+    Cart empty state
+    {% endcomment %}
+    <div class="supports-cookies text-center">
+      <h2 style="line-height:1.2;">{{ 'cart.general.empty' | t }}</h2>
+      <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+    </div>
+    {% comment %}
+    Cart no cookies state
+    ---------------------
+    Browser cookies are required to use the cart. If cookies aren't enabled in the
+    browser a message is displayed prompting the user to enable them.
+    {% endcomment %}
+    <div class="supports-no-cookies">
+      <p>{{ 'cart.general.cookies_required' | t }}</p>
+    </div>
+  {% endif %}
+  </div>
+
+  {% comment %}
+  This form is for updating the customer metafield for preferred salon.
+  {% endcomment %}
+  {% if customer %}
+  <form id="customer_metafields">
+    <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+    <input id="customerFieldPreferredSalon" type="hidden" name="metafield[accentuate.preferred_salon]" value="" />
+  </form>
+  {% endif %}
+</div>
+
+{% include 'cart-salon-selector-script' %}
+
+
+<script>
+  jQuery(document).ready(function($){
+    $('#btnOpenMinicart').on('click', function(e){
+      e.preventDefault();
+      $('.cart-opener').trigger('click');
+      console.log('MINI CART OPEN TRIGGERED');
+
+      $('#cart-mini .mini-cart-footer .checkout-view input').each(function(){
+      if( !$(this).is(":hidden") ){
+        console.log($(this));
+        console.log("Shown");
+        $(this).trigger('click');
+      }
+      //console.log($(this));
+      //console.log($(this).is(":hidden"));
+    });
+    });
+
+  });
+  
+</script>
+{% assign shipping_value = 7500 %}
+{% assign cart_total = cart.total_price %}
+{% assign shipping_value_left = shipping_value | minus: cart_total %}
+{% comment %}
+<p class="shipping-savings-message">
+  {% if shipping_value_left > 0 %}
+  You are {{ shipping_value_left | money }} away from free shipping!  <a href="/collections/all">Continue shopping</a> to add more products to your cart and receive free shipping for orders over $75.
+  {% else %}
+    You've got free shipping!
+  {% endif %}
+</p>
+{% endcomment %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{% include ''number-spinner'', id: spinner_id, name: "updates[]", value:
+    item.quantity, ariaLabel: ''cart.general.item_quantity'' | t , min: 1 %}'
+  to: '{% include ''number-spinner'', id: spinner_id, name: "updates[]", value: item.quantity,
+    ariaLabel: ''cart.general.item_quantity'', min: 1 %}'
+  position: 4143..4279
+{%- endcomment -%}

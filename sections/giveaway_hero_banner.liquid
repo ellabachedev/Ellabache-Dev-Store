@@ -1,0 +1,45 @@
+{{ 'component_giveaway_hero_banner.css' | asset_url | stylesheet_tag }}
+<style>
+  .product-landing-banner{
+    height:auto;
+  }
+  .product-landing-banner img{
+    display:block;
+  }
+</style>
+<section class="product-landing-banner">
+  <div class="transparent-wrapper">
+    <img src="{{ section.settings.banner_image | img_url:'1900x' }}" srcset="{{ section.settings.banner_image-mob | img_url: '480x', format: 'pjpg' }} 400w, {{ section.settings.banner_image-mob | img_url: '768x', format: 'pjpg' }} 800w, {{ section.settings.banner_image | img_url:'1900x' }}" sizes="100vw">
+  </div>
+  {%- if section.settings.cta_url != blank -%}
+    <a href="{{ section.settings.cta_url }}" style=" position:absolute; left:0; top:0; width:100%; height:100%;" class="link-overlay"></a>
+   {%- endif -%}
+</section>
+{% schema %}
+  {
+    "name": "Banner",
+    "settings": [
+      {
+        "id": "banner_image",
+        "type": "image_picker",
+        "label": "Image (Desktop)"
+      },
+      {
+        "id": "banner_image-mob",
+        "type": "image_picker",
+        "label": "Image (Mobile)"
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "Link"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

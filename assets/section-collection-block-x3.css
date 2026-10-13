@@ -1,0 +1,169 @@
+.collection-blocks-x3 .page-width {
+  max-width: 112.5rem;
+}
+.collection-blocks-x3 .flex-container {
+  margin: 0 -30px;
+}
+.collection-blocks-x3 .title{
+  font-size:18px;
+  color:#001e37;
+  font-weight:500;
+  margin:0.8em 0 1.8em 0;
+}
+@media (max-width: 768px) {
+  .collection-blocks-x3 .title{
+    margin:1em 0;
+  }
+}
+.collection-blocks-x3 .flex-container .item {
+  width: 33.33%;
+  padding: 0 30px;
+}
+.collection-blocks-x3 .flex-container .item img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  letter-spacing: .2px;
+  line-height: 1.36;
+}
+@media (max-width: 1900px) {
+  .collection-blocks-x3 .flex-container .item img {
+    height: calc(100vw * 0.26919);
+  }
+}
+.collection-blocks-x3 .flex-container .item a {
+  display: block;
+  position: relative;
+}
+.collection-blocks-x3 .flex-container .item a .overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  text-align: center;
+  transition: all 400ms ease-in-out;
+  -webkit-transition: all 400ms ease-in-out;
+  -ms-transition: all 400ms ease-in-out;
+  -moz-transition: all 400ms ease-in-out;
+  opacity: 0;
+}
+.collection-blocks-x3 .flex-container .item a .overlay h2 {
+  font-size: 20px;
+  border-bottom: 2px solid #001e37;
+  padding-bottom: 25px;
+  position: absolute;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue LT Std 57 Condensed";
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  max-width: 300px;
+  width: 100%;
+  left: 50%;
+  margin: 0;
+  color: #001e37;
+  line-height: 1;
+}
+.collection-blocks-x3 .flex-container .item a:hover .overlay,
+.collection-blocks-x3 .flex-container .item a:focus .overlay {
+  opacity: 1;
+}
+.collection-blocks-x3 .flex-container.slick-initialized .item {
+  display: block;
+}
+.collection-blocks-x3
+  .flex-container.slick-initialized
+  + .indicator-line
+  .progress {
+  width: 0;
+}
+.collection-blocks-x3 .slick-slider .slick-list {
+  padding-left: 0 !important;
+}
+.collection-blocks-x3 .indicator-line {
+  display: none;
+  margin: 30px auto 0 auto;
+}
+@media (min-width: 1300px) {
+  .collection-blocks-x3 .flex-container .item a .overlay h2 {
+    font-size: calc(100vw * 0.02628811);
+    padding-bottom: calc(100vw * 0.02103049);
+  }
+}
+@media (max-width: 1400px) {
+  .collection-blocks-x3 .flex-container .item {
+    padding: 0 15px;
+  }
+  .collection-blocks-x3 .flex-container {
+    margin: 0 -15px;
+  }
+}
+@media (min-width: 2000px) {
+  .collection-blocks-x3 .flex-container .item a .overlay h2 {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-blocks-x3 .outer-wrapper {
+    overflow-x: scroll;
+    max-width: 100vw;
+    scrollbar-color: #d5ac68 #f1db9d;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    position: relative;
+    padding-bottom: 30px;
+  }
+  .outer-wrapper::-webkit-scrollbar {
+    height: 2px;
+  }
+  .outer-wrapper::-webkit-scrollbar-thumb {
+    height: 5px;
+    background-color: #001e37;
+  }
+  .outer-wrapper::-webkit-scrollbar-track {
+    background-color: #b0b2b4;
+  }
+  .collection-blocks-x3 .inner-wrapper {
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    justify-content: inherit;
+  }
+  .collection-blocks-x3 .flex-container .item {
+    width: calc(100vw - 105px);
+    flex-shrink: 0;
+  }
+  .collection-blocks-x3 .flex-container .item img {
+    height: calc(100vw * 0.716666);
+  }
+  .collection-blocks-x3 .indicator-line {
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  .collection-blocks-x3 .flex-container .item a .overlay {
+    position: static;
+    background: none;
+    opacity: 1;
+  }
+  .collection-blocks-x3 .flex-container .item a .overlay h2 {
+    max-width: 230px;
+    position: static;
+    border-bottom: none;
+    transform: none;
+    -webkit-transform: none;
+    padding-bottom: 0;
+    max-width: inherit;
+    font-size: 18px;
+  }
+  .collection-blocks-x3 .flex-container .item {
+    width: calc(100vw - 60px);
+  }
+}

@@ -1,0 +1,176 @@
+<style>
+  .collection-tile .page-width{
+    max-width: 112.5rem;
+  }
+  .collection-grid{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-flow: wrap;
+  }
+  .collection-grid__item{
+    -webkit-flex-basis: 50%;
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+  @media (min-width: 768px) {
+    .collection-grid__item{
+        -ms-flex-preferred-size: 25%;
+        -webkit-flex-basis: 25%;
+        -ms-flex-preferred-size: 25%;
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+  }
+  .collection-card{
+    width:calc(100% - 0.25rem);
+  }
+  .collection-card__link{
+    margin-bottom:1.5rem;
+    text-decoration:none;
+    display:block;
+  }
+  @media (min-width: 768px) {
+    .collection-card__link {
+        margin-bottom: 0px;
+    }
+  }
+  .collection-card__media{
+    font-size: 0;
+    line-height: 0;
+    background: #F7F7F7;
+    position: relative;
+    padding-top: 133.33333333333331%;
+    width: 100%;
+  }
+  .collection-card__image {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    object-fit:cover;
+    height:100%;
+    width:100%;
+  }
+  .collection-card__image--hover{
+    opacity:0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .collection-card a:hover .collection-card__image--hover{
+    opacity:1;
+  }
+  .collection-card__content{
+    text-align:center;
+  }
+  .collection-card__title{
+    font-size:1rem;
+    line-height:1.5rem;
+    margin-bottom:0px;
+    margin-top:4px;
+  }
+  @media (min-width: 768px) {
+    .collection-card__title{
+        margin-top: 12px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .collection-card__title {
+        font-size: 1.25rem;
+        line-height:1.75rem;
+    }
+  }
+  .collection-card__description{
+    font-size:0.813rem;
+    line-height:1.25rem;
+    margin-top:4px;
+    display:none;
+  }
+  @media (min-width: 768px) {
+    .collection-card__description {
+        display: block;
+    }
+  }
+</style>
+<div class="collection-tile">
+  <div class="page-width"><h2 class="collection-tile__title">Shop by Category</h2></div>
+  <div class="collection-grid">
+    {%- for block in section.blocks -%}
+    <div class="collection-grid__item">
+      <div class="collection-card">
+        <a class="collection-card__link" href="{{ block.settings.link }}">
+          <div class="collection-card__media">
+            <img class="collection-card__image collection-card__image--primary" width="473" height="632" src="{{ block.settings.image | img_url: '800x' }}" loading="lazy" alt="{{ block.settings.image.alt | escape }}">
+            {%- if block.settings.image__hover != blank -%}
+            <img class="collection-card__image collection-card__image--hover" width="473" height="632" src="{{ block.settings.image__hover | img_url: '800x' }}" loading="lazy" alt="{{ block.settings.image__hover.alt | escape }}">
+            {%- endif -%}
+          </div>
+          <div class="collection-card__content collection-card-content">
+            <h3 class="collection-card__title">{{ block.settings.heading }}</h3>
+            <p class="collection-card__description">{{ block.settings.description }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Collection Tile",
+  "class": "section",
+  "disabled_on": {
+  "groups": ["header", "footer"]
+  },
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings":[
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Dimension:550x765"
+        },
+        {
+          "type": "image_picker",
+          "id": "image__hover",
+          "label": "Image Hover",
+          "info": "Dimension:550x765"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Tile",
+      "category": "Block",
+      "blocks": [
+        {
+          "type": "block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

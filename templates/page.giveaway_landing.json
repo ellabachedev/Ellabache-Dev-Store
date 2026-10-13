@@ -1,0 +1,96 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "Header": {
+      "type": "giveaway_header",
+      "settings": {}
+    },
+    "Banner": {
+      "type": "giveaway_hero_banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/celebrate_70_years.jpg",
+        "banner_image-mob": "shopify:\/\/shop_images\/celebrate_70_years.jpg",
+        "cta_url": "#shopify-section-template--14908783657009__Survey_Form"
+      }
+    },
+    "Grid": {
+      "type": "giveaway_2col_grid_content",
+      "blocks": {
+        "article_AyGgwd": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Win A Year’s Worth Of Skincare*",
+            "item_desc": "<p>In celebration of 70 years of Ella Baché, we’re giving you the chance to win* a year’s worth of personalised skincare products and Skin Solutions when you spend $150 online or in salon.<\/p>",
+            "item_btn_text": "Enter Now",
+            "item-btn-url": "#shopify-section-template--14908783657009__Survey_Form",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/win-a-year-worth-skincare.jpg",
+            "item_video": ""
+          }
+        },
+        "article_tWqNfX": {
+          "type": "Article",
+          "settings": {
+            "item_title": "How To Enter",
+            "item_desc": "<p>1. Spend $150 online or in an Ella Baché salon.<\/p>\n<p>2. Enter your details and proof of purchase in the form below.<\/p>\n<p>The lucky winners will be announced via email and social media by 7pm AEDT, 23rd September 2024.<\/p>",
+            "item_btn_text": "*T&Cs Apply",
+            "item-btn-url": "https:\/\/cdn.shopify.com\/s\/files\/1\/2999\/1646\/files\/Ella_Bache_70_Years_T_Cs.pdf?v=1722921515",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/how-to-enter.jpg",
+            "item_video": ""
+          }
+        },
+        "article_YgewYK": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Celebrate 70 Years",
+            "item_desc": "<p>Join our celebrations - explore our limited edition collection in collaboration with Romance Was Born and discover Ella Baché’s rich history.<\/p>",
+            "item_btn_text": "Learn More",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/pages\/celebrating-70-years-of-ella-bache",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/celebrate-70-years.jpg",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "article_AyGgwd",
+        "article_tWqNfX",
+        "article_YgewYK"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "Survey_Form": {
+      "type": "giveaway_survey_form",
+      "settings": {
+        "survey_form": "<div data-tf-live=\"01J4P092789SD632YT7K9PN0CE\"><\/div><script src=\"\/\/embed.typeform.com\/next\/embed.js\"><\/script>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "Header",
+    "Banner",
+    "Grid",
+    "Survey_Form",
+    "shogun-optimizer"
+  ]
+}

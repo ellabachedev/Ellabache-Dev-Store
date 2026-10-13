@@ -1,0 +1,63 @@
+{%- capture product-launch-hero-block -%}
+{%- if section.settings.block_switch != blank -%}
+    {%- if section.settings.block-title != blank -%}
+    <h1 class="text-center">{{ section.settings.block-title }}</h1>
+    {%- endif -%}
+    {%- if section.settings.block-image != blank -%}
+    <section class="full-width-banner">
+        <div class="page-width" style="max-width:1500px;">
+            <picture>
+                {%- if section.settings.block-image-mobile != blank -%}
+                <source srcset="{{ section.settings.block-image-mobile | img_url: '768x', format: 'pjpg' }}" media="(max-width: 768px)">
+                {%- else -%}
+                <source srcset="{{ section.settings.block-image | img_url: '1900x', format: 'pjpg' }}" media="(max-width: 1900px)">
+                {%- endif -%}
+                <img src="{{ section.settings.block-image | img_url: '1400x', format: 'pjpg' }}" loading='lazy'
+                    alt="{{ section.settings.block-image | escape }}">
+            </picture>
+        </div>
+    </section>
+    {%- endif -%}
+    {%- if section.settings.block-text != blank -%}
+    <section class="rich-text__text rte">
+        <div class="page-width">
+            <p>{{ section.settings.block-text }}</p>
+        </div>
+    </section>
+    {%- endif -%}
+{%- endif -%}
+{%- endcapture -%}
+{{ product-launch-hero-block | strip_newlines }}
+{% schema %}
+{
+"name": "Hero Banner",
+"settings": [
+{
+"type": "checkbox",
+"id": "block_switch",
+"label": "Enable",
+"default" : true
+},
+{
+"type": "text",
+"id": "block-title",
+"label": "Title"
+},
+{
+"type": "image_picker",
+"id": "block-image",
+"label": "Image (Desktop)"
+},
+{
+"type": "image_picker",
+"id": "block-image-mobile",
+"label": "Image (Mobile)"
+},
+{
+"type": "textarea",
+"id": "block-text",
+"label": "Text"
+}
+]
+}
+{% endschema %}

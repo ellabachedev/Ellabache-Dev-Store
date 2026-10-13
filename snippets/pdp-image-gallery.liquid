@@ -1,0 +1,104 @@
+{%- capture pdf_image_gallery -%}
+  {%- if featured_image != blank -%}
+    {%- assign variantImgMap = '' -%}
+    {%- for variant in product.variants -%}
+      {%- if variant.image.src == blank -%}
+        {%- if forloop.last -%}
+          {%- assign variantImgMap = variantImgMap | append: variant.id | append: '|' | append: 'no-image' -%}
+        {%- else -%}
+          {%- assign variantImgMap = variantImgMap | append: variant.id | append: '|' | append: 'no-image' | append: '||' -%}
+        {%- endif -%}
+      {%- else -%}
+        {%- if forloop.last -%}
+          {%- assign variantImgMap = variantImgMap | append: variant.id | append: '|' | append: variant.image.src -%}
+        {%- else -%}
+          {%- assign variantImgMap = variantImgMap | append: variant.id | append: '|' | append: variant.image.src | append: '||' -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign variantImgMapArray = variantImgMap | split: '||' -%}
+    <div class="product-carousel">
+      {%- assign image_size = '720x720' -%}
+      {%- assign variant = product.variant -%}
+      {%- assign index = 0 -%}
+      {%- for image in product.images -%}
+        {%- for variantImg in variantImgMapArray -%}
+          {%- assign variantImgArray = variantImg | split: '|' -%}
+          {%- assign variantId = variantImgArray[0] -%}
+          {%- assign variantImgSrc = variantImgArray[1] -%}
+          {%- if variantImgSrc == image.src -%}
+            {%- assign dataVariantId = variantId -%}
+            {%- break -%}
+          {%- else -%}
+            {%- assign dataVariantId = '' -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <div class="slide" data-variant-id="{{ dataVariantId }}">
+          <img
+            width="738"
+            height="738"
+            src="{{ image.src | img_url: image_size }}"
+            {% if index > 0 %}loading="lazy"{% endif %}
+            alt="{{ image.alt | escape }}" style="height:auto;" />
+        </div>
+        {%- assign index = index | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+    {%- assign index = 0 -%}
+    {%- for image in product.images -%}
+      {% if index > 0 %}
+        <div class="indicator-line">
+          <div class="progress"></div>
+        </div>
+      {% endif %}
+      {%- assign index = index | plus: 1 -%}
+      {% break %}
+    {% endfor %}
+  {%- else -%}
+    <img
+      src="https://cdn.shopify.com/s/files/1/0119/6028/7313/files/no-image.png"
+      loading="lazy"
+      alt="no image">
+  {%- endif -%}
+{%- endcapture -%}
+{{ pdf_image_gallery | strip_newlines }}
+{%- assign index = 0 -%}
+{%- for image in product.images -%}
+  {% if index > 0 %}
+    <script>
+      $(window).on('load', function() {
+        $('.product-carousel').slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          infinite: false,
+          autoplay: false,
+          slidesToShow: 1,
+          centerMode: false,
+          responsive: [
+            {
+              breakpoint: 769,
+              settings: {
+                arrows: false
+              }
+            }
+          ]
+        });
+        var slideItemNo = $(".product-carousel .slide").length - 1,
+          slideProgressInterval = 100 / slideItemNo;
+        var x = 0;
+        $(".product-carousel .slide").each(function() {
+          var progressintervalWidth = (slideProgressInterval * x).toFixed(2);
+          $(this).attr('data-progress-bar', progressintervalWidth);
+          x++;
+        });
+        $('.product-carousel').on('afterChange', function(event, slick, currentSlide, nextSlide) {
+          var activeSliderProgressWidth = $('.product-carousel .slick-current').attr('data-progress-bar');
+          $(".product-carousel + .indicator-line .progress").css('width', activeSliderProgressWidth + '%');
+        });
+      });
+    </script>
+    {% break %}
+  {% endif %}
+  {%- assign index = index | plus: 1 -%}
+{%- endfor -%}

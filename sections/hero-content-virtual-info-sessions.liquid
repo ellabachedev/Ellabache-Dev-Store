@@ -1,0 +1,117 @@
+<div class="virtual-info-sessions-hero-wrapper">
+  <div class="page-width">
+    <div class="hero-content">
+      <div class="flex-container">
+        <div class="content">
+          {% if section.settings.hero_title_1 != blank %}
+          <h2>{{ section.settings.hero_title_1 }}</h2>
+          {% endif %}
+          {% if section.settings.hero_desc_1 != blank %}
+          {{ section.settings.hero_desc_1 }}
+          {% endif %}
+          {% if section.settings.hero_title_2 != blank %}
+          <h4>{{ section.settings.hero_title_2 }}</h4>
+          {% endif %}
+          {% if section.settings.hero_desc_2 != blank %}
+          {{ section.settings.hero_desc_2 }}
+          {% endif %}
+          {% if section.settings.hero_title_3 != blank %}
+          <h4>{{ section.settings.hero_title_3 }}</h4>
+          {% endif %}
+          {% if section.settings.hero_desc_3 != blank %}
+          {{ section.settings.hero_desc_3 }}
+          {% endif %}
+          {% if section.settings.hero_btn_text != blank %}
+          <div class="button-holder"><a href="{{ section.settings.hero_btn_url }}" class="btn btn-primary">{{ section.settings.hero_btn_text }}</a></div>
+          {% endif %}
+        </div>
+        {%- if section.settings.hero_thumb != blank -%}
+        <div class="media">
+          <img src="{{ section.settings.hero_thumb | img_url: '555x' }}" loading="lazy" alt="Virtual Info Sessions">
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .virtual-info-sessions-hero-wrapper{padding:60px 0;}
+  .virtual-info-sessions-hero-wrapper .hero-content{margin:0 -20px;}
+  .virtual-info-sessions-hero-wrapper .hero-content .flex-container{align-items:center;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content, .virtual-info-sessions-hero-wrapper .hero-content .media{width:50%; padding:0 20px;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content h2{font-size:34px; margin-top:0; margin-bottom:20px;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content h4{ font-size:15px; color:#4a4a4a; margin-top:20px; font-weight:bold;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content h4 span{display:block; font-weight:100;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content p{ margin-top:0;}
+  .virtual-info-sessions-hero-wrapper .hero-content .content ul li{ margin-bottom:10px;}
+  .virtual-info-sessions-hero-wrapper .hero-content .button-holder{margin-top:20px; max-width:318px;}
+  .virtual-info-sessions-hero-wrapper .hero-content .button-holder .btn{ background-color: #001e37;color: #fff;font-size: 14px;text-transform: uppercase;padding: 15.5px 10px;text-align: center;text-decoration: none;margin: 0 auto;width: 100%;letter-spacing: .2px;font-weight: 500;display: inline-block;}
+  .virtual-info-sessions-hero-wrapper .hero-content .media img{display:block; width:100%;}
+  @media (max-width: 768px){
+    .virtual-info-sessions-hero-wrapper{padding:30px 0;}
+    .virtual-info-sessions-hero-wrapper .hero-content .content, .virtual-info-sessions-hero-wrapper .hero-content .media {
+        width: 100%; padding:0;
+    }
+    .virtual-info-sessions-hero-wrapper .hero-content{margin:0;}
+    .virtual-info-sessions-hero-wrapper .hero-content .button-holder{margin-top:20px; max-width:100%;}
+    .virtual-info-sessions-hero-wrapper .hero-content .media{margin-top:20px;}
+  }
+</style>
+{% schema %}
+  {
+    "name": "Hero Content",
+    "settings": [
+      {
+      "id": "hero_title_1",
+      "type": "textarea",
+      "label": "Title"
+      },
+      {
+        "id": "hero_desc_1",
+        "type": "richtext",
+        "label": "Description"
+      },
+      {
+      "id": "hero_title_2",
+      "type": "textarea",
+      "label": "Title"
+      },
+      {
+        "id": "hero_desc_2",
+        "type": "richtext",
+        "label": "Description"
+      },
+      {
+      "id": "hero_title_3",
+      "type": "textarea",
+      "label": "Title"
+      },
+      {
+        "id": "hero_desc_3",
+        "type": "richtext",
+        "label": "Description"
+      },
+      {
+        "id": "hero_thumb",
+        "type": "image_picker",
+        "label": "Image"
+      },
+      {
+        "id": "hero_btn_text",
+        "type": "text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "hero_btn_url",
+        "label": "Link"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

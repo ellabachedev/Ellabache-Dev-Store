@@ -1,0 +1,18 @@
+{% if settings.enable_checkout_shipping_message %}
+<div class="isHidden" id="shippingMessage">
+	{{ settings.checkout_shipping_message_text }}
+</div>
+
+<script type="text/javascript" defer="defer">
+	if ($('.section--shipping-method').length > 0 && Shopify.Checkout.step == 'shipping_method') {
+		$('#shippingMessage').insertBefore('.section--shipping-method');
+		$('#shippingMessage').removeClass('isHidden');
+	}
+  	if ($('.section--payment-method').length > 0 && Shopify.Checkout.step == 'payment_method') {
+		//$('#shippingMessage').insertBefore('.section--payment-method');
+		var orderPlaceButtonSection = $('button#continue_button').parents('.step__footer');
+		$('#shippingMessage').insertBefore(orderPlaceButtonSection);
+		$('#shippingMessage').removeClass('isHidden');
+	}
+</script>
+{% endif %}

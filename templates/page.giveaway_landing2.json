@@ -1,0 +1,125 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "Header": {
+      "type": "giveaway_header",
+      "settings": {}
+    },
+    "Banner": {
+      "type": "giveaway_hero_banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/70_years_ella_bache_1.jpg",
+        "banner_image-mob": "shopify:\/\/shop_images\/0824_ALWAYS_Mobile_800x800px.jpg",
+        "cta_url": "#shopify-section-template--14657823539249__Survey_Form"
+      }
+    },
+    "Grid": {
+      "type": "giveaway_2col_grid_content",
+      "blocks": {
+        "article_KAERtt": {
+          "type": "Article",
+          "settings": {
+            "item_title": "A Legacy Of Skincare Excellence: A Note From Pippa Hallas",
+            "item_desc": "<p>\nAs we celebrate 70 years of Ella Baché, I would like to thank you for being a part of our journey and our future. Whether you’re discovering our products for the first time, or have been a part of our community throughout the years, we remain dedicated to helping you love the skin you’re in. Our story began when my great aunt, Madame Baché, a pioneering chemist in Paris, revolutionised skincare by rejecting a one-size fits all approach. She believed in treating each person’s skin as unique, understanding its condition at a cellular level.<\/p>",
+            "item_btn_text": "Read More",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/blogs\/bold-beyond-beauty\/celebrating-70-years-of-ella-bache-a-legacy-of-skincare-excellence",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/pippa_hallas.jpg",
+            "item_video": ""
+          }
+        },
+        "article_CkhNhY": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Sima Iranfard: Four Decades with Ella Baché",
+            "item_desc": "<p>\nSima Iranfard, owner of an Ella Baché salon in Queensland, has been with the brand for nearly 40 years. Her journey began in 1984 at Ella Baché College, leading to her managing her own salon by 1990. Sima's dedication reflects in her salon, where she connects clients to Ella Baché's heritage through personal stories and unique treatments. She especially treasures products like Floral Oil and Crème Tomate for their historical significance and impact on clients' skin health and confidence.\n<\/p>",
+            "item_btn_text": "Read More",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/blogs\/bold-beyond-beauty\/a-journey-of-passion-and-dedication-meet-sima-iranfard-ella-bache-salon-owner-at-mt-gravatt-queensland",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/sima_iranfard.jpg",
+            "item_video": ""
+          }
+        },
+        "article_tWqNfX": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Limited Edition Collection",
+            "item_desc": "<p>\nTo commemorate 70 years, Ella Baché has proudly collaborated with the iconic Australian fashion brand, Romance Was Born. Inspired by our rich history and iconic classics, our limited edition packaging symbolises our commitment to authenticity and celebration of shared values. Limited edition packaging is available on three of our favourite classics; our Special Eye Cream, Ultra Nourishing Cream and Intensive Recovery Cream.<\/p>",
+            "item_btn_text": "Shop Now",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/collections\/limited-edition-romance-was-born-collaboration",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/limited_edition_collection.jpg",
+            "item_video": ""
+          }
+        },
+        "article_EBnJnL": {
+          "type": "Article",
+          "disabled": true,
+          "settings": {
+            "item_title": "Win A Year’s Worth Of Skincare*",
+            "item_desc": "<p>Competition is now closed. Congratulations, all winners have been contacted via email. In celebration of 70 years of Ella Baché, we’re giving you the chance to win* a year’s worth of personalised skincare products and Skin Solutions when you spend $150 online or in salon.<\/p>",
+            "item_btn_text": "COMPETITION CLOSED",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/pages\/70-years-celebration-giveaway\/",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/how-to-enter.jpg",
+            "item_video": ""
+          }
+        },
+        "article_AyGgwd": {
+          "type": "Article",
+          "disabled": true,
+          "settings": {
+            "item_title": "Celebrating 70 Years",
+            "item_desc": "<p>\nAs we reflect on a remarkable 70 years, we're expressing our gratitude for your continued loyalty with a special gift. Keep your favourite Ella Baché skincare essentials organised and stylishly ready to go with a Limited Edition Skincare Reflection Case. Redeem yours, complimentary*, when you purchase 2 skincare products whilst stocks last.\n<\/p>",
+            "item_btn_text": "Redeem Gift",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/collections\/in-my-own-skin\/",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/your_celebration_gift.jpg",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "article_KAERtt",
+        "article_CkhNhY",
+        "article_tWqNfX",
+        "article_EBnJnL",
+        "article_AyGgwd"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "Survey_Form": {
+      "type": "giveaway_survey_form",
+      "disabled": true,
+      "settings": {
+        "survey_form": "<div data-tf-live=\"01HWPYMFH7Z8XPT64G9W9EYREQ\"><\/div><script src=\"\/\/embed.typeform.com\/next\/embed.js\"><\/script>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "Header",
+    "Banner",
+    "Grid",
+    "Survey_Form",
+    "shogun-optimizer"
+  ]
+}

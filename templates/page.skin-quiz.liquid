@@ -1,0 +1,557 @@
+{{ 'skin-quiz.css' | asset_url | stylesheet_tag }} {{ 'ui-datepicker.css' | asset_url | stylesheet_tag }}
+<style>
+  /* Overlay */
+  .modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0, 30, 55, 0.9);
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: 768px){
+    .modal-overlay{
+      height:100%;
+    }
+  }
+  /* Modal Box */
+  .modal-content {
+    display: block;
+    max-width:1024px;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    margin:50px;
+  }
+  @media screen and (max-width: 768px){
+    .modal-content {
+      height:100%;
+      margin:0;
+    }
+  }
+  /* Close Button */
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    padding: 20px;
+    transition: transform 0.3s;
+  }
+  .modal-close svg{
+    width:21px;
+    height:21px;
+    transition: transform 0.3s;
+  }
+  .modal-close:hover svg {
+      transform: scale(1.2);
+  }
+  /* Left Image */
+  .modal-left {
+    width: 50%;
+  }
+  .modal-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Right Content */
+  .modal-right {
+    width: 50%;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+  .modal-right h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .modal-right em {
+    font-style: italic;
+  }
+  .modal-right p {
+    margin-bottom: 20px;
+  }
+  .modal-input {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .modal-button {
+    background: #000;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+  }
+  .modal-button:hover {
+    background: #333;
+  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    .modal-content {
+      flex-direction: column;
+    }
+    .modal-left, .modal-right {
+      width: 100%;
+    }
+    .modal-right {
+      padding: 30px 20px;
+    }
+  }
+  .shopify-section--2-col-layout{
+    padding:50px 0;
+  }
+  @media screen and (max-width: 768px){
+    .shopify-section--2-col-layout{
+      padding:0;
+    }
+  }
+  @media only screen and (min-width: 740px) {
+    .shopify-section--2-col-layout .page-width {
+      grid-template-columns: repeat(2, 1fr);
+      gap:50px;
+      align-items:center;
+      display: grid;
+    }
+  }
+  .flex-container-col{
+    flex-direction: column;
+  }
+  .shopify-section--2-col-layout .blocks--image img{width:auto; height:auto;}
+  .quiz-item .flex-container .col{
+    width:50%;
+    height:650px;
+    overflow-y:auto;
+  }
+  @media screen and (max-width: 768px){
+    .quiz-item .flex-container .col{
+      width:100%;
+      height:auto;
+    }
+    .quiz-item .flex-container .col.col-image{
+      height:325px;
+    }
+  }
+  .quiz-item .flex-container .col .slide-content{
+    width:100%;
+  }
+  .quiz-item .flex-container .col .form-wrap{
+    width:100%;
+  }
+  .quiz-item.slide_1 .flex-container .col .form-wrap .form-inputs{
+    max-height:inherit;
+    overflow:inherit;
+  }
+  .quiz-item .flex-container .col.col-padding{
+    padding:50px;
+  }
+  @media screen and (max-width: 768px){
+    .quiz-item .flex-container .col.col-padding{
+      padding:25px;
+    }
+  }
+  .quiz-item .flex-container .col picture{
+    height:100%;
+  }
+  .quiz-item .flex-container .col picture img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+  }
+  .quiz-item .header{
+    margin-bottom:15px;
+    width:100%;
+  }
+  .quiz-item .header span{
+    display:block;
+  }
+  .flex-direction--column{
+    flex-direction: column;
+  }
+  .justify-content--center{
+    justify-content: center;
+  }
+</style>
+<section class="shopify-section--2-col-layout">
+  <div class="page-width">
+    <div class="blocks--image">
+      <img src="{{ 'quiz1.jpg' | asset_url }}" alt=">Find you Skin Routine">
+    </div>
+    <div class="blocks--content">
+      <h1>Discover Your Personalised Skin Routine</h1>
+      <p>Experience expert skincare, tailored just for you. In under 60 seconds, our complimentary Skin Quiz reveals your personalised morning and evening routine, curated by Ella Baché skin experts for instant, visible results.</p>
+      <p>Build your routine with confidence, ensuring your skin is nourished, hydrated, and protected every day.</p>
+      <button style="margin-top:25px; max-width:300px;" class="btn btn-small btn-primary" id="block-button_quiz">Start your Quiz</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div id="go-to-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close modal">
+        <svg focusable="false" width="18" height="18" class="icon icon--close   " viewBox="0 0 14 14">
+          <path d="M13 13L1 1M13 1L1 13" stroke="currentColor" stroke-width="1.1" fill="none"></path>
+        </svg>
+      </button>
+       <button id="prev" class="next-btn" style="display:none;border: none;
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 20px; z-index:9;background:none;">
+         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+       </button>
+      <div class="modal__content-inner">
+        <div class="quiz">
+          <div class="quiz-slider">
+                <div class="quiz-item slide_1">
+                    <div class="flex-container">
+                        <div class="col col-left col-image">
+                            <picture>
+                                <source media="(max-width:768px)" srcset="{{ 'quiz1.jpg' | asset_url }}" />
+                                <img src="{{ 'quiz1.jpg' | asset_url }}" alt="Therapist" />
+                            </picture>
+                        </div>
+                        <div class="col col-right col-padding flex-container flex-center">
+                          <div class="header">
+                              <h2><span style="font-size:16px; margin-bottom:5px;">Begin Your </span>Ella Baché Skincare Experience</h2>
+                              <p>With over 90 years of Ella Baché expertise, our quiz creates a personalised skincare routine tailored to your skin’s needs and lifestyle. Complete the quiz and receive 20% off your first order*.</p>
+                          </div>
+                          <div class="form-wrap">
+                              <div class="box-wrapper">
+                                  <div class="form-inputs grid">
+                                    <div class="flex-container">
+                                      <div class="item">
+                                          <label class="hidden">name</label>
+                                          <input type="text" class="form__input" name="answer_name" id="answer_name" autocomplete="off" placeholder="name" />
+                                          <p class="form-field-error">This is a required field.</p>
+                                      </div>
+                                      <div class="item">
+                                          <label class="hidden">email</label>
+                                          <input type="email" required class="form__input" name="answer_email" id="answer_email" autocomplete="off" placeholder="email" />
+                                          <p class="form-field-error">This is a required field.</p>
+                                      </div>
+                                      <div class="item">
+                                          <label class="hidden">Date of Birth</label>
+                                          <input id="answer_3_0" type="text" class="form__input" name="answer_dob" autocomplete="off" placeholder="date of birth" />
+                                          <p class="form-field-error">This is a required field.</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <div class="button-holder">
+                                  <button id="next-1" class="btn btn-primary next-btn">Discover Your Routine</button>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="quiz-item slide_2">
+                  <div class="flex-container m-row-reverse">
+                    <div class="col col-left col-padding flex-container flex-center">
+                          {% if page.metafields.accentuate.quiz_question_1 != blank %}
+                          <div class="header">
+                              <h3>{{ page.metafields.accentuate.quiz_question_1 }}</h3>
+                          </div>
+                          {% endif %}
+                          <div class="form-wrap">
+                              <div class="form-inputs grid">
+                                  <div class="flex-container">
+                                      {%- assign index = 0 -%} {%- for quizAnswer1 in page.metafields.accentuate.quiz_answer1 -%}
+                                      <div class="item">
+                                          {% assign title = page.metafields.accentuate.quiz_answer1[index] | split: '||' %}
+                                          <label class="inputs-radio" for="answer_1_{{index}}">
+                                              <input type="radio" dd_key="skin_goal" dd_value="{{ page.metafields.accentuate.quiz_answer1[index] }}" class="answers" name="answer_1" id="answer_1_{{index}}" value="answer_1_{{index}}" />
+                                              <span class="custom-radio-btn"></span>
+                                              <div class="label-header">
+                                                  <h4>{{ title[0] }}</h4>
+                                                  <p>{{ title[1] }}</p>
+                                                  <p class="form-field-error">Please select any option.</p>
+                                              </div>
+                                          </label>
+                                          <div id="Serum_AM_under" data-handle="{{ page.metafields.accentuate.answer1_under40_serum_am[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_under40_serum_am[index] }}</div>
+                                          <div id="Serum_PM_under" data-handle="{{ page.metafields.accentuate.answer1_under40_serum_pm[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_under40_serum_pm[index] }}</div>
+                                          <div id="Moisture_AM_under" data-handle="{{ page.metafields.accentuate.answer1_under40_moisture_am[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_under40_moisture_am[index] }}</div>
+                                          <div id="Moisture_PM_under" data-handle="{{ page.metafields.accentuate.answer1_under40_moisture_pm[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_under40_moisture_pm[index] }}</div>
+                                          <div id="Serum_AM_over" data-handle="{{ page.metafields.accentuate.answer1_over40_serum_am[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_over40_serum_am[index] }}</div>
+                                          <div id="Serum_PM_over" data-handle="{{ page.metafields.accentuate.answer1_over40_serum_pm[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_over40_serum_pm[index] }}</div>
+                                          <div id="Moisture_AM_over" data-handle="{{ page.metafields.accentuate.answer1_over40_moisture_am[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_over40_moisture_am[index] }}</div>
+                                          <div id="Moisture_PM_over" data-handle="{{ page.metafields.accentuate.answer1_over40_moisture_pm[index] }}" data-quantity class="product-meta answer_1_{{index}} noShow">{{ page.metafields.accentuate.answer1_over40_moisture_pm[index] }}</div>
+                                          {%- assign index = index | plus: 1 -%}
+                                      </div>
+                                      {%- endfor -%}
+                                  </div>
+                              </div>
+                              <div class="button-holder">
+                                  <button id="next-2" class="btn btn-primary next-btn">Next</button>
+                              </div>
+                          </div>
+                        </div>
+                      <div class="col col-right col-image">
+                            <picture>
+                                <source media="(max-width:768px)" srcset="{{ 'quiz2.jpg' | asset_url }}" />
+                                <img src="{{ 'quiz2.jpg' | asset_url }}" alt="Therapist" />
+                            </picture>
+                        </div>
+                  </div>
+              </div>
+              <div class="quiz-item slide_3">
+                  <div class="flex-container">
+                    <div class="col col-left col-image">
+                            <picture>
+                                <source media="(max-width:768px)" srcset="{{ 'quiz3.jpg' | asset_url }}" />
+                                <img src="{{ 'quiz3.jpg' | asset_url }}" alt="Therapist" />
+                            </picture>
+                        </div>
+                        <div class="col col-right col-padding flex-container flex-center">
+                          <div class="slide-content">
+                          {% if page.metafields.accentuate.quiz_question_2 != blank %}
+                          <div class="header">
+                              <h3>{{ page.metafields.accentuate.quiz_question_2 }}</h3>
+                          </div>
+                          {% endif %}
+                          <div class="form-wrap">
+                              <div class="form-inputs grid">
+                                  <div class="flex-container">
+                                      {%- assign index = 0 -%} {%- for quizAnswer2 in page.metafields.accentuate.quiz_answer2 -%}
+                                      <div class="item">
+                                          <label class="inputs-radio" for="answer_2_{{index}}">
+                                              <input type="radio" dd_key="skin_type" dd_value="{{ page.metafields.accentuate.quiz_answer2[index] }}" class="answers" name="answer_2" id="answer_2_{{index}}" value="answer_2_{{index}}" />
+                                              <span class="custom-radio-btn"></span>
+                                              <div class="label-header">
+                                                <h4>{{ page.metafields.accentuate.quiz_answer2[index] }}</h4>
+                                                <p class="form-field-error">Please select any option.</p>
+                                              </div>
+                                          </label>
+                                          <div id="Cleanser_AM_under" data-handle="{{ page.metafields.accentuate.answer2_under40_cleanser_pm[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_under40_cleanser_am[index] }}</div>
+                                          <div id="Cleanser_PM_under" data-handle="{{ page.metafields.accentuate.answer2_under40_cleanser_pm[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_under40_cleanser_pm[index] }}</div>
+                                          <div id="Cleanser_AM_over" data-handle="{{page.metafields.accentuate.answer2_over40_cleanser_am[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_over40_cleanser_am[index] }}</div>
+                                          <div id="Cleanser_PM_over" data-handle="{{ page.metafields.accentuate.answer2_over40_cleanser_pm[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_over40_cleanser_pm[index] }}</div>
+
+                                          <div id="Cleanser_Weekly1_under" data-handle="{{ page.metafields.accentuate.answer2_under40_cleanser_weekly1[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_under40_cleanser_weekly1[index] }}</div>
+                                          <div id="Cleanser_Weekly2_under" data-handle="{{ page.metafields.accentuate.answer2_under40_cleanser_weekly2[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_under40_cleanser_weekly2[index] }}</div>
+                                          <div id="Cleanser_Weekly1_over" data-handle="{{ page.metafields.accentuate.answer2_over40_cleanser_weekly1[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_over40_cleanser_weekly1[index] }}</div>
+                                          <div id="Cleanser_Weekly2_over" data-handle="{{ page.metafields.accentuate.answer2_over40_cleanser_weekly2[index] }}" data-quantity class="product-meta answer_2_{{index}} noShow">{{ page.metafields.accentuate.answer2_over40_cleanser_weekly2[index] }}</div>
+                                          {%- assign index = index | plus: 1 -%}
+                                      </div>
+                                      {%- endfor -%}
+                                  </div>
+                              </div>
+                              <div class="button-holder">
+                                  <button id="next-3" class="btn btn-primary next-btn">Next</button>
+                              </div>
+                          </div>
+                      </div>
+                        </div>
+
+                  </div>
+              </div>
+              {% comment %}
+              <div class="quiz-item slide_4">
+                  {% if page.metafields.accentuate.quiz_question_3 != blank %}
+                  <h3>{{ page.metafields.accentuate.quiz_question_3 }}</h3>
+                  {% endif %}
+                  <div class="form-inputs">
+                      {%- assign index = 0 -%} {%- for quizAnswer3 in page.metafields.accentuate.quiz_answer3 -%}
+                      <div class="item">
+                          <input
+                              type="radio"
+                              dd_key="age"
+                              dd_value="{{ page.metafields.accentuate.quiz_answer3[index] }}"
+                              class="answers"
+                              style="justify-items: start;"
+                              name="answer_3"
+                              id="answer_3_{{index}}"
+                              value="answer_3_{{index}}"
+                          />
+                          {{ page.metafields.accentuate.quiz_answer3[index] }}
+                          <div id="Eye Cream_AM_under" class="answer_3_{{index}} noShow">{{ page.metafields.accentuate.answer3_under_40_eye_cream_am[index] }}</div>
+                          <div id="Eye Cream_PM_under" class="answer_3_{{index}} noShow">{{ page.metafields.accentuate.answer3_under_40_eye_cream_pm[index] }}</div>
+                          <div id="Eye Cream_AM_over" class="answer_3_{{index}} noShow">{{ page.metafields.accentuate.answer3_over_40_eye_cream_am[index] }}</div>
+                          <div id="Eye Cream_PM_over" class="answer_3_{{index}} noShow">{{ page.metafields.accentuate.answer3_over_40_eye_cream_pm[index] }}</div>
+                          {%- assign index = index | plus: 1 -%}
+                      </div>
+                      {%- endfor -%}
+                  </div>
+              </div>
+              {% endcomment %}
+              <div class="quiz-item slide_4">
+                  <div class="flex-container">
+                    <div class="col col-left col-image">
+                            <picture>
+                                <source media="(max-width:768px)" srcset="{{ 'quiz4.jpg' | asset_url }}" />
+                                <img src="{{ 'quiz4.jpg' | asset_url }}" alt="Therapist" />
+                            </picture>
+                        </div>
+                        <div class="col col-right col-padding flex-container flex-center">
+                          <div class="slide-content" style="max-width: 1150px;">
+                          {% if page.metafields.accentuate.quiz_question_4 != blank %}
+                          <div class="header">
+                              <h3>{{ page.metafields.accentuate.quiz_question_4 }}</h3>
+                          </div>
+                          {% endif %}
+                          <div class="form-wrap">
+                              <div class="form-inputs grid">
+                                <div class="flex-container">
+                                  {%- assign index = 0 -%} {%- for quizAnswer4 in page.metafields.accentuate.quiz_answer4 -%}
+                                  <div class="item">
+                                      <label class="inputs-radio" for="answer_4_{{index}}">
+                                          <input type="radio" dd_key="spend_time" dd_value="{{ page.metafields.accentuate.quiz_answer4[index] }}" class="answers" name="answer_4" id="answer_4_{{index}}" value="answer_4_{{index}}" />
+                                          <span class="custom-radio-btn"></span>
+                                          <div class="label-header">
+                                              <h4>{{ page.metafields.accentuate.quiz_answer4[index] }}</h4>
+                                            <p class="form-field-error">Please select any option.</p>
+                                          </div>
+                                      </label>
+                                      <div id="Care_AM_under" class="answer_4_{{index}} noShow">{{ page.metafields.accentuate.answer4_under_40_skin_care_am[index] }}</div>
+                                      <div id="Care_AM_over" class="answer_4_{{index}} noShow">{{ page.metafields.accentuate.answer4_over_40_skin_care_am[index] }}</div>
+                                      {%- assign index = index | plus: 1 -%}
+                                  </div>
+                                  {%- endfor -%}
+                                </div>
+                              </div>
+                              <div class="button-holder text-right">
+                                  <button id="next-4" class="btn btn-primary next-btn">Next</button>
+                              </div>
+                          </div>
+                      </div>
+                        </div>
+                  </div>
+              </div>
+              <div class="quiz-item slide_5">
+                <img class="bg" src="{{ 'quiz5.jpg' | asset_url }}">
+                  <div class="flex-container" style="position:relative; z-index:2;">
+                    <div class="col col-single col-padding flex-container flex-center"  style="width:100%;max-width: 650px;">
+                      <div class="slide-content">
+                          <div class="header">
+                              <h3>Are you currently pregnant or breastfeeding?</h3>
+                          </div>
+                          <div class="form-wrap">
+                              <div class="form-inputs grid">
+                                <div class="flex-container">
+                                  <div class="item">
+                                      <label class="inputs-radio" for="answer_pregnant_yes">
+                                          <input type="radio" style="justify-items: start;" name="answer_pregnant" id="answer_pregnant_yes" dd_value="yes" value="yes" />
+                                          <span class="custom-radio-btn"></span>
+                                          <div class="label-header"><h4>Yes</h4></div>
+
+                                          <p class="form-field-error">Please select any option.</p>
+                                      </label>
+                                  </div>
+                                  <div class="item">
+                                      <label class="inputs-radio" for="answer_pregnant_no">
+                                          <input type="radio" style="justify-items: start;" name="answer_pregnant" id="answer_pregnant_no" dd_value="no" value="no" />
+                                          <span class="custom-radio-btn"></span>
+                                          <div class="label-header"><h4>No</h4></div>
+
+                                          <p class="form-field-error">Please select any option.</p>
+                                      </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="button-holder">
+                                  <button id="next-5" class="btn btn-primary next-btn">Next</button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="quiz-item slide_6">
+                <img class="bg" src="{{ 'quiz5.jpg' | asset_url }}">
+                  <div class="flex-container" style="position:relative; z-index:2;">
+                    <div class="col col-single col-padding flex-container flex-center" style="width:100%;max-width: 650px;">
+                      <div class="slide-content">
+                          <div class="header">
+                              <h3>Do you have any allergies or restrictions?</h3>
+                          </div>
+                          <div class="form-wrap">
+                              <div class="form-inputs grid">
+                                <div class="flex-container">
+                                  <div class="item">
+                                      <label class="inputs-radio" for="answer_allergy_yes">
+                                          <input type="radio" style="justify-items: start;" name="answer_allergy" id="answer_allergy_yes" dd_value="yes" value="yes" />
+                                          <span class="custom-radio-btn"></span>
+                                          <div class="label-header"><h4>Yes</h4></div>
+                                          <p class="form-field-error">Please select any option.</p>
+                                      </label>
+                                  </div>
+                                  <div class="item">
+                                      <label class="inputs-radio" for="answer_allergy_no">
+                                          <input type="radio" style="justify-items: start;" name="answer_allergy" id="answer_allergy_no" dd_value="no" value="no" />
+                                          <span class="custom-radio-btn"></span>
+                                          <div class="label-header"><h4>No</h4></div>
+                                          <p class="form-field-error">Please select any option.</p>
+                                      </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="button-holder">
+                                  <button class="btn btn-primary" aria-busy="false" style="position:relative;" type="button" id="submitAnswers">Submit
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="quiz-item slide_7">
+                  <div class="recommendation-content">
+                      <div class="inner">
+                          <div id="para"></div>
+                          <div class="product-recomendation">
+                              <div class="flex-container">
+                                  <div id="morning" style="display: none;"></div>
+                                  <div id="evening" style="display: none;"></div>
+                                  <div id="weekly" style="display: none;"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                <div class="thankyou flex-container flex-center" style="display:none;background-color:#ededed;position:relative;">
+                    <div class="intro-text" style="max-width:580px;">
+                        <h3><span>Thank you for</span> <span>your responses</span></h3>
+                        <p>To best support your individual skin needs you can:</p>
+                        <div class="button-holder">
+                          <div class="flex-container">
+                            <a href="https://www.ellabache.com.au/pages/find-a-salon" target="_blank" class="btn btn-small btn-primary">Visit your local Salon</a>
+                            <a href="https://www.ellabache.com.au/pages/ella-bache-online-skin-consultation" target="_blank" class="btn btn-small btn-primary-outline">Book and Online consultation</a>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="chevron" style="position:absolute; bottom:0; left:0;width: 218px;"><img src="{{ 'chevron-mobile.svg' | asset_url }}" alt="Chervon" /></div>
+                </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    <div id="halterOverlay" class="body-overlay" style="display: none;">
+        {%- render 'loader' -%}
+    </div>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ 'skin-quiz.js' | asset_url }}"></script>
+    </div>
+  </div>
+</section>

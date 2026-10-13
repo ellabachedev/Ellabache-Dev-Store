@@ -1,0 +1,290 @@
+<style>
+.sidebar__logo{
+  max-width:245px;
+  width:100%;
+  padding-left:30px;
+  padding-right:15px;
+  transition: all 0.3s ease;
+}
+.dashboard-customer .sidebar {
+  padding: 40px 0;
+  background-color: #ffffff;
+  width: 330px;
+  height:100vh;
+}
+.dashboard-customer .sidebar .inner {
+  width: 100%;
+}
+.dashboard-customer .sidebar h2 {
+  margin-top: 0.3em;
+}
+.dashboard-customer .sidebar .sidebar__nav{
+  margin-top:40px;
+}
+.dashboard-customer .sidebar .sidebar__nav a {
+  color: #9a9aa9;
+  font-size: 18px;
+  display:block;
+  line-height: 1.4;
+  padding: 14px 10px 14px 30px;
+  font-weight: 400;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.25s ease;
+  background-repeat: no-repeat;
+  height:100%;
+}
+.dashboard-customer .sidebar .sidebar__nav a.child{
+  padding-left:75px;
+}
+.dashboard-customer .sidebar .sidebar__nav a svg path{
+  fill:#9a9aa9;
+  opacity: 0.4;
+  transition: all 0.25s ease;
+}
+.dashboard-customer .sidebar .sidebar__nav a.current svg path,
+.dashboard-customer .sidebar .sidebar__nav a:hover svg path{
+  fill:#042342;
+  opacity:1;
+}
+.dashboard-customer .sidebar  .sidebar__nav  a.current,
+.dashboard-customer .sidebar  .sidebar__nav a:hover {
+  color: #042342;
+  background: linear-gradient(90deg, rgba(89, 168, 221, 0.2) 0%, rgba(89, 168, 221, 0) 91.25%);
+  background-repeat: no-repeat;
+}
+.dashboard-customer .sidebar .sidebar-mini{
+    display:none;
+}
+#burger-menu {
+	 cursor: pointer;
+	 height: 27px;
+	 width: 27px;
+     cursor:pointer;
+	 overflow: visible;
+	 position: relative;
+	 z-index: 2;
+     margin: 0 auto;
+}
+ #burger-menu span, #burger-menu span:before, #burger-menu span:after {
+	 background: rgba(3, 2, 41, 0.45);
+	 display: block;
+	 height: 2px;
+	 opacity: 1;
+	 position: absolute;
+	 transition: 0.3s ease-in-out;
+}
+ #burger-menu:hover span, #burger-menu:hover span:before, #burger-menu:hover span:after {
+    background: rgba(3, 2, 41, 1);
+}
+ #burger-menu span:before, #burger-menu span:after {
+	 content: '';
+}
+ #burger-menu span:before {
+	 left: 0px;
+	 top: -10px;
+	 width: 27px;
+}
+ #burger-menu span {
+	 right: 0px;
+	 top: 13px;
+	 width: 27px;
+}
+ #burger-menu span:after {
+	 left: 0px;
+	 top: 10px;
+	 width: 27px;
+}
+ #burger-menu.close span:before {
+	 top: 0px;
+	 transform: rotate(90deg);
+	 width: 27px;
+}
+ #burger-menu.close span {
+	 transform: rotate(-45deg);
+	 top: 13px;
+	 width: 27px;
+}
+ #burger-menu.close span:after {
+	 top: 0px;
+	 left: 0;
+	 transform: rotate(90deg);
+	 opacity: 0;
+	 width: 0;
+}
+.dashboard-customer .sidebar .sidebar__footer{
+    padding:30px;
+    margin-top:50px;
+}
+@media (max-width: 991px) {
+    .dashboard-customer .sidebar {
+        position:fixed;
+        top:0;
+        left:0;
+        z-index:9;
+        width:60px;
+        overflow:hidden;
+        padding: 20px 0;
+        transition: all 0.3s ease;
+    }
+    .dashboard-customer .sidebar.open{
+        width:320px;
+    }
+    .dashboard-customer .sidebar.open 
+    .dashboard-customer .sidebar .sidebar__logo{
+        display:none;
+    }
+    .dashboard-customer .sidebar .sidebar-mini{
+        display:block;
+    }
+    .dashboard-customer .sidebar .inner{
+        visibility:hidden;
+        opacity:0;
+        transition: all 0.3s ease;
+    }
+    .dashboard-customer .sidebar.open .inner{
+        visibility:visible;
+        opacity:1;
+    }
+    .dashboard-customer .sidebar .sidebar__nav a{
+        font-size:16px;
+        padding-left:20px;
+        gap:5px;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    .dashboard-customer .sidebar .sidebar__nav a svg{
+        width:20px;
+    }
+    .sidebar__logo{
+        padding-left:20px;
+        max-width:190px;
+    }
+    .sidebar-mini.mobile{
+        display:flex;
+    }
+    .dashboard-customer .sidebar .sidebar__nav{
+        margin-top:20px;
+    }
+    .dashboard-customer .sidebar .sidebar__footer{
+        padding:20px;
+    }
+    .dashboard-customer .sidebar.open #burger-menu{
+        margin:0;
+        margin-left:20px;
+        margin-bottom:20px;
+    }
+    .dashboard-customer .sidebar.open ~ .content-body:after{
+        content:'';
+        position:fixed;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.4);
+        top:0;
+        left:0;
+        z-index:8;
+    }
+    .dashboard-customer .sidebar .sidebar__nav a.child{
+        padding-left:50px;
+    }
+}
+@media (min-width: 767px) {
+    .dashboard-customer .sidebar .accordion-item .accordion-title {
+        display: none;
+    }
+    .dashboard-customer .sidebar .accordion-item .accordion-title:after {
+        display: none;
+    }
+    .dashboard-customer .sidebar .accordion-item .accordion-content {
+        display: block !important;
+    }
+    .dashboard-customer .sidebar .accordion-item.nav-item .accordion-title {
+        display: none !important;
+    }
+    .dashboard-customer .sidebar .accordion-item.nav-item {
+        margin-bottom: 20px;
+    }
+    .dashboard-customer .sidebar .accordion-item .desktop-title {
+        display: none;
+    }
+}
+</style>
+<aside id="sidebarMenu" class="sidebar">
+    <div class="sidebar-mini mobile">
+        <div id="burger-menu">
+            <span></span>
+        </div>
+    </div>
+    <div class="inner">
+        <div class="sidebar__logo">
+            <a href="{{ shop.url }}" title="{{ shop.name }}"> {%- render 'icon-ellabache-logo' -%}</a>
+        </div>
+        <nav class="sidebar__nav">
+            {% if customer %}
+                <a class="current parent" href="/account">{% render 'icon-category' %}Home</a>
+            {% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+            {% assign salonPortalAccessLevel = customer.metafields.custom.salon_portal_access_level.value | strip %}
+            {%- for salon-portal-resources_link in linklists['salon-portal-resources'].links -%}
+                {%- assign parts = salon-portal-resources_link.title | split: '||' -%}
+                  {%- assign label = parts[0] | strip -%}
+                  {%- assign meta = parts[1] | default: '' | strip -%}
+                  {% case salonPortalAccessLevel %}
+                    {% when 'Salon Owner' %}
+                        {% if meta == 'Salon Owner' or meta == 'Both' %}
+                            <a class="child{% if salon-portal-resources_link.active %} current{% endif %}" href="{{ salon-portal-resources_link.url }}">{{ label }}</a>
+                        {% endif %}
+                    {% when 'Skin Therapist' %}
+                        {% if meta == 'Skin Therapist' or meta == 'Both' %}
+                            <a class="child{% if salon-portal-resources_link.active %} current{% endif %}" href="{{ salon-portal-resources_link.url }}">{{ label }}</a>
+                        {% endif %}
+                    {% when 'Admin' %}
+                         <a class="child{% if salon-portal-resources_link.active %} current{% endif %}" href="{{ salon-portal-resources_link.url }}">{{ label }}</a>
+                    {% else %}
+                {% endcase %}
+            {%-  endfor -%}
+            {% comment %} {% if customer.tags contains "mobile_therapist" %}
+            <a class="parent" href="/pages/add-additional-services">Add Additional Services</a>
+            {% endif %}
+             {% endcomment %}
+            {% comment %} {%- for link in linklists.salon-portal.links -%}
+                <a class="parent"  href="{{ link.url }}"> { link.title }}</a>
+            {%- endfor -%} {% endcomment %}
+            <!-- <p><a href="/pages/customer-online-orders">Online Sales Report</a></p> -->
+            {% if customer.metafields.accentuate.access_to_salon_portal == blank or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+                {%- for link in linklists.customer-dashboard.links -%}
+                    <a class="parent {% if salon-portal-resources_link.active %} current{% endif %}" href="{{ link.url }}">{% render 'icon-category' %} {{ link.title }}</a>
+                {%- endfor -%}
+            {% endif %}
+            {% else %}
+                {% if customer.tags contains "mobile_therapist" %}
+                    <a class="parent" href="/pages/add-additional-services">Add Additional Services</a>
+                {% endif %}
+                {% if customer.metafields.subscriptions.customer_string %}
+                    <!--BeginRechargeCode-->
+                    <a class="parent" href="/tools/recurring/customer/{{customer.metafields.subscriptions.customer_string}}/subscriptions/">Manage Subscriptions</a>
+                    <!--EndRechargeCode-->
+                {% endif %}
+                <a class="parent" href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+            {% endif %}
+            {% endif %}
+        </nav>
+        <div class="sidebar__footer">
+            <h4 style="margin:0; color:#030229;">Need help?</h4>
+            <p style="margin:0;color:#030229;">We’re here to support you.</p>
+            <div style="margin-top:15px;">
+            <a href="https://www.ellabache.com.au/pages/contact-us" target="_blank" style="background-color:#DADEED; max-width:195px; width:100%; font-size:12px; padding:10px 20px; display:inline-block; margin-bottom:10px; border-radius:20px; color:#64759F; text-decoration: none; text-align:center;" class="btn">Customer service</a><br>
+            <a href="https://www.ellabache.com.au/pages/franchise#franchiseEnquiry" target="_blank" style="background-color:#6174A3; max-width:195px; width:100%; font-size:12px; padding:10px 20px; display:inline-block; margin-bottom:10px; border-radius:20px; color:#ffffff; text-align:center; text-decoration: none;" class="btn">Franchise support</a>
+            </div>
+        </div>
+    </div>
+</aside>
+<script>
+    var burgerMenu = document.getElementById('burger-menu');
+    var sidebarMenu = document.getElementById('sidebarMenu');
+    burgerMenu.addEventListener('click', function() {
+    this.classList.toggle("close");
+    sidebarMenu.classList.toggle("open");
+    });
+</script>

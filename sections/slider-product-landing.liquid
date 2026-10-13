@@ -1,0 +1,59 @@
+{%- capture heroSlider -%}
+  <section class="product-landing-slider">
+    <div class="page-width">
+      <div class="hero-slider">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.banner_enable != blank -%}
+            <div class="item">
+              <img src="{{ block.settings.desktop_image | img_url:'1400x' }}" alt="">
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endcapture -%}
+{{ heroSlider | strip_newlines }}
+<script>
+  $(window).on('load', function() {
+    $('.hero-slider').slick({
+      dots: false,
+      arrows: true,
+      infinite: true,
+      speed: 300,
+      autoplay: false,
+      pauseOnFocus: false,
+      adaptiveHeight: true
+    });
+  });
+</script>
+{% schema %}
+  {
+    "name": "Slider",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "image-slide",
+        "name": "Image",
+        "settings": [
+          {
+            "id": "banner_enable",
+            "type": "checkbox",
+            "label": "Enable",
+            "default": true
+          }, {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Slider",
+        "category": "Slider"
+      }
+    ]
+  }
+{% endschema %}

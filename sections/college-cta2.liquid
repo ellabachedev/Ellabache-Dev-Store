@@ -1,0 +1,170 @@
+{%- capture collegeCTA2 -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-cta2.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.popup_js_switch != blank -%}
+  {{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+<section class="college-cta2" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="lists">
+      {%- assign index = 0 -%}
+      {%- for block in section.blocks -%}
+      {%- if block.settings.item_switch != blank -%}
+      <div id="item_{{block.id }}" class="item">
+        <div class="flex-container {% if block.settings.item_row-reverse != blank %}row-reverse{% endif %}">
+          {%- if block.settings.item_thumb != blank -%}
+          <figure class="thumb desktop" data-imgsrc="">
+            <img width="667" height="280" src="{{ block.settings.item_thumb | img_url:'663x' }}" loading="lazy" alt="">
+          </figure>
+          {%- endif -%}
+          <div class="content">
+            {%- if block.settings.item_title != blank -%}
+            <h2 class="title">{{ block.settings.item_title }}</h2>
+            {%- endif -%}
+            {%- if block.settings.item_desc != blank -%}
+             {{ block.settings.item_desc }}
+            {%- endif -%}
+            {%- if block.settings.item_btn_switch != blank -%}
+              <div class="button-holder">
+                <a href="{{ block.settings.item_btn_url }}" class="button popup-cta2">
+                  {{ block.settings.item_btn_text }}
+                </a>
+              </div>
+              {%- if block.settings.item_popup_switch != blank -%}
+              <div style="display:none">
+                {{ block.settings.popup_content }}
+              </div>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+    </div>
+    {%- endif -%}
+    {%- assign index = index | plus: 1 -%}
+    {%- endfor -%}
+  </div>
+</div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ collegeCTA2 | strip_newlines }}
+<script>
+  $('document').ready(function () {
+    var winWidth = $(window).width();
+    $("section.college-cta2").each(function () {
+      var collegeCTA2ContentHeight = $(this).find('div.item div.content').innerHeight();
+      if (winWidth > 768) {
+        $(this).find('div.item figure.thumb').css('height', collegeCTA2ContentHeight);
+      }
+    });
+  });
+</script>
+{%- if section.settings.popup_js_switch != blank -%}
+<script src="{{ 'jquery.magnific-popup.js' | asset_url }}"></script>
+<script>
+  $(document).ready(function () {
+    $('a.popup-cta2').magnificPopup({
+      type: 'inline',
+      midClick: true,
+      closeOnBgClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: true
+    });
+  });
+</script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "College CTA 2",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id" : "popup_js_switch",
+      "type" : "checkbox",
+      "label" : "Enable Popup",
+      "default" : true
+    }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id" : "item_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : true
+        },
+        {
+          "id" : "item_row-reverse",
+          "type" : "checkbox",
+          "label" : "Reverse Column Grid",
+          "default" : false
+        },
+        {
+          "id": "item_thumb",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "id" : "item_btn_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : false
+        },
+        {
+          "id": "item_btn_text",
+          "type": "text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "item_btn_url",
+          "label": "Link"
+        },
+        {
+        "id" : "item_popup_switch",
+        "type" : "checkbox",
+        "label" : "Enable",
+        "default" : false
+        },
+        {
+          "id" : "popup_content",
+          "type" : "textarea",
+          "label" : "Popup Content"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

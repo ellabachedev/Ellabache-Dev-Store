@@ -1,0 +1,74 @@
+{%- capture studentResources -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'student-resources.css' | asset_url | stylesheet_tag }}
+<section class="student-resource" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width"> 
+    {%- if section.settings.block_title != blank -%}
+    <h1>{{ section.settings.block_title }}</h1>
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+    <div class="resource-lists">
+      {%- if block.settings.item_title != blank -%}
+      <h2>{{ block.settings.item_title }}</h2>
+      {%- endif -%}
+      {%- if block.settings.item_download_html != blank -%}
+      <div class="download-resources">
+        {{ block.settings.item_download_html }}
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ studentResources | strip_newlines }}
+{% schema %}
+  {
+    "name": "Student Resources",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "block_title",
+      "type": "text",
+      "label": "Main Title"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "resources",
+      "name": "Resources",
+      "settings": [
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_download_html",
+          "type": "textarea",
+          "label": "Content HTML"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

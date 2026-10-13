@@ -1,0 +1,357 @@
+{%-if section.settings.mini_banner_switch -%}
+{{ 'mini-banner.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{{ 'blogs.css' | asset_url | stylesheet_tag }}
+<div class="page-blog-landing">
+    {%-if section.settings.mini_banner_switch-%}
+	<div class="mini-banner" style="background-color:{{ section.settings.mini_banner_bg_color }};">
+		<div class="item">
+          {%- if section.settings.mini_banner_img != blank -%}
+          <figure class="image"><img src="{{ section.settings.mini_banner_img | img_url:'master' }}"></figure>
+          {%- endif -%}
+          <div class="content {% if section.settings.toggle_font-color != blank %}toggle-color{% endif %}">
+              <div class="page-width">
+                  {%- if section.settings.mini_banner_title != blank -%}
+                  <h1>{{ section.settings.mini_banner_title }}</h1>
+                  {%- endif -%}
+                  {%- if section.settings.mini_banner_desc != blank or section.settings.mini_banner_btn_txt != blank -%}
+                  <div class="content-bottom">
+                      {{ section.settings.mini_banner_desc }}
+                      <a href="{{ section.settings.mini_banner_btn_url }}" class="btn">{{ section.settings.mini_banner_btn_txt }}</a>
+                  </div>
+                  {%- endif -%}
+              </div>
+			</div>
+		</div>
+	</div>
+    {%- endif -%}
+	<div class="pageContent blogListContent">
+		<div class="page-width" style="max-width:1600px;">
+			<div class="pageCont">
+				<div class="flex-container">
+					{%- for link in linklists.blogs-learn-what-your-skin-loves.links  -%}
+					<div class="one-whole medium-up--one-quarter item">
+					  	<h3 class="text-center sub-title"><a href="{{ link.url }}">Learn what your skin loves</a></h3>
+						{%- assign blog = link.object -%}
+						{%- for article in blog.articles limit:3 -%}
+					  	<div class="articleBlock {% cycle 'block-odd-1', 'block-even-1' %}">
+					  		<a href="{{ article.url }}">
+			                  <div class="articleImage">
+			                    {%- if article.metafields.accentuate.blog_thumbnail_image != blank -%}
+                                  {%- for image in article.metafields.accentuate.blog_thumbnail_image -%}
+                                    <img src="{{ image.src }}" loading="lazy" alt="{{ image.alt }}"/>
+                                  {%- endfor -%}
+								{%- else -%}
+									{%- if article.image -%}
+										{{ article | img_url: '1024x1024' | img_tag: article.title }}
+									{%- endif -%}
+								{%- endif -%}
+			                  </div>
+			                </a>
+					    	<div class="articleBoxDetails">
+			                  <p class="article-publish-date">
+			                    {{ article.published_at | date: "%d/%m/%Y" }}
+			                  </p>
+			                  <h3 class="article-block-title">
+			                    <a href="{{ article.url }}">{{ article.title }}</a>
+			                  </h3>
+			                  <div class="rte article-block-text">
+			                    {%- if article.excerpt.size > 0 -%}
+			                      {{ article.excerpt | truncatewords: 15 }}
+			                    {%- else -%}
+			                      <p>
+			                        {{ article.content | strip_html | truncatewords: 15 }}
+			                      </p>
+			                    {%- endif -%}
+			                  </div>
+			                  {%- if blog.comments_enabled? or article.tags.size > 0 -%}
+			                    <ul>
+			                      {%- if blog.comments_enabled? -%}
+			                        <li>
+			                          <a href="{{ article.url }}#comments">
+			                            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+			                          </a>
+			                        </li>
+			                      {%- endif -%}
+			                      {%- if article.tags.size > 0 -%}
+			                        {%- for tag in article.tags -%}
+			                          <li>
+			                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+			                            {% unless forloop.last %}, {% endunless %}
+			                          </li>
+			                        {%- endfor -%}
+			                      {%- endif -%}
+			                    </ul>
+			                  {%- endif -%}
+			                  <p>
+			                    <a class="article-button" href="{{ article.url }}">Read More</a>
+			                  </p>
+			                </div> 
+						</div>
+					{%- endfor -%} 
+					</div>
+					{%- endfor -%}
+					{%- for link in linklists.blogs-bold-beyond-beauty.links  -%}
+					<div class="one-whole medium-up--one-quarter item">
+					  	<h3 class="text-center sub-title"><a href="{{ link.url }}">Bold beyond beauty</a></h3>
+						{%- assign blog = link.object -%}
+						{%- for article in blog.articles limit:3 -%}
+					  	<div class="articleBlock {% cycle 'block-even-1', 'block-odd-1' %}">
+					  		<a href="{{ article.url }}">
+			                  {%- if article.metafields.accentuate.blog_thumbnail_image != blank -%}
+                                  {%- for image in article.metafields.accentuate.blog_thumbnail_image -%}
+                                    <img src="{{ image.src }}" loading="lazy" alt="{{ image.alt }}"/>
+                                  {%- endfor -%}
+								{%- else -%}
+									{%- if article.image -%}
+										{{ article | img_url: '1024x1024' | img_tag: article.title }}
+									{%- endif -%}
+								{%- endif -%}
+			                </a>
+					    	<div class="articleBoxDetails">
+			                  <p class="article-publish-date">
+			                    {{ article.published_at | date: "%d/%m/%Y" }}
+			                  </p>
+
+			                  <h3 class="article-block-title">
+			                    <a href="{{ article.url }}">{{ article.title }}</a>
+			                  </h3>
+			                  <div class="rte article-block-text">
+			                    {% if article.excerpt.size > 0 %}
+			                      {{ article.excerpt | truncatewords: 15 }}
+			                    {% else %}
+			                      <p>
+			                        {{ article.content | strip_html | truncatewords: 15 }}
+			                      </p>
+			                    {% endif %}
+			                  </div>
+			                  {% if blog.comments_enabled? or article.tags.size > 0 %}
+			                    <ul>
+			                      {%- if blog.comments_enabled? -%}
+			                        <li>
+			                          <a href="{{ article.url }}#comments">
+			                            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+			                          </a>
+			                        </li>
+			                      {%- endif -%}
+			                      {%- if article.tags.size > 0 -%}
+			                        {%- for tag in article.tags -%}
+			                          <li>
+			                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+			                            {% unless forloop.last %}, {% endunless %}
+			                          </li>
+			                        {%- endfor -%}
+			                      {%- endif -%}
+			                    </ul>
+			                  {% endif %}
+			                  <p>
+			                    <a class="article-button" href="{{ article.url }}">Read More</a>
+			                  </p>
+			                </div> 
+						</div>
+					{%- endfor -%}
+					</div> 
+					{%- endfor -%}
+					{%- for link in linklists.blogs-ella-bache-college.links  -%}
+					<div class="one-whole medium-up--one-quarter item">
+					  	<h3 class="text-center sub-title"><a href="{{ link.url }}">Study with us</a></h3>
+						{%- assign blog = link.object -%}
+						{%- for article in blog.articles limit:3 -%}
+					  	<div class="articleBlock {% cycle 'block-even-1', 'block-odd-1' %}">
+					  		<a href="{{ article.url }}">
+			                  <div class="articleImage">
+			                    {%- if article.metafields.accentuate.blog_thumbnail_image != blank -%}
+                                  {%- for image in article.metafields.accentuate.blog_thumbnail_image -%}
+                                    <img src="{{ image.src }}" loading="lazy" alt="{{ image.alt }}"/>
+                                  {%- endfor -%}
+								{%- else -%}
+									{%- if article.image -%}
+										{{ article | img_url: '1024x1024' | img_tag: article.title }}
+									{%- endif -%}
+								{%- endif -%}
+			                  </div>
+			                </a>
+					    	<div class="articleBoxDetails">
+			                  <p class="article-publish-date">
+			                    {{ article.published_at | date: "%d/%m/%Y" }}
+			                  </p>
+
+			                  <h3 class="article-block-title">
+			                    <a href="{{ article.url }}">{{ article.title }}</a>
+			                  </h3>
+
+			                  <div class="rte article-block-text">
+			                    {%- if article.excerpt.size > 0 -%}
+			                      {{ article.excerpt | truncatewords: 15 }}
+			                    {%- else -%}
+			                      <p>
+			                        {{ article.content | strip_html | truncatewords: 15 }}
+			                      </p>
+			                    {%- endif -%}
+			                  </div>
+
+			                  {%- if blog.comments_enabled? or article.tags.size > 0 -%}
+			                    <ul>
+			                      {%- if blog.comments_enabled? -%}
+			                        <li>
+			                          <a href="{{ article.url }}#comments">
+			                            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+			                          </a>
+			                        </li>
+			                      {%- endif -%}
+
+			                      {%- if article.tags.size > 0 -%}
+			                        {%- for tag in article.tags -%}
+			                          <li>
+			                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+			                            {% unless forloop.last %}, {% endunless %}
+			                          </li>
+			                        {%- endfor -%}
+			                      {%- endif -%}
+			                    </ul>
+			                  {%- endif -%}
+
+			                  <p>
+			                    <a class="article-button" href="{{ article.url }}">Read More</a>
+			                  </p>
+			                </div> 
+						</div>
+					{%- endfor -%}
+					</div> 
+					{%- endfor -%}
+					{%- for link in linklists.blogs-ella-bache-franchise.links  -%}
+					<div class="one-whole medium-up--one-quarter item">
+					  	<h3 class="text-center sub-title"><a href="{{ link.url }}">Partner with us</a></h3>
+						{%- assign blog = link.object -%}
+						{%- for article in blog.articles limit:3 -%}
+					  	<div class="articleBlock {% cycle 'block-even-1', 'block-odd-1' %}">
+					  		<a href="{{ article.url }}">
+			                  <div class="articleImage">
+			                    {%- if article.metafields.accentuate.blog_thumbnail_image != blank -%}
+                                  {%- for image in article.metafields.accentuate.blog_thumbnail_image -%}
+                                    <img src="{{ image.src }}" loading="lazy" alt="{{ image.alt }}"/>
+                                  {%- endfor -%}
+								{%- else -%}
+									{%- if article.image -%}
+										{{ article | img_url: '1024x1024' | img_tag: article.title }}
+									{%- endif -%}
+								{%- endif -%}
+			                  </div>
+			                </a>
+					    	<div class="articleBoxDetails">
+			                  <p class="article-publish-date">
+			                    {{ article.published_at | date: "%d/%m/%Y" }}
+			                  </p>
+
+			                  <h3 class="article-block-title">
+			                    <a href="{{ article.url }}">{{ article.title }}</a>
+			                  </h3>
+
+			                  <div class="rte article-block-text">
+			                    {%- if article.excerpt.size > 0 -%}
+			                      {{ article.excerpt | truncatewords: 15 }}
+			                    {%- else -%}
+			                      <p>
+			                        {{ article.content | strip_html | truncatewords: 15 }}
+			                      </p>
+			                    {%- endif -%}
+			                  </div>
+
+			                  {%- if blog.comments_enabled? or article.tags.size > 0 -%}
+			                    <ul>
+			                      {%- if blog.comments_enabled? -%}
+			                        <li>
+			                          <a href="{{ article.url }}#comments">
+			                            {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+			                          </a>
+			                        </li>
+			                      {%- endif -%}
+
+			                      {%- if article.tags.size > 0 -%}
+			                        {%- for tag in article.tags -%}
+			                          <li>
+			                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+			                            {% unless forloop.last %}, {% endunless %}
+			                          </li>
+			                        {%- endfor -%}
+			                      {%- endif -%}
+			                    </ul>
+			                  {%- endif -%}
+
+			                  <p>
+			                    <a class="article-button" href="{{ article.url }}">Read More</a>
+			                  </p>
+			                </div> 
+						</div>
+					{%- endfor -%}
+					</div> 
+					{%- endfor -%}
+				</div>
+			</div>	
+		</div>		
+	</div>
+</div>
+{% schema %}
+{
+    "name": "Blogs",
+    "settings": [
+    {
+      "type": "header",
+      "content": {
+      "en": "Mini Banner"
+      }
+    },
+    {
+      "id" : "mini_banner_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "toggle_font-color",
+      "type" : "checkbox",
+      "label" : "Toggle Banner Font Color",
+      "default" : true
+    },
+    {
+      "id" : "mini_banner_bg_color",
+      "type" : "color",
+      "label" : "Background Color",
+      "default": "#062138"
+    },
+    {
+      "id": "mini_banner_img",
+      "type": "image_picker",
+      "label": "Image"
+    },
+    {
+      "id": "mini_banner_title",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "id": "mini_banner_desc",
+      "type": "textarea",
+      "label": "Description"
+    },
+    {
+      "id": "mini_banner_btn_txt",
+      "type": "text",
+      "label": "Button Text"
+    },
+    {
+      "id": "mini_banner_btn_url",
+      "type": "url",
+      "label": "Button URL"
+    }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

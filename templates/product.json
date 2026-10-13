@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "product": {
+      "type": "product",
+      "settings": {
+        "afterpay_enabled": true,
+        "klarna_enabled": false,
+        "show_related_products": true,
+        "related_title": "Complete your routine",
+        "related_grid_num": 4,
+        "related_grid_row": 1,
+        "show_upsell_products": true,
+        "upsell_title": "You may also like",
+        "upsell_sub_title": "Try these recommended products for a complete skin solution.",
+        "upsell_count": "10"
+      }
+    },
+    "1782121758b694fb85": {
+      "type": "apps",
+      "blocks": {
+        "restock_born_notify_3rAtRw": {
+          "type": "shopify://apps/restock-born/blocks/notify/019ed01b-8440-7a3c-aa82-339370f4e1c1",
+          "settings": {
+            "backend_url": "https://restock-born-app-366775112035.australia-southeast1.run.app",
+            "insert_below_selector": "#pdp-addtocart"
+          }
+        }
+      },
+      "block_order": [
+        "restock_born_notify_3rAtRw"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "mini_promo_banner_L3zLJK": {
+      "type": "mini-promo-banner",
+      "custom_css": [],
+      "name": "Promo Banner",
+      "settings": {
+        "heading": "Speak to an online expert",
+        "subtext": "For over 70 years, we’ve believed that no two skins are alike. Book your online consultation today and receive a personalised skincare, curated by our expert therapists to meet your skin’s unique needs.",
+        "button_text": "Book an online skin consultation",
+        "button_link": "https://www.ellabache.com.au/pages/ella-bache-online-skin-consultation",
+        "image": "shopify://shop_images/speak-to-online-expert_1.jpg"
+      }
+    },
+    "custom_product_recommendations_7jPXeP": {
+      "type": "custom-product-recommendations",
+      "name": "Best Sellers + Pair With",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "heading": "PAIR IT WITH",
+        "color_scheme": "background-1",
+        "image_ratio": "portrait",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "product_stamped_reviews_8A69eF": {
+      "type": "product-stamped-reviews",
+      "name": "Stamped Reviews",
+      "settings": {}
+    },
+    "treatment_card_grid_76FXV3": {
+      "type": "treatment-card-grid",
+      "custom_css": [],
+      "name": "Treatment Card Grid",
+      "settings": {
+        "title": "Most Popular Treatments",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "product_limit": 3
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "thumbnail",
+        "media_size": "large",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "custom_css": [
+        "h2 {color: #001e37;}"
+      ],
+      "settings": {
+        "title": "FOLLOW US ON INSTAGRAM",
+        "link": "https://www.instagram.com/ellabacheaus/?hl=en",
+        "caption": "@ellabacheaus",
+        "user_id": "17841400417663213",
+        "feed_token": "{{ localization.market.metafields.instagram.access_token.value }}",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 56,
+        "padding_bottom": 36
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "product",
+    "1782121758b694fb85",
+    "mini_promo_banner_L3zLJK",
+    "custom_product_recommendations_7jPXeP",
+    "product-recommendations",
+    "product_stamped_reviews_8A69eF",
+    "treatment_card_grid_76FXV3",
+    "main",
+    "instagram_feed",
+    "shogun-below",
+    "shogun-optimizer"
+  ]
+}

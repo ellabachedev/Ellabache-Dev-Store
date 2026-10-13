@@ -1,0 +1,97 @@
+<style>
+.stamped-review-block .marquee{
+  -webkit-animation: simpleHomePressTicker 15s linear infinite;
+  animation: simpleHomePressTicker 15s linear infinite;
+}
+.stamped-review-block .item{
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 2rem
+}
+.stamped-review-block .item p{
+  margin:0;
+  font-size:20px;
+  max-width:900px;
+}
+.stamped-review-block .item span.customer-name{
+  display:block;
+  text-transform:uppercase;
+  font-size:20px;
+  font-family:"Helvetica Neue LT Std 67 MdCn";
+}
+.stamped-review-block{
+  background-color:#e2ddd7;
+  padding:45px 0;
+  overflow-x:hidden;
+}
+@-webkit-keyframes simpleHomePressTicker {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        transform: translate3d(-50%,0,0)
+    }
+}
+@keyframes simpleHomePressTicker {
+    0% {
+        transform: translateZ(0)
+    }
+    to {
+        transform: translate3d(-50%,0,0)
+    }
+}
+
+@media only screen and (max-width: 768px){
+  .stamped-review-block{
+    padding:15px 0;
+  }
+  .stamped-review-block .item span.customer-name{
+    font-size:16px;
+  }
+  .stamped-review-block .item p{
+    font-size:16px;
+  }
+}
+</style>
+<section class="stamped-review-block">
+  <div class="marquee" style="display:inline-flex;">
+    <div class="item">
+        <div class="review-header">
+          <span class="customer-name">JESSICA M</span>
+          <span class="stamped-starratings stamped-review-header-starratings" role="list" data-rating="5" aria-label="5-Star Rating Review"> <i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i> </span>
+        </div>
+        <div clas="review-content">
+          <p>Just love this product! Leaves my skin feeling amazing!</p>
+        </div>
+    </div>
+    <div class="item">
+      <div class="review-header">
+          <span class="customer-name">JANET M</span>
+          <span class="stamped-starratings stamped-review-header-starratings" role="list" data-rating="5" aria-label="5-Star Rating Review"> <i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i> </span>
+        </div>
+        <div clas="review-content">
+          <p>I’ve used this serum for years. Tried to find a cheaper alternative but cannot. It’s lovely feeling and has improved my dry areas. It also doesn’t cause me to break out. Lovely product.</p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="review-header">
+          <span class="customer-name">LAUREN V</span>
+          <span class="stamped-starratings stamped-review-header-starratings" role="list" data-rating="5" aria-label="5-Star Rating Review"> <i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i> </span>
+        </div>
+        <div clas="review-content">
+          <p>Lovely feeling on my skin. Love this serum</p>
+        </div>
+    </div>
+    <div class="item">
+        <div class="review-header">
+          <span class="customer-name">JANE R</span>
+          <span class="stamped-starratings stamped-review-header-starratings" role="list" data-rating="5" aria-label="5-Star Rating Review"> <i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i><i class="stamped-fa stamped-fa-star "></i> </span>
+        </div>
+        <div clas="review-content">
+          <p>Ok but but it didn’t give my dry skin as much hydration as I expected.</p>
+        </div>
+    </div>
+  </div>
+</section>

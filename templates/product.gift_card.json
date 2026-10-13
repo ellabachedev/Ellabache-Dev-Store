@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "product": {
+      "type": "product_gift",
+      "settings": {
+        "afterpay_enabled": true,
+        "klarna_enabled": true,
+        "show_related_products": false,
+        "related_title": "Related products",
+        "related_grid_num": 3,
+        "related_grid_row": 1,
+        "show_upsell_products": true,
+        "upsell_title": "You may also like",
+        "upsell_sub_title": "Try these recommended products for a complete skin solution.",
+        "upsell_count": "10"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "thumbnail",
+        "media_size": "large",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "gift-card-description": {
+      "type": "gift-card-description",
+      "settings": {}
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {}
+    },
+    "expandable-content": {
+      "type": "expandable-content",
+      "settings": {
+        "expandable_content": "<h2>Are gift vouchers and gift cards the same thing?<\/h2><p>Gift vouchers and gift cards often serve the same purpose — they both offer a prepaid value for purchases. However, gift cards, like our e-gift card, tend to have a longer validity and can sometimes offer more flexibility across different services, including online and in-store purchases. Gift vouchers usually have a shorter validity period and their use may come with terms and conditions. <\/p><h2>What are wellness gift cards?<\/h2><p>A wellness gift card is a gift card that can be used for services focusing on health and rejuvenation, just like our health and beauty gift cards. An Ella Baché beauty and spa gift card can be used to access a variety of wellness treatments, such as massages, facials, and other spa services that promote relaxation and wellbeing. <\/p><h2>Where can I buy the ultimate gift card for her?<\/h2><p>For those seeking the ultimate gift card for her, look no further than Ella Baché. Our beauty gift cards are tailored to offer a luxurious experience, making them the perfect gift card for the woman who loves to pamper herself. You can easily purchase these cards from our website, providing a convenient and thoughtful gift option.<\/p><h2>Ella Bache e-gift card FAQs<\/h2><h3>Where can I use an Ella Baché e-gift card?<\/h3><p>Ella Baché’s e-gift cards can be used across a wide range of products and services. Whether you're shopping online or in store, our e-gift card offers the flexibility to choose from our extensive range of beauty and skincare solutions.<\/p><h3>Can I use the e-gift card in one of the treatment salons?<\/h3><p>Absolutely! Our e-gift card can be redeemed in participating Ella Baché treatment salons. It's the perfect gift card to enjoy a luxurious spa day or a specific beauty treatment. This makes our beauty for her gift card the perfect choice for those who appreciate the chance to indulge in a rejuvenating and relaxing treatment. <\/p><h3>Do I need to spend the gift card all in one transaction?<\/h3><p>No, you don't have to spend the entire value of the e-gift card in one go. You can use it across multiple transactions, making it a convenient health and beauty gift card option for a range of premium products and services. <\/p><h3>How long after purchasing the e-gift card will I receive it? <\/h3><p>Your e-gift card will be sent to your chosen email address immediately after payment has been processed online. This email address can be yours, or you can choose to have it sent to a different recipient as a gift. <\/p>"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "product",
+    "main",
+    "gift-card-description",
+    "shogun-below",
+    "expandable-content",
+    "shogun-optimizer"
+  ]
+}

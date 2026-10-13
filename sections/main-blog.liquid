@@ -1,0 +1,128 @@
+{{ 'default-blogs.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="pageContent blogListContent section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="flex-container">
+      {% comment  %}
+      {%- render 'page-subnav' -%}
+      {% endcomment %}
+      <div class="pageCont">
+        {%- paginate blog.articles by 6 -%}
+        {%- assign blog_title = blog.title -%}
+        {%- if current_tags -%}
+        {% capture blog_title %}{{ blog.title | link_to: blog.url }} &mdash; {{ current_tags.first }}{% endcapture %}
+        {%- endif -%}
+        <div class="blogTitle">
+          <h1>{{ blog_title }}</h1>
+        </div>
+        <div class="articleList">
+          <div class="flex-container">
+            {%- for article in blog.articles -%}
+            <div class="item">
+              <div class="articleBlock {% cycle 'block-odd-1', 'block-even-1', 'block-odd-2', 'block-even-2' %}">
+                <a href="{{ article.url }}">
+                  <div class="articleImage">
+                    {%- if article.metafields.accentuate.blog_thumbnail_image != blank -%}
+                      {% for image in article.metafields.accentuate.blog_thumbnail_image %}
+                        <img src="{{ image.src }}" alt="{{ image.alt }}"/>
+                      {% endfor %}
+                    {% else %}
+                      {%- if article.image -%}
+                        {{ article | img_url: '1024x1024' | img_tag: article.title }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </div>
+                </a>
+                <div class="articleBoxDetails">
+                  <p class="article-publish-date">
+                    {{ article.published_at | date: "%d/%m/%Y" }}
+                  </p>
+                  <h3 class="article-block-title">
+                    <a href="{{ article.url }}">{{ article.title }}</a>
+                  </h3>
+                  <div class="rte article-block-text">
+                    {%- if article.excerpt.size > 0 -%}
+                    {{ article.excerpt | truncatewords: 15 }}
+                    {%- else -%}
+                    <p>
+                      {{ article.content | strip_html | truncatewords: 15 }}
+                    </p>
+                    {%- endif -%}
+                  </div>
+                  {%- if blog.comments_enabled? or article.tags.size > 0 -%}
+                  <ul>
+                    {%- if article.tags.size > 0 -%}
+                    {%- for tag in article.tags -%}
+                    <li>
+                      <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+                      {% unless forloop.last %}, {% endunless %}
+                    </li>
+                    {%- endfor -%}
+                    {%- endif -%}
+                  </ul>
+                  {%- endif -%}
+                  <p>
+                    <a class="article-button" href="{{ article.url }}">Read More</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- if paginate.pages > 1 -%}
+          {%- include 'pagination' -%}
+        {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <script defer="defer">
+  $('.pageSidebar .page-sidebar-nav-global').fadeIn();
+</script> -->
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 50
+    }
+  ]
+}
+{% endschema %}

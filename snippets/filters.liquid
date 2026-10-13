@@ -1,0 +1,150 @@
+{% comment %} determine which prefix tags are currently active {% endcomment %}
+{%- capture active_prefix_tags -%}
+    {%- for current_tag in current_tags -%}
+        {{- current_tag | split: '-' | first | handleize -}}
+        {%- unless forloop.last -%}
+        -split-
+        {%- endunless -%}
+    {%- endfor -%}
+{%- endcapture -%}
+{%- assign active_prefix_tags = active_prefix_tags | split: '-split-' -%}
+  <script>
+  const filterBtn = document.getElementById('filter-btn');
+  const filterPanel = document.getElementById('collection-dynamic-content');
+  const closeFilter = document.getElementById('close-filter');
+  const sortBtn = document.getElementById('sort-btn');
+  const sortDropdown = document.getElementById('sort-dropdown');
+
+  filterBtn.addEventListener('click', () => {
+    filterPanel.classList.add('open');
+  });
+
+  closeFilter.addEventListener('click', () => {
+    filterPanel.classList.remove('open');
+  });
+
+  sortBtn.addEventListener('click', () => {
+    sortDropdown.classList.toggle('show');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+      sortDropdown.classList.remove('show');
+    }
+  });
+</script>
+<div id="collection-dynamic-content" class="filters">
+  <div class="filter_wrapper">
+    <h2 class="section-header"><label>Filter By:</label></h2>
+    <div class="breadcrumbs_filterTag">
+      <div class="flex-container">
+          <div class="selectedFilterBox" data-url={{collection.url}} style="display: none">
+              {% comment %}<label>{{ 'collections.general.filter_by'  | t}}:</label>{% endcomment %}
+              <div class="selectedFilter">
+              </div>   
+          </div>
+      </div>
+    </div>  
+    <div id="filter-wrapper">
+      {%- for block in section.blocks -%}
+          {%- if block.type == "tags" -%}
+              {%- assign prefix = block.settings.prefix -%}
+              {%- assign filter_tag_exist = false -%}
+              {%- for tag in collection.all_tags -%}
+                  {%- if tag contains prefix -%}
+                      {%- assign filter_tag_exist = true -%}
+                  {%- endif -%}
+              {%- endfor -%}
+              {%- assign tag_sort_order = "" -%}
+              {%- if block.settings.tag_sort_enable and block.settings.tag_sort_order.size > 0 -%}
+                  {%- assign tag_sort_order = block.settings.tag_sort_order | split: "," -%}
+              {%- endif -%}
+              {%- if filter_tag_exist -%}
+                  <div class="filter-option-block" data-title="{{ block.settings.title }}">
+                      <div class="filter-block-title">
+                          <h3 data-title="{{ block.settings.title }}">
+                              <label>Filter By</label>
+                              <span>{{ block.settings.title }}</span>
+                          </h3>
+                      </div>
+                      <div id="content-{{forloop.index}}" class="filter-block-content">
+                          <ul {% if prefix == "Price:" %} data-reorder-list {% endif %}>
+                              <li class="collection-sidebar__item collectionParent" style="display: none">
+                                  <a href="{{ collection.url }}" title="">{{ collection.title }}</a>
+                              </li>
+                      {%- if tag_sort_order != blank -%}
+                              {%- for tag in tag_sort_order -%}
+                                  {%- if tag contains prefix -%}
+                                      {%- if current_tags contains tag -%}
+                                          <li class="collection-sidebar__item collection-sidebar__item--active" {%- if prefix == "Price:" -%} {% include 'filter-money-range-label' %} {%- endif -%}>
+                                              {{ tag | remove: prefix | link_to_remove_tag: tag | replace: 'title=', 'class="remove-tag-link" title='}}
+                                          </li> 
+                                      {%- endif -%}
+                                  {%- endif -%}
+                                  {%- if tag contains prefix -%}
+                                      {%- unless current_tags contains tag -%}
+                                          <li class="collection-sidebar__item" {%- if prefix == "Price:" -%} {%- include 'filter-money-range-label' -%} {%- endif -%}>
+                                              {%- assign current_tag_prefix = tag | split: "-" | first | handleize -%}
+                                              {%- if active_prefix_tags contains current_tag_prefix -%}
+                                                  {% comment %} generate url {% endcomment %}
+                                                  {%- capture tag_url -%}
+                                                      {%- for current_tag in current_tags -%}
+                                                          {%- assign current_tag_handleize = current_tag | split : "-"  | first | handleize -%}
+                                                          {%- unless current_tag_handleize == current_tag_prefix -%}
+                                                              {{- current_tag | handleize -}}+
+                                                          {%- endunless -%}
+                                                      {%- endfor -%}
+                                                  {%- endcapture -%}
+                                                  {%- capture new_url -%}/collections/{{ collection.handle }}/{{ tag_url }}{{ tag | handleize }}{%- endcapture -%}
+                                                  {{ tag | remove: prefix | replace: '_', '-' | link_to: new_url }}
+                                              {%- else -%}
+                                                  {{ tag | remove: prefix | replace: '_', '-' |  link_to_add_tag: tag }}
+                                              {%- endif -%}
+                                          </li>
+                                      {%- endunless -%}
+                                  {%- endif -%}
+                              {%- endfor -%}
+                      {%- else -%}
+                          {%- for tag in collection.all_tags -%}
+                              {%- if tag contains prefix -%}
+                                  {%- if current_tags contains tag -%}
+                                      <li id="filter-{{forloop.index}}" class="collection-sidebar__item collection-sidebar__item--active" {%- if prefix == "Price:" -%} {%- include 'filter-money-range-label' -%} {%- endif -%}>
+                                          {{ tag | remove: prefix | replace: '_', '-' | link_to_remove_tag: tag | replace: 'title=', 'class="remove-tag-link" title='}}
+                                      </li> 
+                                  {%- endif -%}
+                              {%- endif -%}
+                              {%- if tag contains prefix -%}
+                                  {%- unless current_tags contains tag -%}
+                                      <li class="collection-sidebar__item" {%- if prefix == "Price:" -%} {% include 'filter-money-range-label' %} {%- endif -%}>
+                                          {%- assign current_tag_prefix = tag | split: "-" | first | handleize -%}
+                                          {%- if active_prefix_tags contains current_tag_prefix -%}
+                                              {% comment %} generate url {% endcomment %}
+                                              {%- capture tag_url -%}
+                                                  {%- for current_tag in current_tags -%}
+                                                      {%- assign current_tag_handleize = current_tag | split : "-"  | first | handleize -%}
+                                                      {%- unless current_tag_handleize == current_tag_prefix -%}
+                                                          {{- current_tag | handleize -}}+
+                                                      {%- endunless -%}
+                                                  {%- endfor -%}
+                                              {%- endcapture -%}
+                                              {%- capture new_url -%}/collections/{{ collection.handle }}/{{ tag_url }}{{ tag | handleize }}{%- endcapture -%}
+                                              {{ tag | remove: prefix | replace: '_', '-' | link_to: new_url }}
+                                          {%- else -%}
+                                              {{ tag | remove: prefix | replace: '_', '-' | link_to_add_tag: tag }}
+                                          {%- endif -%}
+                                      </li>
+                                  {%- endunless -%}
+                              {%- endif -%}
+                          {%- endfor -%}
+                      {%- endif -%}
+                          </ul>
+                      </div>
+                  </div>
+              {%- endif -%}
+          {%- endif -%}
+      {%- endfor -%}
+  </div> 
+  </div>
+</div>
+<div id="filterOverlay" class="overlay-mobile hidden"></div>

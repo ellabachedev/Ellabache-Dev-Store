@@ -1,0 +1,206 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "287d29c1-6a5d-418a-a7db-34495061c3a6": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify://shop_images/franchise-our-story-banner.progressive_82dcdb11-94db-48dc-bf51-617e0a7db9c4.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>partner with Australia’s leading</span><span>SKINCARE NETWORK</span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "We are looking for new partners to share in our success within the dynamic skincare industry. Are you ready to be a leader in Skin Solutions?",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Make an Enquiry",
+            "slider-button-url": "#franchiseEnquiry",
+            "button-style": "1",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#ffffff",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "287d29c1-6a5d-418a-a7db-34495061c3a6"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "franchise-cta1": {
+      "type": "franchise-cta1",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "block_tag": "Our Story",
+        "block_title_font-size": 34,
+        "block_title": "Our story started in 1936 with revolutionary cosmetic chemist, Madame Baché.",
+        "block_desc": "<p>She was a modern woman – determined, intelligent and ambitious – who knew that improving the condition of a woman’s skin could not only improve her overall appearance, it could also make her feel great and more confident about herself. Madame Baché recognised that the standard way of diagnosing skin types by dry, oily or normal was over simplistic. Instead she moved skincare into a new era, where solutions were individually tailored based on the skin’s condition at a cellular level.</p>",
+        "block_video_switch": false,
+        "block_video": "",
+        "block_image_switch": true,
+        "block_image": "shopify://shop_images/our-story.jpg",
+        "block_image_caption": "",
+        "block_image_link": ""
+      }
+    },
+    "franchise-grid-col-content": {
+      "type": "franchise-grid-col-content",
+      "blocks": {
+        "6b40ab4d-aafd-4ade-b9b5-18dd00aad8d6": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_desc": "<p>Ella Baché has become a uniquely Australian story thanks to the inspiration of Edith Hallas. Married to Madame Bache’s cousin, Edith brought Ella Baché to Australia in 1954, leading her on a lifetime journey resulting in the creation of one of Australia’s most enduring </p>",
+            "btn_text": "MAKE AN EQUIRY",
+            "btn_url": ""
+          }
+        },
+        "a61b7ce6-d761-400b-8fb6-2266a7fc5190": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_desc": "<p>and respected skincare companies. We are now the country’s largest skincare franchise network, with products and services available in over 150 salons nationwide, and over 60 years experience in training and education.</p>",
+            "btn_text": "MAKE AN EQUIRY",
+            "btn_url": ""
+          }
+        },
+        "ccaaac14-49d6-45a5-9b20-e5ffaba354cb": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_desc": "<p>and respected skincare companies. We are now the country’s largest skincare franchise network, with products and services available in over 150 salons nationwide, and over 60 years experience in training and education.</p>",
+            "btn_text": "MAKE AN EQUIRY",
+            "btn_url": ""
+          }
+        },
+        "7090ce3e-4eb3-4f50-8954-fa044364f3a1": {
+          "type": "Article",
+          "settings": {
+            "item_title": "",
+            "item_desc": "<p>We champion this knowledge and expertise through our Skin Therapists who are trained and committed to achieving results. Starting with a personalised Skin Diagnosis, the optimum combination of products, treatments and techniques are selected for individual skin needs.</p>",
+            "btn_text": "MAKE AN EQUIRY",
+            "btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "6b40ab4d-aafd-4ade-b9b5-18dd00aad8d6",
+        "a61b7ce6-d761-400b-8fb6-2266a7fc5190",
+        "ccaaac14-49d6-45a5-9b20-e5ffaba354cb",
+        "7090ce3e-4eb3-4f50-8954-fa044364f3a1"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "",
+        "grid_image": "shopify://shop_images/grid-image_1400x_b3703057-d4c8-44fe-92fe-7c5c871c7802.png",
+        "grid_image_link": "",
+        "grid-col-layout": "1"
+      }
+    },
+    "franchise-cta2": {
+      "type": "franchise-cta2",
+      "blocks": {
+        "133dfdea-a13c-482a-8e04-325ef33db4d9": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/philosophy.jpg",
+            "item_title": "Philosophy",
+            "item_desc": "<p>At Ella Baché, we’re committed to helping individuals feel confident in their skin. We do this by empowering them to understand what their skin loves, using our expertise to create personalised, expert Skin Solutions for maximum results without the harm.</p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "133dfdea-a13c-482a-8e04-325ef33db4d9"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-enquire-block": {
+      "type": "franchise-enquire-block",
+      "blocks": {
+        "32606c8c-0f5d-4743-85af-54fab31044a7": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_673615d7-1721-4cce-b1fe-d0247bc3046c.jpg",
+            "item_article_title": "How To Own Your Legacy",
+            "item_article_desc": "Fashion designer Kit Willow made one of her first bold moves when, in her early twenties, she founded her first fashion label with no prior experience and a shoe-string budget.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-own-your-voice"
+          }
+        },
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_17d5b825-914b-4955-af3f-8307301c39a4.jpg",
+            "item_article_title": "How to Design a Bold Life",
+            "item_article_desc": "In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas talks to inspiring entrepreneur Carolyn Creswell who shares the steps that have helped her design a bold life.",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-design-a-bold-life-2"
+          }
+        },
+        "41dcbb54-dce4-4157-9623-885ecd4333c3": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/unnamed_1024x1024_d9c6c4c6-915b-43ab-9891-9ab4345bc105.jpg",
+            "item_article_title": "How to Create Momentum",
+            "item_article_desc": "Are you feeling stuck? In this extract from Bold Moves: How to Stand Up, Step Out, and Make Your Next Bold Move, our CEO Pippa Hallas shares her top 5 tips for creating momentum—whether that’s for a personal project or your own business— and making the most of your 2019",
+            "item_article_btn_url": "shopify://blogs/ella-bache/how-to-create-momentum"
+          }
+        }
+      },
+      "block_order": [
+        "32606c8c-0f5d-4743-85af-54fab31044a7",
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b",
+        "41dcbb54-dce4-4157-9623-885ecd4333c3"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Make it happen",
+        "block_desc": "<p>To find out if becoming an Ella Baché franchisee is your path to an exciting new future, simply call 1300 845 259 or submit the form below.</p>",
+        "typeform_data-url": "https://ellabache.typeform.com/to/Rp418Fv9",
+        "sidebar_title": "Blog"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "franchise-cta1",
+    "franchise-grid-col-content",
+    "franchise-cta2",
+    "franchise-enquire-block"
+  ]
+}

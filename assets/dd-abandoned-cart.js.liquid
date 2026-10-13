@@ -1,0 +1,45 @@
+// <<< Engagement Cloud Abandoned cart script >>>
+var dmPt = dmPt ? dmPt : {};
+// Change this value to true if you want to enable guest abandoned cart
+dmPt.enableGuestAbandonedCart = true;
+// Id or selector expression to return the newsletter sign up forms of your store
+dmPt.newsletter_form_id="#ContactFooter";
+!function(u){function e(t){var e,n,r,i=(e=t.target,n="input[type=email]",(r=e.querySelector(n))&&r.value?r.value:null);i&&a(i)}function a(t){n("dm-subscriber",t,365)}function n(t,e,n){var r;e&&((r=new Date).setTime(r.getTime()+24*n*60*60*1e3),u.cookie=t+"="+e+"; expires="+r.toGMTString()+"; path=/")}function t(t){for(var e=t+"=",n=u.cookie.split(";"),r=0;r<n.length;r++){for(var i=n[r];" "==i.charAt(0);)i=i.substring(1,i.length);if(0==i.indexOf(e))return i.substring(e.length,i.length)}return null}dmPt&&(dmPt.enableGuestAbandonedCart&&u.querySelectorAll(dmPt.newsletter_form_id).forEach(function(t){t.addEventListener("submit",e,!1)}),dmPt.emailSubmitted=t("dm-subscriber"),a(dmPt.emailSubmitted),dmPt.cartId=t("cart"),n("dm-cart",dmPt.cartId,15))}(document);
+{% if customer.email %}
+dmPt("identify", "{{ customer.email }}");
+{% else %}
+if(dmPt.enableGuestAbandonedCart && dmPt.emailSubmitted && dmPt.emailSubmitted !== ""){
+dmPt("identify", dmPt.emailSubmitted);
+}
+{% endif %}
+if(dmPt.cartId && dmPt.cartId !== ""){
+dmPt("cartInsight", {
+"programID": 20559,
+"cartDelay": 30,
+"cartID": dmPt.cartId, //This value is retrieved from a Shopify cookie
+"cartPhase": "CUSTOMER_LOGIN",
+"currency": "{{ shop.currency }}",
+"subtotal": {{ cart.total_price }}/100,
+"discountAmount": {{ cart.original_total_price | minus: cart.total_price }}/100,
+"taxAmount": 0,
+"grandTotal": {{ cart.total_price }}/100,
+"cartUrl": "{{ shop.url }}/cart/{% for item in cart.items %}{{item.variant_id}}:{{ item.quantity }}{% if forloop.last == false %},{% endif %}{% endfor %}",
+"lineItems": [
+{% for item in cart.items %}
+{
+"sku": "{{ item.sku }}",
+"name": "{{ item.title }}",
+"description": "{{ item.product.description | strip_html | escape | strip_newlines }}",
+"category": "{% for collection in item.product.collections %}{{ collection.title }} {% endfor %}",
+"other": "{% for tag in product.tags %}{{ tag }} {% endfor %}",
+"unitPrice": {{ item.original_price }}/100,
+"salePrice": {{ item.price }}/100,
+"quantity": {{ item.quantity }},
+"totalPrice": {{ item.line_price }}/100,
+"imageUrl": "{{ item.image | img_url: 'small' | prepend:'https:'}}",
+"productUrl": "{{ shop.url }}{{ item.url}}",
+} {% if forloop.last == false %},{% endif %}
+{% endfor %}
+]
+});
+}

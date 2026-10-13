@@ -1,0 +1,115 @@
+.welcome_popup_dotdigital {
+    display: none;
+    padding: 0;
+    max-width: 890px;
+    width: 100%;
+    position: relative;
+    border-radius:0;
+    min-height:593px;
+}
+.welcome_popup_dotdigital .subscription-form{position:relative;}
+.welcome_popup_dotdigital .inline-loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    left: 0;
+    top: 0;
+    z-index: 8;
+    background-image: url(//cdn.shopify.com/s/files/1/2999/1646/t/278/assets/loader.gif?v=580411086234141886);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 150px;
+    min-height: 400px;
+}
+.welcome_popup_dotdigital .popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #000000;
+    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    display: block;
+    z-index:3;
+}
+.welcome_popup_dotdigital .popup-close:before, .welcome_popup_dotdigital .popup-close:after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 20px;
+    left: 14px;
+    top: 5px;
+    display: block;
+    background-color: #ffffff;
+}
+.welcome_popup_dotdigital .popup-close:before {
+    transform: rotate(45deg);
+}
+.welcome_popup_dotdigital .popup-close:after {
+    transform: rotate(-45deg);
+}
+.welcome_popup_dotdigital .popup__image{width:100%; height:100%; object-fit:cover; display:block; height:100%;}
+.welcome_popup_dotdigital .popup__content.overlay{position:absolute; right:0; top:0; max-width:457px; width:100%; height:100%; z-index:1; padding-top:40px; padding-right:30px; padding-bottom:20px;}
+.welcome_popup_dotdigital .popup__content h2{font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:67px; letter-spacing:1px; line-height:0.9; color:#ffffff; margin-top:0; margin-bottom:5px;}
+.welcome_popup_dotdigital .popup__content h3{font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:40px; letter-spacing:0px; line-height:1.2; color:#ffffff; margin-top:0; margin-bottom:10px;}
+.welcome_popup_dotdigital .popup__content p{font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:18px; letter-spacing:0px; line-height:1.4; color:#ffffff; margin-top:0; margin-bottom:10px;}
+.welcome_popup_dotdigital .popup__content form{margin-top:18px;}
+.welcome_popup_dotdigital .popup__content form input::placeholder{color:#ffffff; font-family:"Helvetica Neue LT Std 67 MdCn";}
+.welcome_popup_dotdigital .popup__content .form-inputs{margin-bottom:30px; }
+.welcome_popup_dotdigital .popup__content .form-inputs .item{margin-bottom:10px; position:relative;}
+.welcome_popup_dotdigital .popup__content .form-inputs .item:last-child{margin-bottom:0;}
+.welcome_popup_dotdigital .popup__content .form-inputs input[type='text'], .welcome_popup_dotdigital .popup__content form input[type='email']{ font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:30px;width:100%; background:none; letter-spacing:0.1px; border:none; border-bottom:1px solid #ffffff; line-height:1.3; color:#ffffff;}
+.welcome_popup_dotdigital .popup__content .form-inputs input:focus{outline:none;}
+.welcome_popup_dotdigital .popup__content .form-button button{width:167px; height:40px; background-color:#a4dad2; border:none; color:#001e37;font-family:"Helvetica Neue LT Std 67 MdCn"; text-transform:uppercase; font-size:16px; letter-spacing:0.1px;}
+.welcome_popup_dotdigital .popup__content .bottom-text{font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:12px; letter-spacing:0; line-height:1.2; margin-top:35px; }
+/* Change the white to any color */
+.welcome_popup_dotdigital .popup__content .form-inputs input:-webkit-autofill,
+.welcome_popup_dotdigital .popup__content .form-inputs input:-webkit-autofill:hover, 
+.welcome_popup_dotdigital .popup__content .form-inputs input:-webkit-autofill:focus, 
+.welcome_popup_dotdigital .popup__content .form-inputs input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #f5f2ec inset !important;
+  color:#001c3a;
+}
+.welcome_popup_dotdigital .popup__content .form-field-error{position:absolute; bottom:-15px; margin:0; font-size:12px; color:red;}
+.welcome_popup_dotdigital .popup__content .newsletter__form-message .form-error{position: absolute;
+    bottom: -56px;
+    left: 0;
+    color: red;
+    font-size: 12px;
+    margin: 0; width:100%;}
+.welcome_popup_dotdigital .popup__content .newsletter__form-message .form-success{position:absolute; bottom:-60px; font-size: 12px; left:0; top:inherit; margin:0; width:100%;}
+@media only screen and (max-width: 1024px){
+  .welcome_popup_dotdigital .popup__content.overlay{padding-top:calc(100vw * 0.043945);}
+  .welcome_popup_dotdigital .popup__content h2{font-size:calc(100vw * 0.06542);}
+  .welcome_popup_dotdigital .popup__content h3{font-size:calc(100vw * 0.03906);}
+  .welcome_popup_dotdigital .popup__content p{font-size:16px;}
+  .welcome_popup_dotdigital .popup__content .form-inputs input[type=text], .welcome_popup_dotdigital .popup__content form input[type=email]{font-size:calc(100vw * 0.02929);}
+  .welcome_popup_dotdigital .popup__content .form-inputs{margin-bottom:calc(100vw * 0.02929);}
+  .welcome_popup_dotdigital .popup__content .bottom-text{margin-top:calc(100vw * 0.034179);}
+}
+@media only screen and (max-width: 768px){
+  .welcome_popup_dotdigital{height:764px;}
+  .welcome_popup_dotdigital .popup__image{object-position:left;}
+  .welcome_popup_dotdigital .popup__content.overlay{padding-left:20px; padding-right:20px; right:30px; padding-top: 40px; max-width:300px;}
+  .welcome_popup_dotdigital .popup__content h2{font-size:48px;}
+  .welcome_popup_dotdigital .popup__content h3{font-size:30px; letter-spacing:0;}
+  .welcome_popup_dotdigital .popup__content p{font-size:15px;}
+  .welcome_popup_dotdigital .popup__content .form-inputs{margin-bottom:30px;}
+  .welcome_popup_dotdigital .popup__content .bottom-text{margin-top:25px;}
+  .welcome_popup_dotdigital .popup__content .form-inputs input[type='text'], .welcome_popup_dotdigital .popup__content form input[type='email']{font-size:20px;}
+  .welcome_popup_dotdigital .popup__content .newsletter__form-message .form-success, .welcome_popup_dotdigital .popup__content .newsletter__form-message .form-error{ bottom:-70px;}
+}
+@media only screen and (max-width: 480px){
+  .welcome_popup_dotdigital .popup__content h2{text-align:center;}
+  .welcome_popup_dotdigital .popup__content.overlay{left:0; right:inherit; max-width:inherit;}
+  .welcome_popup_dotdigital .popup__content p{font-size:19px; max-width:205px; text-align:center; margin:0 auto;}
+  .welcome_popup_dotdigital .popup__content .bottom-text{max-width:245px; font-size:14px;}
+  .welcome_popup_dotdigital .popup__content h3{margin-bottom:20px; text-align:center;}
+  .welcome_popup_dotdigital .popup__content h3 + p{
+    margin-bottom:10px;
+  }
+  .welcome_popup_dotdigital .popup__content .form-button button{max-width:140px; font-size:13px; height:34px;}
+  .welcome_popup_dotdigital .popup__content .form-inputs .item label{font-family:"Helvetica Neue LT Std 67 MdCn"; font-size:25px; letter-spacing:0.1px;  padding:0; color:#ffffff; display:block !important;}
+  .welcome_popup_dotdigital .form-button{ text-align: center;}
+}

@@ -1,0 +1,53 @@
+{{ 'popupSpeakToExpert.css' | asset_url | stylesheet_tag }}
+<div id="popupSpeakToExpert">
+    <div class="flex-container">
+        <div class="popup_box">
+            <img width="323" height="342" class="bg" src="{{ 'online-therapist.jpg' | asset_url }}" loading="lazy" alt="Speak to an Export Online">
+            <div class="content text-center">
+                <h2>Not sure if this product is right for you?</h2>
+                <a href="https://www.ellabache.com.au/pages/ella-bache-online-skin-consultation" class="btn">Speak to an Expert Online</a>
+            </div>
+            <span class="close">close</span>
+        </div>
+    </div>
+</div>
+<script>
+    // Check if a cookie exists to determine if it's the second visit
+const productVisitCount = parseInt(getCookie('productVisitCount')) || 0;
+if (productVisitCount < 1) {
+    // This is the user's second visit
+    // Show the popup
+    var delayTime = 120 * 1000;
+    setTimeout(function () {
+        $("#popupSpeakToExpert").fadeIn();
+    }, delayTime);
+    //$(window).one('scroll', function(){ 
+    //});
+    const popupSpeakToExpert = document.querySelector("#popupSpeakToExpert");
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                $('#popupSpeakToExpert .popup_box span.close').addClass("show");
+                $("#popupSpeakToExpert .popup_box .content h2").addClass("show");
+                setTimeout(function(){
+                    $("#popupSpeakToExpert .popup_box .content .btn").addClass("show");
+                }, 200);
+                $("#popupSpeakToExpert .popup_box span.close").on('click', function(){
+                   $("#popupSpeakToExpert").fadeOut();
+                   $("#popupSpeakToExpert .popup_box .content .btn").removeClass("show");
+                   $('#popupSpeakToExpert .popup_box span.close').removeClass("show");
+                   $("#popupSpeakToExpert .popup_box .content h2").removeClass("show");
+                });
+                //observer.unobserve(entry.target); // Stop observing once animation is triggered
+            }
+            });
+        },
+        { threshold: 0.2 }
+    );
+    observer.observe(popupSpeakToExpert);
+  }
+// Increment the visit count and set a cookie to track the visit
+setCookie('productVisitCount', productVisitCount + 1, 7);
+    
+</script>

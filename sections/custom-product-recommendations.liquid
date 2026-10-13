@@ -1,0 +1,155 @@
+{{ 'section-bestseller.css' | asset_url | stylesheet_tag }}
+{{ 'featured-product-slider.css' | asset_url | stylesheet_tag }}
+{%- capture bestseller -%}
+<div data-section-id="{{ section.id }}" data-section-type="custom" class="tab-component">
+  <div class="page-width">
+    <div class="tab-navs text-center" id="best-sellers-control-{{section.id}}">    
+      <a href="#" data-tab-target="tab1" class="active">
+          Bestsellers
+        </a>
+      <a href="#" data-tab-target="tab2" >
+          Pair It With
+        </a>
+    </div>
+    <div class="tab-content">
+    <!-- Product Bestsellers -->
+    {%- assign collection = collections[section.settings.collection] -%}
+    <div class="product-grid--slider" data-tab-content="tab1">
+      <div class="swiper bestsellers-product-swiper">
+        <div class="swiper-wrapper">
+           {%- assign collection = collections["best-sellers"] -%}
+            {%- assign count = 0 -%}
+            {%- assign showbadge = 'products.badges.bestseller' | t -%}
+            {%- for product in collection.products -%}
+            {%- render 'product-grid-item-featured' product: product -%}
+          {%- endfor -%}
+        </div>
+        <div class="swiper-button-prev bestsellers-swiper-button-prev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Previous" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.12006 7.00125L8 1.07293L6.94245 0L0 6.99958L6.92165 14L7.98085 12.9287L2.12006 7.00125Z" fill="black"></path></svg></div>
+        <div class="swiper-button-next bestsellers-swiper-button-next"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Next" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.87994 6.99875L0.0191458 1.07126L1.07835 0L8 7.00042L1.05755 14L0 12.9271L5.87994 6.99875Z" fill="black"></path></svg></div>
+      </div>
+    </div>
+    <!-- Product Recommendations -->
+    <div class="product-recommendations product-grid--slider" style="display:none;" data-tab-content="tab2" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=10">
+      <div class="swiper recommendations-product-swiper">
+        <div class="swiper-wrapper">
+          {% if product.metafields.accentuate.product_recommendations != blank %}
+            {% for item in product.metafields.accentuate.product_recommendations.value %}
+              {%- render 'product-grid-item-featured', showbadge: showbadge, product: item -%}
+            {% endfor %}
+          {% else %}
+            {% if recommendations.performed and recommendations.products_count > 0 %}
+              {% for recommendation in recommendations.products %}
+                {%- render 'product-grid-item-featured', showbadge: showbadge, product: recommendation -%}
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+        </div>
+        <div class="swiper-button-prev recommendations-swiper-button-prev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Previous" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.12006 7.00125L8 1.07293L6.94245 0L0 6.99958L6.92165 14L7.98085 12.9287L2.12006 7.00125Z" fill="black"></path></svg></div>
+        <div class="swiper-button-next recommendations-swiper-button-next"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Next" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.87994 6.99875L0.0191458 1.07126L1.07835 0L8 7.00042L1.05755 14L0 12.9271L5.87994 6.99875Z" fill="black"></path></svg></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{{ bestseller | strip_newlines }}
+<script>
+$(document).ready(function() {
+  // Best Sellers: Slider
+  new Swiper('.bestsellers-product-swiper', {
+      loop: false,
+      slidesPerView: "auto",
+      centeredSlides: false,
+      spaceBetween: 14,
+      navigation: {
+          nextEl: '.bestsellers-swiper-button-next',
+          prevEl: '.bestsellers-swiper-button-prev'
+      },
+      breakpoints: {
+        600: {
+          spaceBetween: 14,
+        }
+      }
+  });
+
+  var recommendationsInitialized = false;
+
+  function initRecommendations() {
+    if (recommendationsInitialized) return;
+    recommendationsInitialized = true;
+
+    var el = document.querySelector('.product-recommendations');
+    if (!el) return;
+
+    fetch(el.dataset.url)
+      .then(function (response) { return response.text(); })
+      .then(function (text) {
+        var html = document.createElement('div');
+        html.innerHTML = text;
+        var recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          el.innerHTML = recommendations.innerHTML;
+        }
+
+        if (html.querySelector('.grid__item')) {
+          el.classList.add('product-recommendations--loaded');
+        }
+
+        // Wait a tick so the tab's fadeIn/display change has taken effect
+        // and the container has real dimensions before Swiper measures it.
+        requestAnimationFrame(function () {
+          new Swiper('.recommendations-product-swiper', {
+              loop: false,
+              slidesPerView: "auto",
+              centeredSlides: false,
+              spaceBetween: 14,
+              observer: true,
+              observeParents: true,
+              navigation: {
+                  nextEl: '.recommendations-swiper-button-next',
+                  prevEl: '.recommendations-swiper-button-prev'
+              },
+              breakpoints: {
+                600: {
+                  spaceBetween: 14,
+                }
+              }
+          });
+        });
+      })
+      .catch(function (e) {
+        console.error(e);
+      });
+  }
+
+  $(".tab-component .tab-navs a").on('click', function (e) {
+    e.preventDefault();
+    var me = $(this);
+    me.siblings().removeClass('active');
+    me.addClass('active');
+    var tabTarget = me.data('tab-target');
+    var $tagTargetContent = $('[data-tab-content="' + tabTarget + '"]');
+    $tagTargetContent.siblings().hide();
+    $tagTargetContent.fadeIn(500);
+
+    if (tabTarget === 'tab2') {
+      initRecommendations();
+    }
+  });
+});
+</script>
+{% schema %}
+  {
+    "name": "Best Sellers + Pair With",
+    "templates": ["product"],
+    "settings": [
+    ],
+    "presets": [
+      {
+        "name": "Best Sellers + Pair With",
+          "category": "Product",
+      }
+    ]
+  }
+{% endschema %}

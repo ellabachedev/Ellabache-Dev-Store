@@ -1,0 +1,37 @@
+{{ 'component-page-subnav.css' | asset_url | stylesheet_tag }}
+<div class="pageSidebar">
+{% assign pagesubnav = false %}
+{% assign pagesubnavmelbourne = linklists['melbourne-college'] %}
+{% if template == 'blog.salon-opportunities' or template == 'article.salon-opportunities' %}
+    {% assign pagesubnav = linklists[settings.salon_opportunity_blog_submenu] %}
+{% elsif template == 'blog' or template == 'article' %}
+    {% if blog.metafields.global.blog_submenu %}
+        {% assign pagesubnav = linklists[blog.metafields.global.blog_submenu] %}
+    {% endif %}
+{% else %}
+    {% if page.metafields.global.pagesubnav %}
+        {% if linklists[page.metafields.global.pagesubnav].links.size > 0 %}
+            {% assign pagesubnav = linklists[page.metafields.global.pagesubnav] %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+    {%- if pagesubnav -%}
+    <div class="page-sidebar-nav-global page-sidebar-nav" style="display:none;">
+      <h2>{{ pagesubnav.title }}</h2>
+      <ul>
+        {%- for link in pagesubnav.links -%}
+            {%- if link.active -%}
+                <li>{{ link.title }}</li>
+            {%- else -%}  
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endif -%} 
+        {%- endfor -%}
+      </ul>
+    </div>
+    <script defer="defer">
+        $('.pageSidebar').on('click', 'h2', function () {
+            $(this).parent().toggleClass('exp');
+        });
+    </script>
+    {%- endif -%}
+</div>

@@ -1,0 +1,90 @@
+.welcome-to-blog .page-width {
+  max-width: 1346px;
+}
+.welcome-to-blog .page-width > .flex-container {
+  padding: 50px 70px;
+  align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  -moz-align-items: center;
+}
+.welcome-to-blog .title {
+  width: 40%;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 70px;
+  color: #001b39;
+  line-height: 1.1;
+  font-family: "Helvetica Neue LT Std 57 Condensed";
+}
+.welcome-to-blog .cat-blogs {
+  width: 60%;
+  padding-left: 15px;
+  margin: 0 -7.5px;
+}
+.welcome-to-blog .cat-blogs .item {
+  width: 50%;
+  padding: 7.5px;
+}
+.welcome-to-blog .cat-blogs .item a {
+  display: block;
+  opacity: 0;
+  padding: 22px 15px;
+  background: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #001e37;
+  font-size: 16px;
+  transition: 1.3s cubic-bezier(0.81, 0.15, 0.26, 0.99) 0.3s;
+  -ms-transition: 1.3s cubic-bezier(0.81, 0.15, 0.26, 0.99) 0.3s;
+  -moz-transition: 1.3s cubic-bezier(0.81, 0.15, 0.26, 0.99) 0.3s;
+}
+.welcome-to-blog .cat-blogs .item.animate a {
+  opacity: 1;
+}
+@media (max-width: 1400px) {
+  .welcome-to-blog .page-width > .flex-container {
+    /* padding:40px; */
+    padding: calc(100vw * 0.02857);
+  }
+}
+@media (max-width: 1024px) {
+  .welcome-to-blog .page-width > .flex-container {
+    padding: 20px;
+  }
+  .welcome-to-blog .title {
+    font-size: 50px;
+  }
+  .welcome-to-blog .cat-blogs .item a {
+    font-size: 14px;
+  }
+}
+@media (max-width: 768px) {
+  .welcome-to-blog .page-width > .flex-container {
+    padding: calc(100vw * 0.052083);
+  }
+  .welcome-to-blog .title {
+    width: 100%;
+    font-size: 40px;
+    text-align: right;
+    margin-bottom: calc(100vw * 0.03906);
+  }
+  .welcome-to-blog .cat-blogs {
+    width: 100%;
+    padding-left: 0;
+  }
+  .welcome-to-blog .cat-blogs .item a {
+    font-size: calc(100vw * 0.02039);
+    padding: 15px 10px;
+  }
+}
+@media (max-width: 480px) {
+  .welcome-to-blog .cat-blogs .item {
+    width: 100%;
+    padding: 5px 0;
+  }
+  .welcome-to-blog .cat-blogs .item a {
+    font-size: 16px;
+  }
+}

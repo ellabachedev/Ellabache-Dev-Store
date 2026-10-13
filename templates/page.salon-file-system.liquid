@@ -1,0 +1,106 @@
+{% render 'shogun-products', content: page %}
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{% if customer %}
+	{% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+	<div class="dashboard-customer">
+    <div class="flex-container">
+      {% include 'customer-dashboard-sidebar' %}
+
+
+
+	  
+
+
+
+      	<div class="content-body">
+          <div class="content-body-onlineOrders">
+            <h3 class="sub-history">{{ page.title }}</h3>
+          </div>
+          <div class="salon-portal-resources">
+          	{%- if page.metafields.accentuate.file_system_page_banner != blank -%}
+          	<div class="banner">
+          		<div class="item">
+	          		<picture>
+			            {%- if page.metafields.accentuate.file_system_page_banner_mobile != blank -%}
+			              <source srcset="{{ page.metafields.accentuate.file_system_page_banner_mobile }}"  media="(max-width: 768px)">
+			              <source srcset="{{ page.metafields.accentuate.file_system_page_banner }}"media="(max-width: 1900px)">
+			            {%- else -%}
+			              <source srcset="{{ page.metafields.accentuate.file_system_page_banner }}"media="(max-width: 1900px)">
+			            {%- endif -%}
+			          <img src="{{ page.metafields.accentuate.file_system_page_banner }}" alt="banner">
+			          </picture>
+          		</div>
+          	</div>
+          	{%- endif -%}
+          	{%- if page.metafields.accentuate.folder_title != blank -%}
+
+
+
+
+
+
+
+
+	          <div class="folders">
+		          <div class="flex-container">
+		          {%- assign index = 0 -%}
+		          {%- for salonPortalFolderTitle in page.metafields.accentuate.folder_title -%}
+		          	<div class="item">
+		          		<a href="{{ page.metafields.accentuate.folder_url[index] }}"><img src="{{ 'folder-1.png' | asset_url }}" alt="alt"><span>{{ page.metafields.accentuate.folder_title[index] }}</span></a>
+		          	</div>
+		          {%- assign index = index | plus: 1 -%}
+			        {%- endfor -%}
+			        </div>
+		        </div>
+		        {%- endif -%}
+	        </div>
+        </div>
+    </div>
+	</div>
+	{% endif %}
+	{% else %}
+	<script>
+      var shopUrl = '{{ shop.url }}';
+      var pageUrl = '{{ page.handle }}';
+      window.location.href = shopUrl + "/account/login?return_url=%2Fpages%2F" + pageUrl;
+  </script>
+{% endif %}
+<script>
+	$(document).ready(function(){
+		$('.files .btn-preview').magnificPopup({
+		  type: 'image'
+		  // other options
+		});
+	});
+</script>
+<style>
+	.salon-portal-resources{max-width:1000px;}
+	.salon-portal-resources .banner img{display:block; height:170px; object-fit:cover; width:100%;}
+	@media (max-width: 768px){.salon-portal-resources .banner img{height:auto;}}
+	.salon-portal-resources .folders{padding:20px 0;}
+	.salon-portal-resources .folders .flex-container{ justify-content:flex-start; margin:0 -15px;}
+	.salon-portal-resources .folders .item{ padding:15px; width:16.6%;}
+	.salon-portal-resources .folders .item a{display:block;}
+	.salon-portal-resources .folders .item a:focus{outline:none;}
+	.salon-portal-resources .folders .item img{display:block; max-width:120px;}
+	.salon-portal-resources .folders .item span{display:block; color:#001b39;}
+	.salon-portal-resources .files{padding:20px 30px; background:#f8f8f8;}
+	.salon-portal-resources .files .item{padding:5px 0;}
+	.salon-portal-resources .files .item .inner{position:relative; padding-right:235px;}
+	.salon-portal-resources .files .item .flex-container{justify-content:flex-start; align-items:center; }
+	.salon-portal-resources .files .item h3{ font-size:14px; color:#001b39; margin:0;}
+	.salon-portal-resources .files .item .button-holder{position:absolute; right:0; top:0;}
+	.salon-portal-resources .files .item .button-holder .btn{font-size:14px; text-transform:uppercase; padding:5px 15px; min-width:inherit;}
+	.salon-portal-resources .files .item .thumb{font-size:0; width:50px;}
+	.salon-portal-resources .files .item .thumb img{display:inline-block; max-height:25px; object-fit:contain;}
+	.salon-portal-resources .files .item .button-holder .btn-preview{border:1px solid #001b39; }
+	.salon-portal-resources .files .item .button-holder .btn-download{background:#001b39; border:1px solid #001b39;color:#ffffff;}
+	@media (max-width: 767px){
+		.salon-portal-resources .files .item .inner{padding-right:0;}
+		.salon-portal-resources .files .item .button-holder{position:static; margin-top:10px;}
+		.salon-portal-resources .files .item .inner{margin-bottom:10px;}
+	}
+</style>
+{{ page.metafields.shogun.optimizer }}
+
+

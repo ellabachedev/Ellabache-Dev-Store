@@ -1,0 +1,453 @@
+{{ 'component-hero-slider.css' | asset_url | stylesheet_tag }}
+{%- capture heroSlider -%}
+  <div class="hero-slider">
+    {%- assign index = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.slider_switch != blank -%}
+        <div style="background-color:{{ block.settings.slider-bg-color }};" id="slide_{{block.id }}" class="slide-item {% if block.settings.slider-video-url != blank %}has-video {% endif %}{% if block.settings.banner_layout == '1' %}full-width-image{% endif %}{% if block.settings.banner_layout == '3' %}no-image{% endif %}">
+          {%- if block.settings.full-slider-link != blank -%}
+            <a
+              class="wrapper-anchor"
+              href="{{ block.settings.full-slider-link}}"
+              aria-label="Banner Slider">
+            {%- endif -%}
+            {%- comment -%}
+            <div class="slide-overlay {% if block.settings.slider_column_reverse == '2' %}animate-left {% elsif block.settings.slider_column_reverse == '1' %} animate-right {% endif %}" style="background-color:{{ block.settings.slider_content_bg_color }}"></div>
+            {%- endcomment -%}
+            <div class="flex-container {% if block.settings.slider_column_reverse == '2' %}column-reverse {% endif %}">
+              {%- if block.settings.slider_content_switch != blank -%}
+                <div class="block-content flex-container {% if block.settings.slider_content_layout == '1' %}default-ui{% elsif block.settings.slider_content_layout == '2' %}secondary-ui{% endif %}" style="{% if block.settings.banner_layout == '2' %}background-color:{{ block.settings.slider_content_bg_color }} {% endif %}">
+                  <div class="inner">
+                    {%- if block.settings.slider-main-title != blank -%}
+                      <h1 style="color:{{ block.settings.slider-title-color}};" class="{% if block.settings.slider-main-title-animate != blank %}animate-title{% endif %}">{{ block.settings.slider-main-title }}</h1>
+                    {%- endif -%}
+                    {%- if block.settings.slider-description != blank -%}
+                      <div class="description desktop" style="max-width:{{ block.settings.slider-desc-max-width}}px;">
+                        <p style="color:{{ block.settings.slider-desc-color }};">{{ block.settings.slider-description }}</p>
+                        {%- if block.settings.slider-secondary-text != blank -%}
+                          <p class="secondary-text" style="color:{{ block.settings.slider-desc-color }};">{{ block.settings.slider-secondary-text }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.slider-button-text != blank -%}
+                      <div class="button-holder desktop">
+                        {%- if block.settings.slider-button-url != blank and block.settings.full-slider-link == blank -%}
+                          <a
+                            class="button"
+                            href="{{ block.settings.slider-button-url }}"
+                            style="color:{{ block.settings.slider-btn-font-color }};  {% if block.settings.button-style == '1' %}border:1px solid {{ block.settings.slider-btn-border-color }};{% elsif block.settings.button-style == '2' %}
+                                                  border-bottom:1px solid {{ block.settings.slider-btn-border-color }};{% else %}border-bottom:none;{% endif %} background-color:{{ block.settings.slider-btn-bg-color }};">
+                            {{ block.settings.slider-button-text }}
+                          </a>
+                        {%- else -%}
+                          <span class="button" style="color:{{ block.settings.slider-btn-font-color }};  {% if block.settings.button-style == '1' %}border:1px solid {{ block.settings.slider-btn-border-color }};{% elsif block.settings.button-style == '2' %}
+                                                  border-bottom:1px solid {{ block.settings.slider-btn-border-color }};{% else %}border-bottom:none;{% endif %} background-color:{{ block.settings.slider-btn-bg-color }};">
+                            {{ block.settings.slider-button-text }}
+                          </span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.banner_layout != '3' -%}
+              <div class="block-media" style="background-color:{{ block.settings.slider_content_bg_color }}">
+                {%- if block.settings.slider-video-url != blank -%}
+                  <video
+                    id="vid{{index}}"
+                    class="videoslider"
+                    autoplay
+                    playsinline
+                    loop
+                    muted>
+                    <source src="{{ block.settings.slider-video-url }}" type="video/mp4">
+                  </video>
+                {%- else -%}
+                  <picture>
+                    {%- if block.settings.slider-image-mobile != blank -%}
+                      <source srcset="{{ block.settings.slider-image-mobile | img_url: '480x', format: 'pjpg' }}" media="(max-width: 480px)">
+                      <source srcset="{{ block.settings.slider-image-mobile | img_url: '800x', format: 'pjpg' }}" media="(max-width: 800px)">
+                    {%- endif -%}
+                    <source srcset="{{ block.settings.slider-image-desktop | img_url: '1900x', format: 'pjpg' }}" media="(max-width: 1900px)">
+                  <img class="{%- if block.settings.slider-image-mobile == blank -%}min-height-mobile{%- endif -%}"
+                      width="1900"
+                      height="650"
+                      src="{{ block.settings.slider-image-desktop | img_url: '1900x', format: 'pjpg' }}"
+                      {% if index > 0 %}loading="lazy"{% endif %}
+                      alt="{{ block.settings.slider-image-desktop.alt | escape }}">
+                  </picture>
+                {%- endif -%}
+              </div>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.full-slider-link != blank -%}
+            </a>
+          {%- endif -%}
+          {%- if block.settings.slider-description-mobile != blank -%}
+            <div class="description mobile" style="background-color: {{ block.settings.slider-desc-bgcolor-mob }}">
+              <p>{{ block.settings.slider-description-mobile }}</p>
+              {%- if block.settings.slider-secondary-text != blank -%}
+                <p class="secondary-text">{{ block.settings.slider-secondary-text }}</p>
+              {%- endif -%}
+              {%- if block.settings.slider-button-text != blank -%}
+                <div class="button-holder mobile">
+                  {%- if block.settings.slider-button-url != blank -%}
+                    <a
+                      class="button"
+                      href="{{ block.settings.slider-button-url }}"
+                      style="color:{{ block.settings.slider-btn-font-color }};  {% if block.settings.button-style == '1' %}border:1px solid {{ block.settings.slider-btn-border-color }};{% elsif block.settings.button-style == '2' %}
+                                                    border-bottom:1px solid {{ block.settings.slider-btn-border-color }};{% else %}border-bottom:none;{% endif %} background-color:{{ block.settings.slider-btn-bg-color }};">
+                      {{ block.settings.slider-button-text }}
+                    </a>
+                  {%- else -%}
+                    <span class="button" style="color:{{ block.settings.slider-btn-font-color }};  {% if block.settings.button-style == '1' %}border:1px solid {{ block.settings.slider-btn-border-color }};{% elsif block.settings.button-style == '2' %}
+                                                    border-bottom:1px solid {{ block.settings.slider-btn-border-color }};{% else %}border-bottom:none;{% endif %} background-color:{{ block.settings.slider-btn-bg-color }};">
+                      {{ block.settings.slider-button-text }}
+                    </span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <script>
+            var slideMainTitleBgColor = '{{ block.settings.slider-title-bgcolor }}',
+              slideMainTitlePBottom = '{{ block.settings.slider-main-title-mb }}',
+              pB = parseInt(slideMainTitlePBottom);
+            $("#slide_ {{block.id }} h1 span").css("background-color", slideMainTitleBgColor);
+            var winWidth = $(window).width();
+            if (winWidth <= 768) {
+              $("#slide_ {{block.id }} h1").css("padding-bottom", pB);
+            }
+          </script>
+        </div>
+      {%- endif -%}
+      {%- assign index = index | plus: 1 -%}
+    {%- endfor -%}
+  </div>
+  {%- if section.blocks.size > 1 -%}
+    <div class="indicator-line">
+      <div class="progress"></div>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+{{ heroSlider | strip_newlines }}
+{% if section.blocks.size > 1 %}
+  <script>
+    $(document).ready(function() {
+      var autoplaySpeed = parseInt({{ section.settings.autoplay_int }});{%- if section.settings.autoplay != blank -%}
+        var autoplayStat = true;
+      {%- else -%}
+        var autoplayStat = false;{%- endif -%}
+      $('.hero-slider').slick({
+        dots: false,
+        arrows: false,
+        infinite: false,
+        speed: 300,
+        autoplay: autoplayStat,
+        pauseOnFocus: true,
+        autoplaySpeed: autoplaySpeed,
+        adaptiveHeight: true
+      });
+      var slideItemNo = $(".hero-slider .slide-item").length - 1,
+        slideProgressInterval = 100 / slideItemNo;
+      var x = 0;
+      $(".hero-slider .slide-item").each(function() {
+        var progressintervalWidth = (slideProgressInterval * x).toFixed(2);
+        $(this).attr('data-progress-bar', progressintervalWidth);
+        x++;
+      });
+
+    // Animate Banner Block Title Initlialize ----------------------------
+      $("div.hero-slider div.slide-item:first-child h1.animate-title span").each(function(i) {
+        var $item = $(this);
+        setTimeout(function() {
+          $item.addClass('animate');
+        }, i * 1000);
+      });
+      $('.hero-slider').on('afterChange', function(event, slick, currentSlide, nextSlide) {
+        var hasVideo = $('.hero-slider').find('.slick-current .videoslider').length;
+        if (hasVideo >= 1) {
+          var videoID = $('.hero-slider').find('.slick-current .videoslider').attr('id');
+          if (videoID) {
+            var myVideo = document.getElementById(videoID);
+            myVideo.play();
+          }
+        }
+        var activeSliderProgressWidth = $('div.hero-slider .slick-active').attr('data-progress-bar');
+        $("div.hero-slider + .indicator-line .progress").css('width', activeSliderProgressWidth + '%');
+
+    // Animate Banner Block Title On Slide----------------------------
+        $("div.hero-slider div.slide-item h1.animate-title span").removeClass('animate');
+        $("div.hero-slider div.slick-active h1.animate-title span").each(function(i) {
+          if ($(this).hasClass('animate')) {} else {
+            var $item = $(this);
+            setTimeout(function() {
+              $item.addClass('animate');
+            }, i * 1000);
+          }
+        });
+      });
+    });
+  </script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Hero Slider",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay slideshow"
+      }, {
+        "type": "select",
+        "id": "autoplay_int",
+        "options": [
+          {
+            "value": "1000",
+            "label": "1 second"
+          },
+          {
+            "value": "2000",
+            "label": "2 seconds"
+          },
+          {
+            "value": "3000",
+            "label": "3 seconds"
+          },
+          {
+            "value": "4000",
+            "label": "4 seconds"
+          }, {
+            "value": "5000",
+            "label": "5 seconds"
+          }, {
+            "value": "6000",
+            "label": "6 seconds"
+          }, {
+            "value": "7000",
+            "label": "7 seconds"
+          }, {
+            "value": "8000",
+            "label": "8 seconds"
+          }, {
+            "value": "9000",
+            "label": "9 seconds"
+          }, {
+            "value": "10000",
+            "label": "10 seconds"
+          }
+        ],
+        "label": "Autoplay interval",
+        "default": "3000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slider",
+        "name": "Slider",
+        "settings": [
+          {
+            "id": "slider_switch",
+            "type": "checkbox",
+            "label": "Enable",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "banner_layout",
+            "label": "Banner Layout",
+            "options": [
+              {
+                "value": "1",
+                "label": "Full Width Image/Video"
+              }, {
+                "value": "2",
+                "label": "Half Width Image/Video"
+              }, {
+                "value": "3",
+                "label": "No Image/Video"
+              }
+            ],
+            "default": "2"
+          },
+          {
+            "type": "url",
+            "id": "full-slider-link",
+            "label": "Banner Image URL"
+          },
+          {
+            "type": "image_picker",
+            "id": "slider-image-desktop",
+            "label": "Slider Image Desktop"
+          }, {
+            "type": "image_picker",
+            "id": "slider-image-mobile",
+            "label": "Slider Image Mobile"
+          }, {
+            "type": "text",
+            "id": "slider-video-url",
+            "label": "Video URL (Overwrites Image)"
+          }, {
+            "type": "header",
+            "content": {
+              "en": "Slider Content Block"
+            }
+          }, {
+            "id": "slider_content_switch",
+            "type": "checkbox",
+            "label": "Enable",
+            "default": true
+          }, {
+            "type": "select",
+            "id": "slider_content_layout",
+            "label": "Content Layout",
+            "options": [
+              {
+                "value": "1",
+                "label": "Primary Interace"
+              }, {
+                "value": "2",
+                "label": "Secondary Interface"
+              }
+            ],
+            "default": "1"
+          }, {
+            "type": "select",
+            "id": "slider_column_reverse",
+            "label": "Slider Column Reverse",
+            "options": [
+              {
+                "value": "1",
+                "label": "Left"
+              }, {
+                "value": "2",
+                "label": "Right"
+              }
+            ],
+            "default": "1"
+          }, {
+            "id": "slider_content_bg_color",
+            "type": "color",
+            "label": "Enable",
+            "default": "#001E37"
+          }, {
+            "type": "textarea",
+            "id": "slider-main-title",
+            "label": "Title"
+          }, {
+            "type": "range",
+            "id": "slider-main-title-mb",
+            "min": 0,
+            "max": 60,
+            "step": 1,
+            "unit": "px",
+            "label": "Title Margin Bottom Value (Mobile)",
+            "default": 0
+          }, {
+            "id": "slider-main-title-animate",
+            "type": "checkbox",
+            "label": "Enable Title Animation",
+            "default": false
+          }, {
+            "type": "textarea",
+            "id": "slider-description",
+            "label": "Description (Desktop)"
+          }, {
+            "type": "range",
+            "id": "slider-desc-max-width",
+            "min": 100,
+            "max": 1000,
+            "step": 100,
+            "label": "Slider Description Max Width",
+            "default": 600
+          }, {
+            "type": "textarea",
+            "id": "slider-description-mobile",
+            "label": "Description (Mobile)"
+          }, {
+            "type": "text",
+            "id": "slider-secondary-text",
+            "label": "Secondary Text"
+          }, {
+            "type": "color",
+            "id": "slider-desc-bgcolor-mob",
+            "label": "Background Color",
+            "default": "#DDDDDD"
+          }, {
+            "type": "text",
+            "id": "slider-button-text",
+            "label": "Button",
+            "default": "Shop Now"
+          }, {
+            "type": "url",
+            "id": "slider-button-url",
+            "label": "Button URL"
+          }, {
+            "type": "select",
+            "id": "button-style",
+            "label": "Button Style",
+            "options": [
+              {
+                "value": "1",
+                "label": "Full Border"
+              }, {
+                "value": "2",
+                "label": "Bottom Border"
+              }, {
+                "value": "3",
+                "label": "No Border"
+              }
+            ],
+            "default": "2"
+          }, {
+            "type": "header",
+            "content": {
+              "en": "Slider Styles"
+            }
+          }, {
+            "type": "color",
+            "id": "slider-bg-color",
+            "label": "Slider Background Color",
+            "default": "#001E37"
+          }, {
+            "type": "color",
+            "id": "slider-title-color",
+            "label": "Title Font Color",
+            "default": "#001E37"
+          }, {
+            "type": "color",
+            "id": "slider-title-bgcolor",
+            "label": "Title Background Color",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "slider-desc-color",
+            "label": "Description Color",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "slider-btn-font-color",
+            "label": "Button Font Color",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "slider-btn-border-color",
+            "label": "Button Border Color",
+            "default": "#ffffff"
+          }, {
+            "type": "color",
+            "id": "slider-btn-bg-color",
+            "label": "Button Background Color",
+            "default": "#001E37"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Slider",
+        "category": "Slider"
+      }
+    ]
+  }
+{% endschema %}

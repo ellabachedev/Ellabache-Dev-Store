@@ -1,0 +1,205 @@
+{% schema %}
+{
+  "name": "faq Block",
+  "class": "faq-block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+   {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bobttom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "faq Block",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+{%- if collection.metafields.accentuate.collection_faq_question != blank -%}
+{%- style -%}
+  .faq-block {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  
+  @media screen and (min-width: 750px) {
+    .faq-block  {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<style>
+  .faq{
+    border-top:2px solid #f0f0f0;
+  }
+  .faq .faq__item{
+    border-bottom:2px solid #f0f0f0;
+  }
+  .faq__header {
+    width: 100%;
+    background:none;
+    padding: 1.35rem 1rem;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq__header[aria-expanded='true'] .faq__icon svg{
+    transform: rotate(180deg);
+  }
+  .faq__title {
+    flex: 1;
+    font-size:20px;
+    text-transform:none;
+    color:#001E37;
+  }
+
+  .faq__icon {
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .faq__content {
+    background: #fff;
+    overflow: hidden;
+    color:#001E37;
+  }
+
+  .faq__content-inner {
+    padding: 1rem;
+    padding-top:0;
+  }
+  .faq__content-inner p:first-child{
+    margin-top:0;
+  }
+  .faq__content-inner p:last-child{
+    margin-bottom:0;
+  }
+</style>
+<div class="page-width">
+  {% if section.settings.title != blank %}
+  <h2 class="text-center">{{ section.settings.title }}</h2>
+  {% endif %}
+  <div class="faq" id="faq-{{ section.id }}">
+    {%- assign index = 0 -%}
+    {%- for collectionFAQ in collection.metafields.accentuate.collection_faq_question -%}
+      <div class="faq__item">
+      {%- if collection.metafields.accentuate.collection_faq_question[index] != blank -%}
+        <button class="faq__header" type="button" aria-expanded="false" aria-controls="faq-content-{{ index }}">
+          <span class="faq__title">{{ collection.metafields.accentuate.collection_faq_question[index] }}</span>
+          <span class="faq__icon">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5465 5.05776C12.5416 5.21729 12.4749 5.36868 12.3603 5.47992L7.43902 10.4012L7.43902 10.4013C7.32355 10.5171 7.16677 10.5824 7.00323 10.5824C6.83958 10.5824 6.68278 10.5171 6.56732 10.4013L1.64603 5.48004L1.64603 5.47992C1.52496 5.36571 1.45526 5.20721 1.45309 5.04071C1.45092 4.8742 1.51626 4.71399 1.63436 4.59656C1.75235 4.47915 1.91303 4.4146 2.07941 4.41758C2.24592 4.42067 2.40408 4.49116 2.51772 4.61282L7.00307 9.09817L11.4884 4.61282C11.6039 4.49288 11.7632 4.4249 11.9297 4.42445C12.0963 4.42399 12.256 4.49116 12.3721 4.61053C12.4883 4.72989 12.5511 4.89125 12.5462 5.05777L12.5465 5.05776Z" fill="#4A4A4A"/>
+            </svg>
+          </span>
+        </button>
+        {%- endif -%}
+        {%- if collection.metafields.accentuate.collection_faq_answer[index] != blank -%}
+        <div id="faq-content-{{ index }}" class="faq__content" hidden>
+          <div class="faq__content-inner">
+            {{ collection.metafields.accentuate.collection_faq_answer[index] }}
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+    {%- assign index = index | plus: 1 -%}
+    {%- endfor -%}
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const faq = document.querySelector("#faq-{{ section.id }}");
+    if (!faq) return;
+
+    const headers = faq.querySelectorAll(".faq__header");
+
+    headers.forEach((header) => {
+      const content = header.nextElementSibling;
+
+      // Prep GSAP
+      gsap.set(content, { height: "auto", overflow: "hidden" });
+      const fullHeight = content.scrollHeight;
+      gsap.set(content, { height: 0 });
+
+      header.addEventListener("click", () => {
+        const isOpen = header.getAttribute("aria-expanded") === "true";
+
+        // Close all
+        headers.forEach((btn) => {
+          btn.setAttribute("aria-expanded", "false");
+          //btn.querySelector(".faq__icon").textContent = "+";
+          const otherContent = btn.nextElementSibling;
+          if (!otherContent.hidden) {
+            gsap.to(otherContent, {
+              height: 0,
+              duration: 0.4,
+              onComplete: () => (otherContent.hidden = true)
+            });
+          }
+        });
+
+        if (!isOpen) {
+          header.setAttribute("aria-expanded", "true");
+          //header.querySelector(".faq__icon").textContent = "−";
+          content.hidden = false;
+
+          gsap.set(content, { height: "auto" }); // reset full height
+          const newHeight = content.scrollHeight;
+          gsap.fromTo(
+            content,
+            { height: 0 },
+            { height: newHeight, duration: 0.4 }
+          );
+        }
+      });
+    });
+  });
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for question in collection.metafields.accentuate.collection_faq_question -%}
+      {%- assign answer = collection.metafields.accentuate.collection_faq_answer[forloop.index0] -%}
+      {%- if question != blank and answer != blank -%}
+        {
+          "@type": "Question",
+          "name": {{ question | strip_newlines | strip | escape | json }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ answer | strip_newlines | strip | escape | json }}
+          }
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}

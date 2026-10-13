@@ -1,0 +1,286 @@
+{%- assign selectedCollection = settings.X_collection -%}
+{%- assign eligibleProds = '' -%}
+{%- paginate collections[selectedCollection].products by 250 -%}
+{%- for prods in collections[selectedCollection].products -%}
+{%- if forloop.first == true -%}
+{% assign eligibleProds = prods.handle %}
+{% else %}
+{% assign eligibleProds = eligibleProds | append:',' | append: prods.handle %}
+{%- endif -%}
+{%- endfor -%}
+{%- endpaginate -%}
+{%- assign showbutton = false -%}
+{%- assign collection_selected = settings.X_collection -%}
+<span class="selected_collection_offer" style="display:none">{{selectedCollection}}</span>
+{%- assign freeproducts = '' -%}
+{%- if settings.free_product_1 -%}
+{%- if freeproducts == '' -%}
+{%- assign freeproducts = settings.free_product_1 -%}
+{%- else -%}
+{%- assign freeproducts = freeproducts | append:' , ' | append: settings.free_product_1 -%}
+{%- endif -%}
+{%- endif -%}
+{%- if settings.free_product_2 -%}
+{%- if freeproducts == '' -%}
+{% assign freeproducts = settings.free_product_2 %}
+{%- else -%}
+{%- assign freeproducts = freeproducts | append:' , ' | append: settings.free_product_2 -%}
+{%- endif -%}
+{%- endif -%}
+{% comment %}{% if settings.free_product_3 %}
+{% if freeproducts == '' %}
+{% assign freeproducts = settings.free_product_3 %}
+{% else %}
+{% assign freeproducts = freeproducts | append:' , ' | append: settings.free_product_3 %}
+{% endif %}
+{% endif %}
+{% if settings.free_product_4 %}
+{% if freeproducts == '' %}
+{% assign freeproducts = settings.free_product_4 %}
+{% else %}
+{% assign freeproducts = freeproducts | append:' , ' | append: settings.free_product_4 %}
+{% endif %}
+{% endif %}
+{% if settings.free_product_5 %}
+{% if freeproducts == '' %}
+{% assign freeproducts = settings.free_product_5 %}
+{% else %}
+{% assign freeproducts = freeproducts | append:' , ' | append: settings.free_product_5 %}
+{% endif %}
+{% endif %}{% endcomment %}
+{%- for line in cart.items -%}
+{%- assign prodHandle = line.product.handle -%}
+{%- unless freeproducts contains prodHandle -%}
+{%- for coll in all_products[prodHandle].collections -%}
+{%- if collection_selected == coll.handle -%}
+{%- assign showbutton = true -%}
+{% break %}
+{%- endif -%}
+{%- endfor -%}
+{%- endunless -%}
+{%- if showbutton == true -%}
+{% break %}
+{%- endif -%}
+{%- endfor -%}
+{%- assign showbutton = false -%}
+{%- assign buyXgetYEnabled = 0 -%}
+{%- if settings.enable_buyX_getY != blank -%}
+{%- assign buyXgetYEnabled = 1 -%}
+{%- assign productids = cart.items | map: 'id' -%}
+{%- assign allFreeProductVariantIds = '' -%}
+{%- if settings.free_product_1 -%}
+{%- assign freeProduct1 = all_products[settings.free_product_1] -%}
+{%- assign currentVariant1 = freeProduct1.selected_or_first_available_variant -%}
+{%- if allFreeProductVariantIds == '' -%}
+{%- assign allFreeProductVariantIds = currentVariant1.id -%}
+{%- else -%}
+{%- assign allFreeProductVariantIds = allFreeProductVariantIds | append:',' | append: currentVariant1.id -%}
+{%- endif -%}
+{%- endif -%}
+{%- if settings.free_product_2 -%}
+{%- assign freeProduct2 = all_products[settings.free_product_2] -%}
+{%- assign currentVariant2 = freeProduct2.selected_or_first_available_variant -%}
+{%- if allFreeProductVariantIds == '' %}
+{%- assign allFreeProductVariantIds = currentVariant2.id -%}
+{%- else -%}
+{%- assign allFreeProductVariantIds = allFreeProductVariantIds | append:',' | append: currentVariant2.id -%}
+{%- endif -%}
+{%- endif -%}
+<ul id="freeVariantInfo" style="display:none;">
+    {%- if settings.free_product_1 != blank -%}
+    {%- assign free_product_1 = all_products[settings.free_product_1] -%}
+    {%- assign current_variant_1 = free_product_1.selected_or_first_available_variant -%}
+    {%- assign isEligiable1 = "0" -%}
+    {%- for prodCollection in free_product_1.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable1 = "1" -%}
+    {%- endif -%}
+    {%- endfor -%}
+    <li id="info-{{ current_variant_1.id }}" data-id="{{ current_variant_1.id }}" data-free="1"
+        data-eligiable="{{ isEligiable1 }}" data-qty="1"></li>
+    {%- endif -%}
+    {%- if settings.free_product_2 != blank -%}
+    {%- assign free_product_2 = all_products[settings.free_product_2] -%}
+    {%- assign current_variant_2 = free_product_2.selected_or_first_available_variant -%}
+    {%- assign isEligiable2 = "0" -%}
+    {%- for prodCollection in free_product_2.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable2 = "1" -%}
+    {%- endif -%}
+    {%- endfor -%}
+    <li id="info-{{ current_variant_2.id }}" data-id="{{ current_variant_2.id }}" data-free="1"
+        data-eligiable="{{ isEligiable2 }}" data-qty="1"></li>
+    {%- endif -%}
+    {%- if settings.free_product_3 != blank -%}
+    {%- assign free_product_3 = all_products[settings.free_product_3] -%}
+    {%- assign current_variant_3 = free_product_3.selected_or_first_available_variant -%}
+    {%- assign isEligiable3 = "0" -%}
+    {%- for prodCollection in free_product_3.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {% assign isEligiable3 = "1" %}
+    {%- endif -%}
+    {%- endfor %}
+    <li id="info-{{ current_variant_3.id }}" data-id="{{ current_variant_3.id }}" data-free="1"
+        data-eligiable="{{ isEligiable3 }}" data-qty="1"></li>
+    {%- endif -%}
+    {%- if settings.free_product_4 != blank -%}
+    {%- assign free_product_4 = all_products[settings.free_product_4] -%}
+    {%- assign current_variant_4 = free_product_4.selected_or_first_available_variant -%}
+    {%- assign isEligiable4 = "0" -%}
+    {%- for prodCollection in free_product_4.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable4 = "1" -%}
+    {%- endif -%}
+    {%- endfor -%}
+    <li id="info-{{ current_variant_4.id }}" data-id="{{ current_variant_4.id }}" data-free="1"
+        data-eligiable="{{ isEligiable4 }}" data-qty="1"></li>
+    {%- endif -%}
+    {%- if settings.free_product_5 != blank -%}
+    {%- assign free_product_5 = all_products[settings.free_product_5] -%}
+    {%- assign current_variant_1 = free_product_5.selected_or_first_available_variant -%}
+    {%- assign isEligiable5 = "0" -%}
+    {%- for prodCollection in free_product_5.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable5 = "1" -%}
+    {%- endif -%}
+    {%- endfor -%}
+    <li id="info-{{ current_variant_5.id }}" data-id="{{ current_variant_5.id }}" data-free="1"
+        data-eligiable="{{ isEligiable5 }}" data-qty="1"></li>
+    {%- endif -%}
+</ul>
+<form id="freeProducts">
+    {%- if settings.free_shipping_threshold_warning_enabled == blank -%}
+    <a id="btnClaimSamples" {% if showbutton.true %}style="display:block;" {%else%} style="display:none" {% endif %}
+        class="button btn-claim-samples full-width no-margin" href="#" data-cart-addclaims="">{{
+        settings.claim_free_samples_text }}</a>
+    {%- else -%}
+    <a id="btnClaimSamples" {% if showbutton.true %}style="display:block;" {%else%} style="display:none" {% endif %}
+        class="button btn-claim-samples full-width" href="#" data-cart-addclaims="">{{ settings.claim_free_samples_text
+        }}</a>
+    {%- endif -%}
+    <fieldset id="freeVariantIds" style="display:none;">
+        {%- if settings.free_product_1 != blank -%}
+        {%- assign free_product_1 = all_products[settings.free_product_1] -%}
+        {%- assign current_variant_1 = free_product_1.selected_or_first_available_variant -%}
+        {%- assign isEligiable1 = "0" -%}
+        {%- for prodCollection in free_product_1.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+        {%- assign isEligiable1 = "1" -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless productids contains current_variant_1.id -%}
+        <input type="hidden" class="freeitem" id="{{ current_variant_1.id }}" name="id[]"
+            value="{{ current_variant_1.id }}" data-id="{{ current_variant_1.id }}" data-free="1"
+            data-eligiable="{{ isEligiable1 }}" data-qty="1" />
+        {%- endunless -%}
+        {%- endif -%}
+        {%- if settings.free_product_2 != blank -%}
+        {%- assign free_product_2 = all_products[settings.free_product_2] -%}
+        {%- assign current_variant_2 = free_product_2.selected_or_first_available_variant -%}
+        {%- assign isEligiable2 = "0" -%}
+        {%- for prodCollection in free_product_2.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+        {%- assign isEligiable2 = "1" -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless productids contains current_variant_2.id -%}
+        <input type="hidden" class="freeitem" id="{{ current_variant_2.id }}" name="id[]"
+            value="{{ current_variant_2.id }}" data-id="{{ current_variant_2.id }}" data-free="1"
+            data-eligiable="{{ isEligiable2 }}" data-qty="1" />
+        {%- endunless -%}
+        {%- endif -%}
+        {%- if settings.free_product_3 != blank -%}
+        {%- assign free_product_3 = all_products[settings.free_product_3] -%}
+        {%- assign current_variant_3 = free_product_3.selected_or_first_available_variant -%}
+        {%- assign isEligiable3 = "0" -%}
+        {%- for prodCollection in free_product_3.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+        {%- assign isEligiable3 = "1" -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless productids contains current_variant_3.id -%}
+        <input type="hidden" class="freeitem" id="{{ current_variant_3.id }}" name="id[]"
+            value="{{ current_variant_3.id }}" data-id="{{ current_variant_3.id }}" data-free="1"
+            data-eligiable="{{ isEligiable3 }}" data-qty="1" />
+        {%- endunless -%}
+        {%- endif -%}
+        {%- if settings.free_product_4 != blank -%}
+        {%- assign free_product_4 = all_products[settings.free_product_4] -%}
+        {%- assign current_variant_4 = free_product_4.selected_or_first_available_variant -%}
+        {%- assign isEligiable4 = "0" -%}
+        {%- for prodCollection in free_product_4.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+        {%- assign isEligiable4 = "1" -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless productids contains current_variant_4.id -%}
+        <input type="hidden" class="freeitem" id="{{ current_variant_4.id }}" name="id[]"
+            value="{{ current_variant_4.id }}" data-id="{{ current_variant_4.id }}" data-free="1"
+            data-eligiable="{{ isEligiable4 }}" data-qty="1" />
+        {%- endunless -%}
+        {%- endif -%}
+        {%- if settings.free_product_5 != blank -%}
+        {%- assign free_product_5 = all_products[settings.free_product_5] -%}
+        {%- assign current_variant_5 = free_product_5.selected_or_first_available_variant -%}
+        {%- assign isEligiable5 = "0" -%}
+        {%- for prodCollection in free_product_5.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+        {%- assign isEligiable5 = "1" -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless productids contains current_variant_5.id -%}
+        <input type="hidden" class="freeitem" id="{{ current_variant_5.id }}" name="id[]"
+            value="{{ current_variant_5.id }}" data-id="{{ current_variant_5.id }}" data-free="1"
+            data-eligiable="{{ isEligiable5 }}" data-qty="1" />
+        {%- endunless -%}
+        {%- endif -%}
+    </fieldset>
+    <input type="hidden" name="quantity" value="1">
+</form>
+{%- else -%}
+<a id="btnClaimSamplesMain" style="display: none;" href="#claimSamplesPopup" class="button btn-claim-samples full-width"
+    data-popup-samples="">choose your bonus gift</a>
+<a id="btnClaimSamples" style="display: none;" class="button btn-claim-samples full-width" href="#"
+    data-cart-addclaims="">{{ settings.claim_free_samples_text }}</a>
+<a id="btnClaimSelectedSamples" style="display: none;" class="button btn-claim-samples full-width" href="#"
+    data-cart-addclaims="">{{ settings.claim_free_samples_text }}</a>
+<a id="btnRemoveGifts" style="display: none;" class="button btn-claim-samples full-width" href="#"
+    data-cart-removeclaims="">remove free samples</a>
+<a id="btnRemovePreSelectedGifts" style="display: none;" class="button btn-claim-samples full-width" href="#"
+    data-cart-removeclaims="">remove pre selected free samples</a>
+<div class="hide">
+    {{ 'claim-samples-popup.css' | asset_url | stylesheet_tag }}
+    <div id="claimSamplesPopup" class="white-popup-block" data-choose-x-text="{{ settings.choose_x_text }}"
+        data-limit-reached-text="{{ settings.limit_reached_text }}" data-next-btn-text="{{ settings.next_btn_text }}"
+        data-done-btn-text="{{ settings.done_btn_text }}"
+        data-done-btn-disabled-text="{{ settings.done_btn_disabled_text }}"
+        data-min-required-samples="{{ settings.minimum_required_samples }}">
+        <div class="popup-content-wrap">
+            <div class="sample-selectors">
+                <div class="sample-loader"><img style="max-width:150px; position: absolute; left:50%; top:50%; transform:translate(-50%, -50%);" src="https://cdn.shopify.com/s/files/1/0119/6028/7313/t/19/assets/loader.gif" loading="lazy" alt="loading">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endif -%}
+<div id="eligibleProdsJson" style="display:none;">{{ eligibleProds | json }}</div>
+<div id="freeproductsJson" style="display:none;">{{ freeproducts | json }}</div>
+<div id="allFreeProductVariantIdsJson" style="display:none;">{{ allFreeProductVariantIds | json }}</div>
+<div id="buyXgetYEnabled" style="display:none;">{{ buyXgetYEnabled }}</div>
+<script src="{{ 'buyX-getY-min.js' | asset_url }}" defer="defer"></script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- if allFreeProductVariantIds == ''- %}"
+  to: "{%- if allFreeProductVariantIds == '' %}"
+  position: 3157..3197
+- from: "{% if showbutton==true %}"
+  to: "{% if showbutton.true %}"
+  position: 6711..6735
+- from: "{% if showbutton==true %}"
+  to: "{% if showbutton.true %}"
+  position: 6990..7014
+{%- endcomment -%}

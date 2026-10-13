@@ -1,0 +1,127 @@
+{{ 'section-franchise-our-support-cta2.css' | asset_url | stylesheet_tag }}
+{%- capture ourSupportCTA2 -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="ourSupport-cta2" style="background-color:{{ section.settings.block_bg_color }};">
+    <div class="lists">
+      {%- for block in section.blocks -%}
+      <div class="item">
+        <div class="page-width">
+          <div class="flex-container">
+            <div class="image-container">
+              {%- if block.settings.item_thumb != blank -%}
+              <figure style="max-height:{{ block.settings.image_thumb_max-height }}px" class="thumb desktop" >
+                <img width="575" height="310" src="{{ block.settings.item_thumb | img_url:'649x' }}" loading="lazy" alt="">
+              </figure>
+              {%- endif -%}
+              {%- if block.settings.item_thumb_2 != blank -%}
+              <figure style="max-height:{{ block.settings.image_thumb_max-height }}px" class="thumb desktop offscreen_img_wrapper">
+                <img width="575" height="310" src="{{ block.settings.item_thumb_2 | img_url:'649x' }}" loading="lazy" alt="">
+              </figure>
+              {%- endif -%}
+            </div>
+            <div class="expandableContent">
+              <div class="content-full">
+                {%- if block.settings.item_title != blank -%}
+                <h2 class="title">{{ block.settings.item_title }}</h2>
+                {%- endif -%}
+                {%- if block.settings.item_desc != blank -%}
+                {{ block.settings.item_desc }}
+                {%- endif -%}
+              </div>
+              {%- if block.settings.item_btn_url != blank -%}
+                  <a href="{{ block.settings.item_btn_url }}" class="link-wrapper">
+                {%- endif -%}
+                {%- if block.settings.item_btn_text != blank -%}
+                <div class="button-holder">
+                  <span class="button">{{ block.settings.item_btn_text }}</span>
+                </div>
+                {%- endif -%}
+                {%- if block.settings.item_btn_url != blank -%}
+                </a>
+                {%- endif -%}
+              {% comment %}<a href="#" class="button-expand"></a>{% endcomment %}
+            </div>
+        </div>
+      </div>
+    </div>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ ourSupportCTA2 | strip_newlines }}
+{% schema %}
+  {
+    "name": "Our Support CTA 2",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id": "image_thumb_max-height",
+          "type": "range",
+          "label": "Image Max Height",
+          "min": 300,
+          "max": 500,
+          "step":5,
+          "unit": "px",
+          "default": 350
+        },
+        {
+          "id": "item_thumb",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "item_thumb_2",
+          "type": "image_picker",
+          "label": "Image 2"
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "id": "item_btn_text",
+          "type": "text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "item_btn_url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,1553 @@
+{{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+{{ 'search-page.css' | asset_url | stylesheet_tag }}
+{% if search.types contains 'product' %}
+{% assign paginationLimit = 20 %}
+{% else %}
+{% assign paginationLimit = 12 %}
+{% endif %}
+<section class="search-results">
+  {% paginate search.results by paginationLimit %}
+  <header class="search-header {% if search.performed %}{% else %}margin-bottom-120{% endif %}">
+    <div class="page-width">
+      {% if search.performed %}
+      <div class="rte">
+        {% if search.results_count == 0 %}
+        {{ 'general.search.no_results_html' | t: terms: search.terms }}
+        {% else %}
+        {{ 'general.search.results_for_html' | t: terms: search.terms }}
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </header>
+  {% assign searchTypes = search.types | join: "|" %}
+  <div id="hiddenResults" data-search-terms="{{ search.terms }}" data-search-types="{{ searchTypes }}"
+    data-shop-secureurl="{{ shop.secure_url }}" data-pagination-limit="{{ paginationLimit }}"
+    data-product-count="{{ search.results_count }}" data-article-count="{{ search.results_count }}"
+    style="display:none;">
+    {% assign tempProd = product %}
+    {% if search.performed %}
+    {% for item in search.results %}
+    {% if item.object_type == 'product' %}
+    {% assign product = item %}
+    {% assign isTreatment = 0 %}
+    {% if product.template_suffix == 'treatment' or product.template_suffix == 'treatment-dawn' %}
+    {% assign isTreatment = 1 %}
+    {% endif %}
+    {% assign productCollectionHandles = '' %}
+    {% for prodColl in product.collections %}
+    {% if forloop.first == true %}
+    {% assign productCollectionHandles = prodColl.handle %}
+    {% else %}
+    {% assign productCollectionHandles = productCollectionHandles | append: ',' | append: prodColl.handle %}
+    {% endif %}
+    {% endfor %}
+
+    {%- assign isEligiable = 0 -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if settings.enable_buyX_getY -%}
+    {% assign isEligiable = 0 %}
+    {%- for prodCollection in product.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable = 1 -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if product.handle == settings.free_product_1 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_2 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_3 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_4 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_5 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- else -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- endif -%}
+    {%- endif -%}
+    {% if product.available %}
+    {% assign productAvailable = 1 %}
+    {% else %}
+    {% assign productAvailable = 0 %}
+    {% endif %}
+    {% assign productVariants = product.variants %}
+    {% assign variantsStr = "" %}
+    {% for variant in productVariants %}
+    {% assign variantId = variant.id %}
+    {% assign variantTitle = variant.title %}
+    {% assign variantPrice = variant.price | money %}
+    {% assign variantCompareAtPrice = variant.compare_at_price | money %}
+    {% assign addToCartTextDefault = 'products.product.add_to_cart' | t %}
+    {% assign addToCartText = 'products.product.add_to_cart' | t %}
+    {% assign hasCompareAtPriceDefault = 0 %}
+    {% assign hasCompareAtPrice = 0 %}
+    {% assign variantImageSrc = variant.image.src %}
+    {% assign variantImageUrl = variant.image.src | img_url: '720x720' %}
+    {% assign variantImageUrlThumb = variant.image.src | img_url: '115x115' %}
+    {% if variant.compare_at_price > variant.price %}
+    {% assign hasCompareAtPrice = 1 %}
+    {% else %}
+    {% assign hasCompareAtPrice = 0 %}
+    {% endif %}
+    {%- if variant.available -%}
+    {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity == 0 -%}
+    {% assign addToCartText = 'products.product.preorder' | t %}
+    {%- else -%}
+    {% assign addToCartText = 'products.product.add_to_cart' | t %}
+    {%- endif -%}
+    {%- else -%}
+    {% assign addToCartText = 'products.product.sold_out' | t %}
+    {%- endif -%}
+    {% if variant.available %}
+    {% assign variantAvailable = 1 %}
+    {% else %}
+    {% assign variantAvailable = 0 %}
+    {% endif %}
+    {% if variant.id == product.selected_or_first_available_variant.id %}
+    {% assign variantSelected = 1 %}
+    {% assign addToCartTextDefault = addToCartText %}
+    {% assign hasCompareAtPriceDefault = hasCompareAtPrice %}
+    {% else %}
+    {% assign variantSelected = 0 %}
+    {% endif %}
+
+    {% if forloop.first %}
+    {% assign variantsStr = variantsStr | append: variantId | append: "|" | append: variantTitle | append: "|" | append:
+    variantPrice | append: "|" | append: variantImageSrc | append: "|" | append: variantImageUrl | append: "|" | append:
+    variantImageUrlThumb | append: "|" | append: variantAvailable | append: "|" | append: variantSelected | append: "|"
+    | append: addToCartText | append: "|" | append: variantCompareAtPrice | append: "|" | append: hasCompareAtPrice %}
+    {% else %}
+    {% assign variantsStr = variantsStr | append: "|#|" | append: variantId | append: "|" | append: variantTitle |
+    append: "|" | append: variantPrice | append: "|" | append: variantImageSrc | append: "|" | append: variantImageUrl |
+    append: "|" | append: variantImageUrlThumb | append: "|" | append: variantAvailable | append: "|" | append:
+    variantSelected | append: "|" | append: addToCartText | append: "|" | append: variantCompareAtPrice | append: "|" |
+    append: hasCompareAtPrice %}
+    {% endif %}
+    {% endfor %}
+    {% assign imagesStr = "" %}
+    {% for image in product.images %}
+    {% assign imgUrl = image.src | img_url: '500x' %}
+    {% assign imgUrlThumb = image.src | img_url: '115x115' %}
+    {% if forloop.first %}
+    {% assign imagesStr = imagesStr | append: image.src | append: "|" | append: imgUrl | append: "|" | append:
+    imgUrlThumb %}
+    {% else %}
+    {% assign imagesStr = imagesStr | append: "|#|" | append: image.src | append: "|" | append: imgUrl | append: "|" |
+    append: imgUrlThumb %}
+    {% endif %}
+    {% endfor %}
+    <div class="hidden-item" data-template="{{ product.template_suffix }}"
+      data-item-object-type="{{ item.object_type }}" data-is-treatment="{{ isTreatment }}"
+      data-item-url="{{ item.url | within: collection }}" data-product-title="{{ product.title }}"
+      data-variant-quantity="{{ product.variants[0].inventory_quantity }}"
+      data-variant-sku="{{ product.variants[0].sku }}" data-variant-title="{{ product.variants[0].title }}"
+      data-product-handle="{{ product.handle }}" data-product-quantity="1"
+      data-product-image="{{ product.featured_image.src | img_url: '500x' }}" data-product-images="{{ imagesStr }}"
+      data-product-price="{{ product.variants[0].price | money }}"
+      data-product-compareatprice="{{ product.variants[0].compare_at_price | money }}"
+      data-product-hascompareatprice="{{ hasCompareAtPriceDefault }}"
+      data-w-product-price="{{ product.variants[0].price | money | remove: '.00' }}"
+      data-variant-id="{{ product.variants[0].id }}" data-product-id="{{ product.id }}"
+      data-product-globalsize="{{ product.metafields.global.prod_size }}"
+      data-product-desc="{{ product.description | strip_html | truncatewords: 45, " ..." }}"
+      data-product-descshort="{{ product.description | strip_html | truncate: 80, " <span class='dotdotdot'>...</span>"
+      }}" data-collection-handles="{{ productCollectionHandles }}" data-eligiable="{{ isEligiable }}"
+      data-freesample="{{ isFreeSample }}" data-product-available="{{ productAvailable }}" data-variants-count="{{
+      productVariants.size }}" data-defaultvariantid="{{ product.selected_or_first_available_variant.id }}"
+      data-variants="{{ variantsStr }}" data-addtocart-text="{{ addToCartTextDefault }}" data-unique-collection="{{
+      collection.handle }}">
+      <div class="json">{{ item | json }}</div>
+      <div class="item-badges">
+        <div id="productInfos-{{ collection.handle }}-{{ product.id }}" style="display:none;">
+          <div id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
+            <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}"
+              data-product-sku="{{ product.handle }}" style="display: inline-block;">{{ product.metafields.stamped.badge
+              }}</span>
+          </div>
+          <div id="afterpayBadge-{{ collection.handle }}-{{ product.id }}">
+            {%- if settings.afterpay_enabled -%}{% include 'afterpay' %}{%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    {% assign featured_image = "https://cdn.shopify.com/s/files/1/0119/6028/7313/files/no-image.png" %}
+    {%- if item.image != blank -%}
+    {% assign featured_image = item.image | img_url: '300x' %}
+    {%- endif -%}
+    <div class="hidden-item" data-item-object-type="{{ item.object_type }}" data-item-image="{{ featured_image }}"
+      data-item-title="{{ item.title }}" data-item-url="{{ item.url }}">
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% assign product = tempProd %}
+  </div>
+  <div class="search-results-content">
+    <div class="page-width">
+      <div class="flex-container search-results-content-inner">
+        {% if search.performed %}
+        <div id="collection-dynamic-content" class="search-results-dynamic-content">
+          <div id="noProductsTreatmentsWrap">
+            <h2 class="block-title">Products and Book Treatments</h2>
+            <div class="product-grid-block">
+              <div class="product-listing">
+                <div class="flex-container product-grid" style="border-top:2px solid #f0f0f0; border-left:2px solid #f0f0f0;">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="results">
+            <div id="productsWrap" class="result-col" style="display:none;">
+              <h2 class="block-title">Products</h2>
+              <div class="product-grid-block">
+                <div class="product-listing non-treatment-list">
+                  <div class="flex-container" style="border-top:2px solid #f0f0f0; border-left:2px solid #f0f0f0;">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="treatmentsWrap" class="result-col" style="display:none;">
+              <h2 class="block-title">Book Treatments</h2>
+              <div class="product-grid-block">
+                <div class="product-listing treatment-list">
+                  <div class="flex-container" style="border-top:2px solid #f0f0f0; border-left:2px solid #f0f0f0;">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="search-blogs">
+          <h2 class="block-title">Welcome to bold blog</h2>
+          <div class="lists flex-container">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-holder">
+    <button id="show-more" class="btn button">Show More</button>
+  </div>
+  <div class="inline-loader"></div>
+  {% endpaginate %}
+
+  {% assign classics = collections['classics'] %}
+
+  {% assign dataBestsellers = '' %}
+  <div id="backupRecommendedProducts" style="display:none;">
+    {% for product in classics.products %}
+    {% assign productCollectionHandles = '' %}
+    {% for prodColl in product.collections %}
+    {% if forloop.first == true %}
+    {% assign productCollectionHandles = prodColl.handle %}
+    {% else %}
+    {% assign productCollectionHandles = productCollectionHandles | append: ',' | append: prodColl.handle %}
+    {% endif %}
+    {% endfor %}
+
+    {%- assign isEligiable = 0 -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if settings.enable_buyX_getY -%}
+    {% assign isEligiable = 0 %}
+    {%- for prodCollection in product.collections -%}
+    {%- if prodCollection.handle == settings.X_collection -%}
+    {%- assign isEligiable = 1 -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if product.handle == settings.free_product_1 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_2 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_3 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_4 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- elsif product.handle == settings.free_product_5 -%}
+    {%- assign isFreeSample = 1 -%}
+    {%- else -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- endif -%}
+    {%- endif -%}
+    {% if product.available %}
+    {% assign productAvailable = 1 %}
+    {% else %}
+    {% assign productAvailable = 0 %}
+    {% endif %}
+    {% assign productVariants = product.variants %}
+    {% assign variantsStr = "" %}
+    {% for variant in productVariants %}
+    {% assign variantId = variant.id %}
+    {% assign variantTitle = variant.title %}
+    {% assign variantPrice = variant.price | money %}
+    {% assign variantCompareAtPrice = variant.compare_at_price | money %}
+    {% assign addToCartTextDefault = 'products.product.add_to_cart' | t %}
+    {% assign addToCartText = 'products.product.add_to_cart' | t %}
+    {% assign hasCompareAtPriceDefault = 0 %}
+    {% assign hasCompareAtPrice = 0 %}
+    {% assign variantImageSrc = variant.image.src %}
+    {% assign variantImageUrl = variant.image.src | img_url: '720x720' %}
+    {% assign variantImageUrlThumb = variant.image.src | img_url: '115x115' %}
+    {% if variant.compare_at_price > variant.price %}
+    {% assign hasCompareAtPrice = 1 %}
+    {% else %}
+    {% assign hasCompareAtPrice = 0 %}
+    {% endif %}
+    {%- if variant.available -%}
+    {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity == 0 -%}
+    {% assign addToCartText = 'products.product.preorder' | t %}
+    {%- else -%}
+    {% assign addToCartText = 'products.product.add_to_cart' | t %}
+    {%- endif -%}
+    {%- else -%}
+    {% assign addToCartText = 'products.product.sold_out' | t %}
+    {%- endif -%}
+    {% if variant.available %}
+    {% assign variantAvailable = 1 %}
+    {% else %}
+    {% assign variantAvailable = 0 %}
+    {% endif %}
+    {% if variant.id == product.selected_or_first_available_variant.id %}
+    {% assign variantSelected = 1 %}
+    {% assign addToCartTextDefault = addToCartText %}
+    {% assign hasCompareAtPriceDefault = hasCompareAtPrice %}
+    {% else %}
+    {% assign variantSelected = 0 %}
+    {% endif %}
+
+    {% if forloop.first %}
+    {% assign variantsStr = variantsStr | append: variantId | append: "|" | append: variantTitle | append: "|" | append:
+    variantPrice | append: "|" | append: variantImageSrc | append: "|" | append: variantImageUrl | append: "|" | append:
+    variantImageUrlThumb | append: "|" | append: variantAvailable | append: "|" | append: variantSelected | append: "|"
+    | append: addToCartText | append: "|" | append: variantCompareAtPrice | append: "|" | append: hasCompareAtPrice %}
+    {% else %}
+    {% assign variantsStr = variantsStr | append: "|#|" | append: variantId | append: "|" | append: variantTitle |
+    append: "|" | append: variantPrice | append: "|" | append: variantImageSrc | append: "|" | append: variantImageUrl |
+    append: "|" | append: variantImageUrlThumb | append: "|" | append: variantAvailable | append: "|" | append:
+    variantSelected | append: "|" | append: addToCartText | append: "|" | append: variantCompareAtPrice | append: "|" |
+    append: hasCompareAtPrice %}
+    {% endif %}
+    {% endfor %}
+    {% assign imagesStr = "" %}
+    {% for image in product.images %}
+    {% assign imgUrl = image.src | img_url: '500x' %}
+    {% assign imgUrlThumb = image.src | img_url: '115x115' %}
+    {% if forloop.first %}
+    {% assign imagesStr = imagesStr | append: image.src | append: "|" | append: imgUrl | append: "|" | append:
+    imgUrlThumb %}
+    {% else %}
+    {% assign imagesStr = imagesStr | append: "|#|" | append: image.src | append: "|" | append: imgUrl | append: "|" |
+    append: imgUrlThumb %}
+    {% endif %}
+    {% endfor %}
+    <div class="hidden-item" data-product-url="{{ product.url }}" data-product-title="{{ product.title }}"
+      data-variant-quantity="{{ product.variants[0].inventory_quantity }}"
+      data-variant-sku="{{ product.variants[0].sku }}" data-variant-title="{{ product.variants[0].title }}"
+      data-product-handle="{{ product.handle }}" data-product-quantity="1"
+      data-product-image="{{ product.featured_image.src | img_url: '500x' }}" data-product-images="{{ imagesStr }}"
+      data-product-price="{{ product.variants[0].price | money }}"
+      data-product-compareatprice="{{ product.variants[0].compare_at_price | money }}"
+      data-product-hascompareatprice="{{ hasCompareAtPriceDefault }}"
+      data-w-product-price="{{ product.variants[0].price | money | remove: '.00' }}"
+      data-variant-id="{{ product.variants[0].id }}" data-product-id="{{ product.id }}"
+      data-product-globalsize="{{ product.metafields.global.prod_size }}"
+      data-product-desc="{{ product.description | strip_html | truncatewords: 45, " ..." }}"
+      data-product-descshort="{{ product.description | strip_html | truncate: 80, " <span class='dotdotdot'>...</span>"
+      }}" data-collection-handles="{{ productCollectionHandles }}" data-eligiable="{{ isEligiable }}"
+      data-freesample="{{ isFreeSample }}" data-product-available="{{ productAvailable }}" data-variants-count="{{
+      productVariants.size }}" data-defaultvariantid="{{ product.selected_or_first_available_variant.id }}"
+      data-variants="{{ variantsStr }}" data-addtocart-text="{{ addToCartTextDefault }}" data-unique-collection="{{
+      collection.handle }}">
+      <div class="item-badges">
+        <div id="productInfos-{{ collection.handle }}-{{ product.id }}" style="display:none;">
+          <div id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
+            <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}"
+              data-product-sku="{{ product.handle }}" style="display: inline-block;">{{ product.metafields.stamped.badge
+              }}</span>
+          </div>
+          <div id="afterpayBadge-{{ collection.handle }}-{{ product.id }}">
+            {%- if settings.afterpay_enabled -%}{% include 'afterpay' %}{%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+  <div class="related-products-block has-carousel info-item">
+    <div class="page-width">
+      <section id="recommendedProducts" class="section section--related-products"
+        data-bestsellers="{{ dataBestsellers }}">
+        <div class="container container--medium">
+          <div class="section__title section__title--center">
+            <h2 class="section__title-text">{{ "Recommended" }}</h2>
+          </div>
+        </div>
+        <div class="product-grid-block">
+          <div class="product-listing">
+            <div class="slider">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+{%- render 'quick-view-new' -%}
+<script>
+  function bindQuickView() {
+    jQuery('a.btn-quick-view').magnificPopup({
+      type: 'inline',
+      midClick: true,
+      mainClass: 'mfp-fade',
+      fixedContentPos: true,
+      callbacks: {
+        open: function () {
+          var magnificPopup = jQuery.magnificPopup.instance,
+            clickedDOM = magnificPopup.st.el;
+          jQuery(document).trigger('quickviewopen', [clickedDOM]);
+        },
+        close: function () {
+          jQuery('#quickView .content form.add-to-cart .quantity').val(1);
+          jQuery('#quickView .content form.add-to-cart .qty-up').off('mouseup');
+          jQuery('#quickView .content form.add-to-cart .qty-down').off('mouseup');
+        }
+      }
+    });
+    jQuery(document).on('quickviewopen', function (e, clickedDOM) {
+      //debugger;
+      var productId = clickedDOM.attr('data-product-id');
+      var productTitle = clickedDOM.attr('data-product-title');
+      var productHandle = clickedDOM.attr('data-product-handle');
+      var productQty = parseInt(clickedDOM.attr('data-product-quantity'));
+      var productImage = clickedDOM.attr('data-product-image');
+      var productImagesStr = clickedDOM.attr('data-product-images');
+      var productPrice = clickedDOM.attr('data-product-price');
+      var productCompareAtPrice = clickedDOM.attr('data-product-compareatprice');
+      var productHasCompareAtPrice = parseInt(clickedDOM.attr('data-product-hascompareatprice'));
+      var productWPrice = clickedDOM.attr('data-w-product-price');
+      var variantId = clickedDOM.attr('data-variant-id');
+      var variantSku = clickedDOM.attr('data-variant-sku');
+      var variantQty = parseInt(clickedDOM.attr('data-variant-quantity'));
+      var variantTitle = clickedDOM.attr('data-variant-title');
+      var productGlobalSize = clickedDOM.attr('data-product-globalsize');
+      var productDesc = clickedDOM.attr('data-product-desc');
+      var productCollectionHandles = clickedDOM.attr('data-collection-handles');
+      var isEligiable = parseInt(clickedDOM.attr('data-eligiable'));
+      var isFreesample = parseInt(clickedDOM.attr('data-freesample'));
+      var productAvailable = parseInt(clickedDOM.attr('data-product-available'));
+      var variantsCount = parseInt(clickedDOM.attr('data-variants-count'));
+      var defaultVariantId = clickedDOM.attr('data-defaultvariantid');
+      var variantsStr = clickedDOM.attr('data-variants');
+      var addToCartTextDefault = clickedDOM.attr('data-addtocart-text');
+      var uniqueCollection = clickedDOM.attr('data-unique-collection');
+
+      var variantsproductImagesHtml = '<div class="gallery-for">';
+      var variantsproductImagesThumbHtml = '<div class="gallery-nav">';
+      var productImagesStrArr = productImagesStr.split('|#|');
+      jQuery.each(productImagesStrArr, function (i, productImageStr) {
+        var productImageArr = productImageStr.split('|');
+        var imageSrc = productImageArr[0];
+        var imageUrl = productImageArr[1];
+        var imageUrlThumb = productImageArr[2];
+
+        variantsproductImagesHtml += '<div class="item product-card">';
+        variantsproductImagesHtml += '<img src="' + imageUrl + '" data-src="' + imageSrc + '" data-url="' + imageUrl + '" data-urlthumb="' + imageUrlThumb + '" alt="">';
+        variantsproductImagesHtml += '</div>';
+
+        variantsproductImagesThumbHtml += '<div class="item product-card">';
+        variantsproductImagesThumbHtml += '<img src="' + imageUrlThumb + '" data-src="' + imageSrc + '" data-url="' + imageUrl + '" data-urlthumb="' + imageUrlThumb + '" alt="">';
+        variantsproductImagesThumbHtml += '</div>';
+      });
+      variantsproductImagesHtml += '</div>';
+      variantsproductImagesThumbHtml += '</div>';
+      jQuery('#quickView .product-image-gallery-slider').html(variantsproductImagesHtml + variantsproductImagesThumbHtml);
+      jQuery('.mfp-content .gallery-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        lazyLoad: 'ondemand',
+        asNavFor: '.gallery-nav'
+      });
+      jQuery('.mfp-content .gallery-nav').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.gallery-for',
+        dots: false,
+        focusOnSelect: true,
+        centerMode: false,
+        centerPadding: '0',
+        variableWidth: true,
+        prevArrow: '<button type="button" class="slick-prev"></button>',
+        nextArrow: '<button type="button" class="slick-next"></button>'
+      });
+
+      var variantsHtml = '';
+      if (variantsCount > 1) {
+        var variantStrArr = variantsStr.split('|#|');
+        variantsHtml += '<select class="variant-dropdown">';
+        jQuery.each(variantStrArr, function (i, variantStr) {
+          var variantArr = variantStr.split('|');
+          var varId = variantArr[0];
+          var varTitle = variantArr[1];
+          var varPrice = variantArr[2];
+          var varImageSrc = variantArr[3];
+          var varImageUrl = variantArr[4];
+          var varImageUrlThumb = variantArr[5];
+          var varAvailable = parseInt(variantArr[6]);
+          var varSelected = parseInt(variantArr[7]);
+          var addToCartText = variantArr[8];
+          var varCompareAtPrice = variantArr[9];
+          var varHasCompareAtPrice = parseInt(variantArr[10]);
+          variantsHtml += '<option value="' + varId + '" data-variant-id="' + varId + '" data-variant-price="' + varPrice + '" data-variant-imgsrc="' + varImageSrc + '" data-variant-imgurl="' + varImageUrl + '" data-variant-imgurlthumb="' + varImageUrlThumb + '" data-variant-price="' + varPrice + '" data-variant-compareatprice="' + varCompareAtPrice + '" data-variant-hascompareatprice="' + varHasCompareAtPrice + '" data-addtocart-text="' + addToCartText + '" data-available="' + varAvailable + '" data-selected="' + varSelected + '" ';
+          if (varSelected > 0) {
+            variantsHtml += 'selected="selected" ';
+          }
+          if (varAvailable < 1) {
+            //variantsHtml += 'disabled="disabled" ';
+          }
+          variantsHtml += '>';
+          variantsHtml += varTitle;
+          variantsHtml += '</option>';
+        });
+        variantsHtml += '</select>';
+      }
+
+
+      jQuery('#quickView .add_to_wishlist').attr('data-w-variant-quantity', variantQty);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-variant-sku', variantSku);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-variant-title', variantTitle);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-product-handle', productHandle);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-product-title', productTitle);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-quantity', productQty);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-product-image', productImage);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-product-price', productWPrice);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-variant-id', variantId);
+      jQuery('#quickView .add_to_wishlist').attr('data-w-product-id', productId);
+
+
+
+      jQuery('#quickView .content .title').text(productTitle);
+      jQuery('#quickView .content .vairant').text(productGlobalSize);
+      jQuery('#quickView .content .description p').text(productDesc);
+      jQuery('#quickView .content .review').html(clickedDOM.parents('.img-wrapper').siblings('#productInfos-' + uniqueCollection + '-' + productId).find('#productReviewBadge-' + uniqueCollection + '-' + productId).html());
+      jQuery('#quickView .content .afterpayWrap').html(clickedDOM.parents('.img-wrapper').siblings('#productInfos-' + uniqueCollection + '-' + productId).find('#afterpayBadge-' + uniqueCollection + '-' + productId).html());
+      if (productHasCompareAtPrice > 0) {
+        jQuery('#quickView .content .price').html('<span>' + productPrice + '</span><div class="was-price"><s>' + productCompareAtPrice + '</s></div>');
+      } else {
+        jQuery('#quickView .content .price').html('<span>' + productPrice + '</span>');
+      }
+      jQuery('#quickView .content form.add-to-cart .collection-handles').val(productCollectionHandles);
+      jQuery('#quickView .content form.add-to-cart .is-eligiable').val(isEligiable);
+      jQuery('#quickView .content form.add-to-cart .is-freesample').val(isFreesample);
+      jQuery('#quickView .content form.add-to-cart .add-id').val(defaultVariantId);
+      jQuery('#quickView .content form.add-to-cart .select-variant').html(variantsHtml);
+      jQuery('#quickView .content form.add-to-cart .quantity').val(1);
+      jQuery('#quickView .content form.add-to-cart .btn-addtocart button').text(addToCartTextDefault);
+      if (productAvailable == 1) {
+        jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', false);
+        jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'block');
+      } else {
+        jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', true);
+        jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'none');
+      }
+
+
+
+      jQuery('#quickView .content form.add-to-cart .qty-down').off().on('mouseup', function () {
+        var currQty = parseInt(jQuery('#quickView .content form.add-to-cart .quantity').val());
+        var qty = currQty;
+        if (currQty <= 1) {
+          qty = 1;
+        } else {
+          qty -= 1;
+        }
+        jQuery('#quickView .content form.add-to-cart .quantity').val(qty);
+      });
+      jQuery('#quickView .content form.add-to-cart .qty-up').off().on('mouseup', function () {
+        var currQty = parseInt(jQuery('#quickView .content form.add-to-cart .quantity').val());
+        var qty = currQty;
+        qty += 1;
+        console.log(currQty);
+        console.log(qty);
+        jQuery('#quickView .content form.add-to-cart .quantity').val(qty);
+      });
+      jQuery('#quickView .content form.add-to-cart .quantity').off().on('keyup', function () {
+        var currQty = parseInt(jQuery('#quickView .content form.add-to-cart .quantity').val());
+        var qty = currQty;
+        if (currQty <= 1) {
+          qty = 1;
+        }
+        jQuery('#quickView .content form.add-to-cart .quantity').val(qty);
+      });
+
+      if (jQuery('#quickView .content form.add-to-cart .select-variant .variant-dropdown').length > 0) {
+        jQuery('#quickView .content form.add-to-cart .select-variant .variant-dropdown').on('change', function () {
+          var selectedAvailable = parseInt(jQuery(this).children("option:selected").attr('data-available'));
+          var selectedPrice = jQuery(this).children("option:selected").attr('data-variant-price');
+          var selectedCompareAtPrice = jQuery(this).children("option:selected").attr('data-variant-compareatprice');
+          var selectedHasCompareAtPrice = parseInt(jQuery(this).children("option:selected").attr('data-variant-hascompareatprice'));
+          var selectedAddtocartText = jQuery(this).children("option:selected").attr('data-addtocart-text');
+          if (selectedHasCompareAtPrice > 0) {
+            jQuery('#quickView .content .price').html('<span>' + selectedPrice + '</span><div class="was-price"><s>' + selectedCompareAtPrice + '</s></div>');
+          } else {
+            jQuery('#quickView .content .price').html('<span>' + selectedPrice + '</span>');
+          }
+          var selectedId = jQuery(this).children("option:selected").val();
+          var selectedImgSrc = jQuery(this).children("option:selected").attr('data-variant-imgsrc');
+          jQuery('#quickView .content form.add-to-cart .add-id').val(selectedId);
+          jQuery('#quickView .content form.add-to-cart .btn-addtocart button').text(selectedAddtocartText);
+          if (selectedAvailable == 1) {
+            jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', false);
+            jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'block');
+          } else {
+            jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', true);
+            jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'none');
+          }
+          jQuery('#quickView .product-image-gallery-slider .gallery-nav .item img').each(function () {
+            var imgSrc = jQuery(this).attr('data-src');
+            var sliderIndex = parseInt(jQuery(this).parents('.item').attr('data-slick-index'));
+            if (imgSrc == selectedImgSrc) {
+              jQuery('.mfp-content .gallery-for').slick('slickGoTo', sliderIndex);
+            }
+          });
+        });
+
+        jQuery('#quickView .product-image-gallery-slider .gallery-nav .item img').on('click', function () {
+          var selectedImgSrc = jQuery(this).attr('data-src');
+          jQuery('#quickView .content form.add-to-cart .select-variant .variant-dropdown option').each(function () {
+            var imgSrc = jQuery(this).attr('data-variant-imgsrc');
+            if (imgSrc == selectedImgSrc) {
+              var selectedAvailable = parseInt(jQuery(this).attr('data-available'));
+              var selectedPrice = jQuery(this).attr('data-variant-price');
+              var selectedCompareAtPrice = jQuery(this).attr('data-variant-compareatprice');
+              var selectedHasCompareAtPrice = parseInt(jQuery(this).attr('data-variant-hascompareatprice'));
+              var selectedAddtocartText = jQuery(this).attr('data-addtocart-text');
+              var selectVal = jQuery(this).val();
+              jQuery('#quickView .content form.add-to-cart .select-variant .variant-dropdown').val(selectVal);
+              if (selectedAvailable == 1) {
+                jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', false);
+                jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'block');
+              } else {
+                jQuery('#quickView .content form.add-to-cart .btn-addtocart button').prop('disabled', true);
+                jQuery('#quickView .content form.add-to-cart .quantity-control').css('display', 'none');
+              }
+              if (selectedHasCompareAtPrice > 0) {
+                jQuery('#quickView .content .price').html('<span>' + selectedPrice + '</span><div class="was-price"><s>' + selectedCompareAtPrice + '</s></div>');
+              } else {
+                jQuery('#quickView .content .price').html('<span>' + selectedPrice + '</span>');
+              }
+              jQuery('#quickView .content form.add-to-cart .add-id').val(selectVal);
+              jQuery('#quickView .content form.add-to-cart .btn-addtocart button').text(selectedAddtocartText);
+            }
+          });
+        });
+      }
+
+    });
+  }
+
+  function getUrlVar(varKey = "") {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    if (varKey.length > 0) {
+      return vars[varKey];
+    }
+    return vars;
+  }
+
+  function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  }
+
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  function deleteCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+  }
+
+  function multiDimensionalInArray(handle, savedInLocalStorageArr) {
+    var theIndex = -1;
+    if (savedInLocalStorageArr != null && savedInLocalStorageArr.length > 0) {
+      for (var i = 0; i < savedInLocalStorageArr.length; i++) {
+        if (savedInLocalStorageArr[i][3] == handle) {
+          theIndex = i;
+          break;
+        }
+      }
+    }
+    return theIndex;
+  }
+
+  function getNowTimestamp() {
+    var d = new Date();
+    return d.getTime();
+  }
+
+  function getMinusDaysTimestamp(minusDays) {
+    var minusDaysInt = parseInt(minusDays);
+    var d = new Date();
+    d.setDate(d.getDate() - minusDaysInt);
+    return d.getTime();
+  }
+
+  function getPlusDaysTimestamp(plusDays) {
+    var plusDaysInt = parseInt(plusDays);
+    var d = new Date();
+    d.setDate(d.getDate() + plusDaysInt);
+    return d.getTime();
+  }
+
+  function getMinusDaysTimestampFromTimestamp(fromTimestamp, minusDays) {
+    var minusDaysInt = parseInt(minusDays);
+    var d = new Date(fromTimestamp);
+    d.setDate(d.getDate() - minusDaysInt);
+    return d.getTime();
+  }
+
+  function getPlusDaysTimestampFromTimestamp(fromTimestamp, plusDays) {
+    var plusDaysInt = parseInt(plusDays);
+    var d = new Date(fromTimestamp);
+    d.setDate(d.getDate() + plusDaysInt);
+    return d.getTime();
+  }
+
+  function addEventListenerStamped(el, eventName, handler) {
+    if (el.addEventListener) {
+      el.addEventListener(eventName, handler);
+    } else {
+      el.attachEvent('on' + eventName, function () { handler.call(el); });
+    }
+  }
+
+  jQuery(document).ready(function ($) {
+    /*addEventListenerStamped(document, 'stamped:reviews:loaded', function(e) {
+      console.log('Stamped review loaded');
+      console.log(e);
+    });*/
+
+    var reviewsFinalized = false;
+    var daysAfterRecentProductExpires = 3;
+    var localStorageName = 'ebrecentproducts';
+    var localStorageStr = window.localStorage.getItem(localStorageName);
+    if (localStorageStr != null && localStorageStr.length > 0) {
+      var expiredIndices = [];
+      var localStorageValue = JSON.parse(localStorageStr);
+      jQuery.each(localStorageValue, function (i, productDataArr) {
+        var timeAddedToRecentViews = productDataArr[27];
+        var expireTimestamp = getPlusDaysTimestampFromTimestamp(timeAddedToRecentViews, daysAfterRecentProductExpires);
+        var nowTimestamp = getNowTimestamp();
+        if (nowTimestamp >= expireTimestamp) {
+          expiredIndices.push(i);
+        }
+      });
+      if (expiredIndices.length > 0) {
+        jQuery.each(expiredIndices, function (i, expiredIndex) {
+          localStorageValue.splice(expiredIndex, 1);
+        });
+        window.localStorage.setItem(localStorageName, JSON.stringify(localStorageValue));
+      }
+    }
+
+    var secureUrl = jQuery('#hiddenResults').attr('data-shop-secureurl');
+    var searchTerms = jQuery('#hiddenResults').attr('data-search-terms');
+    var searchTypes = jQuery('#hiddenResults').attr('data-search-types');
+    var searchAjaxUrl = secureUrl + '/search';
+
+    jQuery.ajax({
+      url: searchAjaxUrl,
+      type: 'GET',
+      dataType: 'html',
+      data: { type: 'article', q: searchTerms, page: currentPageNo },
+      async: false,
+      success: function (res) {
+        var hiddenResults = jQuery(res).find('#hiddenResults');
+        var dataArticleCount = hiddenResults.attr('data-article-count');
+        jQuery('#hiddenResults').attr('data-article-count', dataArticleCount);
+      },
+      error: function (err) {
+        console.log('Set Article Count Error');
+        console.log(err);
+      },
+      complete: function () {
+        jQuery(document).trigger('totalcountset');
+      }
+    });
+
+    var paginationLimit = parseInt(jQuery('#hiddenResults').attr('data-pagination-limit'));
+    var productCount = parseInt(jQuery('#hiddenResults').attr('data-product-count'));
+    var articleCount = parseInt(jQuery('#hiddenResults').attr('data-article-count'));
+    var productTotalPages = Math.ceil(productCount / paginationLimit);
+    var articleTotalPages = Math.ceil(articleCount / paginationLimit);
+    var totalPages = 0;
+    if (productTotalPages >= articleTotalPages) {
+      totalPages = productTotalPages;
+    } else {
+      totalPages = articleTotalPages;
+    }
+
+    var lastPageReached = false;
+    var currentPageNo = 1;
+    var redirectSearchTerms = getUrlVars()['q'];
+    var redirectSearchTypes = getUrlVars()['type'];
+    if (getUrlVar('page') != undefined) {
+      if (getUrlVar('page').length >= 1) {
+        if (parseInt(getUrlVar('page')) != NaN) {
+          if (parseInt(getUrlVar('page')) == getUrlVar('page')) {
+            currentPageNo = parseInt(getUrlVar('page'));
+          }
+        }
+      }
+    }
+    var prevPageNo = currentPageNo - 1;
+    if (prevPageNo < 1) {
+      prevPageNo = 1;
+    }
+    var nextPageNo = currentPageNo + 1;
+    if (nextPageNo > totalPages) {
+      nextPageNo = totalPages;
+    }
+    if (currentPageNo >= totalPages) {
+      jQuery('div.button-holder').hide();
+    }
+
+    var productAjaxComplete = false;
+    var articleAjaxComplete = false;
+    var searchajaxcompleteTriggered = false;
+
+    jQuery('div.inline-loader').show();
+    jQuery('#show-more').text('Loading...');
+    jQuery('#show-more').prop("disabled", true);
+    /* First load of Products */
+    var productCurrentPageNo = currentPageNo;
+    if (productCurrentPageNo > productTotalPages) {
+      //productCurrentPageNo = productTotalPages;
+    }
+    jQuery.ajax({
+      url: searchAjaxUrl,
+      type: 'GET',
+      dataType: 'html',
+      data: { type: 'product', q: searchTerms, page: productCurrentPageNo },
+      async: true,
+      success: function (res) {
+        var hiddenResults = jQuery(res).find('#hiddenResults');
+        var resultItems = hiddenResults.find('.hidden-item');
+        var productItemHtml = '';
+        var treatmentItemHtml = '';
+        if (resultItems.length > 0) {
+          productItemHtml = '';
+          treatmentItemHtml = '';
+          resultItems.each(function (index) {
+            var isTreatment = parseInt(jQuery(this).attr('data-is-treatment'));
+            var objectType = jQuery(this).attr('data-item-object-type');
+            var itemUrl = jQuery(this).attr('data-item-url');
+            var productId = jQuery(this).attr('data-product-id');
+            var productTitle = jQuery(this).attr('data-product-title');
+            var productHandle = jQuery(this).attr('data-product-handle');
+            var productQty = parseInt(jQuery(this).attr('data-product-quantity'));
+            var productImage = jQuery(this).attr('data-product-image');
+            var productImagesStr = jQuery(this).attr('data-product-images');
+            var productPrice = jQuery(this).attr('data-product-price');
+            var productCompareAtPrice = jQuery(this).attr('data-product-compareatprice');
+            var productHasCompareAtPrice = parseInt(jQuery(this).attr('data-product-hascompareatprice'));
+            var productWPrice = jQuery(this).attr('data-w-product-price');
+            var variantId = jQuery(this).attr('data-variant-id');
+            var variantSku = jQuery(this).attr('data-variant-sku');
+            var variantQty = parseInt(jQuery(this).attr('data-variant-quantity'));
+            var variantTitle = jQuery(this).attr('data-variant-title');
+            var productGlobalSize = jQuery(this).attr('data-product-globalsize');
+            var productDesc = jQuery(this).attr('data-product-desc');
+            var productDescShort = jQuery(this).attr('data-product-descshort');
+            var productCollectionHandles = jQuery(this).attr('data-collection-handles');
+            var isEligiable = parseInt(jQuery(this).attr('data-eligiable'));
+            var isFreesample = parseInt(jQuery(this).attr('data-freesample'));
+            var productAvailable = parseInt(jQuery(this).attr('data-product-available'));
+            var variantsCount = parseInt(jQuery(this).attr('data-variants-count'));
+            var defaultVariantId = jQuery(this).attr('data-defaultvariantid');
+            var variantsStr = jQuery(this).attr('data-variants');
+            var addToCartTextDefault = jQuery(this).attr('data-addtocart-text');
+            var uniqueCollection = jQuery(this).attr('data-unique-collection');
+            var productInfosHtml = jQuery(this).find('.item-badges').html();
+            var reviewsDom = jQuery(this).find('.item-badges').find('#productReviewBadge-' + uniqueCollection + '-' + productId);
+            if (parseFloat(reviewsDom.find('.stamped-badge').attr('data-rating')) == 0.0) {
+              reviewsDom.find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+            }
+            var reviewsHtml = jQuery(this).find('.item-badges').find('#productReviewBadge-' + uniqueCollection + '-' + productId).html();
+
+            if (isTreatment == 0) {
+              productItemHtml += '<div class="item">';
+              var productPriceOnly = productPrice.replace("$", "");
+              var productPriceRound = Math.ceil(productPriceOnly);
+              if(productPriceOnly > 0  && productHandle != 'gift-card' ){
+              productItemHtml += '    <span data-w-variant-quantity="' + variantQty + '" data-w-variant-sku="' + variantSku + '" data-w-variant-title="' + variantTitle + '" data-w-product-handle="' + productHandle + '" data-w-product-title="' + productTitle + '" data-w-quantity="' + productQty + '" data-w-product-image="' + productImage + '" data-w-product-price="' + productWPrice + '" data-w-variant-id="' + variantId + '" data-w-product-id="' + productId + '" class="add_to_wishlist">{%- render 'icon-heart' -%}</span>';
+              }
+              productItemHtml += '    <div class="inner">';
+              productItemHtml += '        <div class="img-wrapper" data-imgsrc="' + productImage + '" data-imgalt="' + productTitle + '">';
+              productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+              productItemHtml += '            <img src="' + productImage + '" alt="' + productTitle + '" class="loaded" data-was-processed="true">';
+              productItemHtml += '        </a>';
+              if(productPriceOnly > 0  && productHandle != 'gift-card' ){
+              productItemHtml += '            <a href="#quickView" class="btn-quick-view btn-view-details" data-product-title="' + productTitle + '" data-variant-quantity="' + variantQty + '" data-variant-sku="' + variantSku + '" data-variant-title="' + variantTitle + '" data-product-handle="' + productHandle + '" data-product-quantity="' + productQty + '" data-product-image="' + productImage + '" data-product-images="' + productImagesStr + '" data-product-price="' + productPrice + '" data-product-compareatprice="' + productCompareAtPrice + '" data-product-hascompareatprice="' + productHasCompareAtPrice + '" data-w-product-price="' + productWPrice + '" data-variant-id="' + variantId + '" data-product-id="' + productId + '" data-product-globalsize="' + productGlobalSize + '" data-product-desc="' + productDesc + '" data-collection-handles="' + productCollectionHandles + '" data-eligiable="' + isEligiable + '" data-freesample="' + isFreesample + '" data-product-available="' + productAvailable + '" data-variants-count="' + variantsCount + '" data-defaultvariantid="' + defaultVariantId + '" data-variants="' + variantsStr + '" data-addtocart-text="' + addToCartTextDefault + '" data-unique-collection="' + uniqueCollection + '">Quick View</a>';
+              }
+              productItemHtml += '        </div>';
+              productItemHtml += productInfosHtml;
+              productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+              productItemHtml += '            <div class="product-grid-details">';
+              productItemHtml += '                <h3 class="product-grid-details-info title">' + productTitle + '</h3>';
+              productItemHtml += '                <span class="size" style="display:block; min-height:16px;">' + productGlobalSize + '</span>';
+              productItemHtml += '                <p class="product-grid-details-info desc">' + productDescShort + '</p>';
+              productItemHtml += reviewsHtml;
+              productItemHtml += '                <p class="price">';
+              productItemHtml += '                    <span data-styleprice=""><span class="dollars">' + productPrice + '</span></span>';
+              productItemHtml += '                    <span class="visually-hidden">Regular price</span>';
+              if (productHasCompareAtPrice > 0) {
+                productItemHtml += '                    <s><span data-styleprice=""><span class="dollars">' + productCompareAtPrice + '</span></span></s>';
+              }
+              productItemHtml += '                </p>';
+              productItemHtml += '            </div>';
+              productItemHtml += '        </a>';
+              productItemHtml += '    </div>';
+              productItemHtml += '</div>';
+            } else {
+              treatmentItemHtml += '<div class="item treatment">';
+              treatmentItemHtml += '    <div class="inner">';
+              treatmentItemHtml += '    <a class="anchor-link" href="' + itemUrl + '" title="' + productTitle + '">';
+              treatmentItemHtml += '        <div class="img-wrapper" data-imgsrc="' + productImage + '" data-imgalt="' + productTitle + '">';
+              treatmentItemHtml += '            <img src="' + productImage + '" alt="' + productTitle + '" class="loaded" data-was-processed="true">';
+              treatmentItemHtml += '        </div>';
+              treatmentItemHtml += '        <div class="product-grid-details">';
+              // treatmentItemHtml += '            <span class="treatment-tag">Treatment</span>';
+              treatmentItemHtml += '            <h3 class="product-grid-details-info title">' + productTitle + '</h3>';
+              // treatmentItemHtml += '            <p class="product-grid-details-info desc">' + productDescShort + '</p>';
+              //treatmentItemHtml += '            <a class="button" href="' + itemUrl + '">Learn More</a>';
+              treatmentItemHtml += '        </div>';
+              treatmentItemHtml += '        </a>';
+              treatmentItemHtml += '    </div>';
+              treatmentItemHtml += '</div>';
+            }
+          });
+        }
+        if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length > 0) {
+          jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container').append(productItemHtml);
+        } else {
+          jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container').html(productItemHtml);
+        }
+        if (jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container .item').length > 0) {
+          jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container').append(treatmentItemHtml);
+        } else {
+          jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container').html(treatmentItemHtml);
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+      complete: function (err) {
+        productAjaxComplete = true;
+        jQuery(document).trigger('searchajaxcomplete');
+      }
+    });
+
+    /* First load of blogs */
+    var articleCurrentPageNo = currentPageNo;
+    if (articleCurrentPageNo > articleTotalPages) {
+      //articleCurrentPageNo = articleTotalPages;
+    }
+    jQuery.ajax({
+      url: searchAjaxUrl,
+      type: 'GET',
+      dataType: 'html',
+      data: { type: 'article', q: searchTerms, page: currentPageNo },
+      async: true,
+      beforeSend: function () {
+        jQuery('#show-more').text('Loading...');
+        jQuery('#show-more').prop("disabled", true);
+      },
+      success: function (res) {
+        var hiddenResults = jQuery(res).find('#hiddenResults');
+        var resultItems = hiddenResults.find('.hidden-item');
+        var noArticleMsg = 'No search results for articles.';
+        if (articleTotalPages > 0 && currentPageNo > articleTotalPages) {
+          noArticleMsg = 'No more search results for articles this far.';
+        } else if (articleTotalPages <= 0 && currentPageNo > articleTotalPages) {
+          noArticleMsg = 'No search results for articles.';
+        }
+        var resultHtml = '<div class="no-result articles"><p class="msg-error">' + noArticleMsg + '</p></div>';
+        if (resultItems.length > 0) {
+          resultHtml = '';
+          resultItems.each(function (index) {
+            var itemTitle = jQuery(this).attr('data-item-title');
+            var itemImage = jQuery(this).attr('data-item-image');
+            var itemUrl = jQuery(this).attr('data-item-url');
+            resultHtml += '<div class="item">';
+            resultHtml += '<a href="' + itemUrl + '" class="link-wrapper">';
+            resultHtml += '<div class="flex-container">';
+            resultHtml += '<figure class="thumb">';
+            resultHtml += '<img src="' + itemImage + '" alt="">';
+            resultHtml += '</figure>';
+            resultHtml += '<div class="content">';
+            resultHtml += '<h3>' + itemTitle + '</h3>';
+            resultHtml += '</div>';
+            resultHtml += '</div>';
+            resultHtml += '</a>';
+            resultHtml += '</div>';
+          });
+        }
+        if (jQuery('.search-blogs .lists .item').length > 0) {
+          jQuery('.search-blogs .lists').append(resultHtml);
+        } else {
+          jQuery('.search-blogs .lists').html(resultHtml);
+        }
+      },
+      error: function (err) {
+        console.log(err);
+        var resultHtml = '<div class="no-result articles"><p class="msg-error">No search results for articles</p></div>';
+        jQuery('.search-blogs').html(resultHtml);
+      },
+      complete: function (err) {
+        articleAjaxComplete = true;
+        jQuery(document).trigger('searchajaxcomplete');
+      }
+    });
+
+
+    jQuery(document).off().on('searchajaxcomplete', function () {
+      if (productAjaxComplete && articleAjaxComplete && !searchajaxcompleteTriggered) { //debugger;
+        if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length <= 0 && jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container .item').length <= 0) {
+          console.log('first');
+          jQuery('#productsWrap').hide();
+          jQuery('#treatmentsWrap').hide();
+          jQuery('#noProductsTreatmentsWrap').show();
+          var noProdMsg = 'No search results for products or treatments.';
+          if (productTotalPages > 0 && currentPageNo > productTotalPages) {
+            noProdMsg = 'No more search results for products or treatments this far.';
+          } else if (productTotalPages <= 0 && currentPageNo > productTotalPages) {
+            noProdMsg = 'No search results for products or treatments.';
+          }
+          jQuery('#collection-dynamic-content #noProductsTreatmentsWrap .product-grid-block').html("<p class='msg-error'>" + noProdMsg + "</p>");
+        } else if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length <= 0 && jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container .item').length > 0) {
+          console.log('second');
+          jQuery('#productsWrap').hide();
+          jQuery('#treatmentsWrap').show();
+          jQuery('#noProductsTreatmentsWrap').hide();
+          jQuery('#collection-dynamic-content #noProductsTreatmentsWrap .product-grid-block .product-listing .flex-container').html('');
+        } else if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length > 0 && jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container .item').length <= 0) {
+          console.log('third');
+          jQuery('#productsWrap').show();
+          jQuery('#treatmentsWrap').hide();
+          jQuery('#noProductsTreatmentsWrap').hide();
+          jQuery('#collection-dynamic-content #noProductsTreatmentsWrap .product-grid-block .product-listing .flex-container').html('');
+        } else if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length > 0 && jQuery('#collection-dynamic-content .product-grid-block .treatment-list .flex-container .item').length > 0) {
+          console.log('forth');
+          jQuery('div.search-results-dynamic-content').addClass('has-col-2');
+          jQuery('div.search-results-dynamic-content div.results').addClass('col-2');
+          jQuery('#productsWrap').show();
+          jQuery('#treatmentsWrap').show();
+          jQuery('#noProductsTreatmentsWrap').hide();
+          jQuery('#collection-dynamic-content #noProductsTreatmentsWrap .product-grid-block .product-listing .flex-container').html('');
+        } else {
+
+        }
+
+        searchajaxcompleteTriggered = true;
+        bindQuickView();
+        jQuery('#show-more').prop("disabled", false);
+        jQuery('#show-more').text('Show More');
+        if (lastPageReached) {
+          jQuery('div.button-holder').hide();
+        }
+
+        jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').each(function (index) {
+          if (parseFloat(jQuery(this).find('.stamped-badge').attr('data-rating')) == 0.0) {
+            jQuery(this).find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+          } else {
+            if (!jQuery(this).find('.stamped-product-reviews-badge').hasClass('stamped-main-badge')) {
+              jQuery(this).find('.stamped-product-reviews-badge').addClass('stamped-main-badge');
+            }
+          }
+        });
+        jQuery('#recommendedProducts .product-grid-block .product-listing .slider .item').each(function (index) {
+          if (parseFloat(jQuery(this).find('.stamped-badge').attr('data-rating')) == 0.0) {
+            jQuery(this).find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+          } else {
+            if (!jQuery(this).find('.stamped-product-reviews-badge').hasClass('stamped-main-badge')) {
+              jQuery(this).find('.stamped-product-reviews-badge').addClass('stamped-main-badge');
+            }
+          }
+        });
+
+        jQuery('div.inline-loader').hide();
+
+        /*MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        var observer = new MutationObserver(function(mutations, observer){
+          console.log('observer');
+          console.log(mutations, observer);
+        });
+
+        var stampedBadges = jQuery('#collection-dynamic-content .stamped-product-reviews-badge .stamped-badge');
+        if( stampedBadges.length > 0 ){
+          jQuery.each(stampedBadges, function(i, stampedBadge){
+            observer.observe(stampedBadge, {
+              subtree: true,
+              attributes: true
+            });
+          });
+        }
+
+        addEventListenerStamped(document, 'stamped:reviews:loaded', function(e) {
+          console.log('Stamped review loaded 2');
+          console.log(e);
+        });*/
+
+        $('.add_to_wishlist').off().on('click', function(e){
+          console.log('Added To Wishlist');
+          var product = {};
+          product.title = $(this).attr('data-w-product-title');
+          product.image = $(this).attr('data-w-product-image');
+          product.price = $(this).attr('data-w-product-price');
+          product.id = $(this).attr('data-w-product-id');
+          product.variant_id =  $(this).attr('data-w-variant-id');
+          var trigger_variant_id = $(this).attr('data-w-variant-id');
+          product.handle = $(this).attr('data-w-product-handle');
+          product.variant_title = $(this).attr('data-w-variant-title');
+          product.variant_sku = $(this).attr('data-w-variant-sku');
+          //product.quantity = parseInt($(this).attr('data-quantity'));
+          product.quantity = 1;
+          var product_exit = check_product_already_exist(product.id, product.variant_id);
+          console.log(product_exit);
+          if(product_exit){
+            var update_quantity = product_exit.quantity + product.quantity;
+            var filter_price = parseInt(product.price.replace('$','').replace(',',''));
+            update_product_quantity_new(product.id, product.variant_id, update_quantity, filter_price);
+            //show_quote();
+          }else{
+            //var filter_price = parseInt(product.price.replace('$',''));
+            var filter_priceupdate_product_quantity_new = parseInt(product.price.replace('$','').replace(',',''));
+            product.total = filter_price * product.quantity;
+            if(get_cookie('product_list') != null){
+              var products = get_cookie('product_list');
+            }else{
+              console.log('First product in quote');
+              var products = [];
+            }
+            products.push(product);
+            set_cookie('product_list', products);
+            get_html(products);
+            //show_quote();
+          }
+          //active state quote
+          jQuery(this).addClass('addedtoquote');
+          jQuery('[data-w-variant-id="'+trigger_variant_id+'"]').addClass('addedtoquote');
+          
+          //console.log(get_cookie('product_list'));
+          e.preventDefault();
+          e.stopPropagation();
+          setAddAllToCart();
+          wishlistMiniCartOpener();
+          wishlistContainerHeightCalc();
+          $.magnificPopup.close();
+          setTimeout(function(){
+            $("body").addClass("sticky-nav-min");
+          },100);
+          //return false;
+        });
+
+        $(document).on('click','.qtyplus',function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            fieldName = $(this).attr('field');
+            // Get its current value
+            var currentVal = parseInt($(this).parent().find('input[data-variant-id='+fieldName+']').val());
+            // If is not undefined
+            if (!isNaN(currentVal)) {
+              // Increment
+              var new_val = currentVal + 1;
+              $(this).parent().find('input[data-variant-id='+fieldName+']').val(new_val);
+              $(this).parent().find('input[data-variant-id='+fieldName+']').attr('value',new_val);
+              var addJsonString = $(this).parents('.minicart-actions').siblings('.addtocart-wishlist').attr('data-cart-addclaims');
+              var adArray = JSON.parse(addJsonString);
+              adArray[0].quantity = new_val;
+              addJsonString = JSON.stringify(adArray);
+              $(this).parents('.minicart-actions').siblings('.addtocart-wishlist').attr('data-cart-addclaims', addJsonString);
+              setAddAllToCart();
+            } else {
+              // Otherwise put a 0 there
+              $(this).parent().find('input[data-variant-id='+fieldName+']').val(0);
+              $(this).parent().find('input[data-variant-id='+fieldName+']').attr('value',new_val);
+            }
+            if($( this ).siblings('.quote-quantity-update').val() != ''){
+                var current_quantity = parseInt($( this ).siblings('.quote-quantity-update').val());
+                var trigger_quantity = current_quantity - 1;
+                var trigger_variant_id = $( this ).siblings('.quote-quantity-update').data('variant-id');
+                var trigger_product_price = parseInt($( this ).siblings('.quote-quantity-update').data('product-price').replace('$','').replace(',',''));
+                var product_id = 'trigger';
+                $(this).closest('.details').find('.add-to-cart').attr('data-quantity', current_quantity);
+                if($(this).siblings('.quote-quantity-update').val() == 0){
+                  $(this).closest('li').remove();
+                }
+                if($('.quote-quantity-update').length == 0){
+                  $('#wishListWrapper').html(empty_html_message);
+                  $("#addEverthingToCart").remove();
+                }
+                update_product_quantity(product_id, trigger_variant_id, trigger_quantity, trigger_product_price);
+              }
+        });
+
+        $(document).on('click','.qtyminus',function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            fieldName = $(this).attr('field');
+            // Get its current value
+            var currentVal = parseInt($(this).parent().find('input[data-variant-id='+fieldName+']').val());
+            // If it isn't undefined or its greater than 0
+            if (!isNaN(currentVal) && currentVal > 1) {
+              // Decrement one
+              var new_val = currentVal - 1;
+              $(this).parent().find('input[data-variant-id='+fieldName+']').val(new_val);
+              $(this).parent().find('input[data-variant-id='+fieldName+']').attr('value',new_val);
+              var addJsonString = $(this).parents('.minicart-actions').siblings('.addtocart-wishlist').attr('data-cart-addclaims');
+              var adArray = JSON.parse(addJsonString);
+              adArray[0].quantity = new_val;
+              addJsonString = JSON.stringify(adArray);
+              $(this).parents('.minicart-actions').siblings('.addtocart-wishlist').attr('data-cart-addclaims', addJsonString);
+              setAddAllToCart();
+            } else {
+              // Otherwise put a 0 there
+              $(this).parent().find('input[data-variant-id='+fieldName+']').val(0);
+              $(this).parent().find('input[data-variant-id='+fieldName+']').attr('value',1);
+            }
+            if($( this ).siblings('.quote-quantity-update').val() != ''){
+                var current_quantity = parseInt($( this ).siblings('.quote-quantity-update').val());
+                var trigger_quantity = current_quantity - 1;
+                var trigger_variant_id = $( this ).siblings('.quote-quantity-update').data('variant-id');
+                var trigger_product_price = parseInt($( this ).siblings('.quote-quantity-update').data('product-price').replace('$','').replace(',',''));
+                var product_id = 'trigger';
+                $(this).closest('.details').find('.add-to-cart').attr('data-quantity', current_quantity);
+                if($(this).siblings('.quote-quantity-update').val() == 0){
+                  $(this).closest('li').remove();
+                }
+                if($('.quote-quantity-update').length == 0){
+                  $('#wishListWrapper').html(empty_html_message);
+                  $("#addEverthingToCart").remove();
+                }
+                update_product_quantity(product_id, trigger_variant_id, trigger_quantity, trigger_product_price);
+              }
+        });
+
+        $(document).on('wishlisttocart', function(e, vIds){
+          $.each(vIds, function(k, v){
+            remove_product(v);
+          });
+          setAddAllToCart();
+        });
+
+      }
+    });
+
+
+    /* Load Recommended products */
+    var productItemHtml = '';
+    var recommendedProductsLimit = 10;
+    var recommendedProductsCount = 0;
+    var localStorageName = 'ebrecentproducts';
+    var localStorageStr = window.localStorage.getItem(localStorageName);
+    if (localStorageStr != null && localStorageStr.length > 0) {
+      var localStorageValue = JSON.parse(localStorageStr);
+      var localStorageValueReverse = localStorageValue.reverse();
+      jQuery.each(localStorageValueReverse, function (index, productDataArr) {
+        if (recommendedProductsCount < recommendedProductsLimit) {
+          var itemUrl = productDataArr[0];
+          var productId = productDataArr[1];
+          var productTitle = productDataArr[2];
+          var productHandle = productDataArr[3];
+          var productQty = productDataArr[4];
+          var productImage = productDataArr[5];
+          var productImagesStr = productDataArr[6];
+          var productPrice = productDataArr[7];
+          var productCompareAtPrice = productDataArr[8];
+          var productHasCompareAtPrice = productDataArr[9];
+          var productWPrice = productDataArr[10];
+          var variantId = productDataArr[11];
+          var variantSku = productDataArr[12];
+          var variantQty = productDataArr[13];
+          var variantTitle = productDataArr[14];
+          var productGlobalSize = productDataArr[15];
+          var productDesc = productDataArr[16];
+          var productDescShort = productDataArr[17];
+          var isEligiable = productDataArr[18];
+          var isFreesample = productDataArr[19];
+          var productAvailable = productDataArr[20];
+          var variantsCount = productDataArr[21];
+          var defaultVariantId = productDataArr[22];
+          var variantsStr = productDataArr[23];
+          var addToCartTextDefault = productDataArr[24];
+          var uniqueCollection = productDataArr[25];
+          var productInfosHtml = productDataArr[26];
+          var timeAddedToRecentViews = productDataArr[27];
+          var productCollectionHandles = productDataArr[28];
+          var reviewsDom = jQuery(productInfosHtml).find('#productReviewBadge-' + uniqueCollection + '-' + productId);
+          if (parseFloat(reviewsDom.find('.stamped-badge').attr('data-rating')) == 0.0) {
+            reviewsDom.find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+          }
+          var reviewsHtml = jQuery(productInfosHtml).find('#productReviewBadge-' + uniqueCollection + '-' + productId).html();
+
+          productItemHtml += '<div class="item">';
+          var productPriceOnly = productPrice.replace("$", "");
+          var productPriceRound = Math.ceil(productPriceOnly);
+          if(productPriceOnly > 0  && productHandle != 'gift-card' ){
+          productItemHtml += '    <span data-w-variant-quantity="' + variantQty + '" data-w-variant-sku="' + variantSku + '" data-w-variant-title="' + variantTitle + '" data-w-product-handle="' + productHandle + '" data-w-product-title="' + productTitle + '" data-w-quantity="' + productQty + '" data-w-product-image="' + productImage + '" data-w-product-price="' + productWPrice + '" data-w-variant-id="' + variantId + '" data-w-product-id="' + productId + '" class="add_to_wishlist">{%- render 'icon-heart' -%}</span>';
+          }
+          productItemHtml += '    <div class="inner">';
+          productItemHtml += '        <div class="img-wrapper" data-imgsrc="' + productImage + '" data-imgalt="' + productTitle + '">';
+          productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+          productItemHtml += '            <img src="' + productImage + '" alt="' + productTitle + '" class="loaded" data-was-processed="true">';
+          productItemHtml += '        </a>';
+          if(productPriceOnly > 0  && productHandle != 'gift-card' ){
+          productItemHtml += ' <a href="#quickView" class="btn-quick-view btn-view-details" data-product-title="' + productTitle + '" data-variant-quantity="' + variantQty + '" data-variant-sku="' + variantSku + '" data-variant-title="' + variantTitle + '" data-product-handle="' + productHandle + '" data-product-quantity="' + productQty + '" data-product-image="' + productImage + '" data-product-images="' + productImagesStr + '" data-product-price="' + productPrice + '" data-product-compareatprice="' + productCompareAtPrice + '" data-product-hascompareatprice="' + productHasCompareAtPrice + '" data-w-product-price="' + productWPrice + '" data-variant-id="' + variantId + '" data-product-id="' + productId + '" data-product-globalsize="' + productGlobalSize + '" data-product-desc="' + productDesc + '" data-collection-handles="' + productCollectionHandles + '" data-eligiable="' + isEligiable + '" data-freesample="' + isFreesample + '" data-product-available="' + productAvailable + '" data-variants-count="' + variantsCount + '" data-defaultvariantid="' + defaultVariantId + '" data-variants="' + variantsStr + '" data-addtocart-text="' + addToCartTextDefault + '" data-unique-collection="' + uniqueCollection + '">Quick View</a>';
+          }
+          productItemHtml += '        </div>';
+          productItemHtml += productInfosHtml;
+          productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+          productItemHtml += '            <div class="product-grid-details">';
+          productItemHtml += '                <h3 class="product-grid-details-info title">' + productTitle + '</h3>';
+          productItemHtml += '                <span class="size" style="display:block; min-height:16px;">' + productGlobalSize + '</span>';
+          productItemHtml += '                <p class="product-grid-details-info desc">' + productDescShort + '</p>';
+          productItemHtml += reviewsHtml;
+          productItemHtml += '                <p class="price">';
+          productItemHtml += '                    <span data-styleprice=""><span class="dollars">' + productPrice + '</span></span>';
+          productItemHtml += '                    <span class="visually-hidden">Regular price</span>';
+          if (productHasCompareAtPrice > 0) {
+            productItemHtml += '                    <s><span data-styleprice=""><span class="dollars">' + productCompareAtPrice + '</span></span></s>';
+          }
+          productItemHtml += '                </p>';
+          productItemHtml += '            </div>';
+          productItemHtml += '        </a>';
+          productItemHtml += '    </div>';
+          productItemHtml += '</div>';
+
+          recommendedProductsCount += 1;
+        } else {
+          return false;
+        }
+      });
+    }
+    var resultItems = jQuery('#backupRecommendedProducts .hidden-item');
+    if (resultItems.length > 0) {
+      resultItems.each(function (index) {
+        if (recommendedProductsCount < recommendedProductsLimit) {
+          var productHandle = jQuery(this).attr('data-product-handle');
+          var localStorageStr = window.localStorage.getItem(localStorageName);
+          var localStorageValue = JSON.parse(localStorageStr);
+          var handleInLS = multiDimensionalInArray(productHandle, localStorageValue);
+          if (handleInLS == -1) {
+            var itemUrl = jQuery(this).attr('data-product-url');
+            var productId = jQuery(this).attr('data-product-id');
+            var productTitle = jQuery(this).attr('data-product-title');
+            var productHandle = jQuery(this).attr('data-product-handle');
+            var productQty = parseInt(jQuery(this).attr('data-product-quantity'));
+            var productImage = jQuery(this).attr('data-product-image');
+            var productImagesStr = jQuery(this).attr('data-product-images');
+            var productPrice = jQuery(this).attr('data-product-price');
+            var productCompareAtPrice = jQuery(this).attr('data-product-compareatprice');
+            var productHasCompareAtPrice = parseInt(jQuery(this).attr('data-product-hascompareatprice'));
+            var productWPrice = jQuery(this).attr('data-w-product-price');
+            var variantId = jQuery(this).attr('data-variant-id');
+            var variantSku = jQuery(this).attr('data-variant-sku');
+            var variantQty = parseInt(jQuery(this).attr('data-variant-quantity'));
+            var variantTitle = jQuery(this).attr('data-variant-title');
+            var productGlobalSize = jQuery(this).attr('data-product-globalsize');
+            var productDesc = jQuery(this).attr('data-product-desc');
+            var productDescShort = jQuery(this).attr('data-product-descshort');
+            var productCollectionHandles = jQuery(this).attr('data-collection-handles');
+            var isEligiable = parseInt(jQuery(this).attr('data-eligiable'));
+            var isFreesample = parseInt(jQuery(this).attr('data-freesample'));
+            var productAvailable = parseInt(jQuery(this).attr('data-product-available'));
+            var variantsCount = parseInt(jQuery(this).attr('data-variants-count'));
+            var defaultVariantId = jQuery(this).attr('data-defaultvariantid');
+            var variantsStr = jQuery(this).attr('data-variants');
+            var addToCartTextDefault = jQuery(this).attr('data-addtocart-text');
+            var uniqueCollection = jQuery(this).attr('data-unique-collection');
+            var productInfosHtml = jQuery(this).find('.item-badges').html();
+            var reviewsDom = jQuery(this).find('.item-badges').find('#productReviewBadge-' + uniqueCollection + '-' + productId);
+            if (parseFloat(reviewsDom.find('.stamped-badge').attr('data-rating')) == 0.0) {
+              reviewsDom.find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+            }
+            var reviewsHtml = jQuery(this).find('.item-badges').find('#productReviewBadge-' + uniqueCollection + '-' + productId).html();
+
+            productItemHtml += '<div class="item">';
+            var productPriceOnly = productPrice.replace("$", "");
+            var productPriceRound = Math.ceil(productPriceOnly);
+            if(productPriceOnly > 0){
+            productItemHtml += '    <span data-w-variant-quantity="' + variantQty + '" data-w-variant-sku="' + variantSku + '" data-w-variant-title="' + variantTitle + '" data-w-product-handle="' + productHandle + '" data-w-product-title="' + productTitle + '" data-w-quantity="' + productQty + '" data-w-product-image="' + productImage + '" data-w-product-price="' + productWPrice + '" data-w-variant-id="' + variantId + '" data-w-product-id="' + productId + '" class="add_to_wishlist">{%- render 'icon-heart' -%}</span>';
+            }
+            productItemHtml += '    <div class="inner">';
+            productItemHtml += '        <div class="img-wrapper" data-imgsrc="' + productImage + '" data-imgalt="' + productTitle + '">';
+            productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+            productItemHtml += '            <img src="' + productImage + '" alt="' + productTitle + '" class="loaded" data-was-processed="true">';
+            productItemHtml += '        </a>';
+            productItemHtml += '            <a href="#quickView" class="btn-quick-view btn-view-details" data-product-title="' + productTitle + '" data-variant-quantity="' + variantQty + '" data-variant-sku="' + variantSku + '" data-variant-title="' + variantTitle + '" data-product-handle="' + productHandle + '" data-product-quantity="' + productQty + '" data-product-image="' + productImage + '" data-product-images="' + productImagesStr + '" data-product-price="' + productPrice + '" data-product-compareatprice="' + productCompareAtPrice + '" data-product-hascompareatprice="' + productHasCompareAtPrice + '" data-w-product-price="' + productWPrice + '" data-variant-id="' + variantId + '" data-product-id="' + productId + '" data-product-globalsize="' + productGlobalSize + '" data-product-desc="' + productDesc + '" data-collection-handles="' + productCollectionHandles + '" data-eligiable="' + isEligiable + '" data-freesample="' + isFreesample + '" data-product-available="' + productAvailable + '" data-variants-count="' + variantsCount + '" data-defaultvariantid="' + defaultVariantId + '" data-variants="' + variantsStr + '" data-addtocart-text="' + addToCartTextDefault + '" data-unique-collection="' + uniqueCollection + '">Quick View</a>';
+            productItemHtml += '        </div>';
+            productItemHtml += productInfosHtml;
+            productItemHtml += '        <a class="anchor-link" href="' + itemUrl + '">';
+            productItemHtml += '            <div class="product-grid-details">';
+            productItemHtml += '                <h3 class="product-grid-details-info title">' + productTitle + '</h3>';
+            productItemHtml += '                <span class="size" style="display:block; min-height:16px;">' + productGlobalSize + '</span>';
+            productItemHtml += '                <p class="product-grid-details-info desc">' + productDescShort + '</p>';
+            productItemHtml += reviewsHtml;
+            productItemHtml += '                <p class="price">';
+            productItemHtml += '                    <span data-styleprice=""><span class="dollars">' + productPrice + '</span></span>';
+            productItemHtml += '                    <span class="visually-hidden">Regular price</span>';
+            if (productHasCompareAtPrice > 0) {
+              productItemHtml += '                    <s><span data-styleprice=""><span class="dollars">' + productCompareAtPrice + '</span></span></s>';
+            }
+            productItemHtml += '                </p>';
+            productItemHtml += '            </div>';
+            productItemHtml += '        </a>';
+            productItemHtml += '    </div>';
+            productItemHtml += '</div>';
+
+            recommendedProductsCount += 1;
+          }
+        } else {
+          return false;
+        }
+      });
+    }
+    if (jQuery('#recommendedProducts .product-grid-block .product-listing .slider .item').length > 0) {
+      jQuery('#recommendedProducts .product-grid-block .product-listing .slider').append(productItemHtml);
+    } else {
+      jQuery('#recommendedProducts .product-grid-block .product-listing .slider').html(productItemHtml);
+    }
+    bindQuickView();
+    var bs_slick_config = {
+      slidesToShow: 5,
+      slidesToScroll: 5,
+      arrows: true,
+      dots: false,
+      responsive: [
+        {
+          breakpoint: 1100,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4
+          }
+        },
+        {
+          breakpoint: 991,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        }
+      ]
+    }
+    jQuery("#recommendedProducts .slider").slick(bs_slick_config);
+    /* On click of Show More button */
+    jQuery('#show-more').on('click', function () {
+      var baseSearchUrl = window.location.href.split('?')[0];
+      var redirectSearchUrl = baseSearchUrl + '?q=' + redirectSearchTerms + '&type=' + redirectSearchTypes + '&page=' + nextPageNo;
+      window.location.href = redirectSearchUrl;
+
+      jQuery('div.inline-loader').show();
+    });
+
+    window.setInterval(function () {
+      if (!reviewsFinalized) {
+        var searchReviewsFinalized = false;
+        var recommendedReviewsFinalized = false;
+        if (jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').length > 0) {
+          jQuery('#collection-dynamic-content .product-grid-block .non-treatment-list .flex-container .item').each(function (index) {
+            if (parseFloat(jQuery(this).find('.stamped-badge').attr('data-rating')) == 0.0) {
+              jQuery(this).find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+              searchReviewsFinalized = true;
+            } else {
+              if (!jQuery(this).find('.stamped-product-reviews-badge').hasClass('stamped-main-badge')) {
+                jQuery(this).find('.stamped-product-reviews-badge').addClass('stamped-main-badge');
+                searchReviewsFinalized = true;
+              }
+            }
+          });
+        } else {
+          searchReviewsFinalized = true;
+        }
+        if (jQuery('#recommendedProducts .product-grid-block .product-listing .slider .item').length > 0) {
+          jQuery('#recommendedProducts .product-grid-block .product-listing .slider .item').each(function (index) {
+            if (parseFloat(jQuery(this).find('.stamped-badge').attr('data-rating')) == 0.0) {
+              jQuery(this).find('.stamped-product-reviews-badge').removeClass('stamped-main-badge');
+              recommendedReviewsFinalized = true;
+            } else {
+              if (!jQuery(this).find('.stamped-product-reviews-badge').hasClass('stamped-main-badge')) {
+                jQuery(this).find('.stamped-product-reviews-badge').addClass('stamped-main-badge');
+                recommendedReviewsFinalized = true;
+              }
+            }
+          });
+        } else {
+          recommendedReviewsFinalized = true;
+        }
+        if (searchReviewsFinalized && recommendedReviewsFinalized) {
+          reviewsFinalized = true;
+          clearInterval();
+        }
+      }
+    }, 1000);
+  });
+</script>
+{% schema %}
+{
+  "name": "Search",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+  ]
+}
+{% endschema %}

@@ -1,0 +1,311 @@
+{% style %}
+  .product-feature{
+    display: block;
+    width: 100%;
+  }
+  .product-feature-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .product-feature-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .product-feature-title {
+    margin:0;
+  }
+  .product-feature-buttons{
+    display: none;
+  }
+  .product-feature-button-mobile{
+    display: inline-flex;
+  }
+
+  .product-feature-button-desktop {
+    display: none;
+  }
+
+  .product-feature-image {
+    width: 100%;
+    position: relative;
+  }
+
+  .product-feature-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-feature-image-placeholder{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .product-feature-image-placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-feature-empty-state {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-feature-wrapper {
+      flex-direction: {% if section.settings.desktop_layout == 'image_right' %}row{% else %}row-reverse{% endif %};
+      align-items: center;
+      gap: 60px;
+    }
+
+    .product-feature-content{
+      flex: 1;
+      gap: 24px;
+    }
+
+    .product-feature-image {
+      flex: 1;
+    }
+
+    .product-feature-buttons{
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .product-feature-button-mobile {
+      display: none !important;
+    }
+
+    .product-feature-button-desktop {
+      display: inline-flex;
+    }
+  }
+  .product-feature-wrapper {
+    padding: {{ section.settings.content_box_padding | times: 0.5 | round: 0 }}px;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    .product-feature-wrapper {
+      padding: {{ section.settings.content_box_padding }}px;
+    }
+  }
+{% endstyle %}
+
+<product-feature
+  class="product-feature" style="background-color: {{ section.settings.background_color }}; padding: {{ section.settings.section_padding }}px 0;"
+  {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="product-feature-wrapper" style="background-color: {{ section.settings.content_box_background_color }}; border-radius: {{ section.settings.content_box_border_radius }}px;">
+      <div class="product-feature-content">
+        {% if section.settings.title != blank %}
+          <h2 class="product-feature-title">{{ section.settings.title }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="product-feature-description">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        <div class="product-feature-buttons">
+          {% if section.settings.button_desktop_text != blank and section.settings.button_desktop_link != blank %}
+            <a
+              href="{{ section.settings.button_desktop_link }}"
+              class="button product-feature-button product-feature-button-desktop"
+            >
+              {{ section.settings.button_desktop_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="product-feature-image">
+        {% if section.settings.product_image %}
+          <img
+            src="{{ section.settings.product_image | image_url: width: 1200 }}"
+            alt="{{ section.settings.product_image.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.product_image.width }}"
+            height="{{ section.settings.product_image.height }}"
+          >
+        {% else %}
+          <div class="product-feature-image-placeholder">
+            {{ 'product-1' | placeholder_svg_tag }}
+            <div class="product-feature-empty-state">
+              Next, add a product image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.button_mobile_text != blank and section.settings.button_mobile_link != blank %}
+        <a
+          href="{{ section.settings.button_mobile_link }}"
+          class="button product-feature-button product-feature-button-mobile"
+        >
+          {{ section.settings.button_mobile_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</product-feature>
+<script>
+  (function() {
+    class ProductFeature extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('product-feature', ProductFeature);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product feature",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Desktop layout",
+      "options": [
+        {
+          "value": "image_right",
+          "label": "Image right"
+        },
+        {
+          "value": "image_left",
+          "label": "Image left"
+        }
+      ],
+      "default": "image_right"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_box_background_color",
+      "label": "Content Box Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "content_box_padding",
+      "label": "Content Box padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "content_box_border_radius",
+      "label": "Content Box border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured product"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover our latest product with amazing features and benefits for your skin.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "header",
+      "content": "Desktop button"
+    },
+    {
+      "type": "text",
+      "id": "button_desktop_text",
+      "label": "Button text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_desktop_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Mobile button"
+    },
+    {
+      "type": "text",
+      "id": "button_mobile_text",
+      "label": "Button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "url",
+      "id": "button_mobile_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product feature"
+    }
+  ]
+}
+{% endschema %}

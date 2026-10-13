@@ -1,0 +1,79 @@
+{{ 'section-franchise-our-support-3-col-grid-layout.css' | asset_url | stylesheet_tag }}
+{%- capture threeColGridLayout -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="three-col-grid-layout" style="background-color:{{ section.settings.block_bg_color }};">
+    <div class="page-width">
+        <div class="lists flex-container masonary">
+            {%- for block in section.blocks -%}
+            <div class="item masonary-item">
+                {%- if block.settings.item_icon_img != blank -%}
+                <div class="icon-wrapper">
+                    <img width="36" height="36" src="{{ block.settings.item_icon_img | img_url:'50x' }}" loading="lazy" alt="{{ block.settings.item_title }}">
+                </div>
+                {%- endif -%}
+                <div class="content">
+                    {%- if block.settings.item_title != blank -%}
+                    <h2 class="title">{{ block.settings.item_title }}</h2>
+                    {%- endif -%}
+                    {%- if block.settings.item_desc != blank -%}
+                    {{ block.settings.item_desc }}
+                    {%- endif -%}
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+    </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ threeColGridLayout | strip_newlines }}
+{% schema %}
+{
+"name": "Three Col Grid Layout",
+"settings": [
+{
+"id" : "block_switch",
+"type" : "checkbox",
+"label" : "Enable",
+"default" : true
+},
+{
+"id" : "block_bg_color",
+"type" : "color",
+"label" : "Block Background Color",
+"default": "#ffffff"
+}
+],
+"blocks": [
+{
+"type": "Article",
+"name": "Item",
+"settings": [
+{
+"id": "item_icon_img",
+"type": "image_picker",
+"label": "Icon Image"
+},
+{
+"id": "item_title",
+"type": "text",
+"label": "Title"
+},
+{
+"id": "item_desc",
+"type": "textarea",
+"label": "Description"
+}
+]
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

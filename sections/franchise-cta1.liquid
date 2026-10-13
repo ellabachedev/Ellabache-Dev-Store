@@ -1,0 +1,122 @@
+{{ 'section-franchise-cta1.css' | asset_url | stylesheet_tag }}
+{%- capture franchiseCTA1 -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="franchise-cta1" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="flex-container">
+      <div class="main-content">
+        {%- if section.settings.block_tag != blank -%}
+        <span class="tag">{{ section.settings.block_tag }}</span>
+        {%- endif -%}
+        {%- if section.settings.block_title != blank -%}
+        <h2 class="block-title">{{ section.settings.block_title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.block_desc != blank -%}
+          {{ section.settings.block_desc }}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.block_video_switch or section.settings.block_image_switch  -%}
+      <div class="aside">
+        {%- if section.settings.block_video != blank and section.settings.block_video_switch -%}
+        <div class="video-holder">
+          <video controls="controls">
+            <source src="{{ section.settings.block_video | asset_url }}" type="video/mp4" />
+          </video>
+        </div>
+        {%- endif -%}
+        <div class="space mobile-hide" style="height:60px; width:100%"></div>
+        {%- if section.settings.block_video_switch != blank and section.settings.block_image_switch  != blank -%}
+        <div class="space" style="height: 25px; width:100%"></div>
+        {%- endif -%}
+        {%- if section.settings.block_image != blank and section.settings.block_image_switch -%}
+        <div class="f-image-holder">
+          {% if section.settings.block_image_link != blank %}<a href="{{ section.settings.block_image_link }}">{% endif %}<img width="489" height="335" src="{{ section.settings.block_image | img_url:'800x' }}" loading="lazy" alt="{{ section.settings.block_tag }}">{% if section.settings.block_image_link != blank %}</a>{% endif %}
+          {%- if section.settings.block_image_caption -%}
+          <p style="margin-top:10px; text-align:right;"><em>{{ section.settings.block_image_caption }}</em></p>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ franchiseCTA1 | strip_newlines }}
+{% schema %}
+  {
+    "name": "Franchise CTA 1",
+    "settings": [
+      {
+        "id": "block_switch",
+        "type": "checkbox",
+        "label": "Enable",
+        "default": true
+      },
+      {
+        "id": "block_bg_color",
+        "type": "color",
+        "label": "Block Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "id": "block_tag",
+        "type": "text",
+        "label": "Tag"
+      },
+      {
+        "id": "block_title_font-size",
+        "type": "range",
+        "label": "Title Font Size",
+        "min": 10,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "default": 34
+      }, {
+        "id": "block_title",
+        "type": "text",
+        "label": "Title"
+      }, {
+        "id": "block_desc",
+        "type": "textarea",
+        "label": "Description"
+      }, {
+        "id": "block_video_switch",
+        "type": "checkbox",
+        "label": "Enable",
+        "default": true
+      }, {
+        "id": "block_video",
+        "type": "text",
+        "label": "Full Video File Name"
+      }, {
+        "id": "block_image_switch",
+        "type": "checkbox",
+        "label": "Enable",
+        "default": true
+      }, {
+        "id": "block_image",
+        "type": "image_picker",
+        "label": "Featured Image"
+      }, {
+        "id": "block_image_caption",
+        "type": "text",
+        "label": "Featured Image Caption"
+      }, {
+        "id": "block_image_link",
+        "type": "url",
+        "label": "Featured Image Link"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

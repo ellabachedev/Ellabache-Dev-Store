@@ -1,0 +1,41 @@
+{% comment %}Edit Variables{% endcomment %}
+{% assign NAMESPACE = 'ellabachegc' %}
+{% assign IIN = '63992700' %}
+
+<div class="giftcard__code-wrapper">
+  {% assign code_size = gift_card.code | format_code | size %}
+  {% assign split_code = IIN | append: gift_card.code | split: "" %}
+  <span class="giftcard__code{% if code_size <= 25 %} giftcard__code--large{% elsif code_size > 25 and code_size <= 30 %} giftcard__code--medium{% else %} giftcard__code--small{% endif %}" onclick="selectText('GiftCardDigits');">
+  	<div class="giftcard__code__inner">
+  		<label>Card No.</label <span class="giftcard__code__text" id="GiftCardDigits">{% for i in (0..22) %}{% capture mod %}{{ i | modulo:4 }}{% endcapture %}{% if mod == '0' %}<small style="display: inline; margin-right: .5em;"></small>{% endif %}{{ split_code[i] }}{% endfor %}</span>
+  	</div>
+  </span>
+  {% assign metafield_key = gift_card.code %}
+  {% assign gift_card_pin = gift_card.customer.metafields[NAMESPACE][metafield_key] %}
+  <span class="giftcard__code{% if code_size <= 25 %} giftcard__code--large{% elsif code_size > 25 and code_size <= 30 %} giftcard__code--medium{% else %} giftcard__code--small{% endif %}" onclick="selectText('GiftCardPin');">
+  	<div class="giftcard__code__inner">
+  		<label>Pin:</label> <span class="giftcard__code__text" id="GiftCardPin">{{ gift_card_pin }}</span>
+  	</div>
+  </span>
+</div>
+<script type="text/javascript">
+	function selectText(element) {
+		var doc = document,
+			text = doc.getElementById(element);
+		if (doc.body.createTextRange) { // ms
+			var range = doc.body.createTextRange();
+			range.moveToElementText(text);
+			range.select();
+		} else if (window.getSelection) { // moz, opera, webkit
+			var selection = window.getSelection(),
+			range = doc.createRange();
+			range.selectNodeContents(text);
+			selection.removeAllRanges();
+			selection.addRange(range);
+		}
+	}
+</script>
+<style>
+  .giftcard__code-wrapper{padding:15px 0; border-top:1px solid #b9c0c9; margin-top:25px; }
+  .giftcard__code-wrapper label{ width:100px; color:#001e37;}
+</style>

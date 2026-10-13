@@ -1,0 +1,58 @@
+#checkoutSalonSelectorField {
+	margin-top: 12px;
+}
+#checkoutSalonSelectorField {
+    margin-top:12px
+}
+.specialLabelWrap .fieldset-description {
+    margin-bottom: 0.92857em;
+}
+.specialLabelWrap .field__label {
+	-webkit-transform: none;
+	transform: none;
+	opacity: 1;
+    display: block;
+}
+.specialLabelWrap .field__input {
+    padding-top: 21px;
+    padding-bottom: 5px;  
+}
+.specialLabelWrap .field__input-wrapper {
+    margin-bottom: 0.92857em;
+}
+.prefSalon.field--error .field__caret {
+    top: 32%;
+}
+#shippingMessage {
+	background-color: {{ settings.checkout_shipping_message_bg_color }};
+	border: 2px solid {{ settings.checkout_shipping_message_border_color }};
+	color: {{ settings.checkout_shipping_message_text_color }};
+	font-size: 12px;
+	margin-top: 2em;
+	padding: 20px;
+}
+@media (min-width: 750px) {
+	#shippingMessage {
+		margin-top: 3em;
+	}
+}
+ #shippingMessage.isHidden {
+	display: none !important;
+}
+#checkoutMessage2 {
+	background-color: {{ settings.checkout_message2_bg_color }};
+	border: 2px solid {{ settings.checkout_message2_border_color }};
+	color: {{ settings.checkout_message2_text_color }};
+	font-size: 12px;
+	margin-top: 2em;
+	padding: 20px;
+}
+@media (min-width: 750px) {
+	#checkoutMessage2 {
+		margin-top: 1em;
+	}
+}
+#checkoutMessage2.isHidden {
+	display: none !important;
+}
+ 

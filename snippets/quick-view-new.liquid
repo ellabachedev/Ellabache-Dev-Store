@@ -1,0 +1,58 @@
+{{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+{{ 'component-quick-view-popup.css' | asset_url | stylesheet_tag }}
+<div style="display:none">
+  <div id="quickView" class="white-popup-block quick-view-popup new-popup">
+    <span data-w-variant-quantity="" data-w-variant-sku="" data-w-variant-title="" data-w-product-handle="" data-w-product-title=""  data-w-quantity="" data-w-product-image="" data-w-product-price="" data-w-variant-id="" data-w-product-id="" class="add_to_wishlist">
+        {%- render 'icon-heart' -%}
+    </span>
+    <div class="flex-container">
+      <div class="product-image-gallery-slider">
+        <div class="gallery-for">
+          <div class="item">
+            <img src="{{ 'blank-image.png' | asset_url }}" data-src="" data-url="" data-urlthumb="" loading="lazy" alt="">
+          </div>
+        </div>
+        <div class="gallery-nav">
+          <div class="item">
+            <img src="{{ 'blank-image.png' | asset_url }}" data-src="" data-url="" data-urlthumb="" loading="lazy" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <h2 class="title">Suncover Great SPF50 Foundation</h2>
+        <span class="vairant">30ml</span>
+        <div class="description">
+          <p>A moisturising and light diffusing SPF50 medium coverage foundation, which not only moisturises the skin, but also protects the skin from UVA and UVB rays and softens the appearance of fine lines and gives a flawless complexion Enriched with green tea antioxidants, jojoba and lanolin...</p>
+        </div>
+        <div class="review"></div>
+        <div class="price">
+          <span>$49.00</span>
+        </div>
+        <div class="afterpayWrap"></div>
+        <form class="add-to-cart" action="/cart/add" data-cart-submit method="post" enctype="multipart/form-data">
+          <input type="hidden" class="collection-handles" name="properties[collection_handles]" value="">
+          <input type="hidden" class="is-eligiable" name="properties[eligiable]" value="">
+          <input type="hidden" class="is-freesample" name="properties[freesample]" value="">
+          <input type="hidden" class="add-id" name="id" value="">
+          <div class="select-variant">
+          </div>
+          <div class="action-buttons flex-container">
+            <div class="quantity-control">
+              <label>Quantity</label>
+              <div class="quanity-actions">
+                <div class="qty-btn qty-down">-</div>
+                <input type="number" value="1" min="1" class="quantity" name="quantity">
+                <div class="qty-btn qty-up">+</div>
+              </div>
+            </div>
+            <div class="btn-addtocart">
+              <button id="quickview-addtocart" type="submit" data-cart-addclaims="">Add to Cart</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ 'jquery.magnific-popup.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-popup.js' | asset_url }}" defer="defer"></script>

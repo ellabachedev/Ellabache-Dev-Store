@@ -1,0 +1,384 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'ui-datepicker.css' | asset_url | stylesheet_tag }}
+{{ 'magnific-popup.css' | asset_url | stylesheet_tag }}
+{% if customer %}
+  {% if customer.metafields.salon_portal.salon_page_handle %}
+    {% if customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+      <div class="dashboard-customer">
+        <div class="flex-container">
+          {% render 'customer-dashboard-sidebar' %}
+          <div class="content-body">
+            <div class="inner-content">
+              {%  render 'customer-dashboard-welcome-box' %} 
+            </div>
+            <div class="content-body-box content-body-onlineOrders">
+              <h3 class="sub-history">{{ page.title }}</h3>
+                <div class="filter-order-date" style="display:block">
+                    <div class="filters">
+                      <div class="flex-container">
+                        <div class="item">
+                          <div class="inner">
+                            <label for="from">From Date: </label>
+                            <input id="from" class="datepicker" type="text" autocomplete="off" name="from" placeholder="yyyy-mm-dd">
+                          </div>
+                        </div>
+                        <div class="item">
+                          <div class="inner">
+                            <label for="to">To Date:</label>
+                            <input id="to" class="datepicker" type="text"  autocomplete="off" name="to" placeholder="yyyy-mm-dd">
+                          </div>
+                        </div>
+                        <div class="item">
+                          <input class="button" type="submit" id="filter" name="" value="Filter">
+                        </div>
+                        <div class=item>
+                          <input class="button" type="submit" id="clearfilter" name="" value="Clear Filter" style="display:none;">
+                        </div>
+                        <div class="item">
+                          <input class="button" type="button" id="export" data-keyword="{{ customer.metafields.salon_portal.salon_page_handle }}" data-name="{{ customer.name }}" data-email="{{ customer.email }}" value="Export CSV"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div style="overflow-x: auto;">
+                  <table id="salonServiceBookWaitlist"  class="default" >
+                    <thead>
+                      <tr>
+                        <th id="salonTag" class="table-head-col" style="display:none;">Salon Tag</th>
+                        <th id="name" class="table-head-col">Name</th>
+                        <th id="email" class="table-head-col">Email</th>
+                        <th id="phone" class="table-head-col">Phone No.</th>
+                        <th id="service" class="table-head-col">Service Interested</th>
+                        <th id="submittedAt" class="table-head-col">Submitted At</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div class="simple pagination" style="display:none;">
+                  <div class="previous">
+                    
+                  </div>
+                  <div class="next">
+                    
+                  </div>
+                </div>
+                <div class="no-data" style="display:none">
+                  <p>Sorry! There were no orders to show.</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a id="btnWaitlistExportRes" style="display: none;" href="#waitlistExportRes" class="button btn-claim-samples full-width"></a>
+      <div class="hide">
+        <div id="waitlistExportRes" class="white-popup-block">
+          <div class="popup-content-wrap">
+            <div class="sample-selectors competition-wrap">
+              <div class="sample-group">
+                <h2 class="popup-title"></h2>
+                <div class="selector-instruction export-response-msg"></div>
+                <div class="selector-footer"><a href="javascript:void(0);" class="btn btn-done">OK</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="{{ 'jquery-ui-datepicker.js' | asset_url }}"></script>
+      <script>
+        function addReportsHalterOverlay(){
+          if( $('#reportsHalterOverlay').length < 1 ){
+            var halterHtml = '<div id="reportsHalterOverlay" class="body-overlay"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="40px" height="40px" viewBox="0 0 128 128" xml:space="preserve"><rect x="0" y="0" width="100%" height="100%" fill="#17324A" /><g><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="1"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(30 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(60 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(90 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(120 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.3" transform="rotate(150 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.4" transform="rotate(180 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.5" transform="rotate(210 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.6" transform="rotate(240 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.7" transform="rotate(270 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.8" transform="rotate(300 64 64)"/><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.9" transform="rotate(330 64 64)"/><animateTransform attributeName="transform" type="rotate" values="0 64 64;30 64 64;60 64 64;90 64 64;120 64 64;150 64 64;180 64 64;210 64 64;240 64 64;270 64 64;300 64 64;330 64 64" calcMode="discrete" dur="1080ms" repeatCount="indefinite"></animateTransform></g></svg></div>';
+            $('body').prepend(halterHtml);
+
+          }
+        }
+
+        function removeReportsHalterOverlay(){
+          if( $('#reportsHalterOverlay').length > 0 ){
+            $('#reportsHalterOverlay').remove();
+          }
+        }
+
+        function getWaitlist(keyword, pageSize, afterToken, beforeToken, from, to){
+          var returnResponse = null;
+          var ajaxUrl = 'https://dcpzjgt0sa.execute-api.us-east-1.amazonaws.com/dev/salonservicebookwaitlists'
+          var postData = { keyword: keyword, page_size: pageSize, after: afterToken, before: beforeToken, since: from, until: to };
+          jQuery.ajax({
+            method: "POST",
+            url: ajaxUrl,
+            dataType: 'json',
+            data: postData,
+            async: true,
+            success: function (res){
+              console.log('res');
+              console.log(res);
+              if(res.status == 'success'){
+                var items = res.response_data.items;
+                var prevToken = res.prev_token;
+                var nextToken = res.next_token;
+                var fieldIdMap = res.field_id_map;
+                if(items.length > 0){
+                  var tableHtml = '';
+                  jQuery.each(items, function(k, v){
+                    var answers = v.answers;
+                    var nameAnswer = '';
+                    var emailAnswer = '';
+                    var phoneAnswer = '';
+                    jQuery.each(answers, function(kk, vv){
+                      if( vv.field.id == fieldIdMap.name ){
+                        nameAnswer = vv.text;
+                      }
+                      if( vv.field.id == fieldIdMap.email ){
+                        emailAnswer = vv.email;
+                      }
+                      if( vv.field.id == fieldIdMap.phone ){
+                        phoneAnswer = vv.phone_number;
+                      }
+                    });
+                    var answerSubmittedAt = v.submitted_at;
+                    answerSubmittedAt = answerSubmittedAt.replace('T', ' ');
+                    answerSubmittedAt = answerSubmittedAt.replace('Z', '');
+                    tableHtml += '<tr class="responsive-table-row">';
+                    tableHtml += '  <td style="display:none;">' + v.hidden.salon_name + '</td>';
+                    tableHtml += '  <td>' + nameAnswer + '</td>';
+                    tableHtml += '  <td><a href="mailto:' + emailAnswer + '">' + emailAnswer + '</a></td>';
+                    tableHtml += '  <td><a href="tel:' + phoneAnswer + '">' + phoneAnswer + '</a></td>';
+                    tableHtml += '  <td>' + v.hidden.service_interested + '</td>';
+                    tableHtml += '  <td>' + answerSubmittedAt + '</td>';
+                    tableHtml += '</tr>';
+                  });
+                  jQuery('#salonServiceBookWaitlist tbody').html(tableHtml);
+
+                  if( prevToken == null && nextToken == null ){
+                    jQuery('.pagination').hide();
+                  }else if( prevToken == null && nextToken != null ){
+                    jQuery('.pagination').show();
+                    var prevHtml = '<span class="disabled"><i class="fas fa-chevron-left"></i>Previous</span>';
+                    var nextHtml = '<a href="javascript:void(0);" id="nextPage" class="prevNextPage" data-prevpagetoken="' + prevToken + '" data-nextpagetoken="' + nextToken + '">Next<i class="fas fa-chevron-right"></i></a>';
+                    jQuery('.pagination .previous').html(prevHtml);
+                    jQuery('.pagination .next').html(nextHtml);
+                  }else if( prevToken != null && nextToken == null ){
+                    jQuery('.pagination').show();
+                    var prevHtml = '<a href="javascript:void(0);" id="prevPage" class="prevNextPage" data-prevpagetoken="' + prevToken + '" data-nextpagetoken="' + nextToken + '"><i class="fas fa-chevron-left"></i>Previous</a>';
+                    var nextHtml = '<span class="disabled">Next<i class="fas fa-chevron-right"></i></span>';
+                    jQuery('.pagination .previous').html(prevHtml);
+                    jQuery('.pagination .next').html(nextHtml);
+                  }else if( prevToken != null && nextToken != null ){
+                    jQuery('.pagination').show();
+                    var prevHtml = '<a href="javascript:void(0);" id="prevPage" class="prevNextPage" data-prevpagetoken="' + prevToken + '" data-nextpagetoken="' + nextToken + '"><i class="fas fa-chevron-left"></i>Previous</a>';
+                    var nextHtml = '<a href="javascript:void(0);" id="nextPage" class="prevNextPage" data-prevpagetoken="' + prevToken + '" data-nextpagetoken="' + nextToken + '">Next<i class="fas fa-chevron-right"></i></a>';
+                    jQuery('.pagination .previous').html(prevHtml);
+                    jQuery('.pagination .next').html(nextHtml);
+                  }else{
+                    
+                  }
+                  jQuery('#salonServiceBookWaitlist').show();
+                  jQuery('.no-data').hide();
+                  jQuery('.no-data p').text('');
+                  jQuery('#export').show();
+                }else{
+                  jQuery('#salonServiceBookWaitlist').hide();
+                  jQuery('.pagination').hide();
+                  jQuery('.no-data').show();
+                  jQuery('.no-data p').text('Sorry! There are no waitlist.');
+                  jQuery('#export').hide();
+                }
+              }else{
+                jQuery('#salonServiceBookWaitlist').hide();
+                jQuery('.pagination').hide();
+                jQuery('.no-data').show();
+                jQuery('.no-data p').text('Sorry! An error occurred while getting your report.');
+                jQuery('#export').hide();
+              }
+            },
+            error: function (err){
+              console.log('err');
+              console.log(err);
+              jQuery('#salonServiceBookWaitlist').hide();
+              jQuery('.pagination').hide();
+              jQuery('.no-data').show();
+              jQuery('.no-data p').text('Sorry! An error occurred while getting your report.');
+              jQuery('#export').hide();
+            },
+            complete: function(){
+              removeReportsHalterOverlay();
+              jQuery(document).trigger('waitlistloaded');
+            }
+          });
+        }
+
+        jQuery(document).ready(function($){
+
+          var salonPageHandle = '{{ customer.metafields.salon_portal.salon_page_handle }}';
+          var pageSize = 50;
+          var afterToken = null;
+          var beforeToken = null;
+          var filterFrom = null;
+          var filterTo = null;
+
+
+          var dateFormat = "yy-mm-dd",
+          from = $( "#from" ).datepicker({
+            dateFormat: 'yy-mm-dd',
+            maxDate : 0,
+            numberOfMonths: 1
+          }).on( "change", function() {
+            to.datepicker( "option", "minDate", getDate( this ) );
+          }),
+          to = $( "#to" ).datepicker({
+            dateFormat: 'yy-mm-dd',
+            maxDate : 0,
+            numberOfMonths: 1
+          }).on( "change", function() {
+            from.datepicker( "option", "maxDate", getDate( this ) );
+          });
+
+          $(".hasDatepicker").on("blur", function() {
+            var thisDatePicker = this;
+            $('body').on('click', function(e){
+              if( $(e.target).parents('#ui-datepicker-div').length < 1 && !$(e.target).hasClass('ui-datepicker-prev') && !$(e.target).hasClass('ui-datepicker-next') && !$(e.target).hasClass('hasDatepicker') ){
+                $(thisDatePicker).datepicker("hide");
+              }
+            });
+          });
+
+          function getDate( element ) {
+            var date;
+            try {
+              date = $.datepicker.parseDate( dateFormat, element.value );
+            } catch( error ) {
+              date = null;
+            }
+            return date;
+          }
+
+          $('a#btnWaitlistExportRes').magnificPopup({
+            type: 'inline',
+            midClick: true,
+            closeOnBgClick:true,
+            mainClass: 'mfp-fade',
+            fixedContentPos: true
+          });
+
+          $('#waitlistExportRes .btn-done').on('click', function(){
+            $.magnificPopup.close();
+          });
+
+          
+          addReportsHalterOverlay();
+          getWaitlist(salonPageHandle, pageSize, afterToken, beforeToken, filterFrom, filterTo);
+
+          $(document).off().on('waitlistloaded', function(){
+            $('#prevPage').off().on('click', function(){
+              addReportsHalterOverlay();
+              afterToken = $(this).attr('data-prevpagetoken');
+              beforeToken = null;
+              //beforeToken = $(this).attr('data-nextpagetoken');
+              getWaitlist(salonPageHandle, pageSize, afterToken, beforeToken, filterFrom, filterTo);
+            });
+            $('#nextPage').off().on('click', function(){
+              addReportsHalterOverlay();
+              //afterToken = $(this).attr('data-prevpagetoken');
+              afterToken = null;
+              beforeToken = $(this).attr('data-nextpagetoken');
+              getWaitlist(salonPageHandle, pageSize, afterToken, beforeToken, filterFrom, filterTo);
+            });
+          });
+
+          $('#from').on('change', function(){
+            filterFrom = $('#from').val() + ' 00:00:00';
+          });
+
+          $('#to').on('change', function(){
+            filterTo = $('#to').val() + ' 23:59:59';
+          });
+
+          $('#filter').off().on('click', function(e){
+            e.preventDefault();
+            addReportsHalterOverlay();
+            afterToken = null;
+            beforeToken = null;
+            getWaitlist(salonPageHandle, pageSize, afterToken, beforeToken, filterFrom, filterTo);
+            if(filterFrom != null || filterTo != null){
+              $('#clearfilter').show();
+            }
+          });
+
+          $('#clearfilter').off().on('click', function(e){
+            e.preventDefault();
+            addReportsHalterOverlay();
+            $('#clearfilter').hide();
+            afterToken = null;
+            beforeToken = null;
+            $('#from').val('');
+            $('#to').val('');
+            filterFrom = null;
+            filterTo = null;
+            getWaitlist(salonPageHandle, pageSize, afterToken, beforeToken, filterFrom, filterTo);
+          });
+
+          $('#export').off().on('click', function(e){
+            e.preventDefault();
+            addReportsHalterOverlay();
+            var customerName = '{{ customer.name }}';
+            var customerEmail = '{{ customer.email }}';
+            var ajaxUrl = 'https://dcpzjgt0sa.execute-api.us-east-1.amazonaws.com/dev/exportwaitlist'
+            $.ajax({
+              method: "POST",
+              url: ajaxUrl,
+              dataType: 'json',
+              data: { keyword: salonPageHandle, email: customerEmail, name: customerName, since: filterFrom, until: filterTo },
+              async: true,
+              success: function (res){
+                $('#waitlistExportRes .export-response-msg').html('<p>Your wait list is currently being exported and will be sent to your email account shortly.</p>');
+                /*$('.export-message').remove();
+                $('#export').after('<p class="export-message success">The exported CSV will be sent in your email in a while <span class="close">X</span></p>');
+                $('#export').val('Exported');
+                $('#export').prop('disabled', true);*/
+              },
+              error: function (err){
+                $('#waitlistExportRes .export-response-msg').html('<p>Something went wrong while requesting for the export. Please try again in a while.</p>');
+                /*$('.export-message').remove();
+                $('#export').after('<p class="export-message error">Something went wrong while requesting for the export. Please try again in a while. <span class="close">X</span></p>');
+                $('#export').val('Export');
+                $('#export').prop('disabled', true);*/
+              },
+              complete: function(){
+                removeReportsHalterOverlay();
+                $('#btnWaitlistExportRes').trigger('click');
+                $(document).trigger('waitlistexported');
+              }
+            });
+          });
+
+          /*$(document).off().on('waitlistexported', function(){
+            $('.export-message .close').off().on('click', function(){
+              $(this).parents('.export-message').remove();
+            });
+          });*/
+            
+        });
+      </script>
+    {% else %}
+        <script>
+            var shopUrl = '{{ shop.url }}';
+            window.location.href = shopUrl + "/account";
+        </script>
+    {% endif %}
+  {% else %}
+      <script>
+          var shopUrl = '{{ shop.url }}';
+          window.location.href = shopUrl + "/account";
+      </script>
+  {% endif %}
+{% else %}
+  <script>
+      var shopUrl = '{{ shop.url }}';
+      window.location.href = shopUrl + "/account/login?return_url=%2Fpages%2Fsalon-service-book-waitlist";
+  </script>
+{% endif %}

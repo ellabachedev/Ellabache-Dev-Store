@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "college-cta2": {
+      "type": "college-cta2",
+      "blocks": {
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/StairBAW_676d45d5-a370-4793-9b98-4ac15b97bdcd.png",
+            "item_title": "Apply Now",
+            "item_desc": "<p>Please read the information provided in the Terms and Conditions, Schedule of Fees and Charges for Domestic Students, Cancellation and Refund Policy, Student Handbook and other college policies and procedures available on the resource page before you apply.<\/p>",
+            "item_btn_switch": false,
+            "item_btn_text": "",
+            "item_btn_url": "",
+            "item_popup_switch": false,
+            "popup_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "popup_js_switch": true
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "title_switch": false,
+        "page_title": "",
+        "padding_top": 28,
+        "padding_bottom": 0
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    }
+  },
+  "order": [
+    "college-cta2",
+    "main",
+    "college-cta5"
+  ]
+}

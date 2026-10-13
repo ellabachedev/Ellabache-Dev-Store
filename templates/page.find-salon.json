@@ -1,0 +1,146 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "find-salon": {
+      "type": "find-salon",
+      "blocks": {
+        "14c76de2-c9fa-414b-b68d-85e3f8245ae8": {
+          "type": "image",
+          "settings": {
+            "desktop_image": "shopify://shop_images/quiGongMassage_1.png"
+          }
+        },
+        "2d5d990d-e455-473d-8a24-5ac7a43c691b": {
+          "type": "video",
+          "settings": {
+            "video_path": "https://cdn.shopify.com/s/files/1/2999/1646/files/Moisture-Protective-Application-Final.mp4?v=1634720527"
+          }
+        }
+      },
+      "block_order": [
+        "14c76de2-c9fa-414b-b68d-85e3f8245ae8",
+        "2d5d990d-e455-473d-8a24-5ac7a43c691b"
+      ],
+      "settings": {}
+    },
+    "find-salon-treatment-block": {
+      "type": "find-salon-treatment-block",
+      "blocks": {
+        "full_width_slide2_bzXAyf": {
+          "type": "full-width-slide2",
+          "settings": {
+            "banner_switch_sec": true,
+            "desktop_image_sec": "shopify://shop_images/1026_GWP_MainBanner_Desktop_1920x760px_2c73d74a-16a4-4736-a1b9-03144f766534.jpg",
+            "mobile_image_sec": "shopify://shop_images/1026_GWP_MainBanner_Mobile_750x1000px.jpg",
+            "video_url_sec": "",
+            "title_sec": "",
+            "subtext_sec": "",
+            "subtext_sec_mob": "",
+            "extra_info_sec": "",
+            "button_sec": "",
+            "slider_url_sec": "",
+            "slide_Nav_Text_sec": "",
+            "slider_title_color_sec": "#ffffff",
+            "slider_title_bgcolor_sec": "#001e37",
+            "slider_color_sec": "#001e37",
+            "slider_btn_border_color2": "#001e37",
+            "slider_btn_bg_color2": "#001e37",
+            "slider_btn_color2_sec": "#ffffff",
+            "btn_border_color_hover2": "#001e37",
+            "btn_bg_color_hover2": "#001e37",
+            "slider_color2_sec": "#ffffff"
+          }
+        },
+        "full_width_slide2_4YMHtz": {
+          "type": "full-width-slide2",
+          "settings": {
+            "banner_switch_sec": true,
+            "desktop_image_sec": "shopify://shop_images/GWP_upgrade_desktop.jpg",
+            "mobile_image_sec": "shopify://shop_images/GWP_upgrade_mobile.jpg",
+            "video_url_sec": "",
+            "title_sec": "",
+            "subtext_sec": "",
+            "subtext_sec_mob": "",
+            "extra_info_sec": "",
+            "button_sec": "",
+            "slider_url_sec": "",
+            "slide_Nav_Text_sec": "",
+            "slider_title_color_sec": "#ffffff",
+            "slider_title_bgcolor_sec": "#001e37",
+            "slider_color_sec": "#001e37",
+            "slider_btn_border_color2": "#001e37",
+            "slider_btn_bg_color2": "#001e37",
+            "slider_btn_color2_sec": "#ffffff",
+            "btn_border_color_hover2": "#001e37",
+            "btn_bg_color_hover2": "#001e37",
+            "slider_color2_sec": "#ffffff"
+          }
+        },
+        "full_width_slide2_gKWAaL": {
+          "type": "full-width-slide2",
+          "settings": {
+            "banner_switch_sec": true,
+            "desktop_image_sec": "shopify://shop_images/Multi_Renewal_Treatment_desktop.jpg",
+            "mobile_image_sec": "shopify://shop_images/Multi_Renewal_Treatment_mobile.jpg",
+            "video_url_sec": "",
+            "title_sec": "",
+            "subtext_sec": "",
+            "subtext_sec_mob": "",
+            "extra_info_sec": "",
+            "button_sec": "",
+            "slider_url_sec": "",
+            "slide_Nav_Text_sec": "",
+            "slider_title_color_sec": "#ffffff",
+            "slider_title_bgcolor_sec": "#001e37",
+            "slider_color_sec": "#001e37",
+            "slider_btn_border_color2": "#001e37",
+            "slider_btn_bg_color2": "#001e37",
+            "slider_btn_color2_sec": "#ffffff",
+            "btn_border_color_hover2": "#001e37",
+            "btn_bg_color_hover2": "#001e37",
+            "slider_color2_sec": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "full_width_slide2_bzXAyf",
+        "full_width_slide2_4YMHtz",
+        "full_width_slide2_gKWAaL"
+      ],
+      "settings": {
+        "block_title": "Special OFFERS",
+        "autoplay": true,
+        "autoplay_int": "2000",
+        "gridColCheckbox": false,
+        "col1_bg_color": "#001e37",
+        "col1_title": "VIRTUAL SKIN CONSULT",
+        "col1_desc": "Select a salon to book a virtual skin consult and speak with our expert beauty therapists.",
+        "col1_button_text": "Book Now",
+        "col1_button_url": "#cogsworthFormPopup",
+        "colum_grid_banner_img": "shopify://shop_images/treatment_3496f900-c692-48c9-a10d-5949392ad45b.jpg"
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "find-salon",
+    "find-salon-treatment-block",
+    "shogun-optimizer"
+  ]
+}

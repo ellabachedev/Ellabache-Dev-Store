@@ -1,0 +1,319 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-above": {
+      "type": "shogun-above",
+      "settings": {}
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "background-1"
+      }
+    },
+    "collection_mini_banner_NnbPF3": {
+      "type": "collection-mini-banner",
+      "custom_css": [
+        ".collection_banner .text-wrapper p.sec-title{max-width:600px;}"
+      ],
+      "name": "Collection Mini Banner",
+      "settings": {
+        "show_breadcrumb_nav": true
+      }
+    },
+    "collection": {
+      "type": "collection",
+      "blocks": {
+        "8ae20c17-6a9a-492a-a6d1-a22afbfda68e": {
+          "type": "tags",
+          "settings": {
+            "title": "Collection",
+            "prefix": "Collection-"
+          }
+        },
+        "0b5fc79b-589c-40b4-8cdc-7ca619e4d34c": {
+          "type": "tags",
+          "settings": {
+            "title": "Category",
+            "prefix": "Category-"
+          }
+        },
+        "bf3b9aa1-8ecb-4a6d-bdab-1a88d2b3e0e5": {
+          "type": "tags",
+          "settings": {
+            "title": "Skin concerns",
+            "prefix": "Concern-"
+          }
+        },
+        "bb8a6beb-d21a-4ab5-9d35-9608041b8eb4": {
+          "type": "tags",
+          "settings": {
+            "title": "Solution",
+            "prefix": "Solution-"
+          }
+        },
+        "d1ba59af-e532-4943-a0c4-c02df7fb28d0": {
+          "type": "tags",
+          "settings": {
+            "title": "Skin type",
+            "prefix": "Skin-"
+          }
+        }
+      },
+      "block_order": [
+        "8ae20c17-6a9a-492a-a6d1-a22afbfda68e",
+        "0b5fc79b-589c-40b4-8cdc-7ca619e4d34c",
+        "bf3b9aa1-8ecb-4a6d-bdab-1a88d2b3e0e5",
+        "bb8a6beb-d21a-4ab5-9d35-9608041b8eb4",
+        "d1ba59af-e532-4943-a0c4-c02df7fb28d0"
+      ],
+      "settings": {
+        "pagination_limit": "14",
+        "collection_grid_banner_overlay_color": "#c7e3e1",
+        "collection_grid_banner_overlay_opacity": 30,
+        "pagination_type": "2",
+        "collection_banner_design": "1"
+      }
+    },
+    "category_card_grid_riCyGT": {
+      "type": "category-card-grid",
+      "blocks": {
+        "card_YqMFpe": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_4_4fe8bfed-f34f-40a5-b6d2-d203d00fc0cc.jpg",
+            "title": "Serum",
+            "link": "shopify://collections/serums"
+          }
+        },
+        "card_3tgYWE": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1.jpg",
+            "title": "Exfoliants",
+            "link": "shopify://collections/exfoliants"
+          }
+        },
+        "card_qtp4zW": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1_1.jpg",
+            "title": "Suncare",
+            "link": "shopify://collections/suncare-category"
+          }
+        },
+        "card_zhEBHj": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/image_5_5e369c42-aca8-473f-89f9-e3189aba9bf7.jpg",
+            "title": "Moisture Protectives",
+            "link": "shopify://collections/moisture-protectives"
+          }
+        },
+        "card_DtcT8x": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1_2.jpg",
+            "title": "Body Care",
+            "link": "shopify://collections/bodycare"
+          }
+        },
+        "card_7FeYQm": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1_3.jpg",
+            "title": "Mists",
+            "link": "shopify://collections/mists"
+          }
+        }
+      },
+      "block_order": [
+        "card_YqMFpe",
+        "card_3tgYWE",
+        "card_qtp4zW",
+        "card_zhEBHj",
+        "card_DtcT8x",
+        "card_7FeYQm"
+      ],
+      "name": "Category Card Grid",
+      "settings": {}
+    },
+    "faq_block_xh3Gbq": {
+      "type": "faq-block",
+      "name": "faq Block",
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "collapsible_info_qe83Jj": {
+      "type": "collapsible-info",
+      "disabled": true,
+      "name": "Collapsible Info",
+      "settings": {
+        "title": "Test",
+        "desc1": "<p>ddgf</p>",
+        "desc2": "{{ collection.description }}",
+        "expand_ctn_txt": "Read more",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "service_hightlights": {
+      "type": "service-highlights",
+      "blocks": {
+        "08211367-c727-4035-9c8c-2766333952dc": {
+          "type": "text",
+          "settings": {
+            "title": "<p>Shop now and pay later with <br>Afterpay or Klarna</p>",
+            "icon": "giftbox",
+            "url": "shopify://collections/all"
+          }
+        },
+        "12f4a8a3-9416-4557-9a2f-52ac9f019411": {
+          "type": "text",
+          "settings": {
+            "title": "<p>Free shipping <br>on all orders of $100+</p>",
+            "icon": "shipping",
+            "url": "shopify://pages/shipping"
+          }
+        },
+        "9f55fcc3-298d-401c-a2c9-e16a65dc1ec3": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "2 complimentary samples<br> with all orders",
+            "icon": "cosmetics",
+            "url": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "08211367-c727-4035-9c8c-2766333952dc",
+        "12f4a8a3-9416-4557-9a2f-52ac9f019411",
+        "9f55fcc3-298d-401c-a2c9-e16a65dc1ec3"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 20,
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "collapse_on_larger_devices": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shogun-below": {
+      "type": "shogun-below",
+      "settings": {}
+    },
+    "best_seller_4BjqLt": {
+      "type": "best-seller",
+      "blocks": {
+        "collection_tqJ8nV": {
+          "type": "collection",
+          "settings": {
+            "label": "Best Sellers",
+            "collection": "best-sellers-mega-menu"
+          }
+        },
+        "collection_JMbRXh": {
+          "type": "collection",
+          "settings": {
+            "label": "Pair it with",
+            "collection": "age-correction"
+          }
+        },
+        "collection_q8cXJD": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "label": "Best Seller",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tqJ8nV",
+        "collection_JMbRXh",
+        "collection_q8cXJD"
+      ],
+      "disabled": true,
+      "name": "Best Sellers",
+      "settings": {
+        "title": ""
+      }
+    },
+    "treatment_card_grid_UyMPbE": {
+      "type": "treatment-card-grid",
+      "name": "treatment Card Grid",
+      "settings": {
+        "title": "Most Popular Treatments",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "product_limit": 3
+      }
+    },
+    "instagram_feed_XHpD7E": {
+      "type": "instagram-feed",
+      "name": "Instagram feed",
+      "settings": {
+        "title": "Shop Instagram",
+        "link": "https://www.instagram.com/ellabacheaus/?hl=en",
+        "caption": "@ellabache No two skins are a like",
+        "user_id": "17841400417663213",
+        "feed_token": "{{ localization.market.metafields.instagram.access_token.value }}",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "shogun-above",
+    "banner",
+    "collection_mini_banner_NnbPF3",
+    "collection",
+    "category_card_grid_riCyGT",
+    "faq_block_xh3Gbq",
+    "collapsible_info_qe83Jj",
+    "service_hightlights",
+    "product-grid",
+    "shogun-below",
+    "best_seller_4BjqLt",
+    "treatment_card_grid_UyMPbE",
+    "instagram_feed_XHpD7E",
+    "shogun-optimizer"
+  ]
+}

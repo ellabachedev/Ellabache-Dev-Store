@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "Header": {
+      "type": "giveaway_header",
+      "settings": {}
+    },
+    "Banner": {
+      "type": "giveaway_hero_banner",
+      "settings": {
+        "banner_image": "shopify://shop_images/desktop_960x760_1_c140f317-9f6e-4d7e-898b-795a3f2b0838.jpg",
+        "banner_image-mob": "shopify://shop_images/mobile_750x1000_1_52148285-703b-42bf-8ccd-e5f0b4a230a4.jpg",
+        "cta_url": ""
+      }
+    },
+    "featured_product_slider_yT88pm": {
+      "type": "featured-product-slider",
+      "custom_css": [
+        ".featured-product-slider .page-width {max-width: 1090px;}",
+        ".featured-product-slider .section-header {text-align: left;}",
+        ".featured-product-slider .section-header h2 {font-family: \"Helvetica Neue LT Std 67 MdCn\"; font-size: 50px; color: #001e37; line-height: 1; margin-bottom: 20px;}",
+        ".featured-product-slider .section-header p {font-size: 18px;}",
+        "@media (min-width: 1280px) {.product-grid__item {width: 15.2rem; }}"
+      ],
+      "name": "Featured Product Slider",
+      "settings": {
+        "title": "Boxing Day Sale",
+        "paragraph": "<p>30% Off Summer Skin Savers. This offer is valid online & at participating salons until 12 January 2026 and redeemable on selected products only. Offer is not transferable or redeemable for cash. Offer not valid with any other discounts, promotions, gift with purchase or the purchase of physical gift cards, e-gift cards or gift vouchers. </p>",
+        "candy_banner_link": "",
+        "collection": "boxing-day"
+      }
+    }
+  },
+  "order": [
+    "Header",
+    "Banner",
+    "featured_product_slider_yT88pm"
+  ]
+}

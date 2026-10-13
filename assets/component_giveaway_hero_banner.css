@@ -1,0 +1,149 @@
+.parallax-mirror img{
+  width:100%;
+  display:block;
+}
+.product-landing-banner{
+  height:calc(100vw * 0.4);
+  left:0;
+  top:0;
+  z-index:0;
+  width:100%;
+  position:relative;
+}
+.product-landing-banner .parallax-window {
+  height: 100%;
+  background: transparent;
+}
+.product-landing-banner .transparent-wrapper{
+  width:100%;
+  height:100%;
+  transition: opacity 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.product-landing-banner .transparent-wrapper.reveal{
+  width:100%;
+  height:100%;
+  opacity:1;
+}
+.product-landing-banner .parallax-img{
+  position: absolute;
+  height: 100%;
+  left: 0px;
+  pointer-events: none;
+  top: 0px;
+  width: 100%;
+  transform: translate3d(0px, -90.5672px, 0px);
+  transition: transform 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.product-landing-banner .parallax-img.reveal{
+  transform: translate3d(0px, 0px, 0px);
+}
+.product-landing-banner img{
+width:100%;
+}
+.product-landing-banner .parallax-img img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.product-landing-banner .cta .btn{
+  margin-top:30px;
+  visibility:hidden;
+  opacity:0;
+  transition: opacity 2.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.product-landing-banner .cta .btn.reveal{
+  visibility:visible;
+  opacity:1;
+}
+.product-landing-banner .cta-container.flex-container{
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+.product-landing-banner .cta.position-left{
+  left:0;
+  padding-left:15px;
+  padding-right:15px;
+}
+.product-landing-banner .cta.position-right{
+  right:0;
+  padding-right:15px;
+  padding-left:15px;
+  max-width:60%;
+  width:100%;
+}
+.product-landing-banner .cta span {
+  display: block;
+  font-family: "Helvetica Neue LT Std 67 MdCn";
+  overflow: hidden;
+  position: relative;
+}
+.product-landing-banner .cta span.big {
+  color: #001e37;
+  font-size: calc(100vw * 0.036842);
+  line-height: 0.96;
+  letter-spacing: 3px;
+}
+.product-landing-banner .cta span.small {
+  color: #001e37;
+  font-size: 25px;
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+.product-landing-banner .cta span.big.caps {
+  text-transform: uppercase;
+}
+.product-landing-banner .cta .text > span {
+  position: relative;
+  display: block;
+  -webkit-transform: translateY(1.3em);
+  transform: translateY(1.3em);
+  transition: transform 2.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  visibility: hidden;
+}
+.product-landing-banner .cta .text > span.reveal {
+  transform: translateY(0em);
+  visibility: visible;
+}
+@media only screen and (max-width: 1110px){
+  .product-landing-banner .cta span.big{
+    font-size:calc(100vw * .06542);
+  }
+  .product-landing-banner .cta span.small {
+    font-size:20px;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .product-landing-banner .cta span.big{
+    font-size:24px;
+    max-width:220px;
+  }
+  .product-landing-banner .cta span.small {
+    font-size:18px;
+  }
+  .product-landing-banner .cta.position-right{
+    max-width:100%;
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:auto;
+  }
+  .product-landing-grid-content .item:nth-child(2n) .flex-container{
+    flex-direction:column-reverse;
+  }
+  .product-landing-banner .cta-container.flex-container{
+    height:auto;
+  }
+  .product-landing-banner{
+    height:auto;
+  }
+  .product-landing-banner .cta .btn{
+    padding:8px;
+    max-width:180px;
+    
+  }
+}

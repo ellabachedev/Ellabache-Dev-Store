@@ -1,0 +1,129 @@
+{{ 'treatment-collection.css' | asset_url | stylesheet_tag }}
+{% paginate collection.products by section.settings.pagination_limit %}
+  <section class="collection-treatment">
+    <div class="page-width">
+      {% comment %}
+      <header role="banner" class="{% unless collection.image  %}noImage{% endunless %}">
+        {%- if collection.image -%}
+          <img
+            src="{{ collection.image | img_url: '1280x' }}"
+            srcset="{{ collection.image | img_url: '990x' }} 990w,
+                                          {{ collection.image | img_url: '750x' }} 750w, 
+                                          {{ collection.image | img_url: '480x' }} 480w"
+            sizes="(max-width: 480px) 480px,
+                                          (max-width: 750px) 750px,
+                                          (max-width: 990px) 990px,
+                                          1280px"
+            loading="lazy"
+            alt="{{ collection.image.alt }}" />
+        {%- endif -%}
+        <div class="text-wrapper">
+          <h1>{{ collection.title }}</h1>
+          {% if collection.description != blank %}
+            <div class="rte">
+              {{ collection.description }}
+            </div>
+          {% endif %}
+        </div>
+      </header>
+      {% endcomment %}
+      <div id="collection-dynamic-content">
+        <div class="collection-body">
+          <div class="grid" id="filter-products">
+            {%- for item in collection.products -%}
+              {% render 'product-list-item', product: item, hidereviews: true, isTreatmentProduct: true %}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      {% render 'collection-salon-selector' %}
+      {% include 'simple-pagination' %}
+    </div>
+  </section>
+{% endpaginate %}
+{% schema %}
+  {
+    "name": "Treatment Collection",
+    "settings": [
+      {
+        "type": "select",
+        "id": "pagination_limit",
+        "label": "Select a pagination limit value",
+        "default": "12",
+        "options": [
+          {
+            "value": "12",
+            "label": "12"
+          }, {
+            "value": "24",
+            "label": "24"
+          }, {
+            "value": "48",
+            "label": "48"
+          }
+        ]
+      }, {
+        "type": "link_list",
+        "id": "navigation_list",
+        "label": "Navigation List"
+      }, {
+        "type": "url",
+        "id": "find_salon",
+        "label": "Find Salon Url"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tags",
+        "name": "Tags filter",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Filter Title",
+            "default": "Filter",
+            "info": "eg. Product Type"
+          }, {
+            "type": "text",
+            "id": "prefix",
+            "label": "Tag Prefix (needs to end with \"-\")",
+            "info": "e.g Category-"
+          }
+        ]
+      }, {
+        "name": "Selling Point",
+        "type": "selling_point",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          }, {
+            "type": "select",
+            "id": "icon",
+            "label": "Icon",
+            "options": [
+              {
+                "value": "giftbox",
+                "label": "Giftbox"
+              }, {
+                "value": "shipping",
+                "label": "Shipping"
+              }, {
+                "value": "cosmetics",
+                "label": "Cosmetics"
+              }
+            ],
+            "default": "giftbox",
+            "info": "Giftbox"
+          }, {
+            "type": "url",
+            "id": "url",
+            "label": "Link to"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

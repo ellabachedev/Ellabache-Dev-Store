@@ -1,0 +1,105 @@
+<form id="customer_metafields" class="customer-dashboard-form">
+    <p id="cus_notification" class="form-success" style="width:100%;"></p>
+    <div class="flex-container" style="justify-content: flex-start;">
+        <div class="medium-up--one-half">
+            <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+            <label for="customer-first-name">First Name</label>
+            <input id="customer-first-name" type="text" required name="customer[first_name]" value="{{ customer.first_name }}"
+                placeholder="First name" />
+        </div>
+        <div class="medium-up--one-half">
+            <label for="customer-last-name">Last Name</label>
+            <input id="customer-last-name" type="text" name="customer[last_name]" value="{{ customer.last_name }}"
+                placeholder="Last name" />
+        </div>
+        <div class="medium-up--one-half">
+            <label for="customer-phone-number">Phone Number</label>
+            <input id="customer-phone-number" type="number" name="metafield[accentuate.phone_number]"
+                value="{{ customer.metafields.accentuate.phone_number }}" />
+        </div>
+        {% if customer.metafields.accentuate.access_to_salon_portal == 'true' %}
+        <div class="medium-up--one-half">
+            <label for="customer-affiliated-salon">Affiliated Salon</label>
+            <input id="customer-affiliated-salon" type="text" name="metafield[accentuate.affiliated_salon]"
+                value="{{ customer.metafields.accentuate.affiliated_salon }}" />
+        </div>
+        {% endif %}
+        {% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and
+        customer.metafields.salon.salon_type != "With Website" %}
+
+        {% else %}
+        <div class="medium-up--one-half">
+            <label for="customer-dob">Date of Birth</label>
+            <input id="customer-dob" class="datepicker" readonly type="text" name="metafield[accentuate.birthday]"
+                value="{{ customer.metafields.accentuate.birthday }}" placeholder="dd/mm/yyyy" />
+        </div>
+        <div class="medium-up--one-half">
+            <label for="customer-preferred-salon">Preferred Salon</label>
+            <select id="preferredSalonSelectorField"
+                placeholder="{{ 'additional_customer_information.preferred_salon_placeholder' | t | escape }}"
+                name="metafield[global.preferred_salon]">
+                <option value="" disabled="" selected="selected">{{
+                    'additional_customer_information.preferred_salon_placeholder' | t | escape }}</option>
+                {% assign salonEntries = settings.preferred_salons_in_cart | strip_newlines | split: ',' %}
+                {% for sEntry in salonEntries %}
+                {% assign salonEntry = sEntry | split: ':' %}
+                <option value="{{ salonEntry[1] | escape }}">{{ salonEntry[0] | escape }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endif %} 
+    </div>
+    <div class="one-whole">
+        {% if customer.metafields.accentuate.access_to_salon_portal or customer.metafields.salon_portal.salon_page_handle and customer.metafields.salon.salon_type and
+        customer.metafields.salon.salon_type != "With Website" %}
+
+        {% else %}
+        <input id="customer-marketing" type="checkbox" name="customer[accepts_marketing]" {{ if }}checked{{endif}} />
+        <label for="customer-marketing">Tick this box to accept marketing.</label>
+        {% endif %}
+        
+    </div>
+    <div class="one-whole">
+        <input id="CusFormSubmit" class="button" type="submit" value="Submit" />
+    </div>
+</form>
+<div class="body-overlay" style="display:none;">
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="40px" height="40px" viewBox="0 0 128 128" xml:space="preserve"><rect x="0" y="0" width="100%" height="100%" fill="#17324A"></rect><g><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="1"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(30 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(60 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(90 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.2" transform="rotate(120 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.3" transform="rotate(150 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.4" transform="rotate(180 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.5" transform="rotate(210 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.6" transform="rotate(240 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.7" transform="rotate(270 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.8" transform="rotate(300 64 64)"></path><path d="M59.6 0h8v40h-8V0z" fill="#ffffff" fill-opacity="0.9" transform="rotate(330 64 64)"></path><animateTransform attributeName="transform" type="rotate" values="0 64 64;30 64 64;60 64 64;90 64 64;120 64 64;150 64 64;180 64 64;210 64 64;240 64 64;270 64 64;300 64 64;330 64 64" calcMode="discrete" dur="1080ms" repeatCount="indefinite"></animateTransform></g></svg>
+</div>
+<script src="{{ 'jquery-ui-datepicker.js' | asset_url }}"></script>
+<script>
+    $(document).ready(function () {
+        // Changing the selected value in the option
+        var salonSelectBox = document.getElementById('preferredSalonSelectorField');
+
+        {% if customer and customer.metafields.global.preferred_salon %}
+        if (salonSelectBox && salonSelectBox.options.length > 1) {
+            salonSelectBox.value = '{{ customer.metafields.global.preferred_salon }}';
+        }
+        {% endif %}
+
+        var currentYear = new Date().getFullYear();
+        $("#customer-dob").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy",
+            yearRange: '1930:+ currentYear +'
+        }
+        );
+      $('#CusFormSubmit').on('click', function(){
+        $("#cus_notification").css('display', 'none');
+        $('.body-overlay').css('display', 'block');
+      });
+    });
+</script>{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {{if
+                customer.accepts_marketing}}
+  to: "{{ if }}"
+  position: 3466..3474
+{%- endcomment -%}

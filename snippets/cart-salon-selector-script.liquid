@@ -1,0 +1,51 @@
+{% if customer %}
+<script src="https://app.accentuate.io/dist/proxy.js" defer="defer"></script>
+{% endif %}
+<script type="text/javascript" defer="defer">
+	$(document).ready(function() {
+		var salonSelectBox = document.getElementById('preferredSalonSelectorField');
+		var inputSalonName = $('#preferredSalonName');
+		var customerMetafields = $("#customer_metafields");
+		var inputCustomerField = $('#customerFieldPreferredSalon');
+
+		$(salonSelectBox).change(function () {
+			inputSalonName.val(this.options[this.selectedIndex].text);
+
+			{% if customer %}
+			inputCustomerField.val(this.value);
+			{% endif %}
+		});
+
+		{% if customer %}
+		// Adding on value change event handler for the hidden input field
+		catchOnValueChange($("#customerFieldPreferredSalon")[0], "value", function(obj, property, value) { 
+			$("#customer_metafields").submit();
+		});
+
+		function catchOnValueChange(obj, property, callback) {
+			Object.defineProperty(obj, property, new function() {
+				var _value = obj[property];
+				return {
+					set: function(value) {
+						_value = value;
+						callback(obj, property, value)
+					},
+					get: function() {
+						return _value;
+					}
+				}
+			});
+		}
+
+		// Setting customer_metafields for saving values
+		Accentuate($("#customer_metafields"), function(data) {});
+		{% endif %}
+
+		{% if customer and customer.metafields.global.preferred_salon %}
+		if (salonSelectBox && salonSelectBox.options.length > 1) {
+			salonSelectBox.value = '{{ customer.metafields.global.preferred_salon }}';
+			inputSalonName.val(salonSelectBox.options[salonSelectBox.selectedIndex].text);
+		}
+		{% endif %}
+	});
+</script>

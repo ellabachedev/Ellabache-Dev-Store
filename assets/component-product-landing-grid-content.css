@@ -1,0 +1,131 @@
+.product-landing-grid-content{
+  padding:40px 0;
+}
+.product-landing-grid-content .item{
+  padding:10px 0;
+}
+.product-landing-grid-content .flex-container{
+  justify-content:space-between;
+}
+.product-landing-grid-content .image{
+  width:50%;
+}
+.product-landing-grid-content .media{
+  width:50%;
+}
+.product-landing-grid-content .image img{
+  display:block;
+  width:100%;
+}
+.product-landing-grid-content .image .parallax-window{
+  height:400px;
+}
+.product-landing-grid-content .media .video video{
+  display:block;
+  width:100%;
+  height:550px;
+  object-fit:cover;
+}
+.product-landing-grid-content .item .content{
+  width:50%;
+}
+.product-landing-grid-content .item:nth-child(2n) .flex-container{
+  flex-direction:row-reverse;
+}
+.product-landing-grid-content .item:nth-child(2n-1) .content{
+  padding-right:50px;
+}
+.product-landing-grid-content .item:nth-child(2n) .content{
+  padding-left:50px;
+}
+.product-landing-grid-content .content h2{
+  font-size:50px;
+  line-height:1;
+  color:#001e37;
+  font-family:"Helvetica Neue LT Std 67 MdCn";
+}
+.product-landing-grid-content .content ul li{
+  font-size:16px;
+}
+.product-landing-grid-content .content p{
+  font-size:16px;
+}
+.product-landing-grid-content .content p:last-child{
+  margin-bottom:0;
+}
+.product-landing-grid-content .content .button-holder{
+  margin-top:15px;
+}
+.product-landing-grid-content .content .btn{
+  background-color: #7DABBD;
+  color: #fff;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: .2px;
+  font-weight: 500;
+  margin-top:10px;
+  border:1px solid #7DABBD;
+  display:inline-block;
+  min-width:225px;
+}
+
+@media (max-width: 1110px){
+  .product-landing-grid-content .content h2{
+    font-size:35px;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .product-landing-grid-content .content h2{
+    font-size:24px;
+  }
+  .product-landing-grid-content .item .content, .product-landing-grid-content .image{
+    width:100%;
+  }
+  .product-landing-grid-content .media{
+    width:100%;
+  }
+  .product-landing-grid-content .item:nth-child(2n-1) .content {
+    padding-right: 0px;
+  }
+  .product-landing-grid-content .item:nth-child(2n) .content {
+    padding-left: 0px;
+  }
+  .product-landing-grid-content .item:nth-child(2n-1) .flex-container{
+    flex-direction:column-reverse;
+  }
+  .product-landing-grid-content .item:nth-child(2n) .flex-container{
+    flex-direction:column-reverse;
+  }
+  .product-landing-grid-content .item{
+    padding:0;
+    margin-bottom:40px;
+  }
+  .product-landing-grid-content .item:last-child{
+    margin-bottom:0;
+  }
+  .product-landing-grid-content .content p{
+    max-width:inherit;
+    font-size:16px !important;
+  }
+  .product-landing-grid-content .content .btn{
+    padding:8px;
+  }
+}
+@media only screen and (max-width: 480px){
+  .product-landing-grid-content{
+    padding:15px 0;
+  }
+  .product-landing-grid-content .image .parallax-window {
+    height:calc(100vw * 1.56250);
+  }
+  .product-landing-grid-content .media .video video{
+    height:400px;
+  }
+  .product-landing-grid-content .content .btn{
+    width:100%;
+  }
+}

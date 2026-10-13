@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify:\/\/shop_images\/Colour4.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>FIND YOUR<\/span><span> PASSION<\/span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "Enrol now for January 2023 Online\n<br>or on campus for February 2023",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "Enrol now for January 2023 Online\n<br>or on campus for February 2023",
+            "slider-secondary-text": "Sydney | Melbourne | Brisbane",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Enrol Now",
+            "slider-button-url": "https:\/\/www.ellabache.com.au\/pages\/college-request-course-information",
+            "button-style": "3",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "hero_content": {
+      "type": "hero-content-college-open-day-sydney",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_slider",
+    "hero_content"
+  ]
+}

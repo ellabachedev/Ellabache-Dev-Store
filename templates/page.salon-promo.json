@@ -1,0 +1,467 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "salon-promo-landing",
+      "blocks": {
+        "salon_LC7GgB": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Coogee",
+            "link": "shopify://pages/coogee"
+          }
+        },
+        "salon_j6cGYy": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Dubbo",
+            "link": "shopify://pages/dubbo"
+          }
+        },
+        "salon_zrLjLH": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Gladesville",
+            "link": "shopify://pages/gladesville"
+          }
+        },
+        "salon_zxHait": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Glenbrook",
+            "link": "shopify://pages/glenbrook"
+          }
+        },
+        "salon_GmRW4T": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Gunnedah",
+            "link": "shopify://pages/gunnedah"
+          }
+        },
+        "salon_jzQ3jb": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Nowra",
+            "link": "shopify://pages/nowra"
+          }
+        },
+        "salon_4e8caK": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Penrith",
+            "link": "shopify://pages/penrith"
+          }
+        },
+        "salon_MxxyH7": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Port Macquarie",
+            "link": "shopify://pages/portmacquarie"
+          }
+        },
+        "salon_LYpkyf": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Springwood",
+            "link": "shopify://pages/springwood"
+          }
+        },
+        "salon_6iGJk3": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Tamworth",
+            "link": "shopify://pages/tamworth"
+          }
+        },
+        "salon_Tj6LiM": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Wagga Wagga",
+            "link": "shopify://pages/waggawagga"
+          }
+        },
+        "salon_CpkEHU": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché West Lindfield",
+            "link": "shopify://pages/westlindfield"
+          }
+        },
+        "salon_hTmNki": {
+          "type": "salon",
+          "settings": {
+            "title": "West Pymble Beauty Therapy",
+            "link": "shopify://pages/ella-bache-west-pymble"
+          }
+        },
+        "salon_tFncc8": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Fannie Bay",
+            "link": "shopify://pages/fanniebay"
+          }
+        },
+        "salon_MRgp9F": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Palmerston",
+            "link": "shopify://pages/palmerston"
+          }
+        },
+        "salon_gkdKUM": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Aitkenvale",
+            "link": "shopify://pages/aitkenvale"
+          }
+        },
+        "salon_qbqPQE": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Brookside",
+            "link": "shopify://pages/brookside"
+          }
+        },
+        "salon_cAyTK7": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Bundaberg",
+            "link": "shopify://pages/bundaberg"
+          }
+        },
+        "salon_QdxJXQ": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Cairns",
+            "link": "shopify://pages/cairns"
+          }
+        },
+        "salon_Pcwrep": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Capalaba",
+            "link": "shopify://pages/capalaba"
+          }
+        },
+        "salon_fknDrG": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Carindale",
+            "link": "shopify://pages/carindale"
+          }
+        },
+        "salon_mwTPtq": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Chermside",
+            "link": "shopify://pages/chermside"
+          }
+        },
+        "salon_TJ3M9q": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Coolangatta",
+            "link": "shopify://pages/coolangatta"
+          }
+        },
+        "salon_RP4xKh": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Coomera",
+            "link": "shopify://pages/coomera"
+          }
+        },
+        "salon_WGp8Wf": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Dalby",
+            "link": "shopify://pages/dalby"
+          }
+        },
+        "salon_Lkx7Aa": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Fortitude Valley",
+            "link": "shopify://pages/fortitudevalley"
+          }
+        },
+        "salon_P8qPV8": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Ipswich",
+            "link": "shopify://pages/ipswich"
+          }
+        },
+        "salon_enikTX": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Newmarket",
+            "link": "shopify://pages/newmarket"
+          }
+        },
+        "salon_xMKA8A": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Pacific Fair",
+            "link": "shopify://pages/pacificfair"
+          }
+        },
+        "salon_xJiQmM": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Springfield",
+            "link": "shopify://pages/springfield"
+          }
+        },
+        "salon_JRT69k": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Toowoomba",
+            "link": "shopify://pages/toowoomba"
+          }
+        },
+        "salon_yg9bxy": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Townsville",
+            "link": "shopify://pages/townsville"
+          }
+        },
+        "salon_pN8jEM": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Upper Mt Gravatt",
+            "link": "shopify://pages/uppermtgravatt"
+          }
+        },
+        "salon_pYDXrr": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Hobart",
+            "link": "shopify://pages/hobart"
+          }
+        },
+        "salon_C3biKp": {
+          "type": "salon",
+          "settings": {
+            "title": "Infinite Beauty & Wellness",
+            "link": ""
+          }
+        },
+        "salon_DFnJWH": {
+          "type": "salon",
+          "settings": {
+            "title": "",
+            "link": "shopify://pages/brighton-beauty-therapy"
+          }
+        },
+        "salon_eamKUK": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Bairnsdale",
+            "link": "shopify://pages/bairnsdale"
+          }
+        },
+        "salon_8YYX4U": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Balwyn",
+            "link": "shopify://pages/balwyn"
+          }
+        },
+        "salon_ihjn6b": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Beaumaris",
+            "link": "shopify://pages/beaumaris"
+          }
+        },
+        "salon_6DaYJn": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Bendigo",
+            "link": "shopify://pages/bendigo"
+          }
+        },
+        "salon_TE8KcN": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Berwick",
+            "link": "shopify://pages/berwick"
+          }
+        },
+        "salon_rkqFkM": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Eltham",
+            "link": "shopify://pages/eltham"
+          }
+        },
+        "salon_FNxq8d": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Hampton",
+            "link": "shopify://pages/hampton"
+          }
+        },
+        "salon_8afK37": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Mordialloc",
+            "link": "shopify://pages/mordialloc"
+          }
+        },
+        "salon_KrpWfD": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Rye Beach Salon & Spa",
+            "link": "shopify://pages/capalaba"
+          }
+        },
+        "salon_Hf9gnF": {
+          "type": "salon",
+          "settings": {
+            "title": "Eternal Beauty Salon",
+            "link": "shopify://pages/aitkenvale"
+          }
+        },
+        "salon_nj7xA3": {
+          "type": "salon",
+          "settings": {
+            "title": "Serenity Skin & Body Care",
+            "link": "shopify://pages/ella-bache-serenity-skin-body-care"
+          }
+        },
+        "salon_fyLQzF": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Secret Harbour",
+            "link": "shopify://pages/secretharbour"
+          }
+        },
+        "salon_VTLKmx": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Whitford",
+            "link": "shopify://pages/whitford"
+          }
+        },
+        "salon_PbUCWd": {
+          "type": "salon",
+          "settings": {
+            "title": "Ella Baché Joondalup",
+            "link": "shopify://pages/joondalup"
+          }
+        }
+      },
+      "block_order": [
+        "salon_LC7GgB",
+        "salon_j6cGYy",
+        "salon_zrLjLH",
+        "salon_zxHait",
+        "salon_GmRW4T",
+        "salon_jzQ3jb",
+        "salon_4e8caK",
+        "salon_MxxyH7",
+        "salon_LYpkyf",
+        "salon_6iGJk3",
+        "salon_Tj6LiM",
+        "salon_CpkEHU",
+        "salon_hTmNki",
+        "salon_tFncc8",
+        "salon_MRgp9F",
+        "salon_gkdKUM",
+        "salon_qbqPQE",
+        "salon_cAyTK7",
+        "salon_QdxJXQ",
+        "salon_Pcwrep",
+        "salon_fknDrG",
+        "salon_mwTPtq",
+        "salon_TJ3M9q",
+        "salon_RP4xKh",
+        "salon_WGp8Wf",
+        "salon_Lkx7Aa",
+        "salon_P8qPV8",
+        "salon_enikTX",
+        "salon_xMKA8A",
+        "salon_xJiQmM",
+        "salon_JRT69k",
+        "salon_yg9bxy",
+        "salon_pN8jEM",
+        "salon_pYDXrr",
+        "salon_C3biKp",
+        "salon_DFnJWH",
+        "salon_eamKUK",
+        "salon_8YYX4U",
+        "salon_ihjn6b",
+        "salon_6DaYJn",
+        "salon_TE8KcN",
+        "salon_rkqFkM",
+        "salon_FNxq8d",
+        "salon_8afK37",
+        "salon_KrpWfD",
+        "salon_Hf9gnF",
+        "salon_nj7xA3",
+        "salon_fyLQzF",
+        "salon_VTLKmx",
+        "salon_PbUCWd"
+      ],
+      "settings": {
+        "desktop_image": "shopify://shop_images/desktopnew_1.jpg",
+        "mobile_image": "shopify://shop_images/20_off_mobile_copy.jpg",
+        "banner_alt": "Salon Promotion",
+        "heading": "Find a Participating Salon Near You",
+        "subheading": "",
+        "show_breadcrumbs": true
+      }
+    },
+    "best_seller_zAkXXM": {
+      "type": "best-seller",
+      "blocks": {
+        "collection_k7ERNU": {
+          "type": "collection",
+          "settings": {
+            "label": "Suncare",
+            "collection": "suncare-category"
+          }
+        },
+        "collection_enJTz3": {
+          "type": "collection",
+          "settings": {
+            "label": "Age Correction",
+            "collection": "age-correction"
+          }
+        },
+        "collection_xnkXcB": {
+          "type": "collection",
+          "settings": {
+            "label": "Hydration",
+            "collection": "hydration"
+          }
+        }
+      },
+      "block_order": [
+        "collection_k7ERNU",
+        "collection_enJTz3",
+        "collection_xnkXcB"
+      ],
+      "name": "Best Sellers",
+      "settings": {
+        "title": "Best Sellers"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "best_seller_zAkXXM"
+  ]
+}

@@ -1,0 +1,58 @@
+{{ 'section-reviews.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.block_switch != blank -%}
+<div data-section-id="{{ section.id }}" data-section-type="custom" class="reviews-block" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="reviews review-slider">
+    {%- for block in section.blocks -%}
+      <div class="item">
+        <blockquote>
+          <span class="quote">{% render 'icon-quote.liquid' %}</span>
+          <p>{{ block.settings.review }}</p>
+          <span class="author">— {{ block.settings.author }}</span>
+          </blockquote>
+      </div>
+    {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Reviews",
+    "settings": [
+      {
+        "id" : "block_switch",
+        "type" : "checkbox",
+        "label" : "Enable",
+        "default" : true
+      },
+      {
+        "id" : "block_bg_color",
+        "type" : "color",
+        "label" : "Block Background Color",
+        "default": "#ffffff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Reviews",
+        "name": "Item",
+        "settings": [
+          {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review",
+          "default": "I have always considered the skin like the most delicate of silks, which must be cleaned without harming it"
+        },
+        {
+          "type": "textarea",
+          "id": "author",
+          "label": "Author",
+          "default": "Madame Elle Bache"
+        }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+<script src="{{ 'section-reviews.js' | asset_url }}" defer="defer"></script>

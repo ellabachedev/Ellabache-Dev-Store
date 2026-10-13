@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="{{ 'footer.css' | asset_url }}">
+{%- capture footer -%}
+<div id="footer" class="site-footer" style="{% if section.settings.footer_bg_color != blank %}background-color:{{ section.settings.footer_bg_color }};{%- endif -%}">
+  <div class="inner">
+    <div class="page-width">
+      {%- if section.settings.footer-title != blank -%}
+      <h2 class="footer-title">{{ section.settings.footer-title }}</h2>
+      {%- endif -%}
+      <div class="columns flex-container menu-row">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'column' -%}
+          <div class="col-item">
+            <h3 class="title">{{ block.settings.header }}</h3>
+            <ul class="footer-nav__items">
+              {%- for link in linklists[block.settings.footer_linklist].links -%}
+              <li>
+                <a href="{{ link.url }}" class="footer-nav__link">{{ link.title }}</a>
+                {%- if template == 'page.college' -%}
+                {%- if link.links != blank -%}
+                <ul>
+                  {%- for sub_link in link.links -%}
+                  <li><a href="{{ sub_link.url }}" class="footer-nav__sub-link">{{ sub_link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+                {%- endif -%}
+                {%- endif -%}
+              </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+        <div class="newsletter-column" style="max-width:450px;">
+          {%- if section.settings.show_footer_newsletter -%}
+          <div class="newsletter">
+            {%- render 'newsletter' -%}
+          </div>
+          {%- endif -%}
+          {%- if section.settings.show_footer_social_icons == true -%}
+          <div class="social" style="margin-top:20px;">
+            {% render 'social-icons' %}
+          </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- if section.settings.footer_bg_img != blank or section.settings.footer_bg_img_mob != blank -%}
+    <picture class="footer-banner">                  
+      <source srcset="{{ section.settings.footer_bg_img_mob | img_url:'master'  }}" media="(max-width: 1024px)">
+      <source srcset="{{ section.settings.footer_bg_img | img_url:'master'  }}" media="(max-width: 1900px)">                    
+      <img width="1900" height="650" src="{{ section.settings.footer_bg_img | img_url:'master' }}" loading="lazy" alt="">
+    </picture>
+    {%- endif -%}
+  </div>
+</div>
+{%- endcapture -%}
+{{ footer | strip_newlines }}
+{% comment %} <script>
+    const iObserver = new IntersectionObserver(items => {
+    if (items[0].isIntersecting) {
+      var winWidth = $(window).width();
+      if (winWidth > 769) {
+        var footerDataBgImg = "{{ section.settings.footer_bg_img | img_url:'master' }}";
+        {% if section.settings.footer_bg_img != blank or section.settings.footer_bg_img_mob != blank %}
+        //document.querySelector("footer.site-footer").style.backgroundImage = "url('" + footerDataBgImg + "')";
+        var footerImg = $(".site-footer img.footer_img").length;
+        if(footerImg < 1){
+          $(".site-footer > .inner").append("<img class='footer_img' src='" + footerDataBgImg + "' alt=''>");
+        }
+        {% endif %}
+        $('footer.site-footer').addClass('offscrn_footer');
+        }
+      else {
+        {% if section.settings.footer_bg_img_mob != blank %}
+          var footerDataBgImg = "{{ section.settings.footer_bg_img_mob | img_url:'master' }}";
+          var footerImgMob = $(".site-footer img.footer_img_mob").length;
+          if(footerImgMob < 1){
+            $(".site-footer > .inner").append("<img class='footer_img_mob' src='" + footerDataBgImg + "' alt=''>");
+          }
+        {% endif %}
+      }
+      
+    }
+  });
+  iObserver.observe(document.getElementById('footer'));
+</script> {% endcomment %}
+<script src="{{ 'footer.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+  {
+    "name": "Footer",
+    "tag": "footer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "type": "text",
+        "id": "footer-title",
+        "label": "Footer Title"
+      },
+      {
+        "type": "color",
+        "id": "footer_bg_color",
+        "label": "Footer Background Color",
+        "default": "#001E37"
+      },
+      {
+        "type": "image_picker",
+        "id": "footer_bg_img",
+        "label": "Footer Background Image"
+      }, {
+        "type": "image_picker",
+        "id": "footer_bg_img_mob",
+        "label": "Footer Background Image (Mobile)"
+      }, {
+        "type": "checkbox",
+        "id": "show_footer_social_icons",
+        "label": "Show Social icons at Footer",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "show_footer_newsletter",
+        "label": "Show Newsletter at Footer",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Links",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "text",
+            "id": "header",
+            "label": "Column Header"
+          }, {
+            "type": "link_list",
+            "id": "footer_linklist",
+            "label": "Column Links"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

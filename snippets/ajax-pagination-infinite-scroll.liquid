@@ -1,0 +1,65 @@
+{{ 'component-ajax-pagination.css' | asset_url | stylesheet_tag }}
+<div id="AjaxinatePagination" class="infinite-scroll">
+  {%- if paginate.next -%}
+    <div class="loading-img"><img src="{{ 'rolling-loader.svg' | asset_url }}"
+        loading="lazy"
+        width="170"
+        height="170"
+        alt="loading">
+      <a href="{{ paginate.next.url }}"></a>
+    </div>
+  {%- endif -%}
+</div>
+<script>
+  $(document).ready(function() {
+    var ajaxinateLoop = check('#AjaxinateLoop');
+    if (ajaxinateLoop > 0) {
+      var productLength = $("#AjaxinateLoop > .item").length;
+      if (productLength < 1) {
+        $("#noMatches").css("display", 'block');
+      }
+    }
+  });
+  $(window).on('load', function() {
+    $("#AjaxinatePagination").on('click', function() {
+      $(this).addClass('loading');
+    });
+    var ajaxinateLoop = check('#AjaxinateLoop');
+    if (ajaxinateLoop > 0) {
+      var endlessClick = new Ajaxinate({
+        method: 'scroll',
+        container: '#AjaxinateLoop',
+        pagination: '#AjaxinatePagination',
+        callback: function() {
+          $("#AjaxinatePagination").removeClass('loading');
+          $('a.btn-quick-view').magnificPopup({
+            type: 'inline',
+            midClick: true,
+            mainClass: 'mfp-fade',
+            fixedContentPos: true,
+            callbacks: {
+              open: function() {
+                var magnificPopup = $.magnificPopup.instance,
+                  clickedDOM = magnificPopup.st.el;
+                $(document).trigger('quickviewopen', [clickedDOM]);
+              },
+              close: function() {
+                $('#quickView .content form.add-to-cart .quantity').val(1);
+                $('#quickView .content form.add-to-cart .qty-up').off('mouseup');
+                $('#quickView .content form.add-to-cart .qty-down').off('mouseup');
+                $('div.quick-view-popup .review').show();
+                $('div.quick-view-popup .price').show();
+                $('div.quick-view-popup .add-to-cart').show();
+                $('div.quick-view-popup .add_to_wishlist').show();
+              }
+            }
+          });
+          initilizeQuantityUpdate();
+        }
+      });
+    }
+  });
+  function check(type) {
+    return $('body').find(type).length;
+  }
+</script>

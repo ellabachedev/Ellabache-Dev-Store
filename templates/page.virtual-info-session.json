@@ -1,0 +1,118 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify:\/\/shop_images\/Colour4.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>FIND YOUR<\/span><span> PASSION<\/span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "Enrol now for April 2023 \nonline <br> or June 2023 on campus",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "Enrol now for April 2023\n<br>on campus or online",
+            "slider-secondary-text": "Sydney | Melbourne | Brisbane",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Enrol Now",
+            "slider-button-url": "https:\/\/www.ellabache.com.au\/pages\/college-request-course-information",
+            "button-style": "3",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        },
+        "f2c16971-f1dd-4571-ad26-36fcec31b29c": {
+          "type": "slider",
+          "disabled": true,
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "2",
+            "full-slider-link": "",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "1",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "Shop Now",
+            "slider-button-url": "",
+            "button-style": "2",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#ffffff",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#ffffff",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5",
+        "f2c16971-f1dd-4571-ad26-36fcec31b29c"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "hero_content": {
+      "type": "hero-content-virtual-info-sessions",
+      "settings": {
+        "hero_title_1": "Virtual Info Sessions",
+        "hero_desc_1": "<p>At Ella Baché, we know that just as no two skins are alike, no two students are alike either, which is why we champion and support the individual to learn the way that suits them.<\/p>",
+        "hero_title_2": "<big> What You'll learn <\/big><span> <br>Hear from our trainers about:<\/span>",
+        "hero_desc_2": "<ul><li>Ella Baché's Diploma Beauty Therapy and our new combined course in Salon Management.<\/li><li>Our Flexible Study Options Online & On Campus in Sydney, Melbourne & Brisbane.<\/li><li>Find out about career options in beauty therapy and related industries, including how you could become part of our Australia wide network of salons and David Jones Store Counters.<\/li><li>Ask us: we are here to answer any questions you have about our course, campus, application process and study options. <\/li><\/ul>",
+        "hero_title_3": "<big> Join Us For Our Next Virtual Info Sessions<\/big>",
+        "hero_desc_3": "<ul><li>April 11, 2023 at 12:30 PM<\/li><li>May 9, 2023 at 12:30 PM<\/li><li>June 13, 2023 at 12:30PM<\/li><li>Jul 11, 202 at 12:30PM<\/li><li>Aug 8, 2023 at 12:30 PM<\/li><li>Sep 12, 2023 at 12:30 PM<\/li><li>Oct 10, 2023 at 12:30 PM<\/li><li>Nov 14, 2023 at 12:30 PM<\/li><li>Dec 12, 2023 at 12:30 PM<\/li><\/ul>",
+        "hero_thumb": "shopify:\/\/shop_images\/virtual-info-session-hero-image_9961d3fc-85cb-4d21-b74d-d9c885763114.jpg",
+        "hero_btn_text": "Register Now",
+        "hero_btn_url": "https:\/\/us02web.zoom.us\/meeting\/register\/tZwkf-msqD8oHtOG0wlAUopUsyCMToQFv8hu"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "hero_slider",
+    "hero_content",
+    "shogun-optimizer"
+  ]
+}

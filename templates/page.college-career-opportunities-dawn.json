@@ -1,0 +1,291 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "746c049d-13db-493e-ad70-fb41cbd578e5": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "1",
+            "full-slider-link": "",
+            "slider-image-desktop": "shopify:\/\/shop_images\/Our-Signature-Experience_8134f16c-4da2-4947-9bf2-1b9319c46612.jpg",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "1",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "MAKE YOUR <br> NEXT BOLD<br>MOVE",
+            "slider-description": "Apply now for upcoming intakes:\n<br>Online - April<br> On-Campus - June<br>",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "Apply now for upcoming intakes:\n<br>Online - April <br> On-Campus - June<br>",
+            "slider-desc-bgcolor-mob": "#dddddd",
+            "slider-button-text": "APPLY NOW",
+            "slider-button-url": "shopify:\/\/pages\/new-college-apply-now-1",
+            "button-style": "1",
+            "slider-bg-color": "#001e37",
+            "slider-title-color": "#ffffff",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#ffffff",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "746c049d-13db-493e-ad70-fb41cbd578e5"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "college-cta1": {
+      "type": "college-cta1",
+      "blocks": {
+        "f297db30-b8d0-480f-a6d0-77ff118181a9": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Salon Owner<\/p>"
+          }
+        },
+        "b2dfafcd-59c5-4966-a0d3-2586f22c25a4": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Beauty Blogger<\/p>"
+          }
+        },
+        "30d05998-6baa-4e76-9e99-d3b4bbb88c51": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Beauty Writer<\/p>"
+          }
+        },
+        "44806304-991d-4053-893c-decdac2fb899": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Makeup Artist<\/p>"
+          }
+        },
+        "8a5f480a-0d32-428f-8372-85b0afd76a79": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Freelance<\/p>"
+          }
+        },
+        "65b171a1-1575-4438-8c0d-8e00228ba152": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Beauty Therapist<\/p>"
+          }
+        },
+        "3625403f-2bc1-4651-bedf-3e58b046d178": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>Post-Graduate Trainer<\/p>"
+          }
+        },
+        "73445fc9-d6b8-47c8-87eb-e9bc340fdac0": {
+          "type": "Article",
+          "settings": {
+            "item_desc": "<p>International Examiner<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "f297db30-b8d0-480f-a6d0-77ff118181a9",
+        "b2dfafcd-59c5-4966-a0d3-2586f22c25a4",
+        "30d05998-6baa-4e76-9e99-d3b4bbb88c51",
+        "44806304-991d-4053-893c-decdac2fb899",
+        "8a5f480a-0d32-428f-8372-85b0afd76a79",
+        "65b171a1-1575-4438-8c0d-8e00228ba152",
+        "3625403f-2bc1-4651-bedf-3e58b046d178",
+        "73445fc9-d6b8-47c8-87eb-e9bc340fdac0"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "block_title": "Career Opportunities",
+        "block_desc": "<p>You’re in good company! As the largest single employer of Beauty Therapists in Australia, many of our graduates find their dream job within our Ella Baché network of over 150 salons and David Jones locations nationally.<\/p>",
+        "block_video": "03_30SEC_ABBEY_JUSTDOIT1.mp4",
+        "sidebar_ver_pos": "bottom",
+        "sidebar_title": "",
+        "sidebar_intro_text": "",
+        "sidebar_bullet_type": "normal_bullet",
+        "accordion_switch": false,
+        "accordion_item_Header": "",
+        "accordion_item_content": "",
+        "sidebar_btn_switch": false,
+        "sidebar_btn_txt": "",
+        "sidebar_btn_link": "",
+        "popup_content": ""
+      }
+    },
+    "reviews-block": {
+      "type": "reviews-block",
+      "blocks": {
+        "01d1b014-f6d8-471a-b0ba-80ea08b90485": {
+          "type": "Reviews",
+          "settings": {
+            "review": "Once you step foot in the College you become a part of the Ella Baché brand and family. We work extremely hard behind the scenes for real outcomes, which means jobs and career opportunities for our students.",
+            "author": "MEREDITH SCHAERF, ELLA BACHÉ COLLEGE EDUCATION MANAGER"
+          }
+        }
+      },
+      "block_order": [
+        "01d1b014-f6d8-471a-b0ba-80ea08b90485"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "college-cta3": {
+      "type": "college-cta3",
+      "blocks": {
+        "de14f91a-fced-4145-8a2b-f6c6e01729ce": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/StairBAW_676d45d5-a370-4793-9b98-4ac15b97bdcd.png",
+            "item_title": "The Ella Baché Network",
+            "item_tag": "",
+            "item_desc": "<p>With over 150 Salons and David Jones within our network, the opportunities to our graduates are endless. Whether you’re excited by skin specialist opportunities or you want to mix your passion for skincare and business in areas such as Salon Manager, Business Manager or Salon Owner, our expert team are here to help you on your way to achieving your dreams.<\/p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        },
+        "6ba1dc2f-4928-4328-8cf9-9f345f5dd817": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/Picture_1_663x_0969934d-107d-495e-903f-5474a8b4e12b.png",
+            "item_title": "Life as a beauty Therapist",
+            "item_tag": "",
+            "item_desc": "<p>As an Ella Baché Beauty Therapist you will spend your days empowering your clients to feel confident in their skin. Through high performance treatments and personalised Skin Solutions, your clients will learn what their skin loves under your expert, personalised guidance. With your expert education, you will be able to accurately and effectively diagnosis skin conditions to set your clients on the path to glowing, illuminated skin.<\/p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "de14f91a-fced-4145-8a2b-f6c6e01729ce",
+        "6ba1dc2f-4928-4328-8cf9-9f345f5dd817"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "college-cta2": {
+      "type": "college-cta2",
+      "blocks": {
+        "c594e6a6-8882-4141-95cd-0ad088e86925": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_thumb": "shopify:\/\/shop_images\/Defend.jpg",
+            "item_title": "Career Pathways",
+            "item_desc": "<p>Beyond the Ella Baché network, our graduates have gone into placements within the broader Beauty Industry. We have successfully guided over 85% of our graduates into placements within the beauty industry including international resorts and hotels, cruise ships, wellness centres, and day spas.<\/p>\n<p>Additional career opportunities within the beauty industry also include Beauty Blogger, Beauty Writer, Makeup Artist, Freelance Beauty Therapist, Post-Graduate Trainer, Beauty Trainer, International Examiner and so much more.<\/p>\n<p>So, what career opportunities excite you for your future? Speak with our team today about how start your career with a Diploma in Beauty to make your career goals come true.<\/p>",
+            "item_btn_switch": false,
+            "item_btn_text": "",
+            "item_btn_url": "",
+            "item_popup_switch": false,
+            "popup_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "c594e6a6-8882-4141-95cd-0ad088e86925"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "popup_js_switch": false
+      }
+    },
+    "college-plain-text": {
+      "type": "college-plain-text",
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#ffffff",
+        "block_title": "",
+        "block_desc": "<p>Your course and careers advisor will issue you with an Overseas Student Confirmation of Enrolment (CoE). Please click here to complete the International Student Form and once completed, submit via email to jarmila@ellabachecollege.edu.au or call 1300 856 166. Follow the instructions on the CoE to apply for your student VISA.<\/p>",
+        "block_seondary_content": ""
+      }
+    },
+    "college-enquire-block": {
+      "type": "college-enquire-block",
+      "blocks": {
+        "468dea47-592e-4b54-8809-bbe2a29287f6": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-edu-hat_87b63aee-6541-455f-ba5d-1683252bf3f1.png",
+            "item_iconContent_title": "Campus and class",
+            "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+          }
+        },
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-treatment_ed2e9394-08c1-429f-a2cb-74e2b458e249.png",
+            "item_iconContent_title": "Campus and treatment",
+            "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+          }
+        },
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-screen-1_05489547-1acd-4651-ae77-42032e105a04.png",
+            "item_iconContent_title": "Virtual Campus tour",
+            "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+          }
+        }
+      },
+      "block_order": [
+        "468dea47-592e-4b54-8809-bbe2a29287f6",
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef",
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Got questions?",
+        "block_desc": "",
+        "sidebar_title": "Discover more about us",
+        "typeform_data-url": "https:\/\/ellabache.typeform.com\/to\/yKFW7A"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "college-cta1",
+    "reviews-block",
+    "college-cta3",
+    "college-cta2",
+    "college-plain-text",
+    "college-enquire-block",
+    "college-cta5"
+  ]
+}

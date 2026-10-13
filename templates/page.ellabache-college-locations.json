@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "college-cta2": {
+      "type": "college-cta2",
+      "blocks": {
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4": {
+          "type": "Article",
+          "settings": {
+            "item_switch": true,
+            "item_row-reverse": true,
+            "item_thumb": "shopify:\/\/shop_images\/StairBAW_676d45d5-a370-4793-9b98-4ac15b97bdcd.png",
+            "item_title": "Our Locations",
+            "item_desc": "<p>As the leading beauty and skincare college in Australia, we put you in the driver’s seat with a flexible online delivery mode designed to maximise your potential and success. We give you the choice in how to learn, when to learn and where to learn. <\/p>",
+            "item_btn_switch": false,
+            "item_btn_text": "",
+            "item_btn_url": "",
+            "item_popup_switch": false,
+            "popup_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "7a32a55f-f81a-4c71-85fd-f061ece587c4"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2",
+        "popup_js_switch": false
+      }
+    },
+    "college-location": {
+      "type": "college-location",
+      "blocks": {
+        "86b1d28c-368f-4e69-be56-3222f0952e26": {
+          "type": "address-left",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Sydney",
+            "item_desc": "<p>2-4 Lambs Road<br>\nArtarmon NSW 2064<\/p>"
+          }
+        },
+        "f08247fc-91da-489f-893e-2d5a4e7c2efa": {
+          "type": "address-left",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Melbourne",
+            "item_desc": "<p>560 Church Street (below Fitness First Platinum)<br>\nRichmond, VIC 3121<\/p>"
+          }
+        },
+        "74291cea-f839-4e1c-9264-ed01fdf039c2": {
+          "type": "address-left",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Brisbane",
+            "item_desc": "Ella Baché College Training Room<br>  Level 4, K Towers <br>Fortitude Valley, Brisbane."
+          }
+        },
+        "e4cee119-99b5-4326-b672-79a748a6341d": {
+          "type": "address-right",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Sydney",
+            "item_desc": "<p>2-4 Lambs Road<br>\nArtarmon NSW 2064<\/p>"
+          }
+        },
+        "9e6f6d0d-f404-49a9-ae6a-851ae011e0ea": {
+          "type": "address-right",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Melbourne",
+            "item_desc": "<p>560 Church Street (below Fitness First Platinum)<br>\nRichmond, VIC 3121<\/p>"
+          }
+        },
+        "277e98fe-7c32-44b9-a838-bee9e05e8e03": {
+          "type": "address-right",
+          "settings": {
+            "item_switch": true,
+            "item_title": "Brisbane",
+            "item_desc": "<p>Level 4, K Tower<br>\n269 Wickham Street<br>\nFortitude Valley QLD 4006<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "86b1d28c-368f-4e69-be56-3222f0952e26",
+        "f08247fc-91da-489f-893e-2d5a4e7c2efa",
+        "74291cea-f839-4e1c-9264-ed01fdf039c2",
+        "e4cee119-99b5-4326-b672-79a748a6341d",
+        "9e6f6d0d-f404-49a9-ae6a-851ae011e0ea",
+        "277e98fe-7c32-44b9-a838-bee9e05e8e03"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "content_left": "<h3>EdFlex™ On Campus<\/h3>\n<p>Our on-campus program is delivered at Ella Baché College located within the Ella Baché head office in Artarmon, Sydney and also our Brisbane training room located in the Fortitude Valley.<\/p>",
+        "content_right": "<h3>EdFlex™ Blended<\/h3>\n<p>The practical training component of our courses is delivered in our college in Sydney and in our training facilities in Brisbane and Melbourne.<\/p>\n<p>You will find us at:<\/p>"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "title_switch": false,
+        "page_title": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "college-enquire-block": {
+      "type": "college-enquire-block",
+      "blocks": {
+        "468dea47-592e-4b54-8809-bbe2a29287f6": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-edu-hat.png",
+            "item_iconContent_title": "Campus and class",
+            "item_iconContent_desc": "Take a campus tour and sit in on one of our classes to learn with our students."
+          }
+        },
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-treatment.png",
+            "item_iconContent_title": "Campus and treatment",
+            "item_iconContent_desc": "Take a campus tour and receive a complimentary facial or massage treatment in our student clinic."
+          }
+        },
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8": {
+          "type": "iconContent",
+          "settings": {
+            "block_iconContent_switch": true,
+            "item_iconContent_icon": "shopify:\/\/shop_images\/icon-screen-1.png",
+            "item_iconContent_title": "Virtual Campus tour",
+            "item_iconContent_desc": "If you can’t make it on site, don’t worry! We can run a virtual campus tour via video conference at a time that suits you."
+          }
+        }
+      },
+      "block_order": [
+        "468dea47-592e-4b54-8809-bbe2a29287f6",
+        "0e7898f1-f901-4c3f-a192-ae9390ee74ef",
+        "37b163b3-ffe0-4a29-aa74-f4204d0d01f8"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Got questions?",
+        "block_desc": "",
+        "sidebar_title": "Discover more about us",
+        "typeform_data-url": "https:\/\/ellabache.typeform.com\/to\/yKFW7A"
+      }
+    },
+    "college-cta5": {
+      "type": "college-cta5",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#dddddd",
+        "block_Text": "<p>RTO Provider No 6704 | CRICOS 01474B | ABN 78 001 446 359 | <a href=\"\/pages\/privacy\" target=\"_blank\" title=\"Privacy Policy\">Privacy Policy<\/a><\/p>"
+      }
+    },
+    "college-cta6": {
+      "type": "college-cta6",
+      "disabled": true,
+      "settings": {
+        "block_switch": false,
+        "block_bg_color": "#f2f2f2",
+        "block_Text": "<p>Ella Baché College of Skinand Beauty Therapy <br\/>RTO Provider No 6704<br\/>CRICOS ID 01474B<\/p>"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "college-cta2",
+    "college-location",
+    "main",
+    "college-enquire-block",
+    "college-cta5",
+    "college-cta6",
+    "shogun-optimizer"
+  ]
+}

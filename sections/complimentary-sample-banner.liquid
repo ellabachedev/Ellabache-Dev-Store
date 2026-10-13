@@ -1,0 +1,62 @@
+{{ 'section-complimentary-sample-banner.css' | asset_url | stylesheet_tag }}
+{%- capture complimentary-sample-banner -%}
+<div class="complimentary-sample-banner" {% if block.settings.banner-bg-color != blank %}style="background-color:{{ block.settings.banner-bg-color }};"{% endif %}>
+  <div class="page-width">
+    <div class="flex-container">
+      {%- if section.settings.banner-title != blank -%}
+      <h2>{{ section.settings.banner-title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.banner-img != blank -%}
+      <div class="image-holder text-center">
+        <img width="142" height="176" src="{{ section.settings.banner-img | img_url: '400x' }}" loading="lazy" alt="Complimentary Sample">
+      </div>
+      {%- endif -%} 
+      {%- if section.settings.banner-button-text != blank -%}
+      <div class="button-holder text-center">
+        <a href="{{ section.settings.banner-button-url }}">{{ section.settings.banner-button-text }}</a>
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{{ complimentary-sample-banner | strip_newlines }}
+{% schema %}
+{
+    "name": "Complimentary Banner",
+    "settings": [
+      {
+        "type" : "color",
+        "id" : "banner-bg-color",
+        "label" : "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "banner-title",
+        "label": "Title"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner-img",
+        "label": "Image Thumb"
+      },
+      {
+        "type": "text",
+        "id": "banner-button-text",
+        "label": "Button Text"
+      },
+      {
+        "type": "url",
+        "id": "banner-button-url",
+        "label": "Button URL"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Complimentary Banner",
+        "category": "Custom Content"
+      }
+    ]
+}
+{% endschema %}

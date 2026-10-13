@@ -1,0 +1,63 @@
+{%- capture collegePlainText -%}
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-plain-text.css' | asset_url | stylesheet_tag }}
+<section class="college-plain-text" style="background-color:{{ section.settings.block_bg_color }};">
+    <div class="page-width">
+        <div class="content">
+            {%- if section.settings.block_title != blank -%}
+                <h2 class="block-title">{{ section.settings.block_title }}</h2>
+            {%- endif -%}
+            {%- if section.settings.block_desc != blank -%}
+                {{ section.settings.block_desc }}
+            {%- endif -%}
+            {%- if section.settings.block_seondary_content -%}
+                {{ section.settings.block_seondary_content }}
+            {%- endif -%}
+        </div>
+    </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ collegePlainText | strip_newlines }}
+{% schema %}
+{
+"name": "Plain Text Content",
+"settings": [
+{
+"id" : "block_switch",
+"type" : "checkbox",
+"label" : "Enable",
+"default" : true
+},
+{
+"id" : "block_bg_color",
+"type" : "color",
+"label" : "Block Background Color",
+"default": "#ffffff"
+},
+{
+"id": "block_title",
+"type": "text",
+"label": "Title"
+},
+{
+"id": "block_desc",
+"type": "textarea",
+"label": "Description"
+},
+{
+"id": "block_seondary_content",
+"type": "richtext",
+"label": "Secondary Content"
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

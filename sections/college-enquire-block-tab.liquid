@@ -1,0 +1,369 @@
+{{ 'section-enquire-block-tab.css' | asset_url | stylesheet_tag }}
+{%- capture collegeEnquireBlock -%}
+<div class="tabs college-form-tabs">
+    <div class="page-width">
+        <ul id="tabs-nav" class="flex-container">
+            <li><a href="#tab1">Contact Us</a></li>
+            <li><a href="#tab2">Apply Now</a></li>
+        </ul> <!-- END tabs-nav -->
+        <div id="tabs-content">
+            <div id="tab1" class="tab-content">
+                {%- if section.settings.block_switch != blank -%}
+                <section class="enquire-block college-enquire-block" style="background-color:{{ section.settings.block_bg_color }};">
+                    <div class="page-width">
+                        <div class="flex-container">
+                            <div class="main-content">
+                                {%- if section.settings.block_title != blank -%}
+                                <h2 class="block-title">{{ section.settings.block_title }}</h2>
+                                {%- endif -%}
+                                {%- if section.settings.block_desc != blank -%}
+                                {{ section.settings.block_desc }}
+                                {%- endif -%}
+                                <div class="typeform-widget" data-url="{{ section.settings.typeform_data-url }}"
+                                    style="width: 100%; height: 500px;"></div>
+                            </div>
+                            <div class="sidebar has-separator">
+                                {%- if section.settings.sidebar_title != blank -%}
+                                <h2 class="block-title">{{ section.settings.sidebar_title }}</h2>
+                                {%- endif -%}
+                                <div class="lists">
+                                    {%- for block in section.blocks -%}
+                                    {%- if block.type == "iconContent" -%}
+                                    {%- if block.settings.block_iconContent_switch != blank -%}
+                                    <div class="item iconContent">
+                                        {%- if block.settings.item_iconContent_icon != blank -%}
+                                        <div class="icon">
+                                            <img width="57" height="35" src="{{ block.settings.item_iconContent_icon | img_url:'57x' }}" loading="lazy" alt="icon">
+                                        </div>
+                                        {%- endif -%}
+                                        <div class="content">
+                                            {%- if block.settings.item_iconContent_title != blank -%}
+                                            <span class="tag">{{ block.settings.item_iconContent_title }}</span>
+                                            {%- endif -%}
+                                            {%- if block.settings.item_iconContent_desc != blank -%}
+                                            <p>{{ block.settings.item_iconContent_desc }}</p>
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                    {%- endif -%}
+                                    {%- elsif block.type == "Article" -%}
+                                    {%- if block.settings.block_article_switch != blank -%}
+                                    {%- if block.settings.item_article_btn_url != blank -%}
+                                    <a class="link-wrapper" title="{{ block.settings.item_article_title }}"
+                                        href="{{ block.settings.item_article_btn_url }}">
+                                        {%- endif -%}
+                                        <div class="item article">
+                                            {%- if block.settings.item_article_image != blank -%}
+                                            <div class="icon">
+                                                <img width="170" height="120" src="{{ block.settings.item_article_image | img_url:'250x' }}" loading="lazy" alt="icon">
+                                            </div>
+                                            {%- endif -%}
+                                            <div class="content">
+                                                {%- if block.settings.item_article_title != blank -%}
+                                                <h3>{{ block.settings.item_article_title }}</h3>
+                                                {%- endif -%}
+                                                {%- if block.settings.item_article_desc != blank -%}
+                                                <p>{{ block.settings.item_article_desc }}</p>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                        {%- if block.settings.item_article_btn_url -%}
+                                    </a>
+                                    {%- endif -%}
+                                    {%- endif -%}
+                                    {%- endif -%}
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                {%- endif -%}
+            </div>
+            <div id="tab2" class="tab-content">
+                <div id="s-357b4419-f9af-4274-95bd-ca7ce58171eb" class="shg-c"><iframe
+                        src="https://clustdoc.com/cp/271518-5fd2badb18e4a?embedded=1" frameborder="0" height="800"
+                        width="100%"></iframe></div>
+            </div>
+        </div> <!-- END tabs-content -->
+    </div>
+</div>
+{%- endcapture -%}
+{{ collegeEnquireBlock | strip_newlines }}
+<script> (function () { var qs, js, q, s, d = document, gi = d.getElementById, ce = d.createElement, gt = d.getElementsByTagName, id = "typef_orm_share", b = "https://embed.typeform.com/"; if (!gi.call(d, id)) { js = ce.call(d, "script"); js.id = id; js.src = b + "embed.js"; q = gt.call(d, "script")[0]; q.parentNode.insertBefore(js, q) } })() 
+</script>
+<script>
+    var urlParms = getUrlVars();
+    // Cookie Variables -----------------------------
+    var cookieValGclid = getCookie("gclid"),
+        cookieValUtm_source = getCookie("utm_source"),
+        cookieValUtm_medium = getCookie("utm_medium"),
+        cookieValUtm_campaign = getCookie("utm_campaign"),
+        cookieValUtm_term = getCookie("utm_term");
+    var typeform_source = '{{ page.metafields.accentuate.typeform_source }}';
+    if (typeform_source == undefined || typeform_source == '') {
+        var typeform_sourceNew = '';
+    }
+    else {
+        var typeform_sourceNew = '&source=' + typeform_source;
+    }
+    var utm_source = urlParms["utm_source"];
+    if (utm_source == undefined) {
+        var utm_sourceNew = '';
+        if (cookieValUtm_source != "") {
+            var utm_sourceNew = '&utm_source=' + cookieValUtm_source;
+        }
+    }
+    else {
+        var utm_sourceNew = '&utm_source=' + utm_source;
+        //set the utm_source query string parameter on the cookie --
+        setCookie("utm_source", utm_source, 365);
+    }
+    var utm_medium = urlParms["utm_medium"];
+    if (utm_medium == undefined) {
+        var utm_mediumNew = '';
+        if (cookieValUtm_medium != "") {
+            var utm_mediumNew = '&utm_medium=' + cookieValUtm_medium;
+        }
+    }
+    else {
+        var utm_mediumNew = '&utm_medium=' + utm_medium;
+        //set the utm_medium query string parameter on the cookie --
+        setCookie("utm_medium", utm_medium, 365);
+    }
+    var utm_campaign = urlParms["utm_campaign"];
+    if (utm_campaign == undefined) {
+        var utm_campaignNew = '';
+        if (cookieValUtm_campaign != "") {
+            var utm_campaignNew = '&utm_campaign=' + cookieValUtm_campaign;
+        }
+    }
+    else {
+        var utm_campaignNew = '&utm_campaign=' + utm_campaign;
+        //set the utm_campaign query string parameter on the cookie --
+        setCookie("utm_campaign", utm_campaign, 365);
+    }
+    var utm_term = urlParms["utm_term"];
+    if (utm_term == undefined) {
+        var utm_termNew = '';
+        if (cookieValUtm_term != "") {
+            var utm_termNew = '&utm_term=' + cookieValUtm_term;
+        }
+    }
+    else {
+        var utm_termNew = '&utm_term=' + utm_term;
+        //set the utm_campaign query string parameter on the cookie --
+        setCookie("utm_term", utm_term, 365);
+    }
+    var service = urlParms["service"];
+    if (service == undefined) {
+        var serviceNew = '';
+    }
+    else {
+        var serviceNew = '&service=' + service;
+    }
+    var gclid = urlParms["gclid"];
+    if (gclid == undefined) {
+        var gclidNew = '';
+        if (cookieValGclid != "") {
+            var gclidNew = '&gclid=' + cookieValGclid;
+        }
+    }
+    else {
+        var gclidNew = '&gclid=' + gclid;
+        //set the GCLID query string parameter on the cookie --
+        setCookie("gclid", gclid, 365);
+    }
+
+    // Read a page's GET URL variables and return them as an associative array.
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+    function check(type) {
+        return $('body').find(type).length;
+    }
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }  
+</script>
+<script>
+    var typeform_source = '{{ page.metafields.accentuate.typeform_source }}';
+    if (typeform_source == undefined || typeform_source == '') {
+        var typeform_sourceNew = '';
+    }
+    else {
+        var typeform_sourceNew = '&source=' + typeform_source;
+    }
+    jQuery(window).on('load', function () {
+        // check typeform widget ------------------------
+        var typeFormWidget = check('div.typeform-widget');
+        if (typeFormWidget > 0) {
+            var typeFormDataUrl = jQuery("div.typeform-widget").attr('data-url'),
+                typeFormDataUrlParts = typeFormDataUrl.split("/"),
+                typeFormDataUrlLastPart = typeFormDataUrlParts[typeFormDataUrlParts.length - 1];
+            setTimeout(function () {
+                jQuery('div.typeform-widget').each(function () {
+                    jQuery(this).find(" iframe[data-qa='iframe']").attr('src', 'https://ellabache.typeform.com/to/' + typeFormDataUrlLastPart + '?typeform-embed=embed-widget' + typeform_sourceNew + utm_sourceNew + utm_mediumNew + utm_campaignNew + utm_termNew + serviceNew + gclidNew);
+                });
+            }, 1000);
+        }
+    });
+
+    // Show the first tab and hide the rest
+    $('#tabs-nav li:first-child').addClass('active');
+    $('.tab-content').hide();
+    //$('.tab-content:first').show();
+    // Click function
+    $('#tabs-nav li').click(function () {
+        $('#tabs-nav li').removeClass('active');
+        $(this).addClass('active');
+        $('.tab-content').hide();
+        var activeTab = $(this).find('a').attr('href');
+        $(activeTab).fadeIn();
+        return false;
+    });
+</script>
+{% schema %}
+{
+"name": "College Enquire Block",
+"settings": [
+{
+"id" : "block_switch",
+"type" : "checkbox",
+"label" : "Enable",
+"default" : true
+},
+{
+"id" : "block_bg_color",
+"type" : "color",
+"label" : "Block Background Color",
+"default": "#ffffff"
+},
+{
+"id" : "block_title",
+"type" : "text",
+"label" : "Title"
+},
+{
+"id" : "block_desc",
+"type" : "richtext",
+"label" : "Description"
+},
+{
+"id" : "sidebar_title",
+"type" : "text",
+"label" : "Sidebar Title"
+},
+{
+"id" : "typeform_data-url",
+"type" : "textarea",
+"label" : "Tyeform Data URL"
+}
+],
+"blocks": [
+{
+"type": "Article",
+"name": "Article Item",
+"settings": [
+{
+"id" : "block_article_switch",
+"type" : "checkbox",
+"label" : "Enable",
+"default" : true
+},
+{
+"type": "header",
+"content": {
+"en": "Article Item"
+}
+},
+{
+"id": "item_article_image",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "item_article_title",
+"type": "text",
+"label": "Title"
+},
+{
+"id": "item_article_desc",
+"type": "textarea",
+"label": "Description"
+},
+{
+"id": "item_article_btn_url",
+"type": "url",
+"label": "Article Link"
+}
+]
+},
+{
+"type": "iconContent",
+"name": "Icon Content",
+"settings": [
+{
+"id" : "block_iconContent_switch",
+"type" : "checkbox",
+"label" : "Enable",
+"default" : true
+},
+{
+"type": "header",
+"content": {
+"en": "Icon Content Item"
+}
+},
+{
+"id": "item_iconContent_icon",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "item_iconContent_title",
+"type": "text",
+"label": "Title"
+},
+{
+"id": "item_iconContent_desc",
+"type": "textarea",
+"label": "Description"
+}
+]
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

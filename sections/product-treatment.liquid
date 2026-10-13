@@ -1,0 +1,159 @@
+{{ 'product-treatment.css' | asset_url | stylesheet_tag }}
+{{ 'component-pdp-image-gallery.css' | asset_url | stylesheet_tag }}
+{% include 'breadcrumbs' %}
+<div
+  class="product-single treatment"
+  data-section-id="{{ section.id }}"
+  data-section-type="product"
+  data-enable-history-state="true"
+  itemscope
+  itemtype="http://schema.org/Product">
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+  <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+  <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+  <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+  <div class="page-width">
+    <div class="flex-container hero-content">
+      <div class="image-carousel product-image-gallery">
+        {% render 'pdp-image-gallery', product: product, featured_image: featured_image %}
+      </div>
+      <div class="product-hero-content">
+        <div
+          itemprop="offers"
+          itemscope
+          itemtype="http://schema.org/Offer">
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+          <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+        </div>
+        <div class="productHeading">
+          <h1>{{ product.title }}</h1>
+          {%- if product.metafields.accentuate.treatment_page_subtitle != blank -%}
+            <h2>{{ product.metafields.accentuate.treatment_page_subtitle }}</h2>
+          {%- endif -%}
+          {%- if product.metafields.accentuate.treatment_time_duration != blank -%}
+          <div class="product-description" style="margin-top:10px;">
+            <div class="rte">{{ product.metafields.accentuate.treatment_time_duration }}</div>
+          </div>
+        {%- endif -%}
+          <div class="button-wrapper" style="margin-top:20px;">
+            {% comment %} {%- if product.metafields.accentuate.exclusive_salon != blank -%}
+              <a href="{{product.metafields.accentuate.exclusive_salon}}" class="button">
+                Find a Salon
+              </a>
+            {%- else -%}
+              <a href="{{section.settings.book_appointment_link}}?treatmentfilter={{product.handle}}" class="button">
+                Find a Salon
+              </a>
+            {%- endif -%} {% endcomment %}
+              {% render 'salon-selector' %}
+          </div>
+        </div>
+        <div class="sortDesc">
+          <div class="product-description">
+            {% if product.description.size > 0 %}
+              <div class="rte">
+                {{ product.description }}
+              </div>
+            {% endif %}
+            {%- assign index = 0 -%}
+            <div class="rte">
+              {%- for treatmentTitleItem in product.metafields.accentuate.treatment_content_title -%}
+                {% assign treatment_title = product.metafields.accentuate.treatment_content_title[index] | strip_html | strip_newlines | strip %}
+                {% if treatment_title.size > 0 %}
+                  <h3>{{ treatment_title }}</h3>
+                {% endif %}
+                {% assign treatment_content = product.metafields.accentuate.treatment_content[index] | strip_html | strip_newlines | strip %}
+                {% if treatment_content.size > 0 %}
+                  {{ product.metafields.accentuate.treatment_content[index] }}
+                {% endif %}
+                {%- assign index = index | plus: 1 -%}
+              {%- endfor -%}
+            </div>
+            {% comment %}
+            {% assign howtouse = product.metafields.global.howtouse | strip_html | strip_newlines | strip %}
+            {% if howtouse.size > 0 %}
+            <div class="rte">
+            <h2>How it Works</h2>
+            {{ product.metafields.global.howtouse }}
+            </div>
+            {% endif %}
+
+            {% assign results = product.metafields.global.results | strip_html | strip_newlines | strip %}
+            {% if results.size > 0 %}
+            <div class="rte">
+            <h2>Results</h2>
+            {{ product.metafields.global.results }}
+            </div>
+            {% endif %}
+
+            {% if product.metafields.global.time %}
+            <div class="rte">
+            <h2>Time</h2>
+            <p>{{ product.metafields.global.time }}</p>
+            </div>
+            {% endif %}
+
+            {% assign results = product.metafields.global.results | strip_html | strip_newlines | strip %}
+            {% if results.size > 0 %}
+            <div class="rte">
+            <h2>Add-ons</h2>
+            {{ product.metafields.global.addons }}
+            </div>
+            {% endif %}
+            {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if section.settings.show_related_products == true %}
+    {% if product.metafields.global.relatedproducts %}
+      <div class="relatedProductsBlock">
+        <div class="page-width">
+          {% include 'related-products-accentuate' %}
+        </div>
+      </div>
+      {%- render 'quick-view-new' -%}
+    {% endif %}
+  {% endif %}
+</div>
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "url",
+        "id": "book_appointment_link",
+        "label": "Link for Book Appointment"
+      },
+      {
+        "type": "header",
+        "content": "Related products settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_related_products",
+        "label": "Enable related products",
+        "default": false
+      },
+      {
+        "id": "related_title",
+        "type": "text",
+        "label": "Heading",
+        "default": "Related products"
+      }, {
+        "type": "range",
+        "id": "related_grid_num",
+        "label": "Products per row",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,155 @@
+{{ 'section-grid-col-content.css' | asset_url | stylesheet_tag }}
+{%- capture franchiseGridColContent -%}
+{%- if section.settings.block_switch != blank -%}
+<section class="franchise-grid-col-content" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    {%- if section.settings.block_title != blank -%}
+    <h2 class="block-title">{{ section.settings.block_title }}</h2>
+    {%- endif -%}
+    <div class="column-contents {% if section.settings.grid-col-layout == '1'%}col-2{% elsif section.settings.grid-col-layout == '2'%}col-3{% endif %}">
+      <div class="lists flex-container">
+        {%- assign count = 0 -%}
+        {%- for block in section.blocks -%}
+        {%- assign count = count | plus: 1 -%}
+          <div class="item">
+            {%- if block.settings.item_title != blank -%}
+            <h3 class="title">{{ block.settings.item_title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.item_desc != blank -%}
+            {{ block.settings.item_desc }}
+            {%- endif -%}
+            {% if block.settings.btn_text != blank %}
+            <a class="button primary small" href="{{ block.settings.btn_url }}">{{ block.settings.btn_text }}</a>
+            {% endif %}
+          </div>
+          {%- if section.settings.grid_image != blank -%}
+
+          {%- if section.settings.grid-col-layout == '1'-%}
+            {%- assign itemImageInsertPos = 2 -%}
+          {%- elsif section.settings.grid-col-layout == '2' -%}
+            {%- assign itemImageInsertPos = 3 -%}
+          {%- endif -%}
+
+          {%- if count == itemImageInsertPos -%}
+          <div class="item item-image">
+            {% if section.settings.grid_image_link != blank %}<a href="{{ section.settings.grid_image_link }}">{% endif %}
+            <picture>
+            {%- if section.settings.grid_image_mob != blank -%}
+            <source srcset="{{ section.settings.grid_image_mob | img_url: '768x'}}" data-srcset="{{ section.settings.grid_image_mob | img_url: '768x'}}" media="(max-width: 768px)">
+            <source srcset="{{ section.settings.grid_image_mob | img_url: '500x' }}" data-srcset="{{ section.settings.grid_image_mob | img_url: '500x' }}" media="(max-width: 480px)">
+            {%- else -%}
+            <source srcset="{{ section.settings.grid_image | img_url: '768x'}}" data-srcset="{{ section.settings.grid_image | img_url: '768x' }}" media="(max-width: 768px)">
+            <source srcset="{{ section.settings.grid_image | img_url: '500x' }}" data-srcset="{{ section.settings.grid_image | img_url: '500x' }}" media="(max-width: 480px)">
+            {%- endif -%}
+            <img width="1050" height="340" src="{{ section.settings.grid_image | img_url: '1140x' }}" loading="lazy"  alt="{{ section.settings.grid_image.alt | escape }}">
+          </picture>
+            {% if section.settings.grid_image_link != blank %}</a>{% endif %}
+          </div>
+          {%- endif -%}
+          {%- endif -%}
+          {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- endcapture -%}
+{{ franchiseGridColContent | strip_newlines }}
+{% schema %}
+  {
+    "name": "Grid Column Content",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "id": "block_title",
+      "type": "text",
+      "label": "Title"
+    },
+    {
+      "type": "header",
+      "content": {
+        "en": "Grid Images"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "grid_image",
+      "label": "Desktop Grid Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "grid_image_mob",
+      "label": "Mobile Grid Image"
+    },
+    {
+      "id": "grid_image_link",
+      "type": "url",
+      "label": "Image Link"
+    },
+    {
+      "id": "grid-col-layout",
+      "type": "select",
+      "label": "Grid Column Layout",
+      "options": [
+        {
+        "value": "1",
+        "label": "Two Column"
+        },
+        {
+        "value": "2",
+        "label": "Three Column"
+        }
+        ],
+        "default": "2"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "id": "btn_text",
+          "type": "text",
+          "label": "Button Text",
+          "default": "MAKE AN EQUIRY"
+        },
+        {
+          "id": "btn_url",
+          "type": "url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

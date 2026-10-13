@@ -1,0 +1,155 @@
+{%- assign current_product = product -%}
+{%- assign current_product_found = false -%}
+{%- assign usellCount = 1 -%}
+{%- assign usellLimit = section.settings.upsell_count | plus: 0 -%}
+{%- assign upsell_product_handles = "" | split: "|" -%}
+{%- assign foundCollection = false -%}
+{%- assign upsellCollectionsAll = false -%}
+{%- assign upsellCollections = false -%}
+{%- assign upsellCollection = false -%}
+{%- assign upsellCollectionStr = "" -%}
+{%- for c in product.collections -%}
+  {%- if foundCollection == false and c.handle != 'frontpage' and c.handle != 'all' and c.handle != 'bestsellers' and
+c.handle != 'best-seller' and c.handle != 'best-sellers' and c.handle != 'best-sellers-mega-menu' and
+c.all_products_count > 1 -%}
+    {%- assign collectionforUpsell = c -%}
+    {%- if collectionforUpsell.metafields.global.upsell_collections -%}
+      {%- assign foundCollection = true -%}
+      {%- assign upsellCollectionsAll = collectionforUpsell.metafields.global.upsell_collections | split: '|' -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- for uColHandle in upsellCollectionsAll -%}
+  {%- assign uCol = collections[uColHandle] -%}
+  {%- if uCol.all_products_count > 0 -%}
+    {%- if forloop.first -%}
+      {%- assign upsellCollectionStr = upsellCollectionStr | append: uColHandle -%}
+    {%- else -%}
+      {%- assign upsellCollectionStr = upsellCollectionStr | append: "|" | append: uColHandle -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if product.metafields.global.upsell_products or upsellCollectionStr != "" -%}
+  <div class="related-products-block info-item">
+    <div class="page-width">
+      <section id="upsellProducts" class="section section--related-products">
+        <div class="container container--medium">
+          <div class="heading text-center">
+            <h2>{{ section.settings.upsell_title }}</h2>
+            <h3>{{ section.settings.upsell_sub_title }}</h3>
+          </div>
+        </div>
+        <div class="product-grid-block">
+          <div class="product-listing">
+            <div id="AjaxinateLoop" class="slider">
+              {%- assign upsell_products = product.metafields.global.upsell_products | split: '|' -%}
+              {%- assign upsell_product_handles = upsell_product_handles | concat: upsell_products -%}
+              {%- for uProdHandle in upsell_products -%}
+                {%- assign uProd = all_products[uProdHandle] -%}
+                {%- if uProd.handle != current_product.handle -%}
+                  {%- if uProd.available == true -%}
+                    {%- assign img_url = uProd.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    <!-- Product = {{ uProd.handle }} -->
+                    {%- include 'product-grid-item-new', product: uProd, hidereviews: true -%}
+                    {%- assign usellCount = usellCount | plus: 1 -%}
+                  {%- endif -%}
+                {%- endif -%}
+                {%- if usellCount > usellLimit -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if usellCount <= usellLimit -%}
+                {%- if upsellCollectionStr != "" -%}
+                  {%- assign
+ upsellCollections = upsellCollectionStr | split: '|' -%} {%- assign usellCountNum = usellCount | minus: 1 -%}
+                  {%- assign countLimitDiff = usellLimit | minus: usellCountNum -%} {%- assign
+ collCount = upsellCollections.size -%} {%- assign countLimitDiffFloat = countLimitDiff | times: 1.00 -%} {%- 
+ assign collCountFloat = collCount | times: 1.00 -%} {%- assign breakPoint = countLimitDiffFloat | divided_by:
+ collCountFloat -%} {%- assign breakPointInt = breakPoint | round -%}
+                  {%- if breakPoint < 1 -%}
+                    {%- assign
+                      breakPoint = 1 -%}
+                  {%- endif -%}
+                  {%- for uColHandle in upsellCollections -%}
+                    {%- assign
+ upsellCollection = collections[uColHandle] -%} {%- assign isLastColl = forloop.last -%} {%- assign
+ breakPointCount = 1 -%}
+                    {%- for uColProd in upsellCollection.products -%}
+                      {%- assign uProd = uColProd -%}
+                      {%- 
+ if uProd.handle != current_product.handle -%}
+                        {%- if upsell_product_handles contains uProd.handle -%}
+                          {%- 
+ else -%}
+                            {%- if uProd.available == true -%}
+                              {%- assign uProdHandle = uProd.handle | split: "|" -%} {%- assign
+ upsell_product_handles = upsell_product_handles | concat: uProdHandle -%} {%- assign
+ img_url = uProd.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                              <!-- PColl={{
+                              collectionforUpsell.handle }} | UColl={{ uColHandle }} | Product={{ uProd.handle }} -->
+                              {%- include 'product-grid-item-new', product: uProd, hidereviews: true -%}
+
+                              {%- assign usellCount = usellCount | plus: 1 -%}
+                              {%- if isLastColl == true and usellCount <= usellLimit -%}
+                                {%- continue -%}
+                              {%- endif -%}
+                              {%- if
+ breakPointCount >= breakPointInt -%}
+                                {%- break -%}
+                              {%- endif -%}
+                              {%- assign breakPointCount = breakPointCount | plus: 1 -%}
+                            {%- endif -%}
+                        {%- endif -%}
+                      {%- endif -%}
+                      {%- if usellCount > usellLimit -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- if usellCount > usellLimit -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script defer="defer">
+    $(window).on('load',function(){
+    var bs_slick_config = {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          arrows: true,
+          dots: false,
+          responsive: [
+            {
+              breakpoint: 1100,
+              settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4
+              }
+            },
+            {
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+              }
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+              }
+            }
+          ]
+        }
+        $("#upsellProducts .slider").slick(bs_slick_config);
+      });</script>
+{%- endif -%}

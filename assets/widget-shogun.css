@@ -1,0 +1,123 @@
+table.shogun-table {
+    width: auto !important;
+}
+.sw-widget-inputs {
+    margin-top: 40px;
+    text-align: center;
+    width: 300px;
+    margin: 40px auto 0 auto;
+}
+.sw-widget-inputs label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+.sw-widget-inputs input {
+    height: 42px;
+    border: 1px solid #ccc;
+    width: 300px;
+    padding: 0;
+    margin: 0;
+}
+.sw-widget-buttons {
+    margin-top: 15px;
+    text-align: center;
+}
+.sw-widget-buttons button {
+    max-width: 300px;
+    width: 100%;
+    padding: 11px;
+}
+.shg-row {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: inherit;
+    max-height: inherit;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+.shg-c-lg-6 {
+    width: calc(50.0% - 15.0px);
+}
+.shg-c video{width:100%;}
+@media only screen and (max-width: 767px) {
+    .shg-c-lg-6 {
+        width: 100%;
+    }
+}
+td.shogun-table-row,
+td.shogun-table-column {
+    border: 1px solid #D5D6D7;
+    padding: 10px;
+}
+.shogun-table-wrapper {
+    overflow: auto;
+    border: 1px solid #D5D6D7;
+    border-radius: 0px;
+    margin-bottom: 30px;
+}
+.rte__table-wrapper {
+    max-width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+table.shogun-table {
+    width: auto !important;
+}
+table.shogun-table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+}
+table.shogun-table thead tr td {
+    font-weight: bold;
+    font-size: 14px;
+}
+table.shogun-table.custom {
+    table-layout: fixed;
+    width: 100% !important;
+    width: 100% !important;
+}
+table.shogun-table.custom tr td {
+    border: 5px solid #f7f7f7;
+    padding: 10px;
+}
+table.shogun-table.custom tr td p {
+    font-weight: 300;
+    font-size: 14px;
+    padding: 1em 0;
+}
+table.shogun-table.custom thead tr td {
+    border: 5px solid #f7f7f7;
+    padding: 10px;
+}
+table.shogun-table.custom .icon-holder img {
+    max-width: 31px;
+}
+.shogun-heading-component h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #000000;
+    font-weight: 400;
+}
+@media (min-width: 1200px) {
+    .shg-c-lg-3 {
+        width: calc(25.0% - 15.0px);
+    }
+
+    .shg-c-lg-9 {
+        width: calc(75.0% - 15.0px);
+    }
+}
+.sw-widget-inputs {
+    margin-top: 40px;
+    text-align: center;
+    width: 300px;
+    margin: 40px auto 0 auto;
+}
+.sw-widget-inputs label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}

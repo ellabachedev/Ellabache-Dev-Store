@@ -1,0 +1,571 @@
+{{ 'salon-promo.css' | asset_url | stylesheet_tag }}
+<section class="banner banner--mini">
+  <div class="banner__image">
+    <picture>
+      {%- if section.settings.desktop_image != blank -%}
+        <source media="(min-width: 768px)" srcset="{{ section.settings.desktop_image | image_url }}">
+      {%- endif -%}
+      {%- if section.settings.mobile_image != blank -%}
+        <img src="{{ section.settings.mobile_image | image_url }}" alt="{{ section.settings.banner_alt | escape }}">
+      {%- endif -%}
+    </picture>
+  </div>
+</section>
+{%- if section.settings.show_breadcrumbs %}
+  {% render 'breadcrumbs' -%}
+{%- endif -%}
+<div class="find-a-salon">
+  <div class="page-width">
+    <h1 class="find-a-salon__title">{{ section.settings.heading }}</h1>
+    {%- if section.settings.subheading != blank -%}
+      <p class="find-a-salon__subtitle">
+        {{ section.settings.subheading }}
+      </p>
+    {%- endif -%}
+    <ul class="find-a-salon__list">
+      {% comment %} 
+        {%- for block in section.blocks -%}
+        <li> 
+        <a href="{{ block.settings.link }}" data-salon="{{ block.settings.title | escape }}" class="salon-promo-link"> 
+        {{ block.settings.title }} 
+        </a>
+        </li>
+        {%- endfor -%} 
+      {% endcomment %}
+      <li>
+        <a
+          href="https://skinreviewperth.com.au/"
+          data-salon="Skin Review Perth"
+          class="salon-promo-link">
+          Skin Review Perth
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/ella-bache-orbost"
+          data-salon="Ella Bache Orbost"
+          class="salon-promo-link">
+          Ella Bache Orbost
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/armidale"
+          data-salon="Ella Baché Armidale"
+          class="salon-promo-link">
+          Ella Baché Armidale
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/artarmon"
+          data-salon="Ella Baché Artarmon"
+          class="salon-promo-link">
+          Ella Baché Artarmon
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/bondijunction"
+          data-salon="Ella Baché Bondi Junction"
+          class="salon-promo-link">
+          Ella Baché Bondi Junction
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/bowral"
+          data-salon="Ella Baché Bowral"
+          class="salon-promo-link">
+          Ella Baché Bowral
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/charlestown"
+          data-salon="Ella Baché Charlestown"
+          class="salon-promo-link">
+          Ella Baché Charlestown
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/chatswood"
+          data-salon="Ella Baché Chatswood"
+          class="salon-promo-link">
+          Ella Baché Chatswood
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/coffsharbour"
+          data-salon="Ella Baché Coffs Harbour"
+          class="salon-promo-link">
+          Ella Baché Coffs Harbour
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/coogee"
+          data-salon="Ella Baché Coogee"
+          class="salon-promo-link">
+          Ella Baché Coogee
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/dubbo"
+          data-salon="Ella Baché Dubbo"
+          class="salon-promo-link">
+          Ella Baché Dubbo
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/gladesville"
+          data-salon="Ella Baché Gladesville"
+          class="salon-promo-link">
+          Ella Baché Gladesville
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/glenbrook"
+          data-salon="Ella Baché Glenbrook"
+          class="salon-promo-link">
+          Ella Baché Glenbrook
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/gunnedah"
+          data-salon="Ella Baché Gunnedah"
+          class="salon-promo-link">
+          Ella Baché Gunnedah
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/nowra"
+          data-salon="Ella Baché Nowra"
+          class="salon-promo-link">
+          Ella Baché Nowra
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/penrith"
+          data-salon="Ella Baché Penrith"
+          class="salon-promo-link">
+          Ella Baché Penrith
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/portmacquarie"
+          data-salon="Ella Baché Port Macquarie"
+          class="salon-promo-link">
+          Ella Baché Port Macquarie
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/springwood"
+          data-salon="Ella Baché Springwood"
+          class="salon-promo-link">
+          Ella Baché Springwood
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/tamworth"
+          data-salon="Ella Baché Tamworth"
+          class="salon-promo-link">
+          Ella Baché Tamworth
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/waggawagga"
+          data-salon="Ella Baché Wagga Wagga"
+          class="salon-promo-link">
+          Ella Baché Wagga Wagga
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/westlindfield"
+          data-salon="Ella Baché West Lindfield"
+          class="salon-promo-link">
+          Ella Baché West Lindfield
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/ella-bache-west-pymble"
+          data-salon="West Pymble Beauty Therapy"
+          class="salon-promo-link">
+          West Pymble Beauty Therapy
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/fanniebay"
+          data-salon="Ella Baché Fannie Bay"
+          class="salon-promo-link">
+          Ella Baché Fannie Bay
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/palmerston"
+          data-salon="Ella Baché Palmerston"
+          class="salon-promo-link">
+          Ella Baché Palmerston
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/aitkenvale"
+          data-salon="Ella Baché Aitkenvale"
+          class="salon-promo-link">
+          Ella Baché Aitkenvale
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/brookside"
+          data-salon="Ella Baché Brookside"
+          class="salon-promo-link">
+          Ella Baché Brookside
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/bundaberg"
+          data-salon="Ella Baché Bundaberg"
+          class="salon-promo-link">
+          Ella Baché Bundaberg
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/cairns"
+          data-salon="Ella Baché Cairns"
+          class="salon-promo-link">
+          Ella Baché Cairns
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/capalaba"
+          data-salon="Ella Baché Capalaba"
+          class="salon-promo-link">
+          Ella Baché Capalaba
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/carindale"
+          data-salon="Ella Baché Carindale"
+          class="salon-promo-link">
+          Ella Baché Carindale
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/chermside"
+          data-salon="Ella Baché Chermside"
+          class="salon-promo-link">
+          Ella Baché Chermside
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/coolangatta"
+          data-salon="Ella Baché Coolangatta"
+          class="salon-promo-link">
+          Ella Baché Coolangatta
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/coomera"
+          data-salon="Ella Baché Coomera"
+          class="salon-promo-link">
+          Ella Baché Coomera
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/dalby"
+          data-salon="Ella Baché Dalby"
+          class="salon-promo-link">
+          Ella Baché Dalby
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/fortitudevalley"
+          data-salon="Ella Baché Fortitude Valley"
+          class="salon-promo-link">
+          Ella Baché Fortitude Valley
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/ipswich"
+          data-salon="Ella Baché Ipswich"
+          class="salon-promo-link">
+          Ella Baché Ipswich
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/newmarket"
+          data-salon="Ella Baché Newmarket"
+          class="salon-promo-link">
+          Ella Baché Newmarket
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/pacificfair"
+          data-salon="Ella Baché Pacific Fair"
+          class="salon-promo-link">
+          Ella Baché Pacific Fair
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/springfield"
+          data-salon="Ella Baché Springfield"
+          class="salon-promo-link">
+          Ella Baché Springfield
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/toowoomba"
+          data-salon="Ella Baché Toowoomba"
+          class="salon-promo-link">
+          Ella Baché Toowoomba
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/townsville"
+          data-salon="Ella Baché Townsville"
+          class="salon-promo-link">
+          Ella Baché Townsville
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/uppermtgravatt"
+          data-salon="Ella Baché Upper Mt Gravatt"
+          class="salon-promo-link">
+          Ella Baché Upper Mt Gravatt
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/hobart"
+          data-salon="Ella Baché Hobart"
+          class="salon-promo-link">
+          Ella Baché Hobart
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.facebook.com/infinitebeautywellnesslaunceston/"
+          data-salon="Infinite Beauty &amp; Wellness"
+          class="salon-promo-link">
+          Infinite Beauty &amp; Wellness
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/brighton-beauty-therapy"
+          data-salon="Brighton Beauty Therapy"
+          class="salon-promo-link">
+          Brighton Beauty Therapy
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/bairnsdale"
+          data-salon="Ella Baché Bairnsdale"
+          class="salon-promo-link">
+          Ella Baché Bairnsdale
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/balwyn"
+          data-salon="Ella Baché Balwyn"
+          class="salon-promo-link">
+          Ella Baché Balwyn
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/beaumaris"
+          data-salon="Ella Baché Beaumaris"
+          class="salon-promo-link">
+          Ella Baché Beaumaris
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/bendigo"
+          data-salon="Ella Baché Bendigo"
+          class="salon-promo-link">
+          Ella Baché Bendigo
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/berwick"
+          data-salon="Ella Baché Berwick"
+          class="salon-promo-link">
+          Ella Baché Berwick
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/eltham"
+          data-salon="Ella Baché Eltham"
+          class="salon-promo-link">
+          Ella Baché Eltham
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/hampton"
+          data-salon="Ella Baché Hampton"
+          class="salon-promo-link">
+          Ella Baché Hampton
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/mordialloc"
+          data-salon="Ella Baché Mordialloc"
+          class="salon-promo-link">
+          Ella Baché Mordialloc
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/ryebeach"
+          data-salon="Ella Baché Rye Beach"
+          class="salon-promo-link">
+          Ella Baché Rye Beach
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://e-beauty.com.au"
+          data-salon="Eternal Beauty Salon"
+          class="salon-promo-link">
+          Eternal Beauty Salon
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/ella-bache-serenity-skin-body-care"
+          data-salon="Serenity Skin &amp; Body Care"
+          class="salon-promo-link">
+          Serenity Skin &amp; Body Care
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/secretharbour"
+          data-salon="Ella Baché Secret Harbour"
+          class="salon-promo-link">
+          Ella Baché Secret Harbour
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/whitford"
+          data-salon="Ella Baché Whitford"
+          class="salon-promo-link">
+          Ella Baché Whitford
+        </a>
+      </li>
+      <li>
+        <a
+          href="/pages/joondalup"
+          data-salon="Ella Baché Joondalup"
+          class="salon-promo-link">
+          Ella Baché Joondalup
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Salon Promotion Landing",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "desktop_image",
+        "label": "Banner desktop image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Banner mobile image"
+      },
+      {
+        "type": "text",
+        "id": "banner_alt",
+        "label": "Banner alt text",
+        "default": "Salon Promotion"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Page heading",
+        "default": "Find a Participating Salon Near You"
+      }, {
+        "type": "textarea",
+        "id": "subheading",
+        "label": "Promo description",
+        "default": "Select a participating salon below to redeem this exclusive offer."
+      }, {
+        "type": "checkbox",
+        "id": "show_breadcrumbs",
+        "label": "Show breadcrumbs",
+        "default": false
+      }
+    ],
+    "blocks": [
+      {
+        "type": "salon",
+        "name": "Salon",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Salon name"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Salon page URL"
+          }
+        ]
+      }
+    ],
+    "max_blocks": 50,
+    "presets": [
+      {
+        "name": "Salon Promotion Landing"
+      }
+    ]
+  }
+{% endschema %}

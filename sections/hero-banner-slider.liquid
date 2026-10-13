@@ -1,0 +1,369 @@
+{{ 'hero-banner-slider.css' | asset_url | stylesheet_tag }}
+<div class="hero-banner hero-banner--slider">
+  <div class="swiper hero-swiper">
+    <div class="swiper-wrapper">
+      {%- assign index = 0 -%}
+      {%- for block in section.blocks -%}
+        <div class="hero-banner__item swiper-slide" id="{{ block.id }}">
+          {%- if block.settings.layout == "full_image" -%}
+            <!-- Full Image Layout -->
+            <div class="hero-banner__single-column">
+              <div class="hero-banner__media {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                <picture>
+                  {%- if block.settings.image__primary_mobile != blank -%}
+                    <source srcset="{{ block.settings.image__primary_mobile | img_url: '500x' }}" media="(max-width: 480px)">
+                    <source srcset="{{ block.settings.image__primary_mobile | img_url: '750x' }}" media="(max-width: 768px)">
+                  {%- endif -%}
+                  <source srcset="{{ block.settings.image__primary | img_url: '1024x' }}" media="(max-width: 1024px)">
+                  <source srcset="{{ block.settings.image__primary | img_url: '1280x' }}" media="(max-width: 1280px)">
+                  <source srcset="{{ block.settings.image__primary | img_url: '1800x' }}" media="(max-width: 1600px)">
+                  <source srcset="{{ block.settings.image__primary | img_url: '1920x' }}" media="(max-width: 1920px)">
+                  <img width="1920" height="760" src="{{ block.settings.image__primary | img_url: '1900x' }}"{% if index > 0 %}loading="lazy"{% endif %} alt="{{ block.settings.image__primary.alt | escape }}">
+                </picture>
+              </div>
+            </div>
+          {%- elsif block.settings.layout == "full_video" -%}
+            <!-- Full Video Layout -->
+            <div class="hero-banner__single-column">
+              <div class="hero-banner__media {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                {% comment %}<video id="{{ block.id }}-video" autoplay loop muted playsinline>
+                  <source src="{{ block.settings.video.sources[0].url }}" type="video/mp4">
+                </video>
+                {% endcomment %}
+                <video id="{{ block.id }}-video" autoplay loop muted playsinline>
+                    {% if block.settings.video_mobile != blank %}
+                      <source src="{{ block.settings.video.sources[1].url }}" media="(min-width: 769px)" type="video/mp4">
+                      <source src="{{ block.settings.video_mobile.sources[1].url }}" type="video/mp4">
+                    {% else %}
+                      <source src="{{ block.settings.video.sources[1].url }}" type="video/mp4">
+                    {% endif %}
+                  </video>
+                <button id="{{ block.id }}-button" class="video-toggle-btn" onclick="toggleVideo()">
+                  <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Pause movement" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 -3.05176e-05H0V7.99997H2V-3.05176e-05ZM6 -3.05176e-05H4V7.99997H6V-3.05176e-05Z" fill="black"></path></svg>
+                </button>
+                <script>
+                  function toggleVideo() {
+                    var video = document.getElementById("{{ block.id }}-video");
+                    var button = document.getElementById("{{ block.id }}-button");
+                    var pauseSVG = '<svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Pause movement" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 -3.05176e-05H0V7.99997H2V-3.05176e-05ZM6 -3.05176e-05H4V7.99997H6V-3.05176e-05Z" fill="black"></path></svg>';
+                    var playSVG = '<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Play movement" focusable="false"><path d="M6 3L0 6L2.7531e-07 0L6 3Z" fill="black"></path></svg>';
+                  
+                    if (video.paused) {
+                      video.play();
+                      button.innerHTML = pauseSVG;
+                    } else {
+                      video.pause();
+                      button.innerHTML = playSVG;
+                    }
+                  }
+                </script>
+              </div>
+            </div>
+          {%- elsif block.settings.layout == "two_column" -%}
+            <!-- Two Column Layout (Image + Image/GIF) -->
+              <div class="hero-banner__two-column {% if block.settings.reverse_layout %}reverse-layout{% endif %}">
+                  <div class="hero-banner__media {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                    <picture>
+                      {%- if block.settings.image__primary_mobile != blank -%}
+                        <source srcset="{{ block.settings.image__primary_mobile | img_url: '500x' }}" media="(max-width: 480px)">
+                        <source srcset="{{ block.settings.image__primary_mobile | img_url: '750x' }}" media="(max-width: 768px)">
+                      {%- endif -%}
+                      <source srcset="{{ block.settings.image__primary | img_url: '1024x' }}" media="(max-width: 1024px)">
+                      <source srcset="{{ block.settings.image__primary | img_url: '1280x' }}" media="(max-width: 1280px)">
+                      <source srcset="{{ block.settings.image__primary | img_url: '1800x' }}" media="(max-width: 1600px)">
+                      <source srcset="{{ block.settings.image__primary | img_url: '1920x' }}" media="(max-width: 1920px)">
+                      <img width="1920" height="760" src="{{ block.settings.image__primary | img_url: '1900x' }}"{% if index > 0 %}loading="lazy"{% endif %} alt="{{ block.settings.image__primary.alt | escape }}">
+                    </picture>
+                  </div>
+                  <div class="hero-banner__media hero-banner__media-gif {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                    <picture>
+                      {%- if block.settings.image__secondary_mobile != blank -%}
+                        <source srcset="{{ block.settings.image__secondary_mobile | img_url: '500x' }}" media="(max-width: 480px)">
+                        <source srcset="{{ block.settings.image__secondary_mobile | img_url: '750x' }}" media="(max-width: 768px)">
+                      {%- endif -%}
+                      <source srcset="{{ block.settings.image__secondary | img_url: '1024x' }}" media="(max-width: 1024px)">
+                      <source srcset="{{ block.settings.image__secondary | img_url: '1280x' }}" media="(max-width: 1280px)">
+                      <source srcset="{{ block.settings.image__secondary | img_url: '1800x' }}" media="(max-width: 1600px)">
+                      <source srcset="{{ block.settings.image__secondary | img_url: '1920x' }}" media="(max-width: 1920px)">
+                      <img width="1920" height="760" src="{{ block.settings.image__secondary | img_url: '1900x' }}"{% if index > 0 %}loading="lazy"{% endif %} alt="{{ block.settings.image__secondary.alt | escape }}">
+                    </picture>
+                  </div>
+              </div>
+          {%- elsif block.settings.layout == "two_column_video" -%}
+            <!-- Two Column Layout (Image/GIF + Video) -->
+              <div class="hero-banner__two-column {% if block.settings.reverse_layout %}reverse-layout{% endif %}">
+                <div class="hero-banner__media hero-banner__media-video {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                  <video id="{{ block.id }}-video" autoplay loop muted playsinline>
+                    {% if block.settings.video_mobile != blank %}
+                      <source src="{{ block.settings.video.sources[1].url }}" media="(min-width: 769px)" type="video/mp4">
+                      <source src="{{ block.settings.video_mobile.sources[1].url }}" type="video/mp4">
+                    {% else %}
+                      <source src="{{ block.settings.video.sources[1].url }}" type="video/mp4">
+                    {% endif %}
+                  </video>
+                  <button id="{{ block.id }}-button" class="video-toggle-btn" onclick="toggleVideo1()">
+                    <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Pause movement" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 -3.05176e-05H0V7.99997H2V-3.05176e-05ZM6 -3.05176e-05H4V7.99997H6V-3.05176e-05Z" fill="black"></path></svg>
+                  </button>
+                  <script>
+                    function toggleVideo1() {
+                      var video = document.getElementById("{{ block.id }}-video");
+                      var button = document.getElementById("{{ block.id }}-button");
+                      var pauseSVG = '<svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Pause movement" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2 -3.05176e-05H0V7.99997H2V-3.05176e-05ZM6 -3.05176e-05H4V7.99997H6V-3.05176e-05Z" fill="black"></path></svg>';
+                      var playSVG = '<svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Play movement" focusable="false"><path d="M6 3L0 6L2.7531e-07 0L6 3Z" fill="black"></path></svg>';
+                    
+                      if (video.paused) {
+                        video.play();
+                        button.innerHTML = pauseSVG;
+                      } else {
+                        video.pause();
+                        button.innerHTML = playSVG;
+                      }
+                    }
+                  </script>
+                </div>
+                <div class="hero-banner__media {% if block.settings.enable_image_overlay == true %}image--overlay{% endif %}">
+                  <img width="100%" height="" src="{{ block.settings.image__primary | img_url: 'master' }}" alt="Banner Image">
+                </div>
+              </div>
+          {%- endif -%}
+          {% if block.settings.enable_content %}
+          <div class="hero-banner__content">
+            {%- if block.settings.title != blank -%}
+            <h1 class="hero-banner__title">{{ block.settings.title }}</h1>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+            <p class="hero-banner__description">{{ block.settings.description }}</p>
+            {%- endif -%}
+            {%- if block.settings.cta_link != blank and block.settings.cta_text != blank -%}
+              <div class="hero-banner__action-items">
+              <a href="{{ block.settings.cta_link }}" class="btn hero-banner__cta">{{ block.settings.cta_text }}</a>
+              </div>
+            {%- endif -%}
+            {%- if block.settings.cta_link != blank and block.settings.cta_text -%}
+              <a class="hero-banner__link" href="{{ block.settings.cta_link }}"></a>
+            {%- endif -%}
+          </div>
+          {% endif %}
+          {% if block.settings.enable_image_overlay == true %}
+          <style>
+            {%- assign opacity = block.settings.image_overlay_opacity | divided_by: 100.0 -%}
+            {%- assign color_rgb = block.settings.image_overlay_color | color_to_rgb -%}
+            #{{ block.id }} .hero-banner__media.image--overlay:after{
+              content:'';
+              position:absolute;
+              left:0;
+              top:0;
+              width:100%;
+              height:100%;
+              background-color:rgba({{ color_rgb | replace: 'rgb(', '' | replace: ')', '' }}, {{ opacity }});
+              z-index:1;
+            }
+          </style>
+          {% endif %}
+        </div>
+        {%- assign index = index | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+    <div class="swiper-button-prev">
+      <svg class="swiper-navigation-icon" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor"></path></svg>
+    </div>
+    <div class="swiper-button-next">
+      <svg class="swiper-navigation-icon" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor"></path></svg>   
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+{% if section.blocks.size > 1 %}
+<script>
+  $(document).ready(function() {
+    var autoplaySpeed = parseInt({{ section.settings.autoplay_speed | times: 1000 }});
+    {%- if section.settings.enable_autoplay != blank -%}
+    var autoplayStat = true;
+    {%- else -%}
+    var autoplayStat = false;{%- endif -%}
+    var heroSwiper = new Swiper('.hero-swiper', {
+      loop: false,
+      slidesPerView: "auto",
+      centeredSlides: false,
+      spaceBetween: 0,
+      speed: 500,
+      navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },  
+      autoplay: autoplayStat ? {
+        delay: autoplaySpeed,
+        disableOnInteraction: false
+      } : false,
+    });
+    
+    $('.hero-swiper').on('mouseenter', function () {
+      console.log('stop autoplay');
+      heroSwiper.autoplay.stop();
+    });
+    
+    $('.hero-swiper').on('mouseleave', function () {
+      console.log('start autoplay');
+      heroSwiper.autoplay.start();
+    });
+  });
+</script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Hero Banner Slider",
+    "class": "section",
+    "tag": "section",
+    "disabled_on": {
+    "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": true
+      },
+      {
+        "type": "range",
+        "id": "autoplay_speed",
+        "label": "Autoplay speed (seconds)",
+        "default": 5,
+        "min": 3,
+        "max": 10,
+        "step": 1
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings":[
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Layout Type",
+            "options": [
+              { "value": "full_image", "label": "Full Image" },
+              { "value": "full_video", "label": "Full Video" },
+              { "value": "two_column", "label": "Two Column (GIF + Image)" },
+              { "value": "two_column_video", "label": "Two Column (Video + Image)" }
+            ],
+            "default": "full_image"
+          },
+          {
+            "type": "checkbox",
+            "id": "reverse_layout",
+            "label": "2 Column Layout Reverse (Left ↔ Right)",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image__primary",
+            "label": "Primary Image",
+            "info": "Dimension: 1920x760"
+          },
+          {
+            "type": "image_picker",
+            "id": "image__primary_mobile",
+            "label": "Primary Image Mobile",
+            "info": "Dimension: 750x1000"
+          },
+          {
+            "type": "image_picker",
+            "id": "image__secondary",
+            "label": "Secondary Image",
+            "info": "Dimension: 1920x760"
+          },
+          {
+            "type": "image_picker",
+            "id": "image__secondary_mobile",
+            "label": "Secondary Image Mobile",
+            "info": "Dimension: 750x1000"
+          },
+          {
+            "type": "video",
+            "id": "video",
+            "label": "Video",
+            "info": "Dimension: 1920x760"
+          },
+          {
+            "type": "video",
+            "id": "video_mobile",
+            "label": "Video (mobile)",
+            "info": "Dimension: 1920x760"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_content",
+            "label": "Enable Content",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Slide Title"
+          },
+          {
+            "type": "textarea",
+            "id": "description",
+            "label": "Slide Description"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Button Link"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Button Text",
+            "default": "Learn More"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_image_overlay",
+            "label": "Enable Image Overlay",
+            "default": false
+          },
+          {
+            "type": "range",
+            "id": "image_overlay_opacity",
+            "min": 0,
+            "max": 100,
+            "step": 10,
+            "unit": "%",
+            "label": "Image overlay opacity",
+            "default": 0
+          },
+          {
+            "type": "color",
+            "id": "image_overlay_color",
+            "label": "Image overlay Color"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_text_box",
+            "default": true,
+            "label": "Show container on desktop"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Hero Banner Slider",
+        "category": "Banner",
+        "blocks": [
+          {
+            "type": "slide"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

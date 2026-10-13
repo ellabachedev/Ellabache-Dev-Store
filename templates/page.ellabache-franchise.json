@@ -1,0 +1,295 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "announcement-bar2": {
+      "type": "announcement-bar2",
+      "settings": {
+        "enable_announcement_bar2": true,
+        "text": "For Franchising opportunities, call <a href=\"tel:1800%20789%20234\">1800 789 234</a>",
+        "link": "",
+        "bg_color": "#f2f2f2",
+        "font_color": "#000000"
+      }
+    },
+    "hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "287d29c1-6a5d-418a-a7db-34495061c3a6": {
+          "type": "slider",
+          "settings": {
+            "slider_switch": true,
+            "banner_layout": "3",
+            "full-slider-link": "",
+            "slider-video-url": "",
+            "slider_content_switch": true,
+            "slider_content_layout": "2",
+            "slider_column_reverse": "1",
+            "slider_content_bg_color": "#001e37",
+            "slider-main-title": "<span>partner with Australia's leading</span><span>SKINCARE NETWORK</span>",
+            "slider-main-title-mb": 0,
+            "slider-main-title-animate": false,
+            "slider-description": "We are looking for new partners to share in our success within the dynamic skincare industry. Are you ready to be a leader in Skin Solutions?",
+            "slider-desc-max-width": 600,
+            "slider-description-mobile": "",
+            "slider-secondary-text": "",
+            "slider-desc-bgcolor-mob": "#e7dfd5",
+            "slider-button-text": "Make an Enquiry",
+            "slider-button-url": "#franchiseEnquiry",
+            "button-style": "1",
+            "slider-bg-color": "#e7dfd5",
+            "slider-title-color": "#001e37",
+            "slider-title-bgcolor": "#001e37",
+            "slider-desc-color": "#001e37",
+            "slider-btn-font-color": "#ffffff",
+            "slider-btn-border-color": "#001e37",
+            "slider-btn-bg-color": "#001e37"
+          }
+        }
+      },
+      "block_order": [
+        "287d29c1-6a5d-418a-a7db-34495061c3a6"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_int": "3000"
+      }
+    },
+    "franchise-cta1": {
+      "type": "franchise-cta1",
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_tag": "Own Your Own Salon: Confidence in Your Own Skin",
+        "block_title_font-size": 34,
+        "block_title": "When you join our family, you’re joining a premium network with products and services available in over 120 salons and 39 David Jones stores Australia-wide.",
+        "block_desc": "<p>Staying <strong>competitive</strong> and at the <strong>cutting edge</strong> in the beauty industry requires dedicated individuals who drive innovation. You don’t need to be a <strong>qualified beauty therapist</strong> to own your own salon. All you need is a <strong>passion for skincare</strong> and the desire to help others understand and feel confident in their own skin.</p>\n<p>Are you ready to <strong>create your vibrant new lifestyle</strong> while reducing your ongoing costs? Join our family and take advantage of <strong>our unique royalty-free model</strong>, designed to help you save and grow your business. This option allows you to focus on what truly matters—building your dream while maintaining financial flexibility.</p>\n<p>Take the first step towards a successful and <strong>affordable business model</strong> with our support and expertise. Let’s build something amazing together!</p>",
+        "block_video_switch": false,
+        "block_video": "",
+        "block_image_switch": true,
+        "block_image": "shopify://shop_images/101270471_590930288227607_6031268448990248075_n.jpg",
+        "block_image_caption": "Ella Baché Wollongong",
+        "block_image_link": "#franchiseEnquiry"
+      }
+    },
+    "franchise-grid-col-content": {
+      "type": "franchise-grid-col-content",
+      "blocks": {
+        "c7c7dfd1-b9dd-43ca-8ad5-68441b5f1777": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Expert Training and Ongoing Support",
+            "item_desc": "<p>When you partner with <strong>Ella Baché</strong>, you and your team will receive <strong>ongoing training</strong> and <strong>personalized support</strong> from a dedicated trainer. This ensures your salon stays at the forefront of <strong>service, technology</strong>, and <strong>innovation</strong> in the beauty industry.</p>\n<p>In addition to tailored support, you'll also attend <strong>annual workshops, product schools</strong>, and exclusive <strong>product launches</strong> to stay updated with the latest advancements in skincare and beauty treatments. With Ella Baché by your side, you'll be equipped with the knowledge and tools needed to offer exceptional services to your clients.</p>",
+            "btn_text": "MAKE AN EQUIRY",
+            "btn_url": "#franchiseEnquiry"
+          }
+        },
+        "db65f856-a4e2-4ace-ba01-498b7f66b034": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Education: Access Graduates from Ella Baché College of Skin and Beauty",
+            "item_desc": "<p>When it comes to staffing your salon, you’ll have exclusive access to <strong>graduates</strong> from the <strong>Ella Baché College of Skin and Beauty</strong>, one of the most highly respected <strong>education providers</strong> in Australia. This gives you the opportunity to hire highly trained professionals with the expertise to provide exceptional skincare and beauty services.</p>\n<p>By partnering with Ella Baché, you gain access to a pool of talented graduates who are well-versed in the latest industry techniques and trends, ensuring your salon maintains its competitive edge.</p>",
+            "btn_text": "Ella Baché Careers",
+            "btn_url": "shopify://pages/careers"
+          }
+        },
+        "a92e9e84-4b3d-4c29-a539-6e96c494d07c": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Business Manager: Personalised Support for Salon Success",
+            "item_desc": "<p>From day one, a dedicated <strong>Business Manager</strong> will be by your side, providing expert <strong>planning support</strong> and guidance to drive the success of your <strong>salon</strong> in your local area. With tailored advice and strategies, your Business Manager will help you navigate challenges, maximize growth, and ensure your salon thrives in a competitive market.</p>\n<p>Partnering with <strong>Ella Baché </strong>means having the support you need to grow and succeed at every step of your journey.</p>",
+            "btn_text": "Make it Happen",
+            "btn_url": "#franchiseEnquiry"
+          }
+        },
+        "f75c20e9-e281-4765-8acc-a7c6e5ab259c": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Virtual Salon Website: Enhance Your Online Presence",
+            "item_desc": "<p>Your salon will receive a dedicated <strong>virtual salon website</strong>, fully supported by our <strong>Head Office team</strong>, where clients can easily browse your <strong>menu of services</strong>, view <strong>special offers</strong>, and book <strong>treatments online</strong>. This personalized micro-site ensures your salon has a strong <strong>online presence</strong>, making it convenient for clients to explore and schedule services at any time.</p>\n<p>\nWith a virtual salon website, you can streamline bookings and elevate the customer experience, all while increasing visibility and accessibility for your salon.</p>",
+            "btn_text": "View Bondi Junction",
+            "btn_url": "https://www.ellabache.com.au/pages/bondijunction"
+          }
+        },
+        "42905e0f-89fa-49f0-88b1-f43e05a7d3e2": {
+          "type": "Article",
+          "settings": {
+            "item_title": "National Marketing Support: Boost Your Salon's Visibility",
+            "item_desc": "<p>When you partner with <strong>Ella Baché</strong>, you’ll receive comprehensive <strong>marketing support</strong> before and after your salon opening. Our team provides both <strong>national</strong> and <strong>local marketing initiatives</strong> to help increase your salon's visibility and attract clients.\n</p>\n<p>Additionally, you’ll have <strong>24-hour</strong> access to our online <strong>marketing portal</strong>, where you can easily access all your marketing assets whenever you need them. With our expert tools and resources, you’ll be equipped to drive success and grow your salon’s brand presence.</p>",
+            "btn_text": "Request Prospectus",
+            "btn_url": "#franchiseEnquiry"
+          }
+        },
+        "b2b336e9-5138-4170-914e-fb1603155743": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Proudly 100% Australian Owned",
+            "item_desc": "<p>Ella Baché has been proudly <strong>100% Australian owned </strong>for over 70 years. Since launching in Australia, we’ve grown to become the largest market for <strong>Ella Baché products</strong>, and we remain committed to supporting local communities and the Australian economy.</p>\n<p>Our dedication to excellence and innovation ensures that our products continue to meet the highest standards, offering skincare solutions trusted by Australians for generations.</p>",
+            "btn_text": "Salons for Sale",
+            "btn_url": "https://www.ellabache.com.au/pages/salons-for-sale"
+          }
+        }
+      },
+      "block_order": [
+        "c7c7dfd1-b9dd-43ca-8ad5-68441b5f1777",
+        "db65f856-a4e2-4ace-ba01-498b7f66b034",
+        "a92e9e84-4b3d-4c29-a539-6e96c494d07c",
+        "f75c20e9-e281-4765-8acc-a7c6e5ab259c",
+        "42905e0f-89fa-49f0-88b1-f43e05a7d3e2",
+        "b2b336e9-5138-4170-914e-fb1603155743"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Why partner with Ella Baché?",
+        "grid_image": "shopify://shop_images/ellabache-franshise-why-partner-collage_1.jpg",
+        "grid_image_link": "#franchiseEnquiry",
+        "grid-col-layout": "2"
+      }
+    },
+    "franchise-cta2": {
+      "type": "franchise-cta2",
+      "blocks": {
+        "152df31d-cb7d-481a-96f0-dc4535439a12": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/IN_MY_OWN_SKIN.png",
+            "item_title": "Our Philosophy: Empowering Confidence with Expert Skincare Solutions",
+            "item_desc": "<p>At <strong>Ella Baché</strong>, we are committed to helping women feel confident in their skin. Our mission is to empower individuals to step out in confidence, providing expert <strong>personalized skincare solutions</strong> that deliver <strong>maximum results</strong>—without causing harm.</p>\n<p>With over <strong>70 years of experience</strong> in the skincare industry, we are dedicated to offering <strong>safe and effective products</strong> tailored to meet each person’s unique skin needs. Whether you're looking to brighten, hydrate, or rejuvenate, our products are designed to give you the healthy, glowing skin you deserve.</p>",
+            "item_btn_text": "Learn More",
+            "item_btn_url": "shopify://pages/franchise-our-story"
+          }
+        }
+      },
+      "block_order": [
+        "152df31d-cb7d-481a-96f0-dc4535439a12"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-cta3": {
+      "type": "franchise-cta3",
+      "blocks": {
+        "4d147ddf-c617-4d5e-910f-aec75c7220c4": {
+          "type": "Article",
+          "settings": {
+            "item_thumb": "shopify://shop_images/Helena-A_-Ella-Bache-Secret-Habrour_3ebca51a-da7b-4276-9795-b9ef01d17b0d.jpg",
+            "item_title": "Meet Helena from Ella Baché Secret Harbour",
+            "item_desc": "<p>Helena Annandale is a passionate entrepreneur with a love for skincare and a vision for empowering others through beauty. Helena's journey as a salon owner and Ella Baché Franchisee is nothing short of inspiring. <a href=\"https://www.ellabache.com.au/blogs/franchise/helena-annandale-mastering-the-business-of-beauty-family-connection\">Discover her journey here.</a></p>",
+            "item_btn_text": "",
+            "item_btn_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "4d147ddf-c617-4d5e-910f-aec75c7220c4"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff"
+      }
+    },
+    "reviews-block": {
+      "type": "reviews-block",
+      "blocks": {
+        "1718b54b-7c18-40a5-ae34-c39a1b9c5262": {
+          "type": "Reviews",
+          "settings": {
+            "review": "Being a part of the Ella Baché brand has been a very successful and profitable dream come true.",
+            "author": "MANDY KAUR, SALON OWNER (ELLA BACHÉ DONCASTER)"
+          }
+        },
+        "fb357972-82f3-48ef-a20c-69c99ba581bd": {
+          "type": "Reviews",
+          "settings": {
+            "review": "I value the interaction I've had with other franchisees and the sense of belonging that comes with being part of the Ella Baché family.",
+            "author": "DEBBIE BELL, SALON OWNER (ELLA BACHÉ FANNIE BAY)"
+          }
+        },
+        "9f372cdd-e24d-4f90-842c-afb8f600a130": {
+          "type": "Reviews",
+          "settings": {
+            "review": "All the dedication, commitment and passion have translated into a multi-award winning salon - the recognition is very satisfying!",
+            "author": "SAMANTHA DOOLAN, SALON OWNER (ELLA BACHÉ MORDIALLOC)"
+          }
+        }
+      },
+      "block_order": [
+        "1718b54b-7c18-40a5-ae34-c39a1b9c5262",
+        "fb357972-82f3-48ef-a20c-69c99ba581bd",
+        "9f372cdd-e24d-4f90-842c-afb8f600a130"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#f2f2f2"
+      }
+    },
+    "franchise-enquire-block": {
+      "type": "franchise-enquire-block",
+      "blocks": {
+        "41dcbb54-dce4-4157-9623-885ecd4333c3": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/Untitled_design_2_f31a32b4-1d51-4c21-aec8-8603ad0b093a.jpg",
+            "item_article_title": "From Therapist to Business Leader: What 20 Years in the Ella Baché Network Has Taught Isabella Geremia",
+            "item_article_desc": "For more than two decades, Isabella Geremia has built a career that reflects what is possible within the Ella Baché network.",
+            "item_article_btn_url": "shopify://blogs/franchise/from-therapist-to-owner-building-a-thriving-ella-bache-salon-in-charlestown"
+          }
+        },
+        "32606c8c-0f5d-4743-85af-54fab31044a7": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/8_1024x1024_050586ce-9e9c-413e-a70e-6585b9fb5a5d.jpg",
+            "item_article_title": "From Vision to Vibrancy: A Regional Success Story with Bec McConachy",
+            "item_article_desc": "At Ella Baché, we believe in the power of skin confidence and in the people",
+            "item_article_btn_url": "shopify://blogs/franchise/from-vision-to-vibrancy-a-regional-success-story-with-bec-mcconachy"
+          }
+        },
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b": {
+          "type": "Article",
+          "settings": {
+            "block_article_switch": true,
+            "item_article_image": "shopify://shop_images/1-9.jpg",
+            "item_article_title": "From Therapist to Owner: Sheridan’s Inspiring Journey in Dubbo",
+            "item_article_desc": "At Ella Baché, we are proud to celebrate the journeys of our franchise partners, individuals",
+            "item_article_btn_url": "shopify://blogs/franchise/from-therapist-to-owner-sheridan-s-inspiring-journey-in-dubbo"
+          }
+        }
+      },
+      "block_order": [
+        "41dcbb54-dce4-4157-9623-885ecd4333c3",
+        "32606c8c-0f5d-4743-85af-54fab31044a7",
+        "cb6a62b4-29fe-4008-bafa-1060d9b3693b"
+      ],
+      "settings": {
+        "block_switch": true,
+        "block_bg_color": "#ffffff",
+        "block_title": "Make it happen",
+        "block_desc": "<p>To find out if becoming an Ella Baché franchisee is your path to an exciting new future, simply call 1300 845 259 or submit the form below.</p>",
+        "typeform_data-url": "https://ellabache.typeform.com/to/Rp418Fv9",
+        "sidebar_title": "Blog"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar2",
+    "hero_slider",
+    "franchise-cta1",
+    "franchise-grid-col-content",
+    "franchise-cta2",
+    "franchise-cta3",
+    "reviews-block",
+    "franchise-enquire-block"
+  ]
+}

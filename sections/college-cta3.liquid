@@ -1,0 +1,126 @@
+{%- if section.settings.block_switch != blank -%}
+{{ 'college-cta3.css' | asset_url | stylesheet_tag }}
+<section class="college-cta3 career-opportunity" style="background-color:{{ section.settings.block_bg_color }};">
+  <div class="page-width">
+    <div class="lists">
+      {%- for block in section.blocks -%}
+      {%- if block.settings.item_switch != blank -%}
+      <div class="item">
+          <div class="flex-container">
+            {%- if block.settings.item_thumb != blank -%}
+            <figure class="thumb desktop">
+              <img width="667" height="429" src="{{ block.settings.item_thumb | img_url:'649x' }}" loading="lazy" alt="">
+            </figure>
+            {%- endif -%}
+            <div class="content">
+              {%- if block.settings.item_title != blank -%}
+              <h2 class="title">{{ block.settings.item_title }}</h2>
+              {%- endif -%}
+              {%- if block.settings.item_tag != blank -%}
+              <span class="tag">{{ block.settings.item_tag }}</span>
+              {%- endif -%}
+              {%- if block.settings.item_desc != blank -%}
+              {{ block.settings.item_desc }}
+              {%- endif -%}
+              {%- if block.settings.item_btn_url != blank -%}
+              <a href="{{ block.settings.item_btn_url }}">
+              {%- endif -%}
+              {%- if block.settings.item_btn_text != blank -%}
+              <div class="button-holder">
+                <span class="button">{{ block.settings.item_btn_text }}</span>
+              </div>
+              {%- endif -%}
+              {%- if block.settings.item_btn_url != blank -%}
+              </a>
+              {%- endif -%}
+            </div>
+        </div>
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+  	</div>
+  </div>
+</section>
+{%- endif -%}
+<script defer="defer">
+  $('document').ready(function () {
+    var winWidth = $(window).width();
+    $("section.college-cta3 div.item").each(function () {
+      var collegeCTA3ContentHeight = $(this).find('div.content').innerHeight();
+      if (winWidth > 768) {
+        $(this).find('figure.thumb').css('height', collegeCTA3ContentHeight);
+      }
+    });
+  });
+</script>
+{% schema %}
+  {
+    "name": "CTA 3 Content",
+    "settings": [
+    {
+      "id" : "block_switch",
+      "type" : "checkbox",
+      "label" : "Enable",
+      "default" : true
+    },
+    {
+      "id" : "block_bg_color",
+      "type" : "color",
+      "label" : "Block Background Color",
+      "default": "#ffffff"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id" : "item_switch",
+          "type" : "checkbox",
+          "label" : "Enable",
+          "default" : true
+        },
+        {
+          "id": "item_thumb",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "item_title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "id": "item_tag",
+          "type": "text",
+          "label": "Tag"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "id": "item_btn_text",
+          "type": "text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "item_btn_url",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

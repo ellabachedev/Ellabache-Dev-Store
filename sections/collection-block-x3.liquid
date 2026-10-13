@@ -1,0 +1,86 @@
+{{ 'section-collection-block-x3.css' | asset_url | stylesheet_tag }}
+{%- capture collection-blocks -%}
+<div class="collection-blocks-x3">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+    <h2 class="text-center">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    <div class="outer-wrapper">
+      <div class="inner-wrapper flex-container">
+        {%- for block in section.blocks -%}
+        {%- assign blockTitle = block.settings.block-title -%}
+        {%- assign blockImg = block.settings.block-img | img_url: '600x' -%}
+        {%- assign blockUrl = block.settings.block-url -%}
+        <div class="item slide-item">
+          {%- if block.settings.block-title != blank -%}
+          <a href="{{ blockUrl }}">
+            {%- endif -%}
+            <picture>
+              <source srcset="{{ block.settings.block-img | img_url: '400x', format: 'pjpg' }}" media="(max-width: 400px)">
+              <source srcset="{{ block.settings.block-img | img_url: '500x', format: 'pjpg' }}" media="(max-width: 500px)">
+              <source srcset="{{ block.settings.block-img | img_url: '600x', format: 'pjpg' }}" media="(max-width: 1900px)">
+              <img width="533" height="516" src="{{ block.settings.block-img | img_url: '600x', format: 'pjpg' }}"
+                loading="lazy" alt="{{ block.settings.block-img | escape }}">
+            </picture>
+            {%- if block.settings.block-title != blank -%}
+            <div class="overlay">
+              <h2>{{ blockTitle }}</h2>
+            </div>
+            {%- endif -%}
+            {%- if block.settings.block-title != blank -%}
+          </a>
+          {%- endif -%}
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <!-- <div class="indicator-line">
+      <div class="progress"></div>
+    </div> -->
+  </div>
+</div>
+{%- endcapture -%}
+{{ collection-blocks | strip_newlines }}
+{% schema %}
+  {
+    "name": "Collection Blocks",
+    "settings": [
+      {
+        "id" : "title",
+        "type" : "textarea",
+        "label" : "Title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "block-title",
+            "label": "Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "block-img",
+            "label": "Image Thumb",
+            "info": "Orientation: Portrait | Dimension: 620x600"
+          },
+          {
+            "type": "url",
+            "id": "block-url",
+            "label": "Select Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection Blocks X3",
+        "category": "Custom Content"
+      }
+    ]
+  }
+{% endschema %}
+<!-- <script src="{{ 'collection-block-x3.js' | asset_url }}" defer="defer"> -->

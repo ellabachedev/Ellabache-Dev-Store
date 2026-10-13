@@ -1,0 +1,390 @@
+{% style %}
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+  .treatment-detail {
+    display: block;
+    width: 100%;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .treatment-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: {{ section.settings.column_gap }}px;
+    align-items: start;
+  }
+
+  .treatment-detail-image-wrapper {
+    width: 100%;
+  }
+
+  .treatment-detail-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .treatment-detail-image-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .treatment-detail-image-placeholder svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .treatment-detail-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .treatment-detail-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ section.settings.button_gap }}px;
+    margin-top: {{ section.settings.buttons_margin_top }}px;
+  }
+  .treatment-detail-content h3{
+    margin-top:0;
+  }
+  @media screen and (max-width: 749px) {
+
+    .treatment-detail-layout {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.mobile_gap }}px;
+    }
+    .treatment-detail-buttons {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.mobile_button_gap }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="treatment-detail section-{{ section.id }}-padding">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2>
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+    <div class="treatment-detail-layout">
+      <div class="treatment-detail-image-wrapper">
+        {% if section.settings.image %}
+          <img
+            src="{{ section.settings.image | image_url: width: 1000 }}"
+            alt="{{ section.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            class="treatment-detail-image"
+          >
+        {% else %}
+          <div class="treatment-detail-image-placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="treatment-detail-content">
+        {% if section.settings.subheading != blank %}
+          <h3>
+            {{ section.settings.subheading }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.treatment_text != blank %}
+          <div class="treatment-detail-section">
+              {{ section.settings.treatment_label }}
+              {{ section.settings.treatment_text }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.experience_text != blank %}
+          <div class="treatment-detail-section">
+              {{ section.settings.experience_label }}
+              {{ section.settings.experience_text }}
+          </div>
+        {% endif %}
+
+        <div class="treatment-detail-buttons">
+          {% if section.settings.button_1_text != blank %}
+            <a style="max-width:100%;"
+              href="{{ section.settings.button_1_link }}"
+              class="button treatment-detail-button"
+            >
+              {{ section.settings.button_1_text }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button_2_text != blank %}
+            <a style="max-width:100%;"
+              href="{{ section.settings.button_2_link }}"
+              class="button treatment-detail-button"
+            >
+              {{ section.settings.button_2_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Featured Treatment",
+  "tag": "section",
+  "class": "section-featured-treatment",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Main heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Expert Facial Treatment To Clear Your Skin</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Clear My Complexion"
+    },
+    {
+      "type": "richtext",
+      "id": "treatment_label",
+      "label": "Treatment label",
+      "default": "<p>Your treatment</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "treatment_text",
+      "label": "Treatment text",
+      "default": "<p>A customized facial treatment designed to address acne-prone skin with deep cleansing, extractions, and targeted serums to help clear and balance your complexion.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "experience_label",
+      "label": "Experience label",
+      "default": "<p>Your experience</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "experience_text",
+      "label": "Experience text",
+      "default": "<p>Relax in our tranquil treatment room while our expert therapists work to purify and refresh your skin, leaving you with a clearer, healthier-looking complexion.</p>"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#AFAAAC"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#3E3E40"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 text",
+      "default": "Find A Salon"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 text",
+      "default": "Details"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "range",
+      "id": "button_padding",
+      "label": "Button padding",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#001E37"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#3E3E40"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_gap",
+      "label": "Button gap",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_gap",
+      "label": "Mobile button gap",
+      "min": 10,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "buttons_margin_top",
+      "label": "Buttons top margin",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Treatment"
+    }
+  ]
+}
+{% endschema %}

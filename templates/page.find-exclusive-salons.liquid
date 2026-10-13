@@ -1,0 +1,211 @@
+
+{{ 'find-salon.css' | asset_url | stylesheet_tag }}
+<style>
+.find-a-salon {
+  padding: 2rem 0 5rem 0;
+}
+.find-a-salon .find-a-salon__title {
+  font-size: 2.5vw !important;
+  text-align: center;
+  color: #333;
+}
+.find-a-salon__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap:0;
+}
+.find-a-salon__list li {
+  text-align: center;
+  border:2px solid #f0f0f0;
+  margin: -2px 0 0 -2px;
+}
+.find-a-salon__list a {
+  display: block;
+  padding: 1rem;
+  font-size:1.25rem;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+}
+.find-a-salon__list li:hover {
+  background: #ededed;
+  color: #000;
+}
+@media (max-width: 600px) {
+    .find-a-salon {
+    padding-bottom:2rem;
+    }
+    .find-a-salon .find-a-salon__title {
+    font-size:22px !important;}
+    .find-a-salon__list a {
+    font-size:16px;
+    padding:10px;
+}
+}
+/* Tablet & Desktop */
+@media (min-width: 600px) {
+  .find-a-salon__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .find-a-salon__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+<style>
+    .banner {
+    position: relative;
+}
+
+.banner__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.banner__text-wrapper {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+.banner__inner {
+    max-width: 500px;
+    width: 100%;
+}
+
+.banner__title {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.31;
+    letter-spacing: 0.3px;
+    margin: 0.8em 0;
+    color: #001e37;
+}
+
+.banner__subtitle {
+    font-size: 16.5px;
+    letter-spacing: 0.3px;
+    color: #001e37;
+    line-height: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .banner__title {
+        font-size: 24px;
+    }
+
+    .banner__subtitle {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+</style>
+<section class="banner banner--mini"> 
+    <div class="banner__image">
+        <picture>
+        <source 
+            media="(min-width: 768px)" 
+            srcset="https://cdn.shopify.com/s/files/1/2999/1646/files/EBxEmsee_homepage_2965x508_d915c8b7-cc20-430b-92d7-e0b5151276dc.jpg?v=1759968069">
+        <img
+            src="https://cdn.shopify.com/s/files/1/2999/1646/files/Subheading.jpg?v=1759968546"
+            alt="20% off on facial treatment"
+            style="width:100%;"
+        >
+        </picture>
+    </div>
+</section>
+{% include 'breadcrumbs' %}
+<div class="find-a-salon">
+    <div class="page-width">
+        <h1 class="find-a-salon__title">Find a Participating Salon Near You</h1>
+        <ul class="find-a-salon__list">
+            <li>
+                <a href="https://www.ellabache.com.au/pages/tamworth">Ella Baché Tamworth</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/gunnedah">Ella Baché Gunnedah</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/berwick">Ella Baché Berwick</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/berwick">Ella Baché Charlestown</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/coogee">Ella Baché Coogee</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/artarmon">Ella Baché Artarmon</a>
+            </li>
+            <li>
+                <a href="https://www.beautyforyou23.com">Beauty For You</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/eltham">Ella Baché Eltham</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/pacificfair">Ella Baché Pacific Fair</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/cleveland">Ella Baché Cleveland</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/uppermtgravatt">Ella Baché Upper Mt Gravatt</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/brookside">Ella Baché Brookside</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/toowoomba">Ella Baché Toowoomba</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/townsville">Ella Baché Townsville</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/dalby">Ella Baché Dalby</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/chermside">Ella Baché Chermside</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/fortitudevalley">Ella Baché Fortitude Valley</a>
+            </li>
+            <li>
+                <a href="Ella Baché Carindale">Ella Baché Carindale</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/newmarket">Ella Baché Newmarket</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/ipswich">Ella Baché Ipswich</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/capalaba">Ella Baché Capalaba</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/aitkenvale">Ella Baché Aitkenvale</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/coomera">Ella Baché Coomera</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/springfield">Ella Baché Springfield</a>
+            </li>
+             <li>
+                <a href="https://www.ellabache.com.au/pages/cairns">Ella Baché Cairns</a>
+            </li>
+            <li>
+                <a href="https://www.ellabache.com.au/pages/gunnedah">Ella Baché Gunnedah</a>
+            </li>
+        </ul>
+    </div>
+</div>

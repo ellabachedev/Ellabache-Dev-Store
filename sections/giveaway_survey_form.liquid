@@ -1,0 +1,17 @@
+{%- if section.settings.survey_form != blank -%}
+  <div class="page-width">
+  {{ section.settings.survey_form }}
+  </div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Embed Survey Form",
+    "settings": [
+      {
+        "id": "survey_form",
+        "type": "textarea",
+        "label": "Embed Form Script"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,153 @@
+{% render 'shogun-products', content: page %}
+<style>
+#shopify-section-footer{
+  display:none;
+}
+.h-full{
+  height:100%;
+}
+.flex-container.v-align-center{
+  align-items:center;
+}
+.flex-container.h-align-end{
+  justify-content:flex-end;
+}
+.btn {
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 15.5px 10px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: .2px;
+    font-weight: 500;
+    
+}
+.btn-primary{
+  background-color: #001e37;
+  color: #fff;
+  border:1px solid #001e37;
+}
+.btn-primary-accent{
+  background-color: transparent;
+  color: #001e37;
+  border:1px solid #001e37;
+}
+.btn-primary-accent:hover{
+  background-color: #001e37;
+  color: #fff;
+  border:1px solid #001e37;
+}
+.product-landing-slider{
+  margin-bottom:80px;
+}
+.product-landing-slider .item{
+  display:none;
+}
+.product-landing-slider .item:first-child{
+  display:block;
+}
+.product-landing-slider .slick-initialized .item{
+  display:block;
+}
+.book-salon{
+  margin-bottom:80px;
+}
+.book-salon .flex-container {
+    justify-content: space-between;
+}
+.book-salon .image{
+  width:50%;
+}
+.book-salon .image img{
+  display:block;
+  width:100%;
+}
+.book-salon .image .parallax-window {
+    height: 400px;
+}
+.book-salon .content{
+  width:50%;
+  background-color:#001e37;
+  padding:50px;
+}
+.book-salon .content h2{
+  color:#ffffff;
+  font-family:"Helvetica Neue LT Std 67 MdCn";
+  font-size:60px;
+  text-transform:uppercase;
+  line-height:0.9;
+  margin-top:0;
+  margin-bottom:30px;
+}
+.book-salon .content p{
+  color:#ffffff;
+  margin:0;
+  max-width:400px;
+}
+.book-salon .content .btn-secondary{
+    background-color: #ffffff;
+    color: #001e37;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 15.5px 10px;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    max-width: 200px;
+    letter-spacing: .2px;
+    font-weight: 500;
+    margin-top: 30px;
+}
+body .best-sellers .page-width{
+  max-width:100%;
+}
+.service-highlights .service-highlight-text{
+  font-family:"Helvetica Neue LT Std 67 MdCn";
+  font-size:20px;
+}
+@media only screen and (max-width: 768px){
+  .product-landing-slider{
+    margin-bottom:30px;
+  }
+  .book-salon{
+    margin-bottom:30px;
+  }
+  .book-salon .content h2{
+    font-size:40px;
+  }
+  .book-salon .image, .book-salon .content{
+    width:100%;
+  }
+  .book-salon .content{
+    padding:30px;
+  }
+  .book-salon .content h2{
+    font-size:30px;
+  }
+  .book-salon .content .btn-secondary{
+    padding:10px;
+  }
+}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.10/SmoothScroll.js" defer="defer" integrity="sha512-bvxXT2u2PNVKMpHmLR54QQ+qAnhn0dM//5spHP+sjRcnlZSmNMaLkvZXAr8peMHyNlUoDEgNnYIlrUTnr5kNYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js" defer="defer"></script>
+<script>
+  $(window).on('load', function(){
+    SmoothScroll({ keyboardSupport: false, animationTime: 500, stepSize: 120})
+    $('.parallax-window').parallax({iosDisabled: true, androidDisabled: true, positionY: '90px'});
+  });
+  function isScrolledIntoView(elem) {
+      var $elem = $(elem);
+      var $window = $(window);
+      var docViewTop = $window.scrollTop();
+      var docViewBottom = docViewTop + $window.height();
+      var elemTop = $elem.offset().top;
+      var elemBottom = elemTop + $elem.height();
+      return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  }
+</script>
+{% section 'product-landing-banner-4' %}
+{% section 'product-landing-4-grid-content' %}
+<script src="//r3.dotdigital-pages.com/resources/sharing/embed.js?sharing=lp-embed&domain=r3.dotdigital-pages.com&id=6ZUA-9JV%2Fenter-now%22"></script>
+{{ page.metafields.shogun.optimizer }}

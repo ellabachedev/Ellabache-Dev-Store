@@ -1,0 +1,1012 @@
+{{ 'collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-filters.css' | asset_url | stylesheet_tag }}
+{%- paginate collection.products by section.settings.pagination_limit -%}
+  <style>
+    /* Add this CSS to your existing styles */
+.product-listing {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.product-listing.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+.sorting{
+  display:flex; justify-content:flex-end; align-items:center; margin-bottom:14px; gap:20px;
+}
+@media only screen and (max-width: 767px) {
+  .sorting{
+    z-index: 9;
+    background:#f7f7f7;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding:15px 0;
+  }
+  .sorting label{
+    display:none;
+  }
+  .sorting select{
+    width:100%;
+    padding:10px !important;
+  }
+  .sorting.show{
+    display:block;
+    margin-top:-20px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 15px;
+  }
+}
+.sorting label, .sorting select{
+  font-size:17px;
+  text-transform:uppercase;
+}
+.sorting select{
+  border:none;
+  appearance:none;
+  -webkit-appearance:none;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDEwIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNOS40MzcxMyAxLjA0NjI4QzkuNDMzMiAxLjE3MzkgOS4zNzk4MiAxLjI5NTAyIDkuMjg4MTggMS4zODQwMUw1LjM1MTE1IDUuMzIxMDRMNS4zNTExNSA1LjMyMTE0QzUuMjU4NzcgNS40MTM3OSA1LjEzMzM0IDUuNDY1OTcgNS4wMDI1MSA1LjQ2NTk3QzQuODcxNTkgNS40NjU5NyA0Ljc0NjE1IDUuNDEzNzkgNC42NTM3OSA1LjMyMTE0TDAuNzE2NzU1IDEuMzg0MUwwLjcxNjc1NSAxLjM4NDAxQzAuNjE5ODkyIDEuMjkyNjQgMC41NjQxMzcgMS4xNjU4NCAwLjU2MjM5OCAxLjAzMjY0QzAuNTYwNjU4IDAuODk5NDMzIDAuNjEyOTM0IDAuNzcxMjYzIDAuNzA3NDE3IDAuNjc3MzI1QzAuODAxODA3IDAuNTgzMzkyIDAuOTMwMzQ3IDAuNTMxNzU3IDEuMDYzNDYgMC41MzQxMzZDMS4xOTY2NyAwLjUzNjYwOCAxLjMyMzE5IDAuNTkzMDA0IDEuNDE0MSAwLjY5MDMyNkw1LjAwMjM5IDQuMjc4NjFMOC41OTA2NyAwLjY5MDMyNkM4LjY4MzA0IDAuNTk0Mzc4IDguODEwNDkgMC41Mzk5OTYgOC45NDM2OCAwLjUzOTYzQzkuMDc2OTggMC41MzkyNjQgOS4yMDQ3MSAwLjU5MzAwNCA5LjI5NzY0IDAuNjg4NDk2QzkuMzkwNTYgMC43ODM5ODUgOS40NDA4MiAwLjkxMzA3NCA5LjQzNjg5IDEuMDQ2MjlMOS40MzcxMyAxLjA0NjI4WiIgZmlsbD0iIzRBNEE0QSIvPgo8L3N2Zz4K);
+  background-repeat:no-repeat;
+  background-position:right;
+  padding:5px;
+  padding-right:15px;
+  cursor:pointer;
+}
+.sorting select:focus{
+  outline:none;
+}
+#loading{
+  display: none; position:absolute;left:0;top:0; width:100%; min-height:60vh; height:100%; background:#ffffff;padding:0 20px;z-index:2;text-align:center;
+}
+</style>
+<div class="collection-body-wrapper">
+  <style>
+    .mobile-actions {
+      display:none;
+    }
+    @media (max-width: 768px) {
+      .mobile-actions {
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid rgba(0,0,0,0.15);
+        border-bottom: 1px solid rgba(0,0,0,0.15);
+        background: #ffffff;
+        margin-bottom:20px;
+        position:sticky;
+        top:0;
+        z-index:9;
+      }
+      .mobile-actions button {
+        background: none;
+        border: none;
+        font-size: 12px;
+        color: #001633;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        padding: 10px;
+        width:50%;
+        border-right:1px solid rgba(0,0,0,0.15);
+        text-transform:uppercase;
+      }
+      .mobile-actions button:last-child{
+        border-right:none;
+      }
+      #collection-dynamic-content.filters{
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      height: 100%;
+      background: white;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      z-index: 1000;
+      overflow-Y:auto;
+    }
+    #collection-dynamic-content.filters.open {
+      left: 0;
+    }
+  }
+  </style>
+  <div class="mobile-actions">
+    <button id="filter-btn">
+      Filter By {% render 'water-filter-icon-svg.liquid' %}
+    </button>
+    <button id="sort-btn">
+      Sort By
+    </button>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // FILTER PANEL
+      const filterBtn = document.getElementById('filter-btn');
+      const filterPanel = document.getElementById('collection-dynamic-content');
+      const filterOverlayClose = document.getElementById('filterOverlay');
+      // SORT DROPDOWN
+      const sortBtn = document.getElementById('sort-btn');
+      const sortDropdown = document.getElementById('sort-dropdown');
+        
+      // Open filter panel
+        filterBtn.addEventListener('click', () => {
+          filterPanel.classList.add('open');
+        });
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+          sortDropdown.classList.remove('show');
+        }
+      });
+      // Close filter panel
+        filterOverlayClose.addEventListener('click', () => {
+          filterPanel.classList.remove('open');
+        });
+      // Toggle sort dropdown
+      sortBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent immediate closing
+        sortDropdown.classList.toggle('show');
+      });
+    });
+  </script>
+  <section class="collection-body page-width">
+    {%- include 'filters' -%}
+    <div class="product-listing" id="filter-products" style="position:relative;">
+     <div id="sort-dropdown" class="sorting">
+      <label for="SortBy">Sort By:</label>
+      <select id="SortBy" data-selected="default">
+          <option value="default">Default</option>
+          <option value="best-selling">Best Selling</option>
+          <option value="title-ascending">Alphabetically, A-Z</option>
+          <option value="title-descending">Alphabetically, Z-A</option>
+          <option value="price-ascending">Price, low to high</option>
+          <option value="price-descending">Price, high to low</option>
+          <option value="created-descending">Date, new to old</option>
+          <option value="created-ascending">Date, old to new</option>
+        </select>
+    </div>
+      <div id="loading">
+        <img src="{{ 'rolling-loader.svg' | asset_url }}"
+        loading="lazy"
+        width="170"
+        height="170"
+        alt="loading">
+    </div>
+    <div id="AjaxinateLoop" class="product-grid">
+        {%- assign count = paginate.current_offset -%}
+        {%- assign indexP = 0 -%}
+        {%- assign sorted_products = collection.products -%}  <!-- Start sorting logic -->
+        {%- case request.params.sort_by -%}
+            {%- when 'title-ascending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'title' -%}
+            {%- when 'title-descending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'title' | reverse -%}
+            {%- when 'price-ascending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'price' -%}
+            {%- when 'price-descending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'price' | reverse -%}
+            {%- when 'created-ascending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'created_at' -%}
+            {%- when 'created-descending' -%}
+                {%- assign sorted_products = sorted_products | sort: 'created_at' | reverse -%}
+            {%- else -%}
+                {%- assign sorted_products = collection.products -%}
+        {%- endcase -%}  <!-- End sorting logic -->
+
+        {%- for item in sorted_products -%}  <!-- Loop through sorted products -->
+            {%- assign count = count | plus: 1 -%}
+            {%- assign index = 0 -%}
+            {%- for bannerSwitch in collection.metafields.accentuate.grid_banner_switch -%}
+                {%- assign bannerIndex = forloop.index0 -%}
+                {%- assign gridPos = collection.metafields.accentuate.grid_position_number[index] | plus: 0 | minus: bannerIndex -%}
+                {%- if count == gridPos -%}
+                    {%- if collection.metafields.accentuate.grid_banner_switch != blank -%}
+                    <div class="item item-package" {%- if collection.metafields.accentuate.product_grid_banner_video[index] == blank -%}style="background-image: url('{{ collection.metafields.accentuate.gird_banner_bg_img[index] | escape }}');" {%- endif -%}>
+                        {%- if collection.metafields.accentuate.product_grid_banner_video[index] != blank -%}
+                        <div class="banner-video">
+                            <video loop="loop" class="video-banner" autoplay="autoplay" muted="">
+                                <source src="{{ collection.metafields.accentuate.product_grid_banner_video }}" type="video/mp4">
+                            </video>
+                            {%- if collection.metafields.accentuate.banner_video_title != blank -%}
+                            <div class="video-banner-title">{{ collection.metafields.accentuate.banner_video_title }}</div>
+                            {%- endif -%}
+                        </div>
+                        {%- else -%}
+                        <a href="{{ collection.metafields.accentuate.grid_banner_url[index] }}" class="anchor-link">
+                            <div class="inner">
+                                <div class="img-wrapper">
+                                    <img width="200" height="225" src="{{ 'blank-image.png' | asset_url }}" alt="package" loading="lazy">
+                                </div>
+                                {%- if collection.metafields.accentuate.grid_banner_title[index] != blank -%}
+                                <div class="product-grid-details">
+                                    <h3 class="product-grid-details-info title">{{ collection.metafields.accentuate.grid_banner_title[index] }}</h3>
+                                </div>
+                                {%- endif -%}
+                                {%- if collection.metafields.accentuate.grid_banner_btn_text[index] != blank -%}
+                                <span class="button primary small">{{ collection.metafields.accentuate.grid_banner_btn_text[index] }}</span>
+                                {%- endif -%}
+                            </div>
+                        </a>
+                        {%- endif -%}
+                        {%- if collection.metafields.accentuate.gird_banner_img_overlay_remove[index] == blank -%}
+                        <div class="overlay" style="background-color:{{ section.settings.collection_grid_banner_overlay_color }}; opacity:{{ section.settings.collection_grid_banner_overlay_opacity | divided_by:100.00 }}"></div>
+                        {%- endif -%}
+                    </div>
+                    {%- endif -%}
+                {%- endif -%}
+                {%- assign index = index | plus: 1 -%}
+            {%- endfor -%}
+            {% assign templateSuffix = item.template_suffix %}
+            {% if templateSuffix != 'treatment-dawn' and templateSuffix != 'treatment'  %}
+            {%- include 'product-grid-item-collection', product: item, hidereviews: true, indexP: indexP -%}
+            {%- assign indexP = indexP | plus: 1 -%}
+            {% endif %}
+        {%- endfor -%}
+    </div>
+    <div id="noMatches" style="display: none; text-align:center; height:100%;">
+        <p class="h2" style="display:flex; justify-content:center; align-items:center; height:100%; margin:0;">Sorry, there are no products in this collection</p>
+    </div>
+  </div>
+</section>
+
+    {%- if section.settings.pagination_type == '1' -%}
+          {%- include 'ajax-pagination-infinite-scroll' -%}
+      {% comment %}{%- elsif section.settings.pagination_type == '2' -%}
+          {%- include 'ajax-pagination' -%}
+        {% endcomment %}
+      {%- endif -%}
+      {%- if section.settings.pagination_type == '2' -%}
+          {%- if paginate.previous or paginate.next -%}
+          <div class="custom-pagination">
+            {{ 'component-custom-pagination.css' | asset_url | stylesheet_tag }}
+              {%- assign pagesize = paginate.page_size -%}
+              {%- comment -%}<span class="page-status">Showing {{ paginate.current_offset | plus: pagesize }} of {{ paginate.pages | times: pagesize }}</span>{%- endcomment -%}
+          <ul class="pagination-nav">
+              {%- if paginate.previous -%}
+                <li class="prev">
+                  <a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">
+                    <svg width="10" height="14" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25622 15.3953C8.04352 15.3887 7.84165 15.2997 7.69333 15.147L1.13161 8.58528L1.13146 8.58528C0.977044 8.43132 0.890068 8.22228 0.890068 8.00423C0.890068 7.78603 0.977044 7.57696 1.13146 7.42302L7.69318 0.861299L7.69333 0.861299C7.84562 0.699861 8.05695 0.606937 8.27896 0.604038C8.50097 0.60114 8.71458 0.688265 8.87115 0.845737C9.0277 1.00305 9.11376 1.21729 9.10979 1.43914C9.10567 1.66115 9.01168 1.87203 8.84948 2.02355L2.86901 8.00402L8.84948 13.9845C9.00939 14.1384 9.10003 14.3508 9.10064 14.5728C9.10125 14.795 9.01168 15.0079 8.85253 15.1628C8.69338 15.3176 8.47823 15.4014 8.2562 15.3949L8.25622 15.3953Z" fill="#222222"/>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                  <li>
+                      <a href="{{ part.url }}" title="">{{ part.title }}</a>
+                  </li>
+                  {%- else -%}
+                  {%- if part.title == paginate.current_page -%}
+                      <li class="active"><span>{{ part.title }}</span></li>
+                  {%- else -%}
+                      <li><span>{{ part.title }}</span></li>
+                  {%- endif -%}
+                  {%- endif -%}
+              {%- endfor -%}
+              {%- if paginate.next -%}
+                <li class="next">
+                  <a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">
+                    <svg width="10" height="14" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M1.74372 0.604736C1.95642 0.611298 2.15829 0.700256 2.30661 0.852999L8.86833 7.41472H8.86848C9.0229 7.56868 9.10987 7.77772 9.10987 7.99577C9.10987 8.21397 9.0229 8.42304 8.86848 8.57698L2.30676 15.1387H2.30661C2.15432 15.3001 1.94299 15.3931 1.72098 15.396C1.49897 15.3989 1.28536 15.3117 1.12879 15.1543C0.97224 14.9969 0.886181 14.7827 0.890146 14.5609C0.894266 14.3388 0.988259 14.128 1.15046 13.9765L7.13093 7.99598L1.15046 2.01551C0.990548 1.86155 0.899912 1.64915 0.899302 1.42715C0.898692 1.20499 0.988259 0.992115 1.14741 0.837233C1.30656 0.682358 1.52171 0.598585 1.74374 0.605147L1.74372 0.604736Z" fill="#222222"/>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              </ul>
+            </div>
+      {%- endif -%}
+      {%- endif -%}
+</div>
+{%- if collection.metafields.accentuate.collection_description != blank -%}
+  <div class="collection_description">
+      <div class="page-width">
+          {{ collection.metafields.accentuate.collection_description  }}
+      </div>
+      <div class="text-center toogler_wrapper">
+          <a href="#" id="toggleCollectionDesc"><span>Read more about {{ collection.title }}</span></a>
+      </div>
+  </div>
+{%- endif -%}                      
+{%- endpaginate -%}
+<script async type="text/javascript" data-api-key="" id="stamped-script-widget" src="https://cdn-stamped-io.azureedge.net/files/widget.min.js" defer="defer"></script>
+<style>
+    @media only screen and (max-width: 1024px){
+        .collection_description.open{
+            padding:10px 0 15px 0;
+        }
+        .collection_description h2{
+            font-size:25px;
+        }
+        .collection_description h4{
+            font-size: 20px;
+        }
+    }
+    #toggleCollectionDesc{
+        margin-top:15px; 
+        display:inline-block;
+        position:relative;
+        padding:8px 30px 8px 0px;
+        color:#001e37;
+        text-decoration: none;
+        line-height: 1.2;
+    }
+    #toggleCollectionDesc:after{
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 4.5px solid transparent;
+        border-right: 4.5px solid transparent;
+        border-top: 6px solid #001e37;
+        right:12px;
+        position:absolute;
+        top: 14px;
+        z-index:2;
+    }
+    #toggleCollectionDesc.open:after {
+        border-top: 0;
+        border-bottom: 6px solid #001e37;
+    }
+    .collection_description .content{
+        max-width:1000px;
+        margin:0 auto; 
+    }
+    .collection_description h2, .collection_description h4, .collection_description h5{
+        margin-bottom:10px;
+        color:#001e37;
+    }
+    .collection_description h2 + p, .collection_description h4 + p, .collection_description h5 + p{
+        margin-top:5px;
+    }
+    .collection_description{
+       max-height:200px;
+       padding-bottom:50px;
+       overflow:hidden;
+       position:relative;
+      margin-bottom:50px;
+    }
+    .collection_description:after{
+        content:'';
+        width: 100%;
+        height:100px;
+        position:absolute;
+        left:0;
+        bottom:0;
+        z-index:1;
+        /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+71 */
+background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 71%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 71%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 71%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+    }
+    .toogler_wrapper{
+        width:100%;
+        position:absolute;
+        left:0;
+        bottom:0;
+        z-index:2;
+    }
+    .collection_description.open{
+        max-height:5000px;
+        padding:15px 0 20px 0;
+    }
+    .collection_description.open:after{
+        display:none;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $("#toggleCollectionDesc").on('click', function(e){
+            e.preventDefault();
+            if($(this).hasClass('open')){
+                $(this).removeClass('open');
+                $(".collection_description").removeClass('open');
+            }
+            else{
+                $(this).addClass('open');
+                $(".collection_description").addClass('open');
+            }
+            
+        });
+    });
+</script>
+{%- render 'quick-view-new' -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {% for product in collection.products %}
+        {
+          "@type": "ListItem",
+          "position": {{ forloop.index }},
+          "url": "{{ product.url | escape }}"
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+</script>
+{% schema %}
+{
+    "name": "Collection",
+    "settings": [
+        {
+        "type": "select",
+        "id": "pagination_limit",
+        "label": "Select a pagination limit value",
+        "default": "8",
+        "options": [
+            {
+            "value": "8",
+            "label": "8"
+            },
+            {
+            "value": "12",
+            "label": "12"
+            },
+            {
+            "value": "14",
+            "label": "14"
+            },
+            {
+            "value": "16",
+            "label": "16"
+            },
+            {
+            "value": "18",
+            "label": "18"
+            },
+            {
+            "value": "20",
+            "label": "20"
+            },
+            {
+            "value": "22",
+            "label": "22"
+            },
+            {
+            "value": "24",
+            "label": "24"
+            },
+            {
+            "value": "26",
+            "label": "26"
+            },
+            {
+            "value": "28",
+            "label": "28"
+            },
+            {
+            "value": "30",
+            "label": "30"
+            },
+            {
+            "value": "32",
+            "label": "32"
+            },
+            {
+            "value": "34",
+            "label": "34"
+            },
+            {
+            "value": "36",
+            "label": "36"
+            },
+            {
+            "value": "38",
+            "label": "38"
+            }
+        ]
+        },
+        {
+            "type": "header",
+            "content": "Advertisement Banner Settings"
+        },
+        {
+            "type": "color",
+            "id": "collection_grid_banner_overlay_color",
+            "label": "Overlay Color",
+            "default": "#c7e3e1"
+        },
+        {
+            "type": "range",
+            "id": "collection_grid_banner_overlay_opacity",
+            "min": 0,
+            "max": 100,
+            "step": 10,
+            "default": 10,
+            "label": "Opacity"
+        },
+        {
+        "type": "select",
+        "id": "pagination_type",
+        "label": "Select Pagination Type",
+        "default": "2",
+        "options": [
+            {
+                "value": "1",
+                "label": "Inifnite Scroll"
+            },
+            {
+                "value": "2",
+                "label": "Normal Number Pagination"
+            }
+        ]
+        },
+        {
+        "type": "select",
+        "id": "collection_banner_design",
+        "label": "Select Banner Design",
+        "default": "1",
+        "options": [
+            {
+                "value": "1",
+                "label": "Primary"
+            },
+            {
+                "value": "2",
+                "label": "Secondary"
+            }
+        ]
+        }
+    ],
+    "blocks": [
+        {
+            "type": "tags",
+            "name": "Tags filter",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Filter Title",
+                    "default": "Filter",
+                    "info": "eg. Product Type"
+                },
+                {
+                    "type": "text",
+                    "id": "prefix",
+                    "label": "Tag Prefix (needs to end with \"-\")",
+                    "info": "e.g Category-"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+<script src="{{ 'ajaxinate.min.js' | asset_url }}" defer="defer"></script>
+<script>
+    window.addEventListener('load', (event) => {
+        $(document).on('ajaxifyfiltered', function () {
+            $('a.btn-quick-view').magnificPopup({
+                type: 'inline',
+                midClick: true,
+                mainClass: 'mfp-fade',
+                fixedContentPos: true,
+                callbacks: {
+                    open: function () {
+                        var magnificPopup = $.magnificPopup.instance,
+                            clickedDOM = magnificPopup.st.el;
+                        $(document).trigger('quickviewopen', [clickedDOM]);
+                    },
+                    close: function () {
+                        $('#quickView .content form.add-to-cart .quantity').val(1);
+                        $('#quickView .content form.add-to-cart .qty-up').off('mouseup');
+                        $('#quickView .content form.add-to-cart .qty-down').off('mouseup');
+                        $('div.quick-view-popup .review').show();
+                        $('div.quick-view-popup .price').show();
+                        $('div.quick-view-popup .add-to-cart').show();
+                        $('div.quick-view-popup .add_to_wishlist').show();
+                    }
+                }
+            });
+        });
+        // Filter Dropdown Accordion ------------------------------------------------------
+        // $('body').find("#filter-wrapper").on("click", ".filter-block-title", function (e) {
+        //     if ($(this).hasClass('is-open')) {
+        //         $(this).stop().removeClass('is-open');
+        //         $(this).next('div.filter-block-content').stop().slideUp(300);
+        //     }
+        //     else {
+        //         $("#filter-wrapper div.filter-block-title").stop().removeClass('is-open');
+        //         $("#filter-wrapper div.filter-block-content").stop().slideUp(300);
+        //         $(this).stop().addClass('is-open');
+        //         $(this).next('div.filter-block-content').stop().slideDown(300);
+        //     }
+        // });
+        // Filter Dropdown Accordion Mobile ---------------------------------------------------
+        // $('#collection-dynamic-content').on('click', '.filters .section-header', function (e) {
+        //     alert();
+        //     e.stopPropagation();
+        //     if($(this).hasClass('is-open')){
+        //         $('body').removeClass('filterExp');
+        //     }
+        //     else{
+        //         $('body').addClass('filterExp');
+        //     }            
+        //     //$('.collection-body .filters').toggleClass('exp');
+        //     //$('body').toggleClass('filterExp');
+        // });
+        if ($("body").hasClass('template-collection')) {
+            filterClickEvents();
+            getSelected();
+            var af = new AjaxifyFilter('.collection-body-wrapper', '.filters', '#SortBy', [], function () {
+                intializeCollectionPage();
+                getSelected();
+                //$(window).scrollTop(0);
+                filterClickEvents();
+                initilizeQuantityUpdate();
+                var magnificPopupBtn = check('.quick-view-popup');
+                if (magnificPopupBtn > 0) {
+                    magnificPopupInit();
+                }
+                var ajaxinateLoop = check('#AjaxinateLoop');
+                if (ajaxinateLoop > 0) {
+                    var productLength = $("#AjaxinateLoop > .item").length;
+                    if (productLength < 1) {
+                        $("#noMatches").css("display", 'block');
+                    }
+                }
+                $(document).trigger('ajaxifyfiltered');
+                initilizeQuantityUpdate();
+                //bodyTopPadding();
+                // FILTER PANEL
+                const filterBtn = document.getElementById('filter-btn');
+                const filterPanel = document.getElementById('collection-dynamic-content');
+                const filterOverlayClose = document.getElementById('filterOverlay');
+                // SORT DROPDOWN
+                const sortBtn = document.getElementById('sort-btn');
+                const sortDropdown = document.getElementById('sort-dropdown');
+                  
+                // Open filter panel
+                  filterBtn.addEventListener('click', () => {
+                    filterPanel.classList.add('open');
+                  });
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                  if (!sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+                    sortDropdown.classList.remove('show');
+                  }
+                });
+                // Close filter panel
+                  filterOverlayClose.addEventListener('click', () => {
+                    filterPanel.classList.remove('open');
+                  });
+                // Toggle sort dropdown
+                sortBtn.addEventListener('click', (e) => {
+                  e.stopPropagation(); // prevent immediate closing
+                  sortDropdown.classList.toggle('show');
+                });
+            });
+        }
+    });
+    //$(window).on('scroll', function (e) {
+        // On Page Scroll Filter Dropdown Accordion Close----------------------------
+      //  if ($(".filters").length > 0) {
+        //    $("#filter-wrapper div.filter-block-title").stop().removeClass('is-open');
+          //  $("#filter-wrapper div.filter-block-content").stop().slideUp(300);
+       // }
+    //});
+    function check(type) {
+        return $('body').find(type).length;
+    }
+    function initilizeQuantityUpdate() {
+        $('#quickView .content form.add-to-cart .qty-down').off().on('mouseup', function () {
+            var currQty = parseInt($('#quickView .content form.add-to-cart .quantity').val());
+            var qty = currQty;
+            if (currQty <= 1) {
+                qty = 1;
+            } else {
+                qty -= 1;
+            }
+            $('#quickView .content form.add-to-cart .quantity').val(qty);
+        });
+        $('#quickView .content form.add-to-cart .qty-up').off().on('mouseup', function () {
+            var currQty = parseInt($('#quickView .content form.add-to-cart .quantity').val());
+            var qty = currQty;
+            qty += 1;
+            $('#quickView .content form.add-to-cart .quantity').val(qty);
+        });
+        $('#quickView .content form.add-to-cart .quantity').off().on('keyup', function () {
+            var currQty = parseInt($('#quickView .content form.add-to-cart .quantity').val());
+            var qty = currQty;
+            if (currQty <= 1) {
+                qty = 1;
+            }
+            $('#quickView .content form.add-to-cart .quantity').val(qty);
+        });
+        //   $('.quantity-spinner').each(function() {
+        //     var spinner = jQuery(this),
+        //         input = spinner.find('input[type="number"]'),
+        //         btnUp = spinner.find('.quantity-up'),
+        //         btnDown = spinner.find('.quantity-down'),
+        //         min = input.attr('min'),
+        //         max = input.attr('max');
+
+        //     btnUp.click(function() {
+        //         var oldValue = parseFloat(input.val());
+        //         if (oldValue >= max) {
+        //         var newVal = oldValue;
+        //         } else {
+        //         var newVal = oldValue + 1;
+        //         }
+        //         spinner.find("input").val(newVal);
+        //         spinner.find("input").trigger("change");
+        //     });
+
+        //     btnDown.click(function() {
+        //         var oldValue = parseFloat(input.val());
+        //         if (oldValue <= min) {
+        //         var newVal = oldValue;
+        //         } else {
+        //         var newVal = oldValue - 1;
+        //         }
+        //         spinner.find("input").val(newVal);
+        //         spinner.find("input").trigger("change");
+        //     });
+
+        //     input.on('change', function(){
+        //         var oldValue = parseFloat(input.val());
+        //         btnDown.removeClass('disabled');
+        //         btnUp.removeClass('disabled');
+        //         if (oldValue >= max) {
+        //         btnUp.addClass('disabled');
+        //         } else if (oldValue <= min){
+        //         btnDown.addClass('disabled');
+        //         }
+        //     })
+
+        //     // trigger change on initial load to disable if max or min
+        //     spinner.find("input").trigger("change");
+
+        //     });
+    }
+    function magnificPopupInit() {
+        $('a.btn-quick-view').magnificPopup({
+            type: 'inline',
+            midClick: true,
+            mainClass: 'mfp-fade',
+            fixedContentPos: true,
+            callbacks: {
+                open: function () {
+                    $('.slider-for').on('init', function (event, slick) {
+                        $(this).css('height', 'auto');
+                    });
+                    $('.slider-nav').on('init', function (event, slick) {
+                        $(this).css('opacity', 1);
+                    });
+                    $('.mfp-content .slider-for').slick({
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        arrows: false,
+                        fade: true,
+                        lazyLoad: 'ondemand',
+                        asNavFor: '.slider-nav'
+                    });
+                    $('.mfp-content .slider-nav').slick({
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        asNavFor: '.slider-for',
+                        dots: false,
+                        focusOnSelect: true,
+                        centerMode: false,
+                        centerPadding: '0',
+                        variableWidth: true,
+                        prevArrow: '<button type="button" class="slick-prev"></button>',
+                        nextArrow: '<button type="button" class="slick-next"></button>'
+                    });
+
+                },
+                close: function () {
+                    $('#quickView .content form.add-to-cart .quantity').val(1);
+                    $('#quickView .content form.add-to-cart .qty-up').off('mouseup');
+                    $('#quickView .content form.add-to-cart .qty-down').off('mouseup');
+                }
+            }
+        });
+    }
+    function filterClickEvents() {
+        $('#collection-dynamic-content.filters').on('click', '.section-header', function () {
+            if ($(this).hasClass('is-open')) {
+                $(this).removeClass('is-open');
+                $('body').removeClass('filterExp');
+            }
+            else {
+                $(this).addClass('is-open');
+                $('body').addClass('filterExp');
+            }   
+        });
+
+        $('#collection-dynamic-content').on('click', '.filterEntry a', function () {
+            var sUrl = $(this).attr('href'),
+                filterIdTrigger = $(this).parents('div.filterEntry').attr('data-id');
+                $("#" + filterIdTrigger).find("a").trigger('click');
+
+            //$('#' + filterIdTrigger).find('a[href="' + sUrl + '"]').trigger('click');
+            return false;
+        });
+        $('body').find("#filter-wrapper").on("click", ".filter-block-title", function (e) {
+            if (e.target.tagName != 'A') {
+                if ($(this).hasClass('is-open')) {
+                    $(this).stop().removeClass('is-open');
+                    $(this).next('div.filter-block-content').stop().slideUp(300);
+                }
+                else {
+                    $("#filter-wrapper div.filter-block-title").stop().removeClass('is-open');
+                    $("#filter-wrapper div.filter-block-content").stop().slideUp(300);
+                    $(this).stop().addClass('is-open');
+                    $(this).next('div.filter-block-content').stop().slideDown(300);
+                }
+            }
+        });
+
+        $('#collection-dynamic-content').on('click', '.clearAll a', function () {
+            $('.collectionParent a').first().trigger('click');
+            return false;
+        });
+        $("#clearAll").on('click', function (e) {
+            e.stopPropagation();
+            $('.collectionParent a').first().trigger('click');
+            return false;
+        });
+    }
+    function intializeCollectionPage() {
+        $(".collection-sidebar__item[data-display-label-as]").each(function () {
+            var label = $(this).data('display-label-as');
+            $(this).find("a").html(label);
+        })
+
+        var $wrapper = $('[data-reorder-list]');
+        $wrapper.find('li').sort(function (a, b) {
+            return +a.getAttribute('data-display-order') - +b.getAttribute('data-display-order');
+        })
+            .appendTo($wrapper);
+    }
+    function getSelected() {
+        $('.filter-option-block').each(function () {
+            var activeSize = $(this).find('.collection-sidebar__item--active').length;
+            var blockTitle = $(this).find('.filter-block-title h3').attr('data-title');
+            if (activeSize > 0) {
+                var selFilter = $(this).find('.collection-sidebar__item--active a').text().replace(/_/g, '-');
+                $(this).addClass('active');
+                //$(this).find('h3 span').text(blockTitle + ' : ' + selFilter);
+            } else {
+                $(this).removeClass('active');
+                $(this).find('h3 span').text(blockTitle);
+            }
+        });
+        var fSel = $('body').find('.collection-sidebar__item--active').length;
+        if (fSel > 0) {
+            $('.selectedFilter').html('');
+            $('body').addClass('hasFilter');
+            $('.collection-sidebar__item--active').each(function () {
+                var filterId = $(this).attr('id');
+                
+                $('.selectedFilter').append('<div data-id="' + filterId + '" class="entry filterEntry">' + $(this).html() + '</div>');
+                $(this).parents('div.filter-option-block').find('div.filter-block-title h3').append('<div class="entry filterEntry">' + $(this).html() + '</div>');
+            });
+            $('.selectedFilter').append('<div class="entry clearAll"><a href="#">Clear All</a></div>');
+            $("#clearAll").fadeIn();
+
+        } else {
+            $('body').removeClass('hasFilter');
+        }
+
+    }
+    // PARAMS 
+    // selector - main container for the grid
+    // filterSelector - collection-sidebar
+    // sort - the sort dropdown
+    // containers - additional selectors that you want to copy over
+    // callback - callback function to be invoked when ajax call is done
+    AjaxifyFilter = function (selector, filterSelector, sort, containers, callback) {
+        var af = this;
+        af.selector = selector;
+        af.filterSelector = filterSelector;
+        af.queryParams = {};
+
+        af.addEventHandlers = function () {
+            var filter_links = $(this.filterSelector).find("a[href^='/collections/']");
+
+            filter_links.on('click', function (e) {
+                e.preventDefault();
+                var filter = $(this);
+                var url = filter.attr('href');
+                af.ajaxFilter(url);
+            });
+
+            if (sort) {
+                var $sort = $(sort);
+                // Set the initial value based on data-selected attribute
+                $sort.val($sort.data('selected'));
+                $sort.on('change', function () {
+                  af.queryParams.sort_by = $sort.val();
+                  // Update the data-selected attribute to the currently selected value
+                  $sort.data('selected', $sort.val());
+                  af.ajaxFilter(window.location.pathname + "?" + jQuery.param(af.queryParams).replace(/\+/g, '%20'));
+                  
+              });
+            }
+        }
+
+        af.updateQueryParams = function () {
+            if (location.search.length) {
+                for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+                    aKeyValue = aCouples[i].split('=');
+                    if (aKeyValue.length > 1) {
+                        af.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+                    }
+                }
+            }
+        }
+        
+        af.ajaxFilter = function (url) {
+            // just a loading indicator
+            $("body").css("cursor", "wait");
+            const loadingAnimation = document.getElementById('loading');
+            loadingAnimation.style.display = 'block';
+
+            // update window history state
+            var stateUrl = url.split('/collections/')[1];
+            window.history.pushState(stateUrl, null, "/collections/" + stateUrl);
+
+            $.get(url, function (data) {
+                // remove loading indicator
+                $("body").css("cursor", "default");
+                loadingAnimation.style.display = 'none';
+                // render ajax content into html for main filter and any other optional containers
+                $(selector).html($(data).find(selector).html());
+                  if (!!containers) {
+                      for (var i in containers) {
+                          var container = containers[i];
+                          $(container).html($(data).find(container).html());
+                      }
+                  }
+
+                // Update the selected option in the sorting dropdown
+                var $sort = $(sort);
+                // Set the selected value based on queryParams
+                if (af.queryParams.sort_by) {
+                    $sort.val(af.queryParams.sort_by);
+                    // Update the data-selected attribute to the currently selected value
+                    $sort.data('selected', af.queryParams.sort_by);
+                } else {
+                    $sort.val($sort.data('selected')); // Fallback to default
+                }
+                // Debugging: Log the current selected value
+                console.log("Current selected sort option:", $sort.val());
+              
+                // replace event handlers
+                af.addEventHandlers();
+
+                // do callback if anything was passed
+                if (callback) {
+                    callback();
+                }
+            })
+        }
+        af.init = function () {
+            // add popstate event handler that should only be intialized once
+            window.onpopstate = function (event) {
+                af.ajaxFilter(window.location.pathname + window.location.search);
+            }
+            af.updateQueryParams(); // Update query parameters on initialization
+            af.addEventHandlers();
+        }
+
+        af.init();
+    }
+</script>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- include 'product-grid-item-collection', product: item, variant hidereviews:
+    true, indexP: indexP -%}"
+  to: "{%- include 'product-grid-item-collection', product: item, hidereviews: true,
+    indexP: indexP -%}"
+  position: 11001..11097
+{% endcomment %}

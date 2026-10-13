@@ -1,0 +1,38 @@
+{{ 'component-expandable__content.css' | asset_url | stylesheet_tag }}
+<div class="expandable-content">
+    <div class="content page-width">
+      {%- if section.settings.expandable_content != blank -%}
+        {{ section.settings.expandable_content }}
+      {%- endif -%}
+    </div>
+    <div class="text-center toogler_wrapper">
+        <a href="#" id="toggleExpand"><span>Read more about {{ product.title }}</span></a>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $("#toggleExpand").on('click', function(e){
+        e.preventDefault();
+        if($(this).hasClass('open')){
+            $(this).removeClass('open');
+            $(".expandable-content").removeClass('open');
+        }
+        else{
+            $(this).addClass('open');
+            $(".expandable-content").addClass('open');
+        }
+    });
+});
+</script>
+{% schema %}
+  {
+    "name": "Expandable Content",
+    "settings": [
+      {
+        "id": "expandable_content",
+        "type": "richtext",
+        "label": "Description"
+      }
+    ]
+  }
+{% endschema %}

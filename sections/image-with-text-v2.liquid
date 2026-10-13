@@ -1,0 +1,187 @@
+<style>
+/* Image with Text Section */
+.image-with-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 112.5rem;
+  margin: 50px auto;
+  flex-direction:column-reverse;
+}
+@media (min-width: 769px) {
+  .image-with-text {
+    gap: 3.125rem;
+    flex-direction:row;
+  }
+}
+/* Left Side - Text Content */
+@media (min-width: 769px) {
+  .image-with-text__content {
+    flex: 1;
+    width:50%;
+  }
+  .image-with-text__image{
+    flex: 1;
+    width:50%;
+  }
+}
+.image-with-text__subtitle {
+  font-size:0.875rem;
+  color: #888;
+  text-transform: uppercase;
+}
+@media (min-width: 769px) {
+  .image-with-text__subtitle {
+    font-size: 1.125rem;
+  }
+}
+.image-with-text__title {
+  font-size: 1.5rem;
+  margin-top:5px;
+}
+@media (min-width: 769px) {
+  .image-with-text__title {
+    font-size: 2.5rem;
+  }
+}
+.image-with-text__description {
+  font-size: 1.125rem;
+  color: #444;
+  line-height: 1.6;
+  margin-top: 0.625rem;
+}
+
+/* Right Side - Video Section */
+.image-with-text__image {
+  position: relative;
+  cursor: pointer;
+}
+@media (min-width: 769px) {
+  .image-with-text__image {
+    flex: 1;
+    width:50%;
+  }
+}
+.image-with-text .button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border:0;
+  padding:0 1.875rem;
+  cursor: pointer;
+  font-size: 0.938rem;
+  text-decoration:none;
+  color: #ffffff;
+  -webkit-appearance:none;
+  appearance: none;
+  min-height: calc(2.5rem +  2px);
+  margin-top:15px;
+}
+.image-with-text .button--primary{
+  color:#ffffff;
+  background-color: #001e37;
+}
+</style>
+<div class="image-with-text page-width">
+  <div class="image-with-text__content">
+    {%- for block in section.blocks -%}
+      {% case block.type %}
+        {%- when 'sub-heading' -%}
+        {%- if block.settings.sub-heading != blank -%}
+        <p class="image-with-text__subtitle">{{ block.settings.sub-heading }}</p>
+        {%- endif -%}
+        {%- when 'heading' -%}
+        {%- if block.settings.heading != blank -%}
+        <h2 class="image-with-text__title">{{ block.settings.heading }}</h2>
+        {%- endif -%}
+        {%- when 'text' -%}
+        {%- if block.settings.text != blank -%}
+        {{ block.settings.text }}
+        {%- endif -%}
+        {%- when 'cta' -%}
+         {%- if block.settings.cta_text != blank -%}
+          <a href="{{ block.settings.btn_link }}" class="button button--primary">{{ block.settings.cta_text }}</a>
+        {%- endif -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  <div class="image-with-text__image">
+      <img src="{{ section.settings.image | img_url:'884x' }}" loading="lazy" alt="Image">
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Image with Text V2",
+    "class": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ],
+    "blocks": [
+      {
+      "type": "sub-heading",
+      "name": "Sub Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "sub-heading",
+          "label": "Sub Heading"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Content"
+        }
+      ]
+    },
+     {
+      "type": "cta",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+    "presets": [
+    {
+      "name": "Image with Text V2"
+    }
+  ]
+  }
+{% endschema %}

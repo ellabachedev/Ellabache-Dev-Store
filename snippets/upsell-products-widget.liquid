@@ -1,0 +1,5 @@
+{{ 'upsell-products-widget.css' | asset_url | stylesheet_tag }}
+{% if settings.enable_minicart_upsell %}
+  <div class="eb-cart-upsell" data-upsell-enable="{{ settings.enable_minicart_upsell }}" data-upsell-limit="{{ settings.upsell_item_limit }}" data-upsell-intent="{{ settings.upsell_intent }}">
+  </div>
+{% endif %}

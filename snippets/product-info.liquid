@@ -1,0 +1,239 @@
+{%- capture product_info -%}
+  {%- assign productVarHandle = 'loadedVariantId-' | append: product.handle -%}
+  <div
+    id="loadedVariantId"
+    data-variant-id='{{ current_variant.id }}'
+    style="display: none"></div>
+  {% comment %}{%- include 'product-addtocart' -%}{% endcomment %}
+  <form
+    action="/cart/add"
+    data-cart-submit
+    method="post"
+    enctype="multipart/form-data">
+    {%- assign isEligiable = 0 -%}
+    {%- assign isFreeSample = 0 -%}
+    {%- if settings.enable_buyX_getY -%}
+      {% assign isEligiable = 0 %}
+      {%- for prodCollection in product.collections -%}
+        {%- if prodCollection.handle == settings.X_collection -%}
+          {%- assign isEligiable = 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign isFreeSample = 0 -%}
+      {%- if product.handle == settings.free_product_1 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_2 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_3 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_4 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- elsif product.handle == settings.free_product_5 -%}
+        {%- assign isFreeSample = 1 -%}
+      {%- else -%}
+        {%- assign isFreeSample = 0 -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- assign productCollectionHandles = '' -%}
+    {%- for prodColl in product.collections -%}
+      {%- if forloop.first == true -%}
+        {%- assign productCollectionHandles = prodColl.handle -%}
+      {%- else -%}
+        {%- assign productCollectionHandles = productCollectionHandles | append: ',' | append: prodColl.handle -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <input
+      type="hidden"
+      name="properties[collection_handles]"
+      value="{{ productCollectionHandles }}">
+    <input
+      type="hidden"
+      name="properties[eligiable]"
+      value="{{ isEligiable }}">
+    <input
+      type="hidden"
+      name="properties[freesample]"
+      value="{{ isFreeSample }}">
+    {% render 'gift_card_additional_fields' %}
+    <div class="estimated-shipping">
+      {%- assign estimate = false -%}
+      {%- for tag in product.tags -%}
+        {%- if tag contains "estimated-shipping-time" -%}
+          {%- assign estimate = tag | replace: "estimated-shipping-time", "" -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if estimate -%}
+        <div class="estimated-shipping">
+          * {{ 'products.product.estimated_shipping_time' | t: estimate: estimate }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="flex-container">
+      <div class="payment-options flex-container">
+        {% comment %}{%- if product.metafields.stamped.badge -%}
+        <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}"
+        data-product-sku="{{ product.handle }}" style="display: inline-block;">{{
+        product.metafields.stamped.badge }}</span>
+        {%- endif -%}{% endcomment %}
+        <div data-product-price-wrapper class="product-price {% if current_variant.compare_at_price > current_variant.price %} on-sale {% endif %}">
+          <span class="regular-price" data-product-price>{{ current_variant.price | money }}</span>
+          {%- if product.compare_at_price_max > product.price -%}
+            <div class="was-price">
+              <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+              <s data-compare-price>
+                {%- if current_variant.compare_at_price > current_variant.price -%}
+                  {{ current_variant.compare_at_price | money }}
+                {%- endif -%}
+              </s>
+            </div>
+          {%- endif -%}
+        </div>
+        {% if product.available == true %}
+          {%- if section.settings.afterpay_enabled -%}
+            {%- if product.metafields.accentuate.hide_afterpay == blank -%}
+              <div class="item afterpay">
+                <img
+                  width="117"
+                  height="24"
+                  src="{{ 'logo-afterpay.jpg' | asset_url }}"
+                  loading="lazy"
+                  alt="Afterpay">
+                <div class="tooltips">
+                  <div class="inner">
+                    {%- render 'afterpay' -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if section.settings.klarna_enabled -%}
+            {%- if product.metafields.accentuate.hide_klarna == blank -%}
+              <div class="item klarna">
+                <img
+                  width="73"
+                  height="24"
+                  src="{{ 'logo-klarna.jpg' | asset_url }}"
+                  loading="lazy"
+                  alt="Klarna">
+                <div class="tooltips">
+                  <div class="inner">
+                    {%- render 'klarna' -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+      <div class="quantity-wrapper flex-container">
+        {%- assign productQtyHandle = 'Quantity-' | append: product.handle -%}
+        <label for="{{ productQtyHandle }}">Quantity</label>
+        {% render 'number-spinner', id: productQtyHandle, name: 'quantity', value: 1, min: 1 %}
+      </div>
+    </div>
+    <div class="select-variant {% if product.has_only_default_variant %}visually-hidden{% endif %}">
+      {%- unless product.has_only_default_variant -%}
+        <div class="flex-container">
+          {%- for option in product.options_with_values -%}
+            <div class="item">
+              <label>{{ option.name }}</label>
+              <div class="selector-wrapper js">
+                <select
+                  id="{{ product.handle }}-SingleOptionSelector-{{ forloop.index0 }}"
+                  class="selector-variant"
+                  data-single-option-selector
+                  data-index="option{{ option.position }}">
+                  {%- for value in option.values -%}
+                    {%- for variant in product.variants -%}
+                      {%- if variant.title == value -%}
+                        {%- assign dataVariantId = variant.id -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {{ variant.id }}
+                    <option
+                      value="{{ value | escape }}"
+                      data-variant-id="{{ dataVariantId }}"
+                      {% if option.selected_value == value %}selected="selected"{% endif %}>
+                      {{ value }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+      <select
+        name="id"
+        class="no-js selector-variant-hidden"
+        data-product-select>
+        {%- for variant in product.variants -%}
+          {%- unless variant.metafields.secomapp.freegifts -%}
+            <option
+              {% if variant == current_variant %}selected="selected"{% endif %}
+              {% unless variant.available %}disabled="disabled"{% endunless %}
+              value="{{ variant.id }}"
+              data-variant-id="{{ variant.id }}">
+              {{ variant.title }}
+            </option>
+          {%- endunless -%}
+        {%- endfor -%}
+      </select>
+    </div>
+    <div class="add-to-cart {% if product.tags contains 'no-rental' %} no-rental {% endif %}">
+      <button
+        type="submit"
+        name="add"
+        data-add-to-cart
+        {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+        <span data-add-to-cart-text>
+          {%- if current_variant.available -%}
+            {%- if current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity == 0 -%}
+              {{ 'products.product.preorder' | t }}
+            {%- else -%}
+              {% if product.metafields.accentuate.add_to_cart_text == blank %}
+                {{ 'products.product.add_to_cart' | t }}
+              {% else %}
+                {{ product.metafields.accentuate.add_to_cart_text }}
+              {%- endif -%}
+            {%- endif -%}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t }}
+          {%- endif -%}
+        </span>
+      </button>
+    </div>
+  </form>
+{%- endcapture -%}
+{{ product_info | strip_newlines }}
+<script>
+  $(window).on('load', function() {
+    var loadedVariantId = $("#loadedVariantId").attr('data-variant-id');
+    $(".product-carousel .slide").each(function() {
+      var sliderVariantId = $(this).attr('data-variant-id');
+      if (loadedVariantId == sliderVariantId) {
+        var sliderIndex = $(this).attr('data-slick-index');
+        $('.product-carousel').slick('slickGoTo', sliderIndex);
+      }
+    });
+  });
+  $('.select-variant select').change(function() {
+    var optionVariantId = $('option:selected', this).attr('data-variant-id');
+    $("select.selector-variant-hidden option").each(function() {
+      var optionVariantIdH = $(this).attr('data-variant-id');
+      if (optionVariantId == optionVariantIdH) {
+        $(this).prop('selected', true);
+        $("select.variant-selector-hidden").val(optionVariantId);
+        $("select.variant-selector-hidden").trigger('change');
+      }
+    });
+    $(".product-carousel .slide").each(function() {
+      var sliderVariantId = $(this).attr('data-variant-id');
+      if (optionVariantId == sliderVariantId) {
+        var sliderIndex = $(this).attr('data-slick-index');
+        $('.product-carousel').slick('slickGoTo', sliderIndex);
+      }
+    });
+  });
+</script>

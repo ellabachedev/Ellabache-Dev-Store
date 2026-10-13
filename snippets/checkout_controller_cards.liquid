@@ -1,0 +1,252 @@
+<script>
+  		
+  	// find any elements that need custom id's added
+  	var orderSummary = document.getElementById("order-summary");
+  	var orderSummary__sections = orderSummary.querySelector('.field__input-btn');
+  	orderSummary__sections.setAttribute("id","apply_discount_button");
+  
+	// loyalty redeem
+	const getRedeemButton = () => {
+		return document.querySelector("[id='apply_loyalty_button']")
+	}
+	// apply button
+	const getApplyButtons = () => {
+        return Array.from(document.querySelectorAll("[id='apply_discount_button']"))
+	}
+	// code input
+	const getCodeInputElems = () => {
+		const desktopInput = document.getElementById('checkout_reduction_code');
+		const mobileInput = document.getElementById('checkout_reduction_code_mobile');
+		return [desktopInput, mobileInput].filter(n => n);
+	}
+	const getCodeInput = () => {
+		const codeInputs = getCodeInputElems();
+		const changedInput = codeInputs.find(i => i.value != i.getAttribute('value'));
+		return changedInput ? changedInput.value.trim() : (codeInputs[0].value || codeInputs[1].value).trim();
+	}
+	// pin input
+	const getPinInputElems = () => {
+		return Array.from(document.querySelectorAll('#givex_pin'));
+	}
+	const getPinInput = () => {
+		const pinInputs = getPinInputElems();
+		const pinInput = pinInputs.find(i => i.value.length > 0);
+		return pinInput ? pinInput.value.trim() : null;
+	}
+	const addPinField = () => {
+		const pinInput = `<div style="margin-left:.8em" class="field__input-wrapper">
+	<label class="field__label field__label--visible" for="givex_pin">Card pin</label>
+	<input placeholder="Card pin" class="field__input" id="givex_pin" size="8" type="text">
+	</div>`;
+		getCodeInputElems().forEach(ci => {
+			if (ci && ci.parentNode) {
+				ci.parentNode.insertAdjacentHTML('afterEnd', pinInput);
+			}
+		})
+	}
+	const enableButtons = () => {
+		getCodeInputElems().forEach(c => {
+			if (!c) { return }
+			c.disabled = !c.disabled;
+		})
+	}
+	// toggle code spinner and disable input
+	const toggleFormActive = () => {
+		getApplyButtons().forEach(b => b.classList.toggle('btn--loading'));
+		enableButtons();
+	}
+	const toggleLoyaltyFormActive = () => {
+		getRedeemButton().classList.toggle('btn--loading');
+	}
+	const applyCodeListener = () => {
+		getApplyButtons().forEach(b => b.onclick = handleCodeSubmit);
+	}
+	const applyLoyaltyListener = () => {
+		const rButton = getRedeemButton()
+		if (rButton) {
+			rButton.onclick = handleLoyaltyRedeem;
+		}
+	}
+	const handlePageChange = () => {
+		if (document.getElementById('givex_pin')) {
+			return; //already exists, triggered in event for page change/load
+		}
+		applyCodeListener();
+		addPinField();
+		applyLoyaltyListener();
+	}
+	// error outline label and text
+	const displayError = (errString) => {
+		let existingError = document.getElementById('error-for-reduction_code');
+		while (existingError) {
+			existingError.remove()
+			existingError = document.getElementById('error-for-reduction_code');
+		}
+		getCodeInputElems().forEach(codeField => {
+			if (!codeField) { return }
+			const errorLabel = codeField.closest('.field.field--show-floating-label');
+			if (errorLabel) {
+				errorLabel.classList.add('field--error')
+			}
+			const buttonWrapper = codeField.closest('.field__input-btn-wrapper')
+			if (buttonWrapper) {
+				const errorText = `<p class="field__message field__message--error" id="error-for-reduction_code">${errString || 'Enter a valid discount code or gift card'}</p>`
+				buttonWrapper.insertAdjacentHTML('afterEnd', errorText);
+			}
+		});
+	}
+	const removeLoyaltyError = () => {
+			let existingError = document.getElementById('error-for-loyalty_code');
+			while (existingError) {
+				existingError.remove()
+				existingError = document.getElementById('error-for-loyalty_code');
+			}
+	}
+	const displayLoyaltyError = (errString) => {
+		removeLoyaltyError();
+		const rButton = getRedeemButton();
+		const buttonWrapper = rButton.closest('.field__input-btn-wrapper');
+		if (buttonWrapper) {
+			const errorText = `<p style="display:block;float:right;" class="field__message field__message--error" id="error-for-loyalty_code">${errString || 'Failed to redeem loyalty credit'}</p>`;
+			buttonWrapper.insertAdjacentHTML('afterEnd', errorText);
+		}
+	}
+	// trigger default form action to show code
+	const clickApplyButtons = () => {
+		const event = new MouseEvent('click', {
+			view: window,
+			bubbles: true,
+			cancelable: true
+		});
+		setTimeout(() => {
+				const enabledButton = getApplyButtons().find(b => !b.classList.contains('btn--disabled'))
+				if(enabledButton) {
+					enabledButton.dispatchEvent(event);
+				} else {
+					getApplyButtons().forEach(b => b.dispatchEvent(event))
+				}
+		}, 500);
+	}
+	const triggerNormalForm = () => {
+		getApplyButtons().forEach(b => b.onclick = null);
+		clickApplyButtons();
+	}
+	// discount code fields
+	const getDiscountButtons = () => {
+		const buttonWrapper = document.querySelector('[data-reduction-form="update"]')
+		if (buttonWrapper) {
+			const buttons = buttonWrapper.querySelectorAll('[id^="checkout_applied_gift_cards_"][id$="_id"]');
+		}
+	}
+	// our submit event
+	const handleCodeSubmit = async (e) => {
+		const query = {
+			givex_cert: getCodeInput(),
+			givex_pin: getPinInput(),
+			store_name: SHOPNAME,
+		};
+		if (!query.givex_cert
+			|| query.givex_cert.length < 17
+			|| query.givex_cert.length > 22
+			|| !/^[0-9]{17,22}$/.test(query.givex_cert)) {
+			/*
+			 * Not a Givex cert, don't trigger backend submit.
+			 * Returns true for default form action, preventDefault hasn't been called.
+			 */
+			console.log('query.givex_cert.length < 17 || query.givex_cert.length > 22');
+			console.log(query.givex_cert);
+			return true;
+		}
+		e.preventDefault();
+		if (!query.givex_pin || query.givex_pin.length != 4) {
+			return displayError('Please enter the 4 digit gift card pin');
+		}
+		toggleFormActive();
+		let response;
+		try {
+			response = await fetch(`${API_BASE_URL}/card/apply`, {
+				body: JSON.stringify(query),
+				method: 'POST',
+			}).then(res => res.json());
+		} catch (e) {
+			console.error(e);
+			displayError('An error occurred while redeeming your card');
+		}
+		if (response && !response.error) {
+			// trigger click of form button to submit normally
+			var hiddenInput = '';
+            if(query.givex_cert.length == 22){
+            	console.log('Long cert block activated');
+            	console.log(query.givex_cert);
+              hiddenInput = `<input type="hidden" name="checkout[reduction_code]" value="${query.givex_cert.substring(8)}">`
+            }else if(query.givex_cert.length == 17){
+            	console.log('Short cert block activated');
+            	console.log(query.givex_cert);
+              hiddenInput = `<input type="hidden" name="checkout[reduction_code]" value="${query.givex_cert}">`
+            }
+			const codeInputs = getCodeInputElems();
+			codeInputs[0].insertAdjacentHTML('afterEnd', hiddenInput);
+			enableButtons();
+			triggerNormalForm();
+		} else if (!response || response.error) {
+			let errString = null;
+			if (response.error && typeof response.error === 'string') {
+				errString = response.error;
+			} else if (response.error
+				&& typeof response.error.message === 'string'
+				&& response.error.message === 'Invalid security code') {
+				errString = 'Invalid card pin';
+			}
+			displayError(errString);
+			setTimeout(toggleFormActive, 500);
+		}
+		
+	}
+	const handleLoyaltyRedeem = async (e) => {
+		const query = {
+			customer_id: customerId,
+			givex_cert: givexCert,
+            store_name: SHOPNAME,
+		};
+		removeLoyaltyError()
+		e.preventDefault();
+		toggleLoyaltyFormActive();
+		let response;
+		try {
+			response = await fetch(`${API_BASE_URL}/loyalty/apply`, {
+				body: JSON.stringify(query),
+				method: 'POST',
+			}).then(res => res.json());
+		} catch (e) {
+			console.error(e);
+			displayLoyaltyError();
+		}
+		if (response && !response.error) {
+			// trigger click of form button to submit normally
+			var hiddenInput = `<input type="hidden" name="checkout[reduction_code]" value="${query.givex_cert.substring(8)}">`
+//           	var hiddenInput = `<input type="hidden" name="checkout[reduction_code]" value="${query.givex_cert}">`
+			const codeInputs = getCodeInputElems();
+			codeInputs[0].insertAdjacentHTML('afterEnd', hiddenInput);
+			getApplyButtons().forEach(b => b.disabled = false);
+			triggerNormalForm();
+		} else if (response && response.error) {
+			let errString = null;
+			if (typeof response.error === 'string') {
+				errString = response.error;
+			} else if (response.error&& response.error.message === 'Invalid security code') {
+				errString = 'Invalid card pin';
+			}
+			displayLoyaltyError(errString);
+		}
+		setTimeout(toggleLoyaltyFormActive, 500);
+	}
+	document.addEventListener("page:load", () => {
+		handlePageChange();
+	});
+	document.addEventListener("page:change", () => {
+		handlePageChange();
+	});
+	document.addEventListener("load", () => {
+		handlePageChange();
+	});
+</script>

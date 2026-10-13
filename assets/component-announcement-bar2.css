@@ -1,0 +1,13 @@
+.announcement-bar2{background-color:#eaeaea;padding:15px;position: relative; z-index:6;display: none;}
+.announcement-bar2 span.close{position: absolute; right: 10px; display: block; top: 50%; margin-top: -20px; cursor: pointer; width: 40px; height: 40px; line-height: 40px; }
+.announcement-bar2 span.close:before,.announcement-bar2 span.close:after{content:''; position: absolute; width:1px; height: 16px; left: 20px; top:12px; display: block; background: #000000;}
+.announcement-bar2 span.close:before{transform: rotate(45deg);}
+.announcement-bar2 span.close:after{transform: rotate(-45deg);}
+.announcement-bar2 p{margin-bottom:0; margin-top:0; text-transform:uppercase; text-align: center; line-height: 1.4; font-size:14px; color:#505050; font-weight: 500; }
+.announcement-bar2 a{font-size:14px; line-height: 1.4; text-decoration: none;}
+.announcement-bar2{padding-right:30px;} 
+.announcement-bar2 p svg{display:inline-block; height:16px; margin-right:5px; vertical-align:middle;}
+@media only screen and (max-width: 768px){
+  .announcement-bar2 span.close{right:0;}
+  .announcement-bar2 a, .announcement-bar2 p{font-size:11px; display:inline-block;}
+}

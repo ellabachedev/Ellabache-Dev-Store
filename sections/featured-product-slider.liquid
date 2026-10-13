@@ -1,0 +1,136 @@
+{{ 'featured-product-slider.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="featured-product-slider section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="section-header">
+      <h2 class="h1">{% if section.settings.title != blank -%}{{section.settings.title}}{%- endif -%}</h2>
+      {%- if section.settings.paragraph != blank -%}{{ section.settings.paragraph }}{%- endif -%}
+    </div>
+    <div class="relative {% if section.settings.candy_banner != blank %}has-candy-banner{% endif %}">
+      {%- if section.settings.candy_banner != blank -%}
+      <div class="candy-banner">
+        {%- if section.settings.candy_banner_link != blank -%}
+        <a class="candy-banner__link" href="{{ section.settings.candy_banner_link }}"></a>
+        {%- endif -%}
+        <img class="candy-banner__image" width="400" height="490" src="{{ section.settings.candy_banner | img_url:"500x" }}" loading="lazy" alt="Candy Banner">
+      </div>
+      {%- endif -%}
+      <!-- Product Grid -->
+      {%- assign collection = collections[section.settings.collection] -%}
+      <div class="product-grid product-grid--slider">
+        <div class="swiper featured-product-swiper">
+          <div class="swiper-wrapper">
+            {%- for product in collection.products -%}
+              {%- render 'product-grid-item-featured' product: product -%}
+            {%- endfor -%}
+          </div>
+          <div class="swiper-button-prev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Previous" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.12006 7.00125L8 1.07293L6.94245 0L0 6.99958L6.92165 14L7.98085 12.9287L2.12006 7.00125Z" fill="black"></path></svg></div>
+          <div class="swiper-button-next"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" aria-label="Next" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.87994 6.99875L0.0191458 1.07126L1.07835 0L8 7.00042L1.05755 14L0 12.9271L5.87994 6.99875Z" fill="black"></path></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  // Swiper: Slider
+  new Swiper('.featured-product-swiper', {
+      loop: false,
+      slidesPerView: "auto",
+      centeredSlides: false, // Align slides from the start
+      paginationClickable: true,
+      spaceBetween: 30,
+      spaceBetween: 14,
+      // Navigation arrows
+      navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+      },
+      breakpoints: {
+        600: {
+          spaceBetween: 14,
+        }
+      }
+  });
+});
+</script>
+{% schema %}
+  {
+    "name": "Featured Product Slider",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": "Paragraph"
+      },
+      {
+        "type": "image_picker",
+        "id": "candy_banner",
+        "label": "Candy Banner (desktop)",
+        "info": "Dimension: 320x480"
+      },
+      {
+        "type": "image_picker",
+        "id": "candy_banner_mobile",
+        "label": "Candy Banner (Mobile)",
+        "info": "Dimension: 768x200"
+      },
+      {
+        "type": "url",
+        "id": "candy_banner_link",
+        "label": "Banner Link"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default":56
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default":56
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Product Slider",
+        "category": "Banner"
+      }
+    ]
+  }
+{% endschema %}

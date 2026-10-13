@@ -1,0 +1,172 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "disabled": true,
+      "settings": {}
+    },
+    "Header": {
+      "type": "giveaway_header",
+      "settings": {}
+    },
+    "Banner": {
+      "type": "giveaway_hero_banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/EB_Web_Banner_Desktop_-_Copy_1.jpg",
+        "banner_image-mob": "shopify:\/\/shop_images\/EB_Web_Banner_Mobile_-_Copy_1.jpg",
+        "cta_url": "#shopify-section-template--14908783657009__Survey_Form"
+      }
+    },
+    "rich_text_hgT6wf": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_y6z8RD": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Win A Year's Worth Of Skincare*",
+            "heading_size": "h1"
+          }
+        },
+        "text_LVeQMW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Indulge in the ultimate gift of self-care and style with your chance to win a $1,000 Sportscraft gift card to elevate your wardrobe. Plus a year’s worth of luxurious Ella Baché skincare, your daily ritual for glowing, confident skin. <strong>Enter below for your chance to win. <\/strong>Offer ends 11th May, 2025. T&Cs apply.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_y6z8RD",
+        "text_LVeQMW"
+      ],
+      "custom_css": [
+        ".rich-text__text {max-width: 700px; margin-left: auto; margin-right: auto;}"
+      ],
+      "settings": {
+        "color_scheme": "accent-1",
+        "full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "Grid": {
+      "type": "giveaway_2col_grid_content",
+      "blocks": {
+        "typeform_tDc4EJ": {
+          "type": "Typeform",
+          "settings": {
+            "item_image": "shopify:\/\/shop_images\/Form_Image_1.jpg",
+            "item_typeform": "<div data-tf-live=\"01JRCG0Y778DQVZA2CXNMD1X59\"><\/div><script src=\"\/\/embed.typeform.com\/next\/embed.js\"><\/script>"
+          }
+        },
+        "article_AyGgwd": {
+          "type": "Article",
+          "disabled": true,
+          "settings": {
+            "item_title": "SPORTSCRAFT x ELLA BACHÉ COMPETITION – T&Cs",
+            "item_desc": "<p><strong style=\"font-weight:bold\">Enter for your chance to win<\/strong> a $1,000 Sportscraft gift card and a year’s worth of Ella Baché skincare (valued at $1,000 RRP). Open to Australian residents aged 18+ only.<\/p>\n <p><strong style=\"font-weight:bold\">Competition runs<\/strong> from 9:00am AEST 28 April 2025 to 11:59pm AEST 11 May 2025. One entry per person.<\/p>\n <p>To enter, submit your details at ellabache.com.au\/xxx and agree to receive marketing communications from Ella Baché and Sportscraft. Your information will be handled in line with both brands’ privacy policies.<\/p>\n <p><strong style=\"font-weight:bold\">One winner will be drawn at random<\/strong> on 13 May 2025 and contacted via email\/SMS within 3 business days. Prize not redeemable for cash.<\/p>\n <p>Full Terms & Conditions apply. See below for details.<\/p>",
+            "item_btn_text": "",
+            "item-btn-url": "",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/0524-Avant-Giveaway-Tile-1080x1080px.jpg",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "typeform_tDc4EJ",
+        "article_AyGgwd"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "Survey_Form": {
+      "type": "giveaway_survey_form",
+      "disabled": true,
+      "settings": {
+        "survey_form": "<div data-tf-live=\"01JRCG0Y778DQVZA2CXNMD1X59\"><\/div><script src=\"\/\/embed.typeform.com\/next\/embed.js\"><\/script>"
+      }
+    },
+    "rich_text_98wpFK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_jrYfdD": {
+          "type": "heading",
+          "settings": {
+            "heading": "SPORTSCRAFT x ELLA BACHÉ COMPETITION – T&Cs",
+            "heading_size": "h2"
+          }
+        },
+        "text_aEF7c6": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Enter for your chance to win<\/strong> a $1,000 Sportscraft gift card and a year’s worth of Ella Baché skincare (valued at $1,000 RRP). Open to Australian residents aged 18+ only.<\/p><p><strong>Competition runs<\/strong> from 9:00am AEST 28 April 2025 to 11:59pm AEST 11 May 2025. One entry per person.<\/p><p>To enter, submit your details at ellabache.com.au\/pages\/sportscraft-x-ella-bache-giveaway and agree to receive marketing communications from Ella Baché and Sportscraft. Your information will be handled in line with both brands’ privacy policies.<\/p><p><strong>One winner will be drawn at random<\/strong> on 13 May 2025 and contacted via email\/SMS within 3 business days. Prize not redeemable for cash.<\/p><p>Full Terms & Conditions apply . See full details at ellabache.com.au\/pages\/terms. <\/p><p>Please see Sportscraft Privacy Policy <a href=\"https:\/\/www.sportscraft.com.au\/help\/privacy-policy\" title=\"https:\/\/www.sportscraft.com.au\/help\/privacy-policy\"><strong>HERE.<\/strong><\/a><\/p><p>Please see Ella Baché Privacy Policy <a href=\"https:\/\/www.ellabache.com.au\/pages\/privacy\" title=\"https:\/\/www.ellabache.com.au\/pages\/privacy\"><strong>HERE.<\/strong><\/a><\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_jrYfdD",
+        "text_aEF7c6"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 990px) {.rich-text__blocks {max-width: 50rem; }}"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "Giveaway_brand_grid": {
+      "type": "giveaway_brand_grid",
+      "blocks": {
+        "brand_PyyPeU": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/Brand-Image.jpg",
+            "brand_title": "Shop Sportscraft",
+            "brand_subtext": "",
+            "button_text": "Shop Now",
+            "button_url": "https:\/\/www.sportscraft.com.au\/"
+          }
+        },
+        "brand_7Gz4fn": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify:\/\/shop_images\/Untitled-design-_53.jpg",
+            "brand_title": "Shop Ella Baché",
+            "brand_subtext": "",
+            "button_text": "Shop Now",
+            "button_url": "https:\/\/www.ellabache.com.au\/"
+          }
+        }
+      },
+      "block_order": [
+        "brand_PyyPeU",
+        "brand_7Gz4fn"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "Header",
+    "Banner",
+    "rich_text_hgT6wf",
+    "Grid",
+    "Survey_Form",
+    "rich_text_98wpFK",
+    "Giveaway_brand_grid"
+  ]
+}

@@ -1,0 +1,47 @@
+{%- capture backinstock -%}
+<div class="bis-wrapper" {% assign showbisonload=false %} {%- if product.tags contains settings.discontinue_tag -%} {%-
+    elsif current_variant.available==false -%} {% assign showbisonload=true %} {%- else -%} {%- endif -%} {% if
+    showbisonload %} style="display:block" {% endif %} data-bis-wrapper data-bis-data='{
+        "product_id": "{{product.id}}",
+        "variant_id": "{{current_variant.id}}",
+        "variants_enabled": {
+        {%- for variant in product.variants -%}
+            "{{variant.id}}":
+                {%- if product.tags contains settings.discontinue_tag  -%}
+                    false
+                {%- elsif variant.available == false -%}
+                    true
+                {%- else -%}
+                    false
+                {%- endif -%}
+                {%- unless forloop.last -%}
+                ,
+                {%- endunless -%}
+        {%- endfor -%}
+        }
+    }'>
+    {% comment %}<b>{{ 'products.product.back_in_stock_message' | t}}</b>
+    <div class="bis-input-wrapper">
+        <input type="text" class="input email" placeholder="{{ 'products.product.back_in_stock_placeholder' | t}}" />
+        <input id="notify_button-{{ product.handle }}" type="button" class="button submit"
+            value="{{ 'products.product.submit' | t }}" />
+    </div>
+    <div class="clearfix back-in-stock-checkbox-div">
+        <input type="checkbox" id="BackInStockAcceptsMarketing-{{ product.handle }}" checked="checked">
+        <label for="BackInStockAcceptsMarketing-{{ product.handle }}">{{ 'products.product.back_in_stock_newsletter' | t
+            }}</label>
+    </div>
+    <div class="bis-whats-this">
+        <a onclick="openModal()" href="#OpenModal-{{ product.handle }}">{{ settings.what_is_this_link }}</a>
+        <div id="OpenModal-{{ product.handle }}">
+            <button onclick="closeModal()" type="button" class="modal__close js-modal-close text-link">
+                {%- include 'icon-close' -%}
+            </button>
+            <h3>{{ settings.popup_title }}</h3>
+            <p>{{ settings.popup_text }}</p>
+            <a href="{{ settings.popup_link }}">{{ settings.popup_link_text }}</a>
+        </div>
+    </div>{% endcomment %}
+</div>
+{%- endcapture -%}
+{{ backinstock | strip_newlines }}

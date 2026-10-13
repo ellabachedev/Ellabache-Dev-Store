@@ -1,0 +1,206 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header": {
+      "type": "product-landing-header",
+      "settings": {}
+    },
+    "banner": {
+      "type": "product-landing-banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/0324_Landing_Page_WEB_1920x900px_2_1.jpg",
+        "banner_image-mob": "shopify:\/\/shop_images\/0324_Landing_Page_MOBILE_1080x1080px.jpg",
+        "cta_url": "https:\/\/www.ellabache.com.au\/collections\/spirulineslift"
+      }
+    },
+    "grid_content": {
+      "type": "product-landing-grid-content",
+      "blocks": {
+        "136253c8-aba5-4ec1-a917-437d9c7bab75": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Latest Innovation<br>in Skincare",
+            "item_desc": "<p style=\"font-size: 25px\">\nStop The Clock Skin Solution is supercharged with antioxidant rich ingredients that strengthen and support your skin health and supports the biological ageing process.<\/p>",
+            "item_btn_text": "Learn More",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/blogs\/ella-bache\/next-generation-spirulineslift",
+            "item-btn-color": "#001e37",
+            "item_video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/be6bfed572754a11ab591f05f3a9c09b.mp4"
+          }
+        },
+        "a4249b84-2675-4478-9178-3c73800314a2": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Recharge your skin",
+            "item_desc": "<p style=\"font-size: 25px\">\n<b>SpirulinesLift Firming Day Cream <\/b>\n<br>\n Deeply nourishing, silky and hydrating cream instantly smooths fine lines. Creates a protective barrier on the skin for the ultimate ageless day time protection.<\/p>",
+            "item_btn_text": "Recharge your Skin",
+            "item-btn-url": "shopify:\/\/products\/spirulineslift-firming-day-cream",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/0324_Landing_Page_BODY_730x508px2.jpg",
+            "item_video": ""
+          }
+        },
+        "b4363796-6f86-4187-8826-dab4d746f1c8": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Firming and Revitalising",
+            "item_desc": "<p style=\"font-size: 25px\">\n<b>SpirulinesLift Firming Night Cream<\/b> <br>\nRevitalise and recharge overnight with our intensive night cream. Packed with proteins, vitamins, minerals, and nutrients to enhance your skin's appearance and texture. <\/p>",
+            "item_btn_text": "Get the firming effect",
+            "item-btn-url": "shopify:\/\/products\/spirulineslift-firming-night-cream",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/0324_Landing_Page_BODY_730x508px.jpg",
+            "item_video": ""
+          }
+        },
+        "2d96cf47-3c73-496e-a511-c14a1ffcaeb6": {
+          "type": "Article",
+          "settings": {
+            "item_title": "Protect and Strengthen",
+            "item_desc": "<p style=\"font-size: 25px\">\nActivate your Skin Solution with the Stop The Clock facial to recharge, firm and smooth your skin. A Spirulina-rich booster treatment that will amplify the results of your at-home care.  <\/p>",
+            "item_btn_text": "Book Now At Your Local Salon",
+            "item-btn-url": "https:\/\/www.ellabache.com.au\/products\/stop-the-clock",
+            "item-btn-color": "#001e37",
+            "item_image": "shopify:\/\/shop_images\/0324_Landing_Page_BODY_730x508px_3.jpg",
+            "item_video": ""
+          }
+        }
+      },
+      "block_order": [
+        "136253c8-aba5-4ec1-a917-437d9c7bab75",
+        "a4249b84-2675-4478-9178-3c73800314a2",
+        "b4363796-6f86-4187-8826-dab4d746f1c8",
+        "2d96cf47-3c73-496e-a511-c14a1ffcaeb6"
+      ],
+      "settings": {
+        "enable_parallax": false
+      }
+    },
+    "how_to_use": {
+      "type": "product-landing-how-to-use",
+      "settings": {
+        "bg_color": "#d5d7dc",
+        "how_to_video": "",
+        "youtube_video": "https:\/\/www.youtube.com\/embed\/CTYMwsSZUL4",
+        "how_to_title": "<center>Stop The Clock  <\/center>",
+        "how_to_desc": "<center> <p style=\"font-size: 20px\"> Learn how to support your skin's biological ageing process with Gina Cook, National Training Manager at Ella Baché. <\/p>\n<\/center>"
+      }
+    },
+    "reviews": {
+      "type": "marquee-product-reviews",
+      "disabled": true,
+      "settings": {}
+    },
+    "service_highlights": {
+      "type": "service-highlights",
+      "blocks": {
+        "f18c6d31-0b2e-4b1c-8b0c-8cfd7cfa82cb": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "Protect",
+            "icon": "giftbox",
+            "url": ""
+          }
+        },
+        "4edbac0a-7858-4c33-b708-db5177dc5724": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "<big> Smooth<\/big>",
+            "icon": "giftbox",
+            "url": ""
+          }
+        },
+        "6f8b2997-0d95-4c64-9503-0b2b576ca957": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "title": "<big> Firm<\/big>",
+            "icon": "cosmetics",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "f18c6d31-0b2e-4b1c-8b0c-8cfd7cfa82cb",
+        "4edbac0a-7858-4c33-b708-db5177dc5724",
+        "6f8b2997-0d95-4c64-9503-0b2b576ca957"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "best_seller": {
+      "type": "best-seller",
+      "blocks": {
+        "eb6118fe-ea82-4c9a-824d-c20b66ffbd77": {
+          "type": "collection",
+          "settings": {
+            "label": "",
+            "collection": "spirulineslift"
+          }
+        }
+      },
+      "block_order": [
+        "eb6118fe-ea82-4c9a-824d-c20b66ffbd77"
+      ],
+      "settings": {
+        "title": "Activate Your Skin With spirulina"
+      }
+    },
+    "slider": {
+      "type": "slider-product-landing",
+      "blocks": {
+        "c916dcde-4d78-4860-bf1f-391d5f167442": {
+          "type": "image-slide",
+          "disabled": true,
+          "settings": {
+            "banner_enable": true,
+            "desktop_image": "shopify:\/\/shop_images\/0423_INNOVATION_Web_Banners_1900x650px_700adda7-162b-4907-911b-dac803aa0e9e.png"
+          }
+        }
+      },
+      "block_order": [
+        "c916dcde-4d78-4860-bf1f-391d5f167442"
+      ],
+      "disabled": true,
+      "settings": {}
+    },
+    "social_media": {
+      "type": "feed-social-media",
+      "disabled": true,
+      "settings": {
+        "title": "Have you tried SpirulinesLift? Share your reviews with us on Instagram",
+        "user_id": "17841400417663213",
+        "feed_token": "IGQVJXT2IxOG9wU01CSTZAyU3pYeUdHSWRZAVEx0bElCR0EtdTRzcUpQVmhiUEhxMnVDT2E0SlhKM0pyMlM3UXVkQk1wWDg5OFBjb3RjSUdhdFJERHZAlUjI1bzMzX0hqVjcxeC1na3lYZAG8yVHRxZAWVlUQZDZD"
+      }
+    },
+    "shogun-helper": {
+      "type": "shogun-helper",
+      "settings": {}
+    },
+    "shogun-optimizer": {
+      "type": "shogun-optimizer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "shogun-helper",
+    "header",
+    "banner",
+    "grid_content",
+    "how_to_use",
+    "reviews",
+    "service_highlights",
+    "best_seller",
+    "slider",
+    "social_media",
+    "shogun-optimizer"
+  ]
+}

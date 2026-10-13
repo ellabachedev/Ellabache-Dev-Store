@@ -1,0 +1,183 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+{% if customer %}
+  {% if customer.metafields.salon_portal.salon_page_handle %}
+    {% if customer.metafields.salon.salon_type and customer.metafields.salon.salon_type != "With Website" %}
+
+<div class="dashboard-customer">
+        <div class="flex-container">
+          {% include 'customer-dashboard-sidebar' %}
+          <div class="content-body">
+            {%  render 'customer-dashboard-welcome-box' %}
+            <div class="content-body-box content-body-onlineOrders">
+              <h3 class="sub-history has-button">{{ page.title }} 
+                <div class="button-holder">
+                  <a href="/pages/salon-voucher-transactions" class="view-all-transactions btn" id="viewAllTransactions">View all
+                    transactions</a>
+                </div>
+              </h3>
+                <div class="voucher-redeem" style="display:block">
+                  <div class="filters">
+                    <div class="item">
+                      <div class="inner">
+                        <label for="discountCode">Redeem a voucher: </label>
+                        <div class="flex-container">
+                          <input id="discountCode" class="field-text field" type="text" name="discount_code">
+                          <input type="button" class="btn" id="check" name="check" value="Check">
+                          <input type="button" class="btn" id="redeem" name="redeem" value="Redeem">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<style>
+#voucherOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  z-index: 99999;
+  color: #fff;
+  font-size: 16px;
+}
+</style>
+
+<script>
+$(function () {
+
+  const API_CHECK = "https://salon-voucher-lookup-366775112035.australia-southeast1.run.app/";
+  const API_REDEEM = "https://salon-voucher-redeem-366775112035.australia-southeast1.run.app/";
+
+  const salonPageHandle = "{{ customer.metafields.salon_portal.salon_page_handle }}";
+  const customerEmail = "{{ customer.email }}";
+
+  let discountCode = "";
+
+  const $input = $('#discountCode');
+  const $checkBtn = $('#check');
+  const $redeemBtn = $('#redeem');
+  const $item = $('.item');
+
+  // ---------------- UI HELPERS ----------------
+  function overlay(show) {
+    if (show) {
+      if (!$('#voucherOverlay').length) {
+        $('body').prepend('<div id="voucherOverlay">Processing...</div>');
+      }
+    } else {
+      $('#voucherOverlay').remove();
+    }
+  }
+
+  function setLoading(state) {
+    $checkBtn.prop('disabled', state);
+    $redeemBtn.prop('disabled', state);
+  }
+
+  function showMessage(type, msg) {
+    $item.find('.error-msg, .success-msg').remove();
+    $item.append(`<p class="${type}-msg">${msg}</p>`);
+  }
+
+  // ---------------- API CALL ----------------
+  function callAPI(url, callback) {
+    $.ajax({
+      url: url,
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      dataType: "json",
+      timeout: 10000,
+      data: {
+        code: discountCode,
+        salon_ga_code: salonPageHandle,
+        email: customerEmail
+      },
+      success: function (res) {
+        callback(null, res);
+      },
+      error: function (xhr) {
+        callback(xhr);
+      }
+    });
+  }
+
+  // ---------------- INPUT ----------------
+  $input.on('input', function () {
+    discountCode = $(this).val().trim();
+  });
+
+  function handleResponse(err, res, successMsgPrefix) {
+    overlay(false);
+    setLoading(false);
+
+    if (err || !res) {
+      showMessage("error", "Server error. Please try again.");
+      return;
+    }
+
+    if (res.status === "error") {
+      showMessage("error", res.message);
+      return;
+    }
+
+
+    showMessage(
+      "success",
+      `${successMsgPrefix}`
+    );
+  }
+
+  // ---------------- CHECK ----------------
+  $checkBtn.on('click', function () {
+
+    if (!discountCode) {
+      showMessage("error", "Please enter a voucher code.");
+      return;
+    }
+
+    overlay(true);
+    setLoading(true);
+
+    callAPI(API_CHECK, function (err, res) {
+      handleResponse(err, res, "Voucher valid");
+    });
+  });
+
+  // ---------------- REDEEM ----------------
+  $redeemBtn.on('click', function () {
+
+    if (!discountCode) {
+      showMessage("error", "Please enter a voucher code.");
+      return;
+    }
+
+    overlay(true);
+    setLoading(true);
+
+    callAPI(API_REDEEM, function (err, res) {
+      handleResponse(err, res, "Voucher redeemed");
+    });
+  });
+
+});
+</script>
+
+    {% else %}
+      <script>window.location.href = "{{ shop.url }}/account";</script>
+    {% endif %}
+  {% else %}
+    <script>window.location.href = "{{ shop.url }}/account";</script>
+  {% endif %}
+{% else %}
+  <script>
+    window.location.href = "{{ shop.url }}/account/login?return_url=%2Fpages%2Fsalon-service-book-waitlist";
+  </script>
+{% endif %}

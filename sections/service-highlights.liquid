@@ -1,0 +1,60 @@
+{{ 'section-service-highlights.css' | asset_url | stylesheet_tag }}
+{%- capture service-highlights -%}
+<div class="service-highlights page-width">
+{%- for block in section.blocks -%}
+  {% render 'service-highlights', sp_url: block.settings.url, sp_icon: block.settings.icon, sp_title: block.settings.title %}
+{%- endfor -%}
+</div>
+{%- endcapture -%}
+{{ service-highlights | strip_newlines }}
+{% schema %}
+{
+"name": "Service Highlights",
+"max_blocks": 3,
+"blocks": [
+    {
+    "name": "Service Highlights",
+    "type": "text",
+    "settings": [
+        {
+        "type": "textarea",
+        "id": "title",
+        "label": "Title"
+        },
+        {
+        "type": "select",
+        "id": "icon",
+        "label": "Icon",
+        "options": [
+        {
+            "value": "giftbox",
+            "label": "Giftbox"
+        },
+        {
+            "value": "shipping",
+            "label": "Shipping"
+        },
+        {
+            "value": "cosmetics",
+            "label": "Cosmetics"
+        }
+        ],
+        "default":   "giftbox",
+        "info":      "Giftbox"
+        },
+        {
+        "type": "url",
+        "id": "url",
+        "label": "Link to"
+        }
+    ]
+    }
+],
+"presets": [
+    {
+    "name": "Service Highlights",
+    "category": "Custom Content"
+    }
+]
+}
+{% endschema %}

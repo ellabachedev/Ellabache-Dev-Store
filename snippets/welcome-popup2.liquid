@@ -1,0 +1,91 @@
+{%- assign show_popup = true %}
+{%- assign exclude_list = settings.welcome_popup2_include | split: "|" -%}
+{%- for exclude_url in exclude_list -%}
+  {%- assign strippedUrl = exclude_url | strip -%}
+  {%- if request.path contains strippedUrl -%}
+    {%- assign show_popup = false -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if page.metafields.accentuate.disable_welcome_popup_2 != blank -%}
+  {%- assign show_popup = false %}
+{%- endif -%}
+{%- if show_popup -%}
+  <link rel="stylesheet" href="{{ 'component-welcome-popup2.css' | asset_url }}">
+  <div
+    class="welcome_popup_dotdigital"
+    style="display:none;"
+    data-popup-open-delay="{{ settings.welcome_popup2_open_delay }}"
+    data-lambda-mode="{{ shop.metafields.global.lambda_middleware_mode }}">
+    <img
+      class="popup__image"
+      width="445"
+      height="590"
+      loading="lazy"
+      data-img-src
+      src="{{ settings.welcome_popup2_banner_img | img_url: '1000x'  }}"
+      alt="Subscription Banner Image">
+    <div class="popup__content overlay">
+      {%- if settings.welcome_popup2_title != blank -%}
+        <h2>{{ settings.welcome_popup2_title }}</h2>
+      {%- endif -%}
+      {%- if settings.welcome_popup2_sub_title != blank -%}
+        <h3>{{ settings.welcome_popup2_sub_title }}</h3>
+      {%- endif -%}
+      <p>{{ settings.welcome_popup2_desc }}</p>
+      <p>{{ settings.welcome_popup2_form_desc }}</p>
+      <div class="subscription-form">
+        <div class="header"></div>
+        {%- form 'customer', id: 'welcome-popup2' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="newsletter__form-message">
+              <h4>{{ settings.welcome_popup2_success_message }}</h4>
+            </div>
+          {%- else -%}
+            {{ form.errors | default_errors }}
+            <div class="form-inputs">
+              <div class="item">
+                <label class="hidden">name</label>
+                <input
+                  type="text"
+                  name="contact[first_name]"
+                  id="fName"
+                  class="subscription__input"
+                  value=""
+                  placeholder="name"
+                  spellcheck="true"
+                  required=""
+                  autocapitalize="off"
+                  aria-label="name">
+              </div>
+              <div class="item">
+                <label class="hidden">email</label>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  id="Email"
+                  class="subscription__input"
+                  value=""
+                  placeholder="email"
+                  spellcheck="true"
+                  required=""
+                  autocapitalize="off"
+                  aria-label="email">
+              </div>
+            </div>
+            <div class="form-button">
+              <button
+                type="submit"
+                class=""
+                name="commit"
+                id="popUpSubscribe">{{ settings.welcome_popup2_Btn_text }}</button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+      <p class="bottom-text">*T&C's apply. Not Valid with Express Facial Treatments. Valid at participating salons only.</p>
+    </div>
+    <a href="#" class="popup-close" id="popupDotdigitalClose" aria-label="close"></a>
+  </div>
+  <script src="{{ 'welcome-popup2_min.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

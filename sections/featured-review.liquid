@@ -1,0 +1,355 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+{% style %}
+  .featured-review-box {
+    display: block;
+    width: 100%;
+    background-color: {{ section.settings.background_color }};
+    padding:40px;
+  }
+  .featured-review-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .featured-review-text {
+    max-width: 800px;
+  }
+
+  .featured-review-heading {
+    margin: 0 0 24px 0;
+  }
+
+  .featured-review-quote {
+    font-size: {{ section.settings.text_size }}px;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 20px 0;
+    line-height: 1.6;
+  }
+
+  .featured-review-attribution {
+    font-size: {{ section.settings.attribution_size }}px;
+    color: {{ section.settings.text_color }};
+    font-style: italic;
+    margin: 0;
+  }
+
+  .featured-review-image-wrapper {
+    width: {{ section.settings.image_size }}px;
+    height: {{ section.settings.image_size }}px;
+    flex-shrink: 0;
+  }
+
+  .featured-review-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ section.settings.image_border_radius }}px;
+  }
+
+  .featured-review-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ section.settings.image_border_radius }}px;
+    position: relative;
+  }
+
+  .featured-review-image-placeholder svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .featured-review-empty-state {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+  .featured-review-text h2.hide-desktop{
+    display:none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-review-box{
+      padding:30px 15px;
+    }
+    .featured-review-content {
+      {% if section.settings.mobile_layout == 'image_top' %}
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      {% elsif section.settings.mobile_layout == 'image_bottom' %}
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+      {% endif %}
+      gap: 24px;
+    }
+
+    {% if section.settings.mobile_layout == 'image_top' %}
+      .featured-review-image-wrapper {
+        order: -1;
+        margin: 0 auto;
+      }
+    {% elsif section.settings.mobile_layout == 'image_bottom' %}
+      .featured-review-image-wrapper {
+        order: 1;
+        margin: 0 auto;
+      }
+    {% endif %}
+
+    .featured-review-heading {
+      margin-bottom: 16px;
+    }
+
+    .featured-review-quote {
+      font-size: {{ section.settings.text_size | times: 0.9 }}px;
+      margin-bottom: 16px;
+    }
+
+    .featured-review-attribution {
+      font-size: {{ section.settings.attribution_size | times: 0.9 }}px;
+    }
+
+    .featured-review-image-wrapper {
+      width: auto;
+      height: auto;
+    }
+    .featured-review-text h2.hide-desktop{
+      display:block;
+    }
+    .featured-review-text h2.hide-mobile{
+      display:none;
+    }
+  }
+{% endstyle %}
+<div class="featured-review section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="featured-review-box">
+      <div class="featured-review-content">
+        <div class="featured-review-text">
+          {% if section.settings.heading != blank %}
+            <h2 class="hide-mobile featured-review-heading">
+              {{ section.settings.heading }}
+            </h2>
+          {% endif %}
+
+          {% if section.settings.quote != blank %}
+            <div class="featured-review-quote">
+              {{ section.settings.quote }}
+            </div>
+          {% endif %}
+
+          {% if section.settings.attribution != blank %}
+            <p class="featured-review-attribution">
+              {{ section.settings.attribution }}
+            </p>
+          {% endif %}
+        </div>
+
+        <div class="featured-review-image-wrapper">
+          {% if section.settings.heading != blank %}
+            <h2 class="hide-desktop featured-review-heading">
+              {{ section.settings.heading }}
+            </h2>
+          {% endif %}
+          {% if section.settings.image %}
+            <img
+              src="{{ section.settings.image | image_url: width: 400 }}"
+              alt="{{ section.settings.image.alt | escape }}"
+              class="featured-review-image"
+              loading="lazy"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+            >
+          {% else %}
+            <div class="featured-review-image-placeholder">
+              {{ 'image' | placeholder_svg_tag }}
+              <div class="featured-review-empty-state">
+                Add expert photo
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Featured Review",
+  "tag": "section",
+  "class": "section-featured-reviews",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tips From Our Skincare Expert"
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Quote",
+      "default": "<p>Share expert skincare advice, product recommendations, or beauty tips that resonate with your customers and showcase your brand's expertise.</p>"
+    },
+    {
+      "type": "text",
+      "id": "attribution",
+      "label": "Attribution",
+      "default": "-Gina Cook, National Training Manager"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Expert photo"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#F3F3F3"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#001E37"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#3E3E40"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Quote size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "attribution_size",
+      "label": "Attribution size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "label": "Image size",
+      "min": 100,
+      "max": 300,
+      "step": 20,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "image_top",
+          "label": "Image above text"
+        },
+        {
+          "value": "image_bottom",
+          "label": "Image below text"
+        }
+      ],
+      "default": "image_top"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Review"
+    }
+  ]
+}
+{% endschema %}

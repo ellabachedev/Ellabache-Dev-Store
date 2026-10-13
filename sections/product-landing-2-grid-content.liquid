@@ -1,0 +1,141 @@
+{{ 'component-product-landing-grid-content.css' | asset_url | stylesheet_tag }}
+<section class="product-landing-grid-content">
+    <div class="page-width" style="max-width:1720px;">
+      {%- assign index = 0 -%}
+      {%- for block in section.blocks -%}
+        <div class="item">
+          <div class="flex-container v-align-center">
+            <div class="content">
+              {% if block.settings.item_title != blank %}
+              <h2>{{ block.settings.item_title }}</h2>
+              {% endif %}
+              {% if block.settings.item_desc != blank %}
+              {{ block.settings.item_desc }}
+              {% endif %}
+              {% if block.settings.item_btn_text != blank %}
+              <div class="button-holder">
+                <a class="btn btn-primary" href="{{ block.settings.item-btn-url }}" style="background-color:{{ block.settings.item-btn-color }}; border:1px solid {{ block.settings.item-btn-color }}">{{ block.settings.item_btn_text }}</a>
+              </div>
+              {% endif %}
+             </div>
+            {% if block.settings.item_video != blank %}
+             <div class="media">
+               <div class="video">
+                  <video src="{{ block.settings.item_video }}" autoplay muted loop class="video-promo" controls="false"></video>
+               </div>
+              </div>
+            {% else %}
+              {% if block.settings.item_image != blank %}
+                {% if section.settings.enable_parallax %}
+                  <div class="image">
+                     <div class="parallax-window" data-parallax="scroll" data-image-src="{{ block.settings.item_image | img_url:'800x' }}"></div>
+                   </div>
+                {% else %}
+                  <div class="image">
+                    <img src="{{ block.settings.item_image | img_url:'800x' }}" loading="lazy" alt="">
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      {%- assign index = index | plus: 1 -%}
+      {%- endfor -%}
+    </div>
+  </section>
+<script>
+playPauseVideo();
+function playPauseVideo() {
+    let videos = document.querySelectorAll(".video-promo");
+    videos.forEach((video) => {
+        // We can only control playback without insteraction if video is mute
+        video.muted = true;
+        // Play is a promise so we need to check we have it
+        let playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.then((_) => {
+                let observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (
+                                entry.intersectionRatio !== 1 &&
+                                !video.paused
+                            ) {
+                                video.pause();
+                            } else if (video.paused) {
+                                video.play();
+                            }
+                        });
+                    },
+                    { threshold: 0.2 }
+                );
+                observer.observe(video);
+            });
+        }
+    });
+}
+</script>
+{% schema %}
+  {
+    "name": "Grid Content",
+    "settings": [
+      {
+        "id" : "enable_parallax",
+        "type" : "checkbox",
+        "label" : "Enable Parallax Transition",
+        "default" : true
+      }
+    ],
+    "blocks": [
+    {
+      "type": "Article",
+      "name": "Item",
+      "settings": [
+        {
+          "id": "item_title",
+          "type": "textarea",
+          "label": "Title"
+        },
+        {
+          "id": "item_desc",
+          "type": "textarea",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "item_btn_text",
+          "label": "Button",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "item-btn-url",
+          "label": "Button URL"
+        },
+        {
+          "type": "color",
+          "id": "item-btn-color",
+          "label": "Button Color",
+          "default": "#7dabbd"
+        },
+        {
+          "id": "item_image",
+          "type": "image_picker",
+          "label": "Image"
+        },
+        {
+          "id": "item_video",
+          "type": "text",
+          "label": "Video URL"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

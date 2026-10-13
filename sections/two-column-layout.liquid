@@ -1,0 +1,299 @@
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-two-column-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-two-column-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.container_width == 'page' %}
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 30px;
+    {% endif %}
+  }
+
+  .ai-two-column-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: {{ block.settings.vertical_alignment }};
+  }
+
+  .ai-two-column-text-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-two-column-embed-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-two-column-embed-content-{{ ai_gen_id }} {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  {% if block.settings.reverse_columns %}
+    .ai-two-column-text-{{ ai_gen_id }} {
+      order: 2;
+    }
+    .ai-two-column-embed-{{ ai_gen_id }} {
+      order: 1;
+    }
+  {% endif %}
+
+  @media screen and (max-width: 749px) {
+    .ai-two-column-container-{{ ai_gen_id }} {
+      {% if block.settings.stack_on_mobile %}
+        grid-template-columns: 1fr;
+        gap: {{ block.settings.mobile_gap }}px;
+      {% else %}
+        grid-template-columns: 1fr 1fr;
+      {% endif %}
+    }
+
+    {% if block.settings.stack_on_mobile %}
+      .ai-two-column-text-{{ ai_gen_id }},
+      .ai-two-column-embed-{{ ai_gen_id }} {
+        order: 0;
+      }
+
+      {% if block.settings.reverse_mobile %}
+        .ai-two-column-text-{{ ai_gen_id }} {
+          order: 2;
+        }
+        .ai-two-column-embed-{{ ai_gen_id }} {
+          order: 1;
+        }
+      {% endif %}
+    {% endif %}
+  }
+  .featured-product:not(.product--no-media) > .product__info-wrapper {
+    padding-left: 0;
+    width: 50%;
+  }
+  @media screen and (max-width: 750px) {
+    .featured-product:not(.product--no-media) > .product__info-wrapper {
+      width: 100%;
+    }
+    .ai-two-column-wrapper-{{ ai_gen_id }} {
+      {% if block.settings.container_width == 'page' %}
+        padding: 0 15px;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+<div class="ai-two-column-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-two-column-wrapper-{{ ai_gen_id }}">
+    <div class="ai-two-column-container-{{ ai_gen_id }}">
+      <div class="ai-two-column-text-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-two-column-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        
+        {% if block.settings.richtext != blank %}
+          <div class="ai-two-column-richtext-{{ ai_gen_id }}">
+            {{ block.settings.richtext }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-two-column-embed-{{ ai_gen_id }}">
+        {% if block.settings.embed_code != blank %}
+          <div class="ai-two-column-embed-content-{{ ai_gen_id }}">
+            {{ block.settings.embed_code }}
+          </div>
+        {% else %}
+          <div class="ai-two-column-embed-content-{{ ai_gen_id }}" style="background-color: #f4f4f4; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px; text-align: center; padding: 40px 20px;">
+            Add your embedded form or content code
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Two column layout",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full width"
+        },
+        {
+          "value": "page",
+          "label": "Page width"
+        }
+      ],
+      "default": "page",
+      "info": "Full width spans entire screen, page width is constrained to 1300px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_columns",
+      "label": "Reverse column order on desktop",
+      "default": false,
+      "info": "Swap text and embed positions"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_on_mobile",
+      "label": "Stack columns on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_mobile",
+      "label": "Reverse column order on mobile",
+      "default": false,
+      "info": "Only applies when stacking is enabled"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Your heading here"
+    },
+    {
+      "type": "richtext",
+      "id": "richtext",
+      "label": "Text",
+      "default": "<p>Add your content here. Use the rich text editor to format your text with bold, italic, links and more.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Embedded content"
+    },
+    {
+      "type": "html",
+      "id": "embed_code",
+      "label": "Embed code",
+      "info": "Paste your form embed code or any HTML content here"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title bottom spacing",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#001e37"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#333332"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two column layout"
+    }
+  ]
+}
+{% endschema %}

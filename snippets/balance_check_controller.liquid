@@ -1,0 +1,148 @@
+{% comment %}Edit Variables{% endcomment %}
+{% assign GOOGLE_RECAPTCHA_SCRIPT_URL = 'https://www.google.com/recaptcha/api.js?render=6LeE5u4iAAAAAEidej0liCU2d97ahgZ_VgCL6GdE' %}
+{% assign BALANCE_CHECK_PIN_REQUIRED = true %}
+
+
+<div class="widget" id='gift-card-balance-form'>
+	<script src="{{ GOOGLE_RECAPTCHA_SCRIPT_URL }}"></script>
+	<h2>Check Your Gift Card Balance Below</h2>
+	<div class="form-vertical large--one-half medium-down--one-whole">
+		<form id='gift_card_balance_check'>
+          <div class="flex-container">
+			{% comment %}<label for="gift_card_identifier" class="" required>Gift Card{% if BALANCE_CHECK_PIN_REQUIRED == false %} Or Phone{% endif %} Number</label>{% endcomment %}
+			<input type="text" name="card_number" id="gift_card_identifier" size='30' minlength='8' placeholder='Gift Card{% if BALANCE_CHECK_PIN_REQUIRED == false %} Or Phone{% endif %} Number' maxlength='22' class="input-full" value="" required>
+			{% if BALANCE_CHECK_PIN_REQUIRED %}
+				{% comment %}<label for="gift_card_pin" class="" required>Pin</label>{% endcomment %}
+				<input type="text" name="card_pin" id="gift_card_pin" size='10' placeholder='Pin' minlength='4' maxlength='4' class="input-full" value="" required>
+			{% endif %}
+             <input id='gift_card_balance_check_submit_button' type="submit" name="checkout" class="btn" value="Check Balance">
+          </div>
+			<div id="recaptcha"></div>
+			<div class="msg error" id="gift_card_balance_result" style="display:none;"></div>
+		</form>
+	</div>
+	<script>
+		const giftCardBalanceCheckForm = document.getElementById('gift_card_balance_check');
+		const giftCardNumberInput = document.getElementById('gift_card_identifier');
+		const giftCardPinInput = document.getElementById('gift_card_pin');
+		const giftCardBalanceResult = document.getElementById('gift_card_balance_result');
+		const giftCardBalanceSubmitButton = document.getElementById('gift_card_balance_check_submit_button');
+		giftCardNumberInput.addEventListener('input', (e) => {
+			giftCardBalanceResult.innerText = '';
+          giftCardBalanceResult.style.display ="none";
+		});
+		giftCardBalanceCheckForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			giftCardBalanceSubmitButton.value = 'Processing'
+			giftCardBalanceSubmitButton.disabled = true;
+			grecaptcha.ready(async function() {
+				const cardInputValue = document.getElementById('gift_card_identifier').value;
+				let pinInputValue = '';
+				if (giftCardPinInput) {
+					pinInputValue = document.getElementById('gift_card_pin').value;
+				}
+				let res;
+				try {
+					const token = await grecaptcha.execute(GOOGLE_RECAPTCHA_SITE_KEY, {
+						action: 'submit'
+					});
+					res = await fetch(`${API_BASE_URL}/card/balance?${new URLSearchParams({ givex_cert: cardInputValue, givex_pin: pinInputValue, store_name: SHOPNAME, captcha_token: token }).toString()}`, {headers:{"Access-Control-Allow-Origin":"*"}})
+						.then(res => res.json())
+				} catch (e) {
+					console.error(e);
+				}
+				const isGiftCardInput = cardInputValue.length == 22 || cardInputValue.length == 17;
+				if (!res) {
+					// error calling the server
+					giftCardBalanceResult.innerText = 'An error occurred checking the balance, please try again later.';
+				} else if (res && !res.error) {
+					//successfully got the card balance
+					if (isGiftCardInput) {
+						//gift card
+						giftCardBalanceResult.innerText = `Card has $${res.certificate_balance} available balance.`;
+					} else {
+						//loyalty
+                        giftCardBalanceResult.innerText = 'Could not verify your request, please try again later.';
+						//giftCardBalanceResult.innerText = `Loyalty account has $${res.certificate_balance} available balance and ${res.points_balance} points.`;
+					}
+				} else if (res.error) {
+					if (res.error == 'Captcha check failed') {
+						//google captcha unsucessful, or a score below the threshold
+						giftCardBalanceResult.innerText = 'Could not verify your request, please try again later.';
+					} else if (res.error.message && res.error.message == 'Cert not exist') {
+						//other error, most likely does not exist
+						giftCardBalanceResult.innerText = 'The number entered is invalid or does not exist.';
+					} else if (res.error.message && res.error.essage == 'Phone number is not unique') {
+						giftCardBalanceResult.innerText = 'Phone number is not unique.';
+					} else if (res.error.message && res.error.essage == 'Invalid security code') {
+						giftCardBalanceResult.innerText = 'Invalid card pin'
+					} else {
+						//some other error
+						giftCardBalanceResult.innerText = 'An error occurred checking the balance, please try again later.';
+					}
+				}
+				giftCardBalanceSubmitButton.value = 'Check Balance';
+				giftCardBalanceSubmitButton.disabled = false;
+                giftCardBalanceResult.style.display ="block";
+			});
+		}, true);
+	</script>
+</div>
+<style>
+  #gift-card-balance-form{position:relative;  padding-top:15px;}
+  #gift-card-balance-form h2{margin-top:0; color:#001b39;}
+  #gift-card-balance-form img.gift-card{position:absolute; right:0; top:0;display:block;max-width:320px;}
+  #gift_card_balance_check .flex-container{justify-content:space-between;}
+  #gift-card-balance-form form input[type='text']{    
+    border: none;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 12px 0;
+    font-size: 15px;
+    border-radius:0;
+  }
+  #gift-card-balance-form form input[type='text']:focus{
+    border-bottom:1px solid #001e37;
+  }
+  #gift-card-balance-form form input:focus-visible{
+    outline:none;
+  }
+  #gift_card_identifier{ width:33%; }
+  #gift_card_pin{width:13%;}
+  #gift_card_balance_check_submit_button{width:49%; background-color: #c7e4e2;
+    border: none;
+    padding: 20px;
+    height: 60px;
+    font-size: 16px;
+    letter-spacing: .5px;
+    color: #09273c;
+    }
+  .msg.error{margin-top:10px;border: 1px solid #990000;
+    background: #ffe5e5;
+    color: #900;
+    line-height: 1.4;
+    padding: 5px 10px;
+    font-size: 14px;}
+  @media only screen and (max-width: 1024px){
+    #gift-card-balance-form h2{
+      font-size:22px;
+    }
+    #gift-card-balance-form img.gift-card{
+      width:calc(100vw * 0.3125);
+	  height:auto;
+    }
+    #gift-card-balance-form form input[type='text']{padding:10px 0;}
+    #gift_card_balance_check_submit_button{padding:15px; height:auto;}
+  }
+  @media only screen and (max-width: 767px){
+    #gift-card-balance-form{padding-right:0; padding-top:0;}
+    #gift-card-balance-form img.gift-card{position:static; margin-bottom:15px;}
+    #gift-card-balance-form img.gift-card{width:80%;}
+    .gift-card-widgets .page-width{padding:0 30px;} 
+  }
+  @media only screen and (max-width: 480px){
+    #gift_card_identifier {width:64%;}
+    #gift_card_pin{width:34%;}
+    #gift_card_balance_check_submit_button{width:100%; margin-top:10px;}
+    #gift-card-widgets .page-width{padding:0 15px;}
+  }
+</style>

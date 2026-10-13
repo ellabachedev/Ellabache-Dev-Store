@@ -1,0 +1,26 @@
+{%- if section.settings.cart_notes_enable != blank -%}
+<div class="cartNotes">
+  <label for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+  <textarea name="note" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+</div> 
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Cart Notes",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,186 @@
+{%- if settings.free_shipping_threshold_warning_enabled -%}
+{%- assign threshold_one_ammount = settings.free_shipping_threshold_1_amt | times: 100 -%}
+{%- assign threshold_two_ammount = settings.free_shipping_threshold_2_amt | times: 100 -%}
+{%- assign threshold_three_ammount = settings.free_shipping_threshold_3_amt | times: 100 -%}
+{%- assign totalCartPriceRaw = cart.total_price | times: 1 -%}
+{%- assign giftCardPrice = 0 -%}
+{%- assign hasOnlyGiftCard = true -%}
+{%- for line_item in cart.items -%}
+{%- if line_item.gift_card -%}
+{%- assign giftCardPrice = giftCardPrice | plus: line_item.final_line_price -%}
+{% elsif line_item.product.title == 'E-Gift Card' and line_item.product.type == 'Gift Cards' %}
+{%- assign giftCardPrice = giftCardPrice | plus: line_item.final_line_price -%}
+{%- else -%}
+{%- assign hasOnlyGiftCard = false -%}
+{%- endif -%}
+{%- endfor -%}
+{%- assign totalCartPrice = totalCartPriceRaw | minus: giftCardPrice -%}
+{%- if hasOnlyGiftCard == false and totalCartPrice < threshold_one_ammount -%}
+    <div class="shipping-warning">
+    {%- assign threshold_one_ammount_needed = threshold_one_ammount | minus: totalCartPrice | money -%}
+    {{ settings.free_shipping_threshold_1_message | replace: 'XXX', threshold_one_ammount_needed }}
+    </div>
+    <div class="shipping__threshold--indicator">
+        <div class="indicator-track">
+            <span class="indicator-level"></span>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function () {
+            var thresholdValue = {{ settings.free_shipping_threshold_1_amt }},
+            cartTotalValue = {{ cart.total_price | money_without_currency }},
+            indicatorPercentage = parseInt((cartTotalValue * 100) / thresholdValue);
+            if (thresholdValue >= cartTotalValue) {
+                jQuery(".shipping__threshold--indicator").css("display", "block");
+                jQuery("div.shipping__threshold--indicator div.indicator-track .indicator-level").css('width', indicatorPercentage + '%');
+            }
+        });
+    </script>
+    {%- elsif hasOnlyGiftCard == true or totalCartPrice >= threshold_one_ammount and threshold_two_ammount == 0 -%}
+
+     {% if threshold_two_ammount != 0 %}
+      <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+      {% endif %}
+    <div class="shipping-warning">
+        {{ settings.free_shipping }}
+    </div>
+    <div class="shipping__threshold--indicator">
+        <div class="indicator-track">
+            <span class="indicator-level"></span>
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery(".shipping__threshold--indicator").css("display", "none");
+        });
+    </script>
+    {%- elsif hasOnlyGiftCard == false and totalCartPrice >= threshold_one_ammount and totalCartPrice <= threshold_two_ammount -%} 
+        {% if threshold_two_ammount != 0 %}
+          <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+        {% endif %}
+       
+        <div class="shipping-warning">
+        {%- assign threshold_two_ammount_needed = threshold_two_ammount | minus: totalCartPrice | money -%}
+        {{ settings.free_shipping_threshold_2_message | replace: 'XXX', threshold_two_ammount_needed }}
+        </div>
+        <div class="shipping__threshold--indicator">
+            <div class="indicator-track">
+                <span class="indicator-level"></span>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function () {
+                var thresholdValue = {{ settings.free_shipping_threshold_2_amt }},
+                cartTotalValue = {{ cart.total_price | money_without_currency }},
+                indicatorPercentage = parseInt((cartTotalValue * 100) / thresholdValue);
+            if (thresholdValue >= cartTotalValue) {
+                jQuery(".shipping__threshold--indicator").css("display", "block");
+                miniCartFormHeightCalc();
+                jQuery("div.shipping__threshold--indicator div.indicator-track .indicator-level").css('width', indicatorPercentage + '%');
+            }
+            });
+            function miniCartFormHeightCalc() {
+                var miniCartFooter = $("#cart-mini .mini-cart-footer").innerHeight(),
+                    headerActionsHeight = $(".header-actions").innerHeight(),
+                    miniCartHeader = $("#cart-mini .cart-header").innerHeight(),
+                    miniCartSecHeader = $("#cart-mini .mini-cart-header").innerHeight(),
+                    totalHeaderHeight = miniCartHeader + miniCartSecHeader + 1 + headerActionsHeight,
+                    totalHeight = miniCartFooter + miniCartHeader + miniCartSecHeader + 20 + headerActionsHeight;
+                jQuery(".mini-cart-form").css("height", "calc(100vh - " + totalHeaderHeight + "px)");
+                jQuery("#cart-mini .cart-info").css("height", "calc(100vh - " + totalHeight + "px)");
+            }
+        </script>
+    {%- elsif hasOnlyGiftCard == true or totalCartPrice >= threshold_two_ammount and threshold_three_ammount == 0 -%}
+        {% assign t = settings.free_express_shipping | downcase %}
+        {% if t contains "free express shipping"  %}
+          <div class="shipping-warning">
+            {{ settings.free_express_shipping }}
+         </div>
+         {% else %}
+          <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+          <div class="shipping-warning">
+            {{ settings.free_express_shipping }}
+         </div>
+        {% endif %}
+        <div class="shipping__threshold--indicator">
+            <div class="indicator-track">
+                <span class="indicator-level"></span>
+            </div>
+        </div>
+        <script>
+            window.addEventListener('load', (event) => {
+                jQuery(".shipping__threshold--indicator").css("display", "none");
+            });
+        </script>
+    {%- elsif hasOnlyGiftCard == false or totalCartPrice >= threshold_two_ammount and threshold_three_ammount == 0 -%}
+        {% assign t = settings.free_express_shipping | downcase %}
+        {% if t contains "free express shipping"  %}
+          <div class="shipping-warning">
+            {{ settings.free_express_shipping }}
+         </div>
+         {% else %}
+          <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+          <div class="shipping-warning">
+            {{ settings.free_express_shipping }}
+         </div>
+        {% endif %}
+    {%- elsif hasOnlyGiftCard == false and totalCartPrice >= threshold_two_ammount and totalCartPrice <= threshold_three_ammount -%}
+        {% assign t = settings.free_express_shipping | downcase %}
+        {% if t contains "free express shipping"  %}
+          <div class="free-shipping-message text-center show">{{ settings.free_express_shipping }}</div>
+         {% else %}
+          <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+        {% endif %}
+        <div class="shipping-warning">
+        {%- assign threshold_three_ammount_needed = threshold_three_ammount | minus: totalCartPrice | money -%}
+        {{ settings.free_shipping_threshold_3_message | replace: 'XXX', threshold_three_ammount_needed }}
+        </div>
+        <div class="shipping__threshold--indicator">
+            <div class="indicator-track">
+                <span class="indicator-level"></span>
+            </div>
+        </div>
+        <script>
+            jQuery(document).ready(function () {
+                var thresholdValue = {{ settings.free_shipping_threshold_3_amt }},
+                cartTotalValue = {{ cart.total_price | money_without_currency }},
+                indicatorPercentage = parseInt((cartTotalValue * 100) / thresholdValue);
+            if (thresholdValue >= cartTotalValue) {
+                jQuery(".shipping__threshold--indicator").css("display", "block");
+                miniCartFormHeightCalc();
+                jQuery("div.shipping__threshold--indicator div.indicator-track .indicator-level").css('width', indicatorPercentage + '%');
+            }
+            });
+            function miniCartFormHeightCalc() {
+                var miniCartFooter = $("#cart-mini .mini-cart-footer").innerHeight(),
+                    headerActionsHeight = $(".header-actions").innerHeight(),
+                    miniCartHeader = $("#cart-mini .cart-header").innerHeight(),
+                    miniCartSecHeader = $("#cart-mini .mini-cart-header").innerHeight(),
+                    totalHeaderHeight = miniCartHeader + miniCartSecHeader + 1 + headerActionsHeight,
+                    totalHeight = miniCartFooter + miniCartHeader + miniCartSecHeader + 20 + headerActionsHeight;
+                jQuery(".mini-cart-form").css("height", "calc(100vh - " + totalHeaderHeight + "px)");
+                jQuery("#cart-mini .cart-info").css("height", "calc(100vh - " + totalHeight + "px)");
+            }
+        </script>
+        {%- elsif hasOnlyGiftCard == false or totalCartPrice >= threshold_three_ammount -%}
+        {% assign t = settings.free_express_shipping | downcase %}
+        {% if t contains "free express shipping"  %}
+          <div class="free-shipping-message text-center show">{{ settings.free_express_shipping }}</div>
+         {% else %}
+          <div class="free-shipping-message text-center show">{{ settings.free_shipping }}</div>
+        {% endif %}
+        <div class="shipping-warning">
+            {{ settings.threshold_3_output_message }}
+        </div>
+        <div class="shipping__threshold--indicator">
+            <div class="indicator-track">
+                <span class="indicator-level"></span>
+            </div>
+        </div>
+        <script>
+            window.addEventListener('load', (event) => {
+                jQuery(".shipping__threshold--indicator").css("display", "none");
+            });
+        </script>
+    {%- endif -%}
+{%- endif -%}

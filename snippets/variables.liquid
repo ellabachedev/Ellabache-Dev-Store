@@ -1,0 +1,22 @@
+{% comment %}Edit Variables{% endcomment %}
+{% assign NAMESPACE = 'ellabachegc' %}
+{% assign POINTS_NAME = 'Ella Bache rewards points' %}
+{% assign GOOGLE_RECAPTCHA_SCRIPT_URL = 'https://www.google.com/recaptcha/api.js?render=6LeE5u4iAAAAAEidej0liCU2d97ahgZ_VgCL6GdE' %}
+<script>
+	const API_BASE_URL = 'https://eb-givex.leigoindustries.com.au'; //'https://givex.dev.leigoindustries.com.au';
+	const SHOPNAME = 'ella-bache-au.myshopify.com'; //can be a custom domain
+	const GOOGLE_RECAPTCHA_BASE_URL = 'https://www.google.com/recaptcha/api.js?render=';
+	const GOOGLE_RECAPTCHA_SITE_KEY = '6LeE5u4iAAAAAEidej0liCU2d97ahgZ_VgCL6GdE';
+	const GOOGLE_RECAPTCHA_URL = `${GOOGLE_RECAPTCHA_BASE_URL}${GOOGLE_RECAPTCHA_SITE_KEY}`;
+	const POINTS_NAME = 'Ella Bache points';
+	const givexCert = {{ customer.metafields[NAMESPACE].cert | json | default: '' }};
+	const customerId = {{ customer.id | json | default: ''}};
+</script>
+
+
+{% if customer %}
+	{% assign balance = customer.metafields[NAMESPACE].balance %}
+	{% assign points = customer.metafields[NAMESPACE].points %}
+	{% assign cert = customer.metafields[NAMESPACE].cert | json %}
+	{% assign iso = customer.metafields[NAMESPACE].iso %}
+{% endif %}

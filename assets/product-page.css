@@ -1,0 +1,15 @@
+.product__hero .product__hero-media{
+  width:50%;
+}
+.product__hero .product__hero-content{
+  width:50%;
+  padding-left:calc(100vw * 0.0446898);
+}
+.product__media--desktop-only{
+  display:none;
+}
+@media only screen and (min-width: 768px) {
+  .product__media--desktop-only{
+    display:block;
+  }
+}

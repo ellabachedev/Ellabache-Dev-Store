@@ -1,0 +1,81 @@
+{{ 'section-welcome-blog.css' | asset_url | stylesheet_tag }}
+{%- capture welcome-to-blog -%}
+<div id="blogCategories" class="welcome-to-blog">
+  <div class="page-width">
+    <div class="flex-container" style="background-color:{{ section.settings.banner-bg-color }};">
+      {%- if section.settings.block-title != blank -%}
+      <h2 class="title">{{ section.settings.block-title }}</h2>
+      {%- endif -%}
+      <div class="cat-blogs flex-container">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.blog-cat-title != blank -%}
+          <div class="item">
+            <a href="{{ block.settings.blog-cat-url }}">{{ block.settings.blog-cat-title }}</a>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endcapture -%}
+{{ welcome-to-blog | strip_newlines }}
+{% schema %}
+  {
+    "name": "Welcome To Blog",
+    "settings": [
+      {
+        "type": "color",
+        "id": "banner-bg-color",
+        "label": "Background Color",
+        "default": "#e2ddd7"
+      },
+      {
+        "type": "text",
+        "id": "block-title",
+        "label": "Title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "blog",
+        "name": "Blog Menu",
+        "settings": [
+          {
+            "id": "blog-cat-title",
+            "type": "text",
+            "label": "Title"
+          },
+          {
+            "id": "blog-cat-url",
+            "type": "url",
+            "label": "URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Welcome To Blog",
+        "category": "Custom Content"
+      }
+    ]
+  }
+{% endschema %}
+<script>
+  window.addEventListener('load', (event) => {
+  // Animate On Screen  -------------------------------
+    const iObserver = new IntersectionObserver(items => {
+    if (items[0].isIntersecting) {
+      $('div.welcome-to-blog').addClass('welcome_to_blog_loaded');
+        $('div.welcome-to-blog div.cat-blogs div.item').each(function(i){
+          var $item = $(this);
+          setTimeout(function() {
+            $item.addClass('animate');
+          }, i*300);
+        });
+      }
+    });
+    iObserver.observe(document.getElementById('blogCategories'));
+  });
+</script>
