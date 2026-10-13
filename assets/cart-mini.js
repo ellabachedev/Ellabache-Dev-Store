@@ -274,13 +274,31 @@ function renderMiniCartUpsell() {
   return 1;
 }
 
+// True only when a Free Gifts offer is reached and the shopper has to pick between gifts.
+// The app's bogosCheckPopupCanShow() also returns true for offers set to "auto add all gifts"
+// while the app is still adding them, which flashed "choose your bonus gift" for nothing.
+function giftChoiceNeeded() {
+  if (typeof bogosCheckPopupCanShow !== "function" || bogosCheckPopupCanShow() !== true) {
+    return false;
+  }
+  try {
+    return FGSECOMAPP.offers.some(function (offer) {
+      var settings = offer.gift_settings || {};
+      var autoAdded = settings.auto_add_all_gifts === true || settings.customer_will_receive === "auto_add_all_gifts";
+      return !autoAdded && offer.giftsAvailable > 0 && offer.isReachConditions && offer.gift_items && offer.gift_items.length > 1;
+    });
+  } catch (e) {
+    return false;
+  }
+}
+
 var btnPopupCheckoutClicked = false;
 function bogos2CartPopupOfferCheck(showHalterOverlay = true) {
   if ($("#halterOverlay").length < 1 && showHalterOverlay) {
     addHalterOverlay();
   }
   var showPopup = false;
-  showPopup = bogosCheckPopupCanShow();
+  showPopup = giftChoiceNeeded();
   console.log("showPopup2", showPopup);
   if (showPopup) {
     //$('#btnPopupCheckout').removeAttr('style');
@@ -346,7 +364,7 @@ function gwpPopupCloseBtnClickHandler(){
 function checkoutFromGwpButtonClickHandler(e){
   e.preventDefault();
   hideShowGwpPopup(false);
-  if(bogosCheckPopupCanShow() === true){
+  if(giftChoiceNeeded() === true){
     jQuery('#btnPopupCheckout').trigger('click');
   }else{
     jQuery('#btnCheckout').trigger('click');
