@@ -8,6 +8,13 @@
   assign sticky_image = current_variant.featured_image | default: product.featured_image
   assign sticky_reviews = product.metafields.stamped.reviews_count | plus: 0
   assign sticky_rating = product.metafields.stamped.reviews_average | plus: 0 | round: 1
+  comment
+    Always one decimal, like the Stamped badge ("5.0", "4.9").
+  endcomment
+  assign sticky_rating_text = sticky_rating | append: ''
+  unless sticky_rating_text contains '.'
+    assign sticky_rating_text = sticky_rating_text | append: '.0'
+  endunless
 -%}
 <div
   class="pdp-sticky-atc"
@@ -33,13 +40,18 @@
             <span class="pdp-sticky-atc__size">{{ product.metafields.global.prod_size }}</span>
           {%- endif -%}
           {%- if sticky_reviews > 0 -%}
-            <span
+            <a
               class="pdp-sticky-atc__rating"
-              aria-label="Rated {{ sticky_rating }} out of 5 from {{ sticky_reviews }} reviews">
-              <span class="pdp-sticky-atc__star" aria-hidden="true">&#9733;</span>
-              {{ sticky_rating }}
-              <span class="pdp-sticky-atc__count">({{ sticky_reviews }})</span>
-            </span>
+              href="#stamped-main-widget"
+              data-pdp-sticky-reviews
+              tabindex="-1"
+              aria-label="Rated {{ sticky_rating_text }} out of 5 from {{ sticky_reviews }} reviews. Go to reviews">
+              <span class="pdp-sticky-atc__stars" style="--rating: {{ sticky_rating }};" aria-hidden="true"></span>
+              <span class="pdp-sticky-atc__rating-value" aria-hidden="true">{{ sticky_rating_text }}</span>
+              <span class="pdp-sticky-atc__count" aria-hidden="true">
+                {{- sticky_reviews }} {% if sticky_reviews == 1 %}review{% else %}reviews{% endif -%}
+              </span>
+            </a>
           {%- endif -%}
         </p>
       </div>

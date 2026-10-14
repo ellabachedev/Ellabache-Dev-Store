@@ -207,10 +207,36 @@
 .pdp-sticky-atc__price-mobile {
   display: none;
 }
-.pdp-sticky-atc__star {
-  color: #8cd3d7;
+/* Rating: five stars filled to the score (theme's teal star colour), score, review count.
+   Links to the reviews section. */
+.pdp-sticky-atc__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #001e37;
+  text-decoration: none;
+}
+.pdp-sticky-atc__rating:hover .pdp-sticky-atc__count {
+  text-decoration: underline;
+}
+.pdp-sticky-atc__stars {
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.pdp-sticky-atc__stars::before {
+  content: "\2605\2605\2605\2605\2605";
+  background: linear-gradient(90deg, #8cd3d7 calc(var(--rating, 5) / 5 * 100%), #d9d9d9 0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pdp-sticky-atc__rating-value {
+  font-weight: 400;
 }
 .pdp-sticky-atc__count {
+  padding-left: 6px;
+  border-left: 1px solid #d9d9d9;
   color: #4a4a4a;
 }
 .pdp-sticky-atc__buy {
@@ -363,6 +389,12 @@ body.pdp-sticky-lift-chat #tidio-chat {
     display: inline;
     font-size: 15px;
     font-weight: 300;
+  }
+  .pdp-sticky-atc__count {
+    display: none;
+  }
+  .pdp-sticky-atc__stars {
+    font-size: 12px;
   }
   .pdp-sticky-atc__price,
   .pdp-sticky-atc__qty {

@@ -8,7 +8,7 @@
             <button
               type="button"
               class="c-nav-header-toggle"
-              aria-label="Hambuger Menu">
+              aria-label="Menu">
               <span class="c-nav-header-toggle__hamburger hamburger">
                 <span class="hamburger__line hamburger__line1"></span>
                 <span class="hamburger__line hamburger__line2"></span>
@@ -118,6 +118,7 @@
 {%- endcapture -%}
 {{ header-main | strip_newlines }}
 <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'header-sticky-mobile.js' | asset_url }}" defer="defer"></script>
 {%- render 'header-menu' -%}
 {%- render 'search-dropdown' -%}
 {%- if request.page_type == 'index' -%}

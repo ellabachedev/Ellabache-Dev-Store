@@ -78,7 +78,7 @@
     var stickyStatus = bar.querySelector('[data-pdp-sticky-status]');
     var stickyPrices = bar.querySelectorAll('[data-pdp-sticky-price]');
     var stickyQty = bar.querySelector('[data-pdp-sticky-qty-input]');
-    var focusables = bar.querySelectorAll('button, input');
+    var focusables = bar.querySelectorAll('a, button, input');
     var mainPrice = document.querySelector('.product-hero-content [data-product-price]');
     var mainQty = document.querySelector('.product-form .quantity-wrapper input[name="quantity"]');
 

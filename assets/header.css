@@ -1601,3 +1601,106 @@
     opacity: 0;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile sticky header (phones only; desktop keeps its own fixed header).
+   Always pinned to the top like desktop: once scrolled, header.js tucks the announcement
+   bar away and the compact logo/menu/search/cart row stays. Its space is reserved on the
+   body, so header height changes never move the page. State from header-sticky-mobile.js.
+------------------------------------------------------------------ */
+@media only screen and (max-width: 768px) {
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: box-shadow 0.3s ease;
+  }
+  /* header.js sets an inline padding-top of 0 on phones; reserve the header's space instead. */
+  body.sticky-nav {
+    padding-top: var(--mobile-header-height, 0px) !important;
+  }
+  body.mobile-header-scrolled .site-header {
+    box-shadow: 0 2px 12px rgba(0, 30, 55, 0.08);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Header icon polish (mobile + desktop)
+------------------------------------------------------------------ */
+/* Icons in brand navy, like the logo (they were near-black #231F20). */
+.header-main .header-actions svg [fill="#231F20"],
+.header-main .header-actions svg .G {
+  fill: #001939;
+}
+.c-nav-header-toggle .hamburger__line,
+.c-nav-header-toggle .hamburger__cross {
+  background: #001939;
+}
+/* Cart count: small ringed badge on the bag's top-right corner instead of covering
+   its lower-left (where it also crowded the search icon). */
+.icon-cart .cartCount {
+  top: -7px;
+  right: -9px;
+  bottom: auto;
+  left: auto;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  box-shadow: 0 0 0 2px #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+}
+@media only screen and (max-width: 768px) {
+  /* 44px tap targets with the icons centred, same 24px icon height, evenly spaced.
+     Negative side margins keep the visible icons on the page's 15px gutter. */
+  .header-main .header-main-left .header-actions,
+  .header-main .header-main-right .header-actions {
+    align-items: center;
+  }
+  .header-main .header-main-left .header-actions {
+    margin-left: -8px;
+  }
+  .header-main .header-main-right .header-actions {
+    gap: 2px;
+    margin-right: -10px;
+  }
+  .header-main .header-main-right .item,
+  .header-main .header-main-right .item:first-child {
+    margin-left: 0;
+  }
+  /* The cart link also carries the global .show utility (display: block !important). */
+  .header-main .header-main-right .header-actions .item > a.cart-opener.show {
+    display: flex !important;
+  }
+  .c-nav-header-toggle,
+  .header-main .header-actions .item > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+  .header-actions .item .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 24px;
+  }
+  .header-actions .item .icon svg {
+    width: auto;
+    height: 24px;
+    max-height: none;
+  }
+  /* Anchor the badge to the bag icon itself (not the 44px tap area), so it sits on the
+     icon's corner and stays inside the screen edge. */
+  .header-actions .item .icon.icon-cart {
+    position: relative;
+    top: auto; /* the desktop rule's top: 50% would push it down once it's positioned */
+  }
+}
