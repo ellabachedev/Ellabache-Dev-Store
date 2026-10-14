@@ -1,6 +1,6 @@
 {%- comment -%}
 Collection Products Grid - Displays products grouped by category with filters
-Matches reference website layout with category sections and Navy theme
+Matches reference website layout with Navy #001e37 theme
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
@@ -30,12 +30,15 @@ Matches reference website layout with category sections and Navy theme
     {%- if section.settings.show_filters -%}
       <div class="collection-filter-bar fbar">
         <div class="filter-group pop">
-          <button class="filter-chip fchip" aria-expanded="false">
-            <svg class="ic" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle>
+            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
             <span class="filter-label">Filters</span>
-            <span class="filter-count car"></span>
+            <span class="filter-count car">({{ collection.products_count }})</span>
           </button>
           <div class="filter-panel panel" hidden>
+            <button class="filter-opt opt">All Products</button>
             <button class="filter-opt opt">Cleansers</button>
             <button class="filter-opt opt">Serums</button>
             <button class="filter-opt opt">Moisturisers</button>
@@ -53,14 +56,17 @@ Matches reference website layout with category sections and Navy theme
         </span>
 
         <div class="filter-group pop">
-          <button class="filter-chip fchip sort-btn" aria-expanded="false">
-            <svg class="ic" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8v-2H3v2zm0 4h8v-2H3v2zm0-8h8V7H3v2zm13 0V7h-2v2h2zm-2 4h2v-2h-2v2zm2 4h2v-2h-2v2z"/></svg>
+          <button class="filter-chip fchip sort-btn" aria-expanded="false" data-sort-toggle>
+            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M3 13h8v-2H3v2zm0 4h8v-2H3v2zm0-8h8V7H3v2zm13 0V7h-2v2h2zm-2 4h2v-2h-2v2zm2 4h2v-2h-2v2z"/>
+            </svg>
             <span>Sort</span>
             <span class="car"></span>
           </button>
           <div class="filter-panel panel sort-panel" hidden>
             <button class="filter-opt opt on">Featured</button>
             <button class="filter-opt opt">Best Selling</button>
+            <button class="filter-opt opt">Newest</button>
             <button class="filter-opt opt">Price: Low to High</button>
             <button class="filter-opt opt">Price: High to Low</button>
           </div>
@@ -70,66 +76,116 @@ Matches reference website layout with category sections and Navy theme
 
     {%- if collection.products_count > 0 -%}
       {%- comment -%}
-        Categorize products by their Collection tag
-        Expected tags: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
+        Display products in category sections
+        If products have tags, group by tag. Otherwise show all in one section.
       {%- endcomment -%}
 
       {%- assign category_order = "Cleansers,Serums,Moisturisers,Eye & Neck,Masks,Exfoliants,Suncare,Tanning,Bodycare,Treatment Products" | split: "," -%}
-      {%- assign section_count = 0 -%}
+      {%- assign any_tagged = false -%}
 
-      {%- for category in category_order -%}
-        {%- assign category_products = collection.products | where: "tags", category -%}
-
-        {%- if category_products.size > 0 -%}
-          {%- assign section_count = section_count | plus: 1 -%}
-          {%- assign alternate_bg = section_count | modulo: 2 -%}
-
-          <section class="category-section sec tgroup {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}">
-            <div class="category-wrap wrap">
-              <h2 class="category-heading">
-                <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}">{{ category }}</a>
-              </h2>
-
-              <div class="products-grid grid pgrid">
-                {%- for product in category_products limit: 8 -%}
-                  <a href="{{ product.url }}" class="product-card tc">
-                    <div class="product-card-image media">
-                      {%- if product.featured_image -%}
-                        <img
-                          src="{{ product.featured_image | image_url: width: 400 }}"
-                          alt="{{ product.featured_image.alt | escape }}"
-                          loading="lazy"
-                          width="400"
-                          height="400">
-                      {%- endif -%}
-                    </div>
-                    <div class="product-card-content bd">
-                      <h3 class="product-card-title t">{{ product.title }}</h3>
-                      {%- if product.metafields.global.prod_size -%}
-                        <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
-                      {%- endif -%}
-                      <div class="product-card-price cs">
-                        <span class="price">{{ product.price | money }}</span>
-                        {%- if product.compare_at_price > product.price -%}
-                          <span class="compare-price">{{ product.compare_at_price | money }}</span>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  </a>
-                {%- endfor -%}
-              </div>
-
-              {%- if category_products.size > 8 -%}
-                <div class="category-footer">
-                  <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}" class="view-all-link bk ghost">
-                    View all {{ category }}
-                  </a>
-                </div>
-              {%- endif -%}
-            </div>
-          </section>
+      {%- for product in collection.products -%}
+        {%- if product.tags.size > 0 -%}
+          {%- assign any_tagged = true -%}
+          {%- break -%}
         {%- endif -%}
       {%- endfor -%}
+
+      {%- if any_tagged -%}
+        {%- assign section_count = 0 -%}
+        {%- for category in category_order -%}
+          {%- assign category_products = collection.products | where: "tags", category -%}
+
+          {%- if category_products.size > 0 -%}
+            {%- assign section_count = section_count | plus: 1 -%}
+            {%- assign alternate_bg = section_count | modulo: 2 -%}
+
+            <section class="category-section sec tgroup {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}">
+              <div class="category-wrap wrap">
+                <h2 class="category-heading">
+                  <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}">{{ category }}</a>
+                </h2>
+
+                <div class="products-grid grid pgrid">
+                  {%- for product in category_products limit: 8 -%}
+                    <a href="{{ product.url }}" class="product-card tc">
+                      <div class="product-card-image media">
+                        {%- if product.featured_image -%}
+                          <img
+                            src="{{ product.featured_image | image_url: width: 500 }}"
+                            alt="{{ product.featured_image.alt | escape }}"
+                            loading="lazy"
+                            width="500"
+                            height="500">
+                        {%- else -%}
+                          <div class="placeholder-image"></div>
+                        {%- endif -%}
+                      </div>
+                      <div class="product-card-content bd">
+                        <h3 class="product-card-title t">{{ product.title }}</h3>
+                        {%- if product.metafields.global.prod_size -%}
+                          <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
+                        {%- endif -%}
+                        <div class="product-card-price cs">
+                          <span class="price">{{ product.price | money }}</span>
+                          {%- if product.compare_at_price > product.price -%}
+                            <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </a>
+                  {%- endfor -%}
+                </div>
+
+                {%- if category_products.size > 8 -%}
+                  <div class="category-footer">
+                    <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}" class="view-all-link bk ghost">
+                      View all {{ category }}
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            </section>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%}
+          No tags - show all products in one grid
+        {%- endcomment -%}
+        <section class="category-section sec">
+          <div class="category-wrap wrap">
+            <div class="products-grid grid pgrid">
+              {%- for product in collection.products -%}
+                <a href="{{ product.url }}" class="product-card tc">
+                  <div class="product-card-image media">
+                    {%- if product.featured_image -%}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 500 }}"
+                        alt="{{ product.featured_image.alt | escape }}"
+                        loading="lazy"
+                        width="500"
+                        height="500">
+                    {%- else -%}
+                      <div class="placeholder-image"></div>
+                    {%- endif -%}
+                  </div>
+                  <div class="product-card-content bd">
+                    <h3 class="product-card-title t">{{ product.title }}</h3>
+                    {%- if product.metafields.global.prod_size -%}
+                      <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
+                    {%- endif -%}
+                    <div class="product-card-price cs">
+                      <span class="price">{{ product.price | money }}</span>
+                      {%- if product.compare_at_price > product.price -%}
+                        <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+        </section>
+      {%- endif -%}
 
     {%- else -%}
       <div class="collection-empty">
@@ -142,7 +198,7 @@ Matches reference website layout with category sections and Navy theme
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const filterChips = document.querySelectorAll('.fchip');
+    const filterChips = document.querySelectorAll('[data-filter-toggle], [data-sort-toggle]');
 
     filterChips.forEach(chip => {
       chip.addEventListener('click', function(e) {
@@ -150,9 +206,36 @@ Matches reference website layout with category sections and Navy theme
         const panel = this.nextElementSibling;
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
+        // Close other panels
+        filterChips.forEach(otherChip => {
+          if (otherChip !== this) {
+            otherChip.setAttribute('aria-expanded', 'false');
+            const otherPanel = otherChip.nextElementSibling;
+            if (otherPanel) {
+              otherPanel.hidden = true;
+            }
+          }
+        });
+
+        // Toggle this panel
         this.setAttribute('aria-expanded', !isExpanded);
-        panel.hidden = isExpanded;
+        if (panel) {
+          panel.hidden = isExpanded;
+        }
       });
+    });
+
+    // Close panels when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.filter-group')) {
+        filterChips.forEach(chip => {
+          chip.setAttribute('aria-expanded', 'false');
+          const panel = chip.nextElementSibling;
+          if (panel) {
+            panel.hidden = true;
+          }
+        });
+      }
     });
   });
 </script>
