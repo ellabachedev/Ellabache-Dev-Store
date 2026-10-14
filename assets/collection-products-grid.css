@@ -466,6 +466,22 @@
   margin: 0;
 }
 
+/* No Categories Notice */
+.no-categories-notice {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 0;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  color: #856404;
+  font-size: 13px;
+  text-align: center;
+}
+
+.no-categories-notice p {
+  margin: 0;
+}
+
 /* Responsive - Tablet (989px and below) */
 @media (max-width: 989px) {
   .products-grid,

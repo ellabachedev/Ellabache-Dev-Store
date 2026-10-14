@@ -1,6 +1,7 @@
 {%- comment -%}
-Collection Products Grid - Displays products grouped by category with filters
-Matches reference website layout with Navy #001e37 theme
+Collection Products Grid - Displays products grouped by product type/category
+Uses product.type (built-in Shopify category) instead of tags
+Matches Ella Baché website layout with Navy #001e37 theme
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
@@ -76,24 +77,30 @@ Matches reference website layout with Navy #001e37 theme
 
     {%- if collection.products_count > 0 -%}
       {%- comment -%}
-        Display products in category sections
-        If products have tags, group by tag. Otherwise show all in one section.
+        Group products by product type (category)
+        Product types should match: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
       {%- endcomment -%}
 
       {%- assign category_order = "Cleansers,Serums,Moisturisers,Eye & Neck,Masks,Exfoliants,Suncare,Tanning,Bodycare,Treatment Products" | split: "," -%}
-      {%- assign any_tagged = false -%}
+      {%- assign all_types = "" | split: "" -%}
+      {%- assign any_categorized = false -%}
 
       {%- for product in collection.products -%}
-        {%- if product.tags.size > 0 -%}
-          {%- assign any_tagged = true -%}
-          {%- break -%}
+        {%- if product.type != blank and product.type != "" -%}
+          {%- assign any_categorized = true -%}
+          {%- unless all_types contains product.type -%}
+            {%- assign all_types = all_types | push: product.type -%}
+          {%- endunless -%}
         {%- endif -%}
       {%- endfor -%}
 
-      {%- if any_tagged -%}
+      {%- if any_categorized -%}
+        {%- comment -%}
+          Display products grouped by product type in predefined order
+        {%- endcomment -%}
         {%- assign section_count = 0 -%}
         {%- for category in category_order -%}
-          {%- assign category_products = collection.products | where: "tags", category -%}
+          {%- assign category_products = collection.products | where: "type", category -%}
 
           {%- if category_products.size > 0 -%}
             {%- assign section_count = section_count | plus: 1 -%}
@@ -102,7 +109,7 @@ Matches reference website layout with Navy #001e37 theme
             <section class="category-section sec tgroup {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}">
               <div class="category-wrap wrap">
                 <h2 class="category-heading">
-                  <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}">{{ category }}</a>
+                  <a href="{{ collection.url }}">{{ category }}</a>
                 </h2>
 
                 <div class="products-grid grid pgrid">
@@ -117,7 +124,7 @@ Matches reference website layout with Navy #001e37 theme
                             width="500"
                             height="500">
                         {%- else -%}
-                          <div class="placeholder-image"></div>
+                          <div class="placeholder-image">No Image</div>
                         {%- endif -%}
                       </div>
                       <div class="product-card-content bd">
@@ -138,7 +145,7 @@ Matches reference website layout with Navy #001e37 theme
 
                 {%- if category_products.size > 8 -%}
                   <div class="category-footer">
-                    <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}" class="view-all-link bk ghost">
+                    <a href="{{ collection.url }}" class="view-all-link bk ghost">
                       View all {{ category }}
                     </a>
                   </div>
@@ -149,10 +156,16 @@ Matches reference website layout with Navy #001e37 theme
         {%- endfor -%}
       {%- else -%}
         {%- comment -%}
-          No tags - show all products in one grid
+          No product types set - display all products in a single grid
+          NOTE: Set product types in Shopify admin for proper categorization
         {%- endcomment -%}
+        <div class="no-categories-notice">
+          <p>Note: Products are not categorized. Please set product types in Shopify admin.</p>
+        </div>
+
         <section class="category-section sec">
           <div class="category-wrap wrap">
+            <h2 class="category-heading">All Products</h2>
             <div class="products-grid grid pgrid">
               {%- for product in collection.products -%}
                 <a href="{{ product.url }}" class="product-card tc">
@@ -165,7 +178,7 @@ Matches reference website layout with Navy #001e37 theme
                         width="500"
                         height="500">
                     {%- else -%}
-                      <div class="placeholder-image"></div>
+                      <div class="placeholder-image">No Image</div>
                     {%- endif -%}
                   </div>
                   <div class="product-card-content bd">
@@ -227,7 +240,7 @@ Matches reference website layout with Navy #001e37 theme
 
     // Close panels when clicking outside
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('.filter-group')) {
+      if (!e.target.closest('.filter-group') && !e.target.closest('[data-filter-toggle]') && !e.target.closest('[data-sort-toggle]')) {
         filterChips.forEach(chip => {
           chip.setAttribute('aria-expanded', 'false');
           const panel = chip.nextElementSibling;
