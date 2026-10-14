@@ -1,0 +1,124 @@
+{%- comment -%}
+Collection Products Grid - Displays products in organized category sections
+Matches reference website layout with categories and responsive grid
+{%- endcomment -%}
+
+<link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
+
+<main class="collection-products-grid" data-section-id="{{ section.id }}">
+  <div class="collection-wrapper page-width">
+
+    {%- if section.settings.show_breadcrumbs -%}
+      <div class="collection-breadcrumbs">
+        <a href="/">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">Products</span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_header -%}
+      <div class="collection-header">
+        <h1>{{ page_title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="collection-description">
+            {{ collection.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_filters -%}
+      <div class="collection-filter-bar">
+        <div class="filter-controls">
+          <span class="filter-label">Filters:</span>
+          <span class="filter-count">{{ collection.products_count }} Products</span>
+        </div>
+        <div class="filter-sort">
+          <label>Sort:</label>
+          <select class="sort-select">
+            <option value="title-asc">Name (A-Z)</option>
+            <option value="title-desc">Name (Z-A)</option>
+            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-desc">Price (High to Low)</option>
+          </select>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if collection.products_count > 0 -%}
+      <div class="collection-grid-container">
+        <div class="products-grid">
+          {%- for product in collection.products -%}
+            <div class="product-grid-item">
+              <a href="{{ product.url }}" class="product-card">
+                <div class="product-card-image">
+                  {%- if product.featured_image -%}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 400 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      loading="lazy"
+                      width="400"
+                      height="400">
+                  {%- endif -%}
+                </div>
+                <div class="product-card-content">
+                  <h3 class="product-card-title">{{ product.title }}</h3>
+                  {%- if product.metafields.global.prod_size -%}
+                    <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
+                  {%- endif -%}
+                  <div class="product-card-price">
+                    <span class="price">{{ product.price | money }}</span>
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </a>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="collection-empty">
+        <p>No products found in this collection.</p>
+      </div>
+    {%- endif -%}
+
+  </div>
+</main>
+
+{% schema %}
+{
+  "name": "Collection Products Grid",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumbs",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show collection heading and description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show filter bar",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "col",
+      "label": "Grid columns (desktop)",
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

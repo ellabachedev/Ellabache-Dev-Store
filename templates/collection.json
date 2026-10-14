@@ -37,7 +37,19 @@
       }
     },
     "collection": {
+      "type": "collection-products-grid",
+      "disabled": false,
+      "name": "Products Grid",
+      "settings": {
+        "show_breadcrumbs": true,
+        "show_header": true,
+        "show_filters": true,
+        "columns": 4
+      }
+    },
+    "collection-old": {
       "type": "collection",
+      "disabled": true,
       "blocks": {
         "8ae20c17-6a9a-492a-a6d1-a22afbfda68e": {
           "type": "tags",
