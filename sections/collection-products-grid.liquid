@@ -1,6 +1,6 @@
 {%- comment -%}
-Collection Products Grid - Displays products in organized category sections
-Matches reference website layout with categories and responsive grid
+Collection Products Grid - Displays products grouped by category
+Matches reference website layout with category sections
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
@@ -46,38 +46,115 @@ Matches reference website layout with categories and responsive grid
     {%- endif -%}
 
     {%- if collection.products_count > 0 -%}
-      <div class="collection-grid-container">
-        <div class="products-grid">
-          {%- for product in collection.products -%}
-            <div class="product-grid-item">
-              <a href="{{ product.url }}" class="product-card">
-                <div class="product-card-image">
-                  {%- if product.featured_image -%}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 400 }}"
-                      alt="{{ product.featured_image.alt | escape }}"
-                      loading="lazy"
-                      width="400"
-                      height="400">
-                  {%- endif -%}
+      {%- comment -%}
+        Group products by collection tag (category)
+        Each tag becomes a section with alternating background
+      {%- endcomment -%}
+
+      {%- assign all_tags = "" | split: "" -%}
+      {%- for product in collection.products -%}
+        {%- for tag in product.tags -%}
+          {%- unless all_tags contains tag -%}
+            {%- assign all_tags = all_tags | push: tag -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endfor -%}
+
+      {%- if all_tags.size > 0 -%}
+        {%- assign section_count = 0 -%}
+        {%- for tag in all_tags -%}
+          {%- assign tagged_products = collection.products | where: "tags", tag -%}
+          {%- if tagged_products.size > 0 -%}
+            {%- assign section_count = section_count | plus: 1 -%}
+            {%- assign alternate_bg = section_count | modulo: 2 -%}
+
+            <section class="category-section {% if alternate_bg == 1 %}category-section--alternate{% endif %}" id="{{ tag | handleize }}">
+              <div class="category-wrap">
+                <h2 class="category-heading">
+                  <a href="{{ collection.url }}?filter.tag={{ tag | url_encode }}">{{ tag }}</a>
+                </h2>
+
+                <div class="products-grid">
+                  {%- for product in tagged_products limit: 8 -%}
+                    <div class="product-grid-item">
+                      <a href="{{ product.url }}" class="product-card">
+                        <div class="product-card-image">
+                          {%- if product.featured_image -%}
+                            <img
+                              src="{{ product.featured_image | image_url: width: 400 }}"
+                              alt="{{ product.featured_image.alt | escape }}"
+                              loading="lazy"
+                              width="400"
+                              height="400">
+                          {%- endif -%}
+                        </div>
+                        <div class="product-card-content">
+                          <h3 class="product-card-title">{{ product.title }}</h3>
+                          {%- if product.metafields.global.prod_size -%}
+                            <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
+                          {%- endif -%}
+                          <div class="product-card-price">
+                            <span class="price">{{ product.price | money }}</span>
+                            {%- if product.compare_at_price > product.price -%}
+                              <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  {%- endfor -%}
                 </div>
-                <div class="product-card-content">
-                  <h3 class="product-card-title">{{ product.title }}</h3>
-                  {%- if product.metafields.global.prod_size -%}
-                    <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
-                  {%- endif -%}
-                  <div class="product-card-price">
-                    <span class="price">{{ product.price | money }}</span>
-                    {%- if product.compare_at_price > product.price -%}
-                      <span class="compare-price">{{ product.compare_at_price | money }}</span>
-                    {%- endif -%}
+
+                {%- if tagged_products.size > 8 -%}
+                  <div class="category-footer">
+                    <a href="{{ collection.url }}?filter.tag={{ tag | url_encode }}" class="view-all-link">
+                      View all {{ tag }}
+                    </a>
                   </div>
+                {%- endif -%}
+              </div>
+            </section>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%}
+          If no tags, display all products in a single grid
+        {%- endcomment -%}
+        <section class="category-section">
+          <div class="category-wrap">
+            <div class="products-grid">
+              {%- for product in collection.products -%}
+                <div class="product-grid-item">
+                  <a href="{{ product.url }}" class="product-card">
+                    <div class="product-card-image">
+                      {%- if product.featured_image -%}
+                        <img
+                          src="{{ product.featured_image | image_url: width: 400 }}"
+                          alt="{{ product.featured_image.alt | escape }}"
+                          loading="lazy"
+                          width="400"
+                          height="400">
+                      {%- endif -%}
+                    </div>
+                    <div class="product-card-content">
+                      <h3 class="product-card-title">{{ product.title }}</h3>
+                      {%- if product.metafields.global.prod_size -%}
+                        <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
+                      {%- endif -%}
+                      <div class="product-card-price">
+                        <span class="price">{{ product.price | money }}</span>
+                        {%- if product.compare_at_price > product.price -%}
+                          <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </a>
                 </div>
-              </a>
+              {%- endfor -%}
             </div>
-          {%- endfor -%}
-        </div>
-      </div>
+          </div>
+        </section>
+      {%- endif -%}
     {%- else -%}
       <div class="collection-empty">
         <p>No products found in this collection.</p>
