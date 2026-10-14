@@ -341,6 +341,15 @@
   opacity: 1;
   visibility: visible;
 }
+/* Add to cart hover: same as the product page's main Add to Cart (lighter navy) */
+.product-card__action-item:first-child .product-card__button:hover {
+  background-color: #12385c;
+  border-color: transparent;
+  color: #ffffff;
+  /* Dark navy frame from 1px inside to 1px outside the edge, like the main Add to Cart hover */
+  outline: 2px solid #001e37;
+  outline-offset: -1px;
+}
 .product-card__link {
   position: absolute;
   left: 0;

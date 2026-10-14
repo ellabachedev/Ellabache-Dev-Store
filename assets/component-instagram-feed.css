@@ -125,3 +125,36 @@
 .insta-post a:hover .overlay svg{
   top:0;
 }
+/* Play icon on video posts */
+.insta-post .insta-post__play {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 30, 55, 0.55);
+  pointer-events: none;
+}
+.insta-post .insta-post__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #ffffff;
+  transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 768px) {
+  #instagramFeed {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .insta-post {
+    scroll-snap-align: start;
+  }
+}

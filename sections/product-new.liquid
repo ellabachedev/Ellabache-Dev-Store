@@ -57,11 +57,11 @@
         {% if product.metafields.global.prod_size or product.metafields.global.shortdescription1 or product.metafields.global.shortdescription2 %}
           <div class="short-info">
             {% if product.metafields.global.shortdescription1 %}
-              <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
+              {% render 'pdp-tagline', text: product.metafields.global.shortdescription1 %}
             {% endif %}
             <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
             {% if product.metafields.global.shortdescription2 %}
-              <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
+              {% render 'pdp-tagline', text: product.metafields.global.shortdescription2, class_name: 'desc1' %}
             {% endif %}
           </div>
           <div class="separator"></div>

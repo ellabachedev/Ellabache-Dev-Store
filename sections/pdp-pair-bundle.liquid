@@ -114,7 +114,7 @@
       {%- if section.settings.show_bundle -%}
         <div class="pdp-pair__bundle" data-pdp-pair-bundle hidden>
           <p class="pdp-pair__bundle-text">
-            {{ section.settings.bundle_text_before }} <span data-pdp-pair-count></span> for
+            <span data-pdp-pair-label data-text-before="{{ section.settings.bundle_text_before | escape }}"></span> for
             <strong data-pdp-pair-total></strong>
           </p>
           <button type="button" class="pdp-button pdp-button--large" data-pdp-pair-bundle-button>
@@ -179,7 +179,14 @@
         bundle.hidden = true;
         return;
       }
-      bundle.querySelector('[data-pdp-pair-count]').textContent = claims.length;
+      // "This item + 3 products" when the set includes the product on this page, else "Add all 3".
+      var labelEl = bundle.querySelector('[data-pdp-pair-label]');
+      if (root.dataset.currentClaim) {
+        var others = claims.length - 1;
+        labelEl.textContent = 'This item + ' + others + (others === 1 ? ' product' : ' products');
+      } else {
+        labelEl.textContent = labelEl.getAttribute('data-text-before') + ' ' + claims.length;
+      }
       bundle.querySelector('[data-pdp-pair-total]').textContent = formatMoney(total, root.dataset.moneyFormat);
       // CartJS listens for clicks on [data-cart-addclaims] and adds every claim in the array.
       bundle.querySelector('[data-pdp-pair-bundle-button]').setAttribute('data-cart-addclaims', JSON.stringify(claims));

@@ -67,6 +67,7 @@ rel="stylesheet"
                 <div class="cart-line-item" data-rv-class-sample-item="item.title | includes '% off'" data-rv-each-item="cart.items">
                   <div class="prod-info-container" data-rv-class-sample="item.title | includes '% off'">
                     <div class="minicart-image">
+                      <span class="gift-badge" data-rv-show="item.title | includes '% off'" aria-hidden="true">&#127873;</span>
                       <a data-rv-href="item.url">
                         <img
                           data-rv-src="item.image | productImageSize '120x'"
@@ -78,10 +79,7 @@ rel="stylesheet"
                     </div>
                     <div class="product-info">
                       <p class="prod-title">
-                        <span class="gift-label" data-rv-show="item.title | includes '% off'">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="8.5" width="17" height="4" rx="0.5"/><path d="M5 12.5v8h14v-8M12 8.5v12M12 8.5c-1.5-3.5-5.5-4-5.5-1.5 0 1.5 2.5 1.5 5.5 1.5Zm0 0c1.5-3.5 5.5-4 5.5-1.5 0 1.5-2.5 1.5-5.5 1.5Z"/></svg>
-                          Free gift
-                        </span>
+                        <span class="gift-label" data-rv-show="item.title | includes '% off'">Free gift</span>
                         <a data-rv-href="item.url">
                           <span data-rv-text="item.product_title | cleanGiftTitle"></span>
                         </a>
@@ -90,23 +88,31 @@ rel="stylesheet"
                       </p>
                       <div class="minicart-actions">
                         <div data-rv-hide="item.title | includes '% off'" class="minicart-qty-container">
+                          {%- comment -%} Quantity buttons use the line's key (stable even when gift lines are added
+                              or removed) and are handled, debounced, in cart-mini.js. {%- endcomment -%}
                           <a
                             class="minicart-qty-minus"
                             href="#"
-                            data-rv-data-cart-update="index | plus 1"
-                            data-rv-data-cart-quantity="item.quantity | minus 1">&ndash;</a>
+                            role="button"
+                            aria-label="Decrease quantity"
+                            data-mc-step="-1"
+                            data-rv-data-mc-key="item.key">&ndash;</a>
                           <span class="minicart-item-qty-text">
                             <input
                               type="text"
                               name="updates[]"
+                              data-mc-qty
+                              aria-label="Quantity"
                               data-rv-value="item.quantity"
                               readonly />
                           </span>
                           <a
                             class="minicart-qty-plus"
                             href="#"
-                            data-rv-data-cart-update="index | plus 1"
-                            data-rv-data-cart-quantity="item.quantity | plus 1">+</a>
+                            role="button"
+                            aria-label="Increase quantity"
+                            data-mc-step="1"
+                            data-rv-data-mc-key="item.key">+</a>
                         </div>
                         <!-- <div data-rv-show="item.title | includes '% off'" class="minicart-qty-container">
                         <span class="minicart-item-qty-text" data-rv-html="item.quantity"></span>
@@ -183,7 +189,7 @@ rel="stylesheet"
                           </span>
                         </p>
                         <div class="cart-remove" data-rv-index="index | plus 1">
-                          <a href="#" data-rv-data-cart-remove="index | plus 1">
+                          <a href="#" data-rv-data-cart-remove-id="item.key">
                             {% comment %}<i class="fas fa-trash-alt"></i>{% endcomment %}
                             <img
                               style="max-width:12px;"

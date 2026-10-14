@@ -67,12 +67,83 @@
     },
     "pdp_ugc_videos": {
       "type": "pdp-ugc-videos",
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/809e9181fbee422faef7347b853e9c5e.mp4",
+            "poster_url": "https://cdn.accentuate.io/7090790301745/19348229357617/Charcoal-Radiance-Mask-LIFESTYLE_02_WHITE-72dpi-v1767315192632.jpg?1080x1080",
+            "product": "charcoal-radiance-mask",
+            "handle": "@ellabacheaus",
+            "caption": "Weekly detox mask ritual"
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/84ce673409a541c0a66006a5899258d7.mp4",
+            "poster_url": "https://cdn.accentuate.io/777604431921/19348229357617/HydraHyaluronicCellularSerum-1_Moment-v1659078562086.jpg?1080x1080",
+            "product": "hydra-hyaluronic-cellular-serum",
+            "handle": "@ellabacheaus",
+            "caption": "Lightweight, plumping texture"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/c4b25d7154c54a2fb132051ff3d95250.mp4",
+            "poster_url": "https://cdn.accentuate.io/6777978781745/19348229357617/vidoe-cover-photo-v1680498166281.jpg?536x952",
+            "product": "spirulineslift-intensive-firming-serum",
+            "handle": "@ellabacheaus",
+            "caption": "How to apply for firmer-looking skin"
+          }
+        },
+        "video_4": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/81804769dfa84464bb6d1d500744c80c.mp4",
+            "poster_url": "https://cdn.accentuate.io/2002690408497/19348229357617/UltraNourishingCream-2_Moment-v1659081665185.jpg?1080x1080",
+            "product": "ultra-nourishing-cream",
+            "handle": "@ellabacheaus",
+            "caption": "Rich, comforting texture"
+          }
+        },
+        "video_5": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/7b164b9ca4e94bb58621027a3319baf7.mp4",
+            "poster_url": "https://cdn.accentuate.io/779446255665/19348229357617/PurifyingTomateEmulsion-1_Moment-v1659081450913.jpg?1080x1080",
+            "product": "purifying-tomate-emulsion",
+            "handle": "@ellabacheaus",
+            "caption": "Fresh, balancing finish"
+          }
+        },
+        "video_6": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/3f0f5e2064b94d27936bd8900fcd1e05.mp4",
+            "poster_url": "https://cdn.accentuate.io/6774043017265/19348229357617/ezgif.com-optijpeg-v1739938275580.jpg?1006x882",
+            "product": "hyaluronic-intensive-treatment-booster",
+            "handle": "@ellabacheaus",
+            "caption": "A few drops, mixed into your cream"
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4",
+        "video_5",
+        "video_6"
+      ],
       "settings": {
         "heading": "People using it",
-        "note": "Creator and salon clips, reposted with permission",
-        "background_color": "#f8f8f8",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "subheading": "Textures, routines and how to apply, filmed by Ella Baché.",
+        "note": "",
+        "background_color": "#f6f1eb",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "pdp_benefits": {
@@ -99,7 +170,7 @@
       "name": "Promo Banner",
       "settings": {
         "heading": "Speak to an online expert",
-        "subtext": "For over 70 years, we’ve believed that no two skins are alike. Book your online consultation today and receive a personalised skincare, curated by our expert therapists to meet your skin’s unique needs.",
+        "subtext": "For over 90 years, we’ve believed that no two skins are alike. Book your online consultation today and receive a personalised skincare, curated by our expert therapists to meet your skin’s unique needs.",
         "button_text": "Book an online skin consultation",
         "button_link": "https://www.ellabache.com.au/pages/ella-bache-online-skin-consultation",
         "image": "shopify://shop_images/speak-to-online-expert_1.jpg"
@@ -108,6 +179,7 @@
     "custom_product_recommendations_7jPXeP": {
       "type": "custom-product-recommendations",
       "name": "Best Sellers + Pair With",
+      "disabled": true,
       "settings": {}
     },
     "product-recommendations": {
@@ -160,7 +232,7 @@
         "h2 {color: #001e37;}"
       ],
       "settings": {
-        "title": "FOLLOW US ON INSTAGRAM",
+        "title": "Follow us on Instagram",
         "link": "https://www.instagram.com/ellabacheaus/?hl=en",
         "caption": "@ellabacheaus",
         "user_id": "17841400417663213",
@@ -188,10 +260,10 @@
     "pdp_pair_bundle",
     "pdp_ugc_videos",
     "pdp_benefits",
-    "mini_promo_banner_L3zLJK",
     "custom_product_recommendations_7jPXeP",
     "product-recommendations",
     "product_stamped_reviews_8A69eF",
+    "mini_promo_banner_L3zLJK",
     "pdp_faq",
     "treatment_card_grid_76FXV3",
     "main",

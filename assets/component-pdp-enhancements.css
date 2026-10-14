@@ -317,34 +317,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-.pdp-sticky-atc__added {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.pdp-sticky-atc__label {
-  transition: opacity 0.2s ease;
-}
-/* Loading: soft pulse on the label. Added: swap label for a tick. */
-.pdp-sticky-atc.is-loading .pdp-sticky-atc__label {
-  animation: pdp-sticky-pulse 1s ease-in-out infinite;
-}
-.pdp-sticky-atc.is-added .pdp-sticky-atc__label {
-  opacity: 0;
-}
-.pdp-sticky-atc.is-added .pdp-sticky-atc__added {
-  opacity: 1;
-}
-@keyframes pdp-sticky-pulse {
-  50% {
-    opacity: 0.4;
-  }
-}
 body.pdp-sticky-atc-visible {
   padding-bottom: var(--pdp-sticky-atc-height, 80px);
 }
@@ -417,9 +389,6 @@ body.pdp-sticky-lift-chat #tidio-chat {
   .pdp-sticky-atc.is-visible,
   #tidio-chat {
     transition: none;
-  }
-  .pdp-sticky-atc.is-loading .pdp-sticky-atc__label {
-    animation: none;
   }
 }
 
@@ -544,7 +513,7 @@ body.pdp-sticky-lift-chat #tidio-chat {
 
 /* ---------- People using it (videos) ---------- */
 .pdp-ugc {
-  background: var(--pdp-ugc-bg, #f8f8f8);
+  background: var(--pdp-ugc-bg, #f6f1eb);
 }
 .pdp-ugc__header {
   display: flex;
@@ -552,33 +521,35 @@ body.pdp-sticky-lift-chat #tidio-chat {
   justify-content: space-between;
   gap: 16px;
 }
-.pdp-ugc__heading {
-  margin: 0 0 20px;
-  font-size: 12px;
-  line-height: 1.4;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: #001e37;
+.pdp-ugc .pdp-section__subheading {
+  margin-bottom: 24px;
 }
 .pdp-ugc__arrows {
   display: flex;
+  flex: none;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .pdp-ugc__arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: 0;
-  background: none;
+  border: 1px solid #001e37;
+  border-radius: 50%;
+  background: transparent;
   color: #001e37;
   cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pdp-ugc__arrow:not(:disabled):hover {
+  background: #001e37;
+  color: #ffffff;
 }
 .pdp-ugc__arrow:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: default;
 }
 .pdp-ugc__arrow .pdp-icon {
@@ -592,7 +563,7 @@ body.pdp-sticky-lift-chat #tidio-chat {
 }
 .pdp-ugc__track {
   display: flex;
-  gap: 12px;
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -604,33 +575,42 @@ body.pdp-sticky-lift-chat #tidio-chat {
 .pdp-ugc__track::-webkit-scrollbar {
   display: none;
 }
+/* 4 cards per view on desktop, 3 on tablet, about 2.3 on phones (the next card peeks in) */
 .pdp-ugc__item {
-  flex: 0 0 calc((100% - 60px) / 6);
-  min-width: 150px;
+  flex: 0 0 calc((100% - 48px) / 4);
   scroll-snap-align: start;
+}
+@media (max-width: 989px) {
+  .pdp-ugc__item {
+    flex-basis: calc((100% - 32px) / 3);
+  }
 }
 @media (max-width: 768px) {
   .pdp-ugc__track {
+    gap: 12px;
     margin-right: -15px;
     padding-right: 15px;
+    scroll-padding-left: 0;
   }
   .pdp-ugc__item {
-    flex-basis: 42%;
+    flex-basis: 64%;
   }
 }
 .pdp-ugc__card {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 4 / 5;
   padding: 0;
   border: 0;
-  background: #f4f3f3;
+  background: #e9e3de;
   overflow: hidden;
   cursor: pointer;
   text-align: left;
   color: #ffffff;
   font-family: inherit;
+  letter-spacing: normal;
+  text-transform: none;
 }
 .pdp-ugc__card img {
   position: absolute;
@@ -638,50 +618,96 @@ body.pdp-sticky-lift-chat #tidio-chat {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
-.pdp-ugc__card:hover img {
-  transform: scale(1.04);
-}
+/* Navy fade at the bottom keeps the text readable on any cover */
 .pdp-ugc__card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 30, 55, 0) 55%, rgba(0, 30, 55, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(0, 30, 55, 0) 45%, rgba(0, 30, 55, 0.82) 100%);
+  transition: background-color 0.2s ease;
+}
+.pdp-ugc__card:hover::after {
+  background-color: rgba(0, 30, 55, 0.12);
+}
+.pdp-ugc__card:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 3px;
 }
 .pdp-ugc__play {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 50%;
+  left: 50%;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 52px;
+  height: 52px;
+  margin: -26px 0 0 -26px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: #001e37;
+  box-shadow: 0 4px 16px rgba(0, 30, 55, 0.25);
 }
 .pdp-ugc__play .pdp-icon {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
+  margin-left: 2px; /* optically centre the triangle */
+}
+.pdp-ugc__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 3px 8px;
+  background: #001e37;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 .pdp-ugc__meta {
   position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
   z-index: 1;
-  font-size: 12px;
-  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.3;
 }
 .pdp-ugc__handle {
-  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.pdp-ugc__product {
+  font-size: 14px;
   font-weight: 500;
 }
+.pdp-ugc__caption {
+  font-size: 12px;
+  opacity: 0.9;
+}
+@media (max-width: 768px) {
+  .pdp-ugc__meta {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+  }
+  .pdp-ugc__product {
+    font-size: 14px;
+  }
+}
+
+/* Popup player, with the product underneath */
 .pdp-ugc__dialog {
-  width: min(420px, calc(100vw - 32px));
+  width: min(480px, calc(100vw - 32px));
   max-height: calc(100vh - 32px);
   padding: 0;
   border: 0;
@@ -694,10 +720,53 @@ body.pdp-sticky-lift-chat #tidio-chat {
 .pdp-ugc__dialog video {
   display: block;
   width: 100%;
-  max-height: calc(100vh - 32px);
-  aspect-ratio: 9 / 16;
+  max-height: calc(100vh - 140px);
   object-fit: contain;
   background: #000000;
+}
+.pdp-ugc__shop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #ffffff;
+}
+.pdp-ugc__shop-img {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border: 1px solid #f0f0f0;
+}
+.pdp-ugc__shop-info {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  color: #001e37;
+}
+.pdp-ugc__shop-title {
+  overflow: hidden;
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.3;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pdp-ugc__shop-title:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pdp-ugc__shop-price {
+  font-size: 14px;
+  font-weight: 500;
+}
+.pdp-ugc__shop-actions .pdp-button {
+  min-height: 44px;
+  padding: 0 16px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 .pdp-ugc__close {
   position: absolute;
@@ -707,13 +776,14 @@ body.pdp-sticky-lift-chat #tidio-chat {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border: 0;
   border-radius: 50%;
   background: #ffffff;
   color: #001e37;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 @media (max-width: 480px) {
   .pdp-ugc__close {
@@ -811,4 +881,572 @@ body.pdp-sticky-lift-chat #tidio-chat {
 }
 .pdp-faq__answer > :last-child {
   margin-bottom: 0;
+}
+
+/* ---------- Product hero ---------- */
+/* Swipe dots: mobile only (desktop keeps the thumbnail column). */
+.productHero-pagination {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* Gallery first, full width, then the title block. */
+  .product-single .hero-content .product-hero-content {
+    margin-top: 18px;
+  }
+  .product-single .hero-content .pdp-title-block .short-info {
+    padding: 8px 0 4px;
+  }
+  .pdp-image-gallery .productHeroSliderThumb,
+  .pdp-image-gallery .productHero-main-prev,
+  .pdp-image-gallery .productHero-main-next {
+    display: none;
+  }
+  .pdp-image-gallery .productHeroSlider {
+    width: 100%;
+  }
+  /* Space for the dots is reserved up front, so nothing moves when the gallery starts. */
+  .pdp-image-gallery .productHeroSlider.has-multiple-slides {
+    padding-bottom: 26px;
+  }
+  .pdp-image-gallery .productHero-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    top: auto;
+    bottom: 4px;
+    height: 12px;
+  }
+  .pdp-image-gallery .productHero-pagination .swiper-pagination-bullet {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    margin: 0 !important;
+    border-radius: 4px;
+    background: #001e37;
+    opacity: 0.22;
+  }
+  .pdp-image-gallery .productHero-pagination .swiper-pagination-bullet-active {
+    width: 22px;
+    opacity: 1;
+  }
+  /* Bigger invisible tap area around each dot. */
+  .pdp-image-gallery .productHero-pagination .swiper-pagination-bullet::after {
+    content: "";
+    position: absolute;
+    inset: -14px -6px;
+  }
+}
+
+/* "New" badge on the gallery (styled here so it doesn't depend on the Bestsellers section's CSS). */
+.pdp-image-gallery .product-card__badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  gap: 5px;
+}
+.pdp-image-gallery .badge {
+  display: block;
+  padding: 4px 8px;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.pdp-image-gallery .badge.new {
+  background-color: #8dd4d9;
+  color: #000000;
+}
+
+/* ---------- Wishlist (on the gallery) ----------
+   Desktop: heart + one-line label. Phones: a round 44px heart button.
+   Saved (.addedtoquote, set by addto-wishlist.js): filled heart and "Saved to wishlist". */
+.product-single .hero-content .add_to_wishlist {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px 0 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #001e37;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.product-single .hero-content .add_to_wishlist svg {
+  position: static;
+  flex: none;
+  width: 22px;
+  height: 22px;
+}
+.product-single .hero-content .add_to_wishlist svg path {
+  fill: #001e37;
+}
+.product-single .hero-content .add_to_wishlist .icon-heart-filled,
+.product-single .hero-content .add_to_wishlist .text-saved {
+  display: none;
+}
+.product-single .hero-content .add_to_wishlist .text {
+  width: auto;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+.product-single .hero-content .add_to_wishlist:hover .text {
+  text-decoration-color: currentColor;
+}
+.product-single .hero-content .add_to_wishlist:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 2px;
+}
+.product-single .hero-content .add_to_wishlist.addedtoquote svg:not(.icon-heart-filled),
+.product-single .hero-content .add_to_wishlist.addedtoquote .text-add {
+  display: none;
+}
+.product-single .hero-content .add_to_wishlist.addedtoquote .icon-heart-filled,
+.product-single .hero-content .add_to_wishlist.addedtoquote .text-saved {
+  display: block;
+}
+@media (max-width: 768px) {
+  .product-single .hero-content .add_to_wishlist {
+    top: 8px;
+    right: 8px;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 30, 55, 0.14);
+  }
+  .product-single .hero-content .add_to_wishlist svg {
+    width: 20px;
+    height: 20px;
+  }
+  /* Label kept for screen readers only */
+  .product-single .hero-content .add_to_wishlist .text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Add to Cart buttons: one look, hover and press states ---------- */
+.product-single .hero-content .add-to-cart button#pdp-addtocart,
+.pdp-sticky-atc__button,
+.pdp-button {
+  transition: background-color 0.2s ease, border-color 0.2s ease, outline-color 0.1s ease;
+}
+.product-single .hero-content .add-to-cart button#pdp-addtocart:not([disabled]):hover {
+  background-color: #12385c;
+  border-color: #12385c;
+}
+/* Same hover "pop" as the main Add to Cart (the theme's .button hover) */
+.pdp-sticky-atc__button:not(:disabled):hover,
+.pdp-button:not(:disabled):hover {
+  background-color: #12385c;
+  border-color: transparent;
+  /* Dark navy frame from 1px inside to 1px outside the edge, like the main Add to Cart hover */
+  outline: 2px solid #001e37;
+  outline-offset: -1px;
+}
+#pdp-addtocart:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 3px;
+}
+/* "Pair it with" buttons: full card width, same type as the main Add to Cart */
+.pdp-pair-card__action .pdp-button {
+  width: 100%;
+  letter-spacing: 1px;
+}
+
+
+/* Afterpay text shown straight away, the same size and look as the Afterpay widget,
+   so nothing jumps when the widget replaces it. */
+.pdp-afterpay-fallback {
+  box-sizing: border-box;
+  margin: 0 0 15px;
+  padding: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  color: #4a4a4a;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.pdp-afterpay-fallback strong {
+  font-weight: 500;
+}
+/* Same box as the widget's logo button (92 x 27.5px, middle-aligned), plus the width of its info icon. */
+.pdp-afterpay-fallback__logo {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 92px;
+  height: 27.48px;
+  margin: 1px 16px 1px 0;
+  padding-bottom: 2px;
+  vertical-align: middle;
+}
+.pdp-afterpay-fallback:has(~ square-placement),
+.pdp-afterpay-fallback:has(~ afterpay-placement),
+.pdp-afterpay-fallback:has(+ .afterpay-widget-product:not(:empty)) {
+  display: none;
+}
+
+/* Quantity: 44px tap targets. */
+.product-single .hero-content .add-to-cart .quantity-wrapper {
+  width: auto;
+}
+.product-single .quantity-wrapper .quantity-spinner {
+  display: inline-block;
+  padding: 0 44px;
+}
+.product-single .quantity-wrapper .quantity-spinner input[type='number'] {
+  display: block;
+  width: 48px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 16px; /* 16px also stops iOS zooming in on tap */
+}
+.product-single .quantity-wrapper .quantity-spinner .quantity-nav .quantity-button {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 18px;
+  font-weight: 400;
+  user-select: none;
+}
+
+/* Main Add to Cart: full width of the buy column, with progress feedback. */
+.product-single .hero-content .add-to-cart button#pdp-addtocart {
+  width: 100%;
+  min-height: 50px;
+  transition: background-color 0.2s ease;
+}
+
+/* Desktop: the gallery stays in view while the product details scroll past, just below the
+   fixed header (pdp-enhancements.js keeps --pdp-header-offset equal to the header's height). */
+@media (min-width: 769px) {
+  .product-single .hero-content {
+    align-items: stretch;
+  }
+  .product-single .hero-content .image-carousel {
+    align-self: stretch;
+  }
+  .product-single .pdp-image-gallery {
+    top: calc(var(--pdp-header-offset, 120px) + 16px);
+  }
+}
+
+/* Breadcrumbs: at least 12px on phones (the theme default is 10px). This file only loads on product pages. */
+@media (max-width: 767px) {
+  .breadcrumbs ol li a {
+    font-size: 12px;
+  }
+}
+
+/* Trust row under Add to Cart: shipping, returns, secure checkout, expert advice. */
+.pdp-trust {
+  padding: 16px 0 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.pdp-trust__list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pdp-trust__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.pdp-trust__item strong {
+  font-weight: 500;
+}
+.pdp-trust__icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eef8f9;
+  color: #1f6f74;
+}
+.pdp-trust__icon svg {
+  width: 18px;
+  height: 18px;
+}
+.pdp-trust__item a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 30, 55, 0.35);
+  text-underline-offset: 3px;
+}
+.pdp-trust__item a:hover {
+  text-decoration-color: currentColor;
+}
+.pdp-trust__expert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #f8f8f8;
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.pdp-trust__expert span {
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 30, 55, 0.35);
+  text-underline-offset: 3px;
+}
+.pdp-trust__arrow {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.pdp-trust__expert:hover {
+  background: #f0f0f0;
+}
+.pdp-trust a:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 2px;
+}
+
+/* ==================================================================
+   PDP polish: buy row, section rhythm, micro-interactions
+   (this stylesheet only loads on product pages)
+================================================================== */
+
+/* ---------- Buy row: quantity and Add to Cart side by side (50px tall) ---------- */
+.product-single .hero-content .add-to-cart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+}
+.product-single .hero-content .add-to-cart .quantity-wrapper {
+  flex: none;
+  margin-bottom: 0;
+}
+.product-single .hero-content .add-to-cart .quantity-wrapper label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.product-single .hero-content .add-to-cart .product-swatches {
+  flex: 0 0 100%;
+  order: -1;
+  margin: 0 0 6px;
+}
+.product-single .hero-content .add-to-cart button#pdp-addtocart {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+.product-single .hero-content .add-to-cart .quantity-spinner input[type='number'] {
+  height: 48px;
+  line-height: 48px;
+}
+.product-single .hero-content .add-to-cart .quantity-spinner .quantity-nav .quantity-button {
+  height: 48px;
+  line-height: 48px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* ---------- Section rhythm: same heading style and spacing below the hero ---------- */
+.pdp-section__heading,
+.shopify-section.treatment-card-grid .treatment-card-grid__heading,
+.shopify-section .instagram_feed-wrapper h2,
+.shopify-section .stamped-widget h2 {
+  margin-top: 0;
+  color: #001e37;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: none;
+}
+@media (min-width: 750px) {
+  .pdp-section__heading,
+  .shopify-section.treatment-card-grid .treatment-card-grid__heading,
+  .shopify-section .instagram_feed-wrapper h2,
+  .shopify-section .stamped-widget h2 {
+    font-size: 32px;
+  }
+}
+.shopify-section.treatment-card-grid .treatment-card-grid__heading {
+  margin-bottom: 24px;
+}
+/* "@ellabacheaus" under the Instagram heading: same style as the other section subheadings */
+.shopify-section .instagram_feed-wrapper h2 a {
+  margin: 8px 0 24px;
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 30, 55, 0.35);
+  text-underline-offset: 4px;
+}
+.shopify-section .instagram_feed-wrapper h2 a:hover {
+  text-decoration-color: currentColor;
+}
+/* Even vertical spacing: 40px on phones, 56px on larger screens */
+.shopify-section.treatment-card-grid,
+.shopify-section .instagram_feed-wrapper,
+.shopify-section .stamped-widget {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+}
+.shopify-section .stamped-widget {
+  margin-top: 0 !important;
+}
+@media (min-width: 750px) {
+  .shopify-section.treatment-card-grid,
+  .shopify-section .instagram_feed-wrapper,
+  .shopify-section .stamped-widget {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+}
+
+/* ---------- Reviews: long reviews collapse to 5 lines with "Read more" ---------- */
+.stamped-review-content-body.pdp-review-clamped:not(.is-expanded) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+.pdp-review-more {
+  margin: 6px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #001e37;
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+/* "Load more reviews" as a proper button */
+.shopify-section .stamped-widget .stamped-pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border: 1px solid #001e37;
+  color: #001e37;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.shopify-section .stamped-widget .stamped-pagination a:hover {
+  background: #001e37;
+  color: #ffffff;
+}
+
+
+/* ---------- "Speak to an online expert" banner (product page) ---------- */
+/* No white strip above/below the photo, navy heading like every other section */
+.shopify-section.mini-promo-banner .mini-promo-banner__image-wrapper {
+  margin: 0;
+}
+.shopify-section.mini-promo-banner .mini-promo-banner__heading {
+  margin-bottom: 12px;
+  color: #001e37;
+}
+.shopify-section.mini-promo-banner .mini-promo-banner__subtext {
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+/* Phones: the text sets the height (so the button never sits on the edge), the photo fills
+   behind it, and the content is left-aligned like the other sections. */
+@media only screen and (max-width: 767px) {
+  .shopify-section.mini-promo-banner .mini-promo-banner__text {
+    position: relative;
+    height: auto;
+    padding: 40px 0;
+    text-align: left;
+  }
+  .shopify-section.mini-promo-banner .mini-promo-banner__image-wrapper {
+    position: absolute;
+    inset: 0;
+  }
+  .shopify-section.mini-promo-banner .mini-promo-banner__image {
+    height: 100%;
+    min-height: 0;
+  }
+  .shopify-section.mini-promo-banner .mini-promo-banner__heading {
+    font-size: 26px;
+  }
+  .shopify-section.mini-promo-banner .mini-promo-banner__text .button {
+    width: 100%;
+    /* One line on 375px phones (e.g. iPhone 11 Pro): slightly smaller type and tighter spacing */
+    padding: 0 12px;
+    font-size: 13px;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+  }
+}
+/* Very narrow phones: allow two lines rather than overflowing */
+@media only screen and (max-width: 340px) {
+  .shopify-section.mini-promo-banner .mini-promo-banner__text .button {
+    white-space: normal;
+    line-height: 1.3;
+    padding: 10px 12px;
+  }
+}
+
+/* Reviews "Load more reviews" (Stamped draws the label with ::before): outlined theme button */
+.shopify-section .stamped-widget ul.stamped-pagination li.next a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 28px !important;
+  border: 1px solid #001e37 !important;
+  background: transparent;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease;
+}
+.shopify-section .stamped-widget ul.stamped-pagination li.next a::before {
+  color: #001e37;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.shopify-section .stamped-widget ul.stamped-pagination li.next a:hover {
+  background: #001e37 !important;
+}
+.shopify-section .stamped-widget ul.stamped-pagination li.next a:hover::before {
+  color: #ffffff;
 }

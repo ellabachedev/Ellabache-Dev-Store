@@ -45,6 +45,34 @@
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%}
+      Before the apps load: lets the mini cart see the Free Gifts app's cart requests (its cart
+      checks and gift saves), so the cart's loading state lasts until the gift lines are final,
+      and a gift save's returned cart can be shown without another request.
+      Events: minicart:fg-start, minicart:fg-end (detail: { url, cart }, cart only for gift saves).
+    {%- endcomment -%}
+    <script>
+      (function () {
+        if (!window.fetch || window.fetch.__miniCartGiftWatch) return;
+        var nativeFetch = window.fetch;
+        var watched = function (input) {
+          var url = typeof input === 'string' ? input : (input && input.url) || '';
+          var isFreeGifts = /sca_fetch|sca_process_gifts|secomapp_freegifts/.test(url);
+          var isGiftSave = /sca_process_gifts/.test(url);
+          if (isFreeGifts) document.dispatchEvent(new CustomEvent('minicart:fg-start', { detail: { url: url } }));
+          var request = nativeFetch.apply(this, arguments);
+          if (isFreeGifts) {
+            request
+              .then(function (response) { return isGiftSave && response.ok ? response.clone().json() : null; })
+              .catch(function () { return null; })
+              .then(function (cart) { document.dispatchEvent(new CustomEvent('minicart:fg-end', { detail: { url: url, cart: cart } })); });
+          }
+          return request;
+        };
+        watched.__miniCartGiftWatch = true;
+        window.fetch = watched;
+      })();
+    </script>
     {{ content_for_header }}
     {% style %}
       {{ settings.type_body_font | font_face: font_display: 'swap' }}
@@ -339,6 +367,7 @@
   {%- if template != 'page.salon-c19' and template != 'page.find-salon' -%}
     <script src="https://ellabache49720.activehosted.com/f/embed.php?id=6" charset="utf-8"></script>
   {%- endif -%}
+  {%- render 'mobile-bottom-nav' -%}
 </body>
 </html>{%- comment -%}
 

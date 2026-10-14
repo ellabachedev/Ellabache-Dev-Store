@@ -75,7 +75,6 @@
 
     var stickyButton = bar.querySelector('[data-pdp-sticky-button]');
     var stickyLabel = bar.querySelector('[data-pdp-sticky-label]');
-    var stickyStatus = bar.querySelector('[data-pdp-sticky-status]');
     var stickyPrices = bar.querySelectorAll('[data-pdp-sticky-price]');
     var stickyQty = bar.querySelector('[data-pdp-sticky-qty-input]');
     var focusables = bar.querySelectorAll('a, button, input');
@@ -176,45 +175,133 @@
     });
     update();
 
-    /* Add to cart with loading and "Added" feedback (CartJS fires its events through jQuery). */
-    var pending = false;
-    var resetTimer = null;
-    var safetyTimer = null;
-    function onCartComplete() {
-      if (!pending) return;
-      pending = false;
-      clearTimeout(safetyTimer);
-      bar.classList.remove('is-loading');
-      bar.classList.add('is-added');
-      if (stickyStatus) stickyStatus.textContent = 'Added to cart';
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(function () {
-        bar.classList.remove('is-added');
-        if (stickyStatus) stickyStatus.textContent = '';
-      }, 2200);
-    }
+    // The sticky button simply runs the main Add to Cart (same quantity, same cart behaviour).
     stickyButton.addEventListener('click', function () {
-      if (mainButton.disabled || pending) return;
-      pending = true;
-      // Resolve jQuery at click time: CartJS triggers its events on the current window.jQuery.
-      if (window.jQuery) {
-        window.jQuery(document).off('cart.requestComplete', onCartComplete).one('cart.requestComplete', onCartComplete);
-      }
-      bar.classList.remove('is-added');
-      bar.classList.add('is-loading');
-      // Safety net in case the cart request never completes.
-      clearTimeout(safetyTimer);
-      safetyTimer = setTimeout(function () {
-        pending = false;
-        bar.classList.remove('is-loading');
-      }, 8000);
+      if (mainButton.disabled) return;
       mainButton.click();
     });
   }
 
+  /* ---------- Wishlist: works from the keyboard, announces the saved state ---------- */
+  function initWishlistButton() {
+    var button = document.querySelector('.product-single .add_to_wishlist');
+    if (!button || button.dataset.pdpWishlistInit) return;
+    button.dataset.pdpWishlistInit = 'true';
+    button.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      button.click();
+    });
+    function sync() {
+      var saved = button.classList.contains('addedtoquote');
+      button.setAttribute('aria-label', saved ? 'Saved to wishlist' : 'Add to wishlist');
+    }
+    new MutationObserver(sync).observe(button, { attributes: true, attributeFilter: ['class'] });
+    sync();
+  }
+
+  /* ---------- Trust row: keep the free-shipping line in step with the cart ---------- */
+  function initFreeShippingLine() {
+    var item = document.querySelector('[data-pdp-free-shipping]');
+    var text = item && item.querySelector('[data-pdp-free-shipping-text]');
+    if (!text) return;
+    var threshold = parseInt(item.getAttribute('data-threshold'), 10) || 0;
+    var price = parseInt(item.getAttribute('data-price'), 10) || 0;
+    var productId = parseInt(item.getAttribute('data-product-id'), 10);
+    if (!threshold || price >= threshold) return; // "Free standard shipping on this item" never changes
+
+    function money(cents) {
+      return '$' + (cents / 100).toFixed(2); // matches the store's money format ($143.00)
+    }
+    function render(cart) {
+      if (!cart || typeof cart.total_price !== 'number') return;
+      var inCart = (cart.items || []).some(function (line) { return line.product_id === productId; });
+      var total = cart.total_price + (inCart ? 0 : price);
+      if (total >= threshold) {
+        text.innerHTML = '<strong>Free standard shipping</strong> on your order';
+      } else {
+        text.innerHTML = (inCart ? 'You’re ' : 'With this item you’re ') + '<strong>' + money(threshold - total) + '</strong> away from free standard shipping';
+      }
+    }
+    window.addEventListener('load', function () {
+      if (!window.jQuery) return;
+      window.jQuery(document).on('cart.requestComplete', function (event, cart) {
+        render(cart || (window.CartJS && window.CartJS.cart));
+      });
+    });
+  }
+
+  /* ---------- Desktop sticky gallery: keep it just below the fixed header ---------- */
+  function initGalleryOffset() {
+    var header = document.querySelector('.site-header');
+    if (!header || !document.querySelector('.product-single .pdp-image-gallery')) return;
+    var root = document.documentElement;
+    var current = null;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var offset = Math.max(0, Math.round(header.getBoundingClientRect().bottom));
+      if (offset === current) return;
+      current = offset;
+      root.style.setProperty('--pdp-header-offset', offset + 'px');
+    }
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    if ('ResizeObserver' in window) new ResizeObserver(requestUpdate).observe(header);
+    update();
+  }
+
+  /* ---------- Reviews: collapse long reviews to 5 lines with "Read more" ---------- */
+  function initReviewClamp() {
+    var widget = document.getElementById('stamped-main-widget');
+    if (!widget || widget.dataset.pdpClampInit) return;
+    widget.dataset.pdpClampInit = 'true';
+    var scheduled = false;
+    function clamp() {
+      scheduled = false;
+      widget.querySelectorAll('.stamped-review-content-body:not([data-pdp-clamp])').forEach(function (body) {
+        body.setAttribute('data-pdp-clamp', '');
+        body.classList.add('pdp-review-clamped');
+        // Only keep the clamp (and add the button) when the text is actually cut off.
+        if (body.scrollHeight <= body.clientHeight + 2) {
+          body.classList.remove('pdp-review-clamped');
+          return;
+        }
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pdp-review-more';
+        button.textContent = 'Read more';
+        button.setAttribute('aria-expanded', 'false');
+        button.addEventListener('click', function () {
+          var expanded = body.classList.toggle('is-expanded');
+          button.textContent = expanded ? 'Read less' : 'Read more';
+          button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        });
+        body.insertAdjacentElement('afterend', button);
+      });
+    }
+    function schedule() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(clamp);
+    }
+    // Stamped renders the reviews later (and again on "Load more" or filtering).
+    new MutationObserver(schedule).observe(widget, { childList: true, subtree: true });
+    schedule();
+  }
+
   function init() {
+    initGalleryOffset();
+    initReviewClamp();
     initInfoTabs();
     initStickyAtc();
+    initWishlistButton();
+    initFreeShippingLine();
   }
 
   if (document.readyState === 'loading') {

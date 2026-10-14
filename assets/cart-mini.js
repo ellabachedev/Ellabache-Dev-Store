@@ -122,7 +122,14 @@ function addHalterOverlay() {
   }
 }
 
+// True while CartJS is working through its request queue (set by the handlers in document.ready).
+var miniCartBusy = false;
+// True after a cart change until the Free Gifts app has finished adding/removing gift lines.
+var miniCartGiftWait = false;
 function removeHalterOverlay() {
+  // Never drop the overlay half-way through a cart update (e.g. when the Free Gifts app reports
+  // "done" after the first of several products), or before the gift lines are final.
+  if (miniCartBusy || miniCartGiftWait) return;
   if ($("#halterOverlay").length > 0) {
     $("#halterOverlay").remove();
   }
@@ -161,38 +168,41 @@ function getUpsellRecommendations(productId, intent) {
   return upsellRecommendationsCache[key];
 }
 
+// "You may also like": built from the cart the drawer already has (CartJS.cart), only redrawn
+// when the product it is based on changes, and the heading only appears with products — no
+// empty heading first and no re-render/jump on every cart or Free Gifts event.
+var upsellRenderedFor = null;
+var upsellRenderToken = 0;
 function renderMiniCartUpsell() {
-  var upsellEnable = false;
-  var upsellIntent = "related";
-  var upsellLimit = 3;
-  var upsellProductId = null;
-  if ($(".eb-cart-upsell").length > 0) {
-    upsellEnable =
-      $(".eb-cart-upsell").attr("data-upsell-enable") == "true" ? true : false;
-    upsellIntent = $(".eb-cart-upsell").attr("data-upsell-intent")
-      ? $(".eb-cart-upsell").attr("data-upsell-intent")
-      : "related";
-    upsellLimit = $(".eb-cart-upsell").attr("data-upsell-limit")
-      ? parseInt($(".eb-cart-upsell").attr("data-upsell-limit"))
-      : 3;
+  var box = $(".eb-cart-upsell");
+  if (!box.length || box.attr("data-upsell-enable") != "true") {
+    box.html("");
+    upsellRenderedFor = null;
+    return 1;
   }
-  if (upsellEnable) {
-    getSharedCart().done(function (cartRes) {
-        console.log('getCartJson', cartRes);
-        if (cartRes.items.length > 0) {
-          cartRes.items.forEach(function (item, itmIdx) {
-            if (item.line_price > 0 && upsellProductId == null) {
-              upsellProductId = item.product_id;
-            }
-          });
-          if (upsellProductId != null) {
-            getUpsellRecommendations(upsellProductId, upsellIntent).done(function (res) {
-                console.log("UPSELL", res);
-                if (res.products.length > 0) {
+  var upsellIntent = box.attr("data-upsell-intent") || "related";
+  var upsellLimit = parseInt(box.attr("data-upsell-limit"), 10) || 3;
+
+  function build(items) {
+    var upsellProductId = null;
+    (items || []).forEach(function (item) {
+      if (item.line_price > 0 && upsellProductId == null) upsellProductId = item.product_id;
+    });
+    if (upsellProductId == null) {
+      box.html("");
+      upsellRenderedFor = null;
+      return;
+    }
+    if (upsellProductId === upsellRenderedFor && box.find(".upsell-products").length) return; // unchanged
+    var token = ++upsellRenderToken;
+    getUpsellRecommendations(upsellProductId, upsellIntent).done(function (res) {
+      if (token !== upsellRenderToken) return; // a newer render started meanwhile
+      var inCart = {};
+      (items || []).forEach(function (item) { inCart[item.product_id] = true; });
                   var upsellProdCount = 0;
-                  var upsellHtml = "";
-                  upsellHtml += '<div class="upsell-products">';
+                  var upsellHtml = '<div class="upsell-products">';
                   res.products.forEach(function (upsellProd, upIdx) {
+                    if (inCart[upsellProd.id]) return; // already in the cart
                     var featuredImg = upsellProd.featured_image;
                     var title = upsellProd.title;
                     var upsellProdUrl = upsellProd.url;
@@ -247,29 +257,26 @@ function renderMiniCartUpsell() {
                     }
                   });
                   upsellHtml += "</div>";
-                  $(".eb-cart-upsell").html(upsellHtml);
-                } else {
-                  $(".eb-cart-upsell").html("");
-                }
-                $(".eb-cart-upsell").prepend(
-                  "<h3 class='title'>You may also like</h3>"
-                );
-                $(".eb-cart-upsell .upsell-products").slick({
-                  infinite: true,
-                  slidesToShow: 1,
-                  slidesToScroll: 1,
-                });
-                miniCartFormHeightCalc();
-              });
-          } else {
-            $(".eb-cart-upsell").html("");
-          }
-        } else {
-          $(".eb-cart-upsell").html("");
-        }
+      if (upsellHtml.indexOf("upsell-products__item") === -1) {
+        box.html("");
+        upsellRenderedFor = null;
+        return;
+      }
+      box.html("<h3 class='title'>You may also like</h3>" + upsellHtml);
+      box.find(".upsell-products").slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
       });
+      upsellRenderedFor = upsellProductId;
+      miniCartFormHeightCalc();
+    });
+  }
+
+  if (typeof CartJS !== "undefined" && CartJS.cart && CartJS.cart.items) {
+    build(CartJS.cart.items);
   } else {
-    $(".eb-cart-upsell").html("");
+    getSharedCart().done(function (cartRes) { build(cartRes.items); });
   }
   return 1;
 }
@@ -581,6 +588,168 @@ $(document).ready(function () {
   }
   CartJS.init(RESOURCES.cartJSON, {
     requestBodyClass: "loading",
+  });
+
+  /* Add-to-cart buttons with data-cart-addclaims ("Add the set", product Add to Cart, wishlist …):
+     CartJS sent one /cart/add.js request per product, one after another, and the Free Gifts app
+     re-processed the cart after each — the drawer sat empty for seconds. Send all products in a
+     single request instead, then let CartJS fetch and render the cart as usual. */
+  jQuery(document).off("click", "[data-cart-addclaims]");
+  jQuery(document).on("click", "[data-cart-addclaims]", function (e) {
+    e.preventDefault();
+    var claims;
+    try {
+      claims = JSON.parse(jQuery(this).attr("data-cart-addclaims"));
+    } catch (err) {
+      return;
+    }
+    if (!claims || !claims.length) return;
+    // Same start signal CartJS gives: opens the drawer and shows the loading state right away.
+    jQuery(document).trigger("cart.requestStarted", [CartJS.cart]);
+    jQuery
+      .ajax({ url: "/cart/add.js", type: "POST", dataType: "json", data: { items: claims } })
+      .always(function () {
+        realGetCart(); // fetches and renders the cart, then fires cart.requestComplete
+        jQuery(document).trigger("itemaddedtocart", [CartJS.cart]);
+        jQuery(document).trigger("wishlisttocart", [claims.map(function (c) { return c.id; })]);
+      });
+  });
+
+  /* Cart refreshes: CartJS runs requests one after another and only redraws when its queue is
+     empty. Several scripts (incl. the Free Gifts app) ask for a refresh in quick succession,
+     which queued 4-5 identical /cart.js requests and delayed the drawer (e.g. gift lines) by
+     ~2s. While one is running, further refresh calls collapse into a single follow-up. */
+  var realGetCart = CartJS.getCart.bind(CartJS);
+  var refreshFollowUp = false;
+  CartJS.getCart = function (options) {
+    if (!miniCartBusy) return realGetCart(options);
+    if (!refreshFollowUp) {
+      refreshFollowUp = true;
+      $(document).one("cart.requestComplete", function () {
+        refreshFollowUp = false;
+        setTimeout(function () { realGetCart(options); }, 0);
+      });
+    }
+  };
+
+  // Busy while CartJS has requests queued; the overlay comes down once everything is rendered.
+  $(document).on("cart.requestStarted", function () {
+    miniCartBusy = true;
+  });
+  /* Loading stays on until the gift lines are final too: after a real cart change (add,
+     quantity, remove) the Free Gifts app re-checks the cart and may add or remove gift lines.
+     The loading state ends when it has saved the gifts and the drawer shows them, or when it has
+     been quiet for 0.7s (nothing to change). Never longer than 5s. */
+  var giftWaitKeys = {};
+  var giftWaitQuietTimer = null;
+  var giftWaitCapTimer = null;
+  var qtySentKeys = [];
+  function giftWaitQuiet(ms) {
+    clearTimeout(giftWaitQuietTimer);
+    giftWaitQuietTimer = setTimeout(giftWaitEnd, ms);
+  }
+  function giftWaitStart(keys) {
+    miniCartGiftWait = true;
+    (keys || []).forEach(function (k) { giftWaitKeys[k] = true; });
+    // The app starts its check right after a change; allow a moment for it to begin.
+    if (!fgRunning) giftWaitQuiet(600);
+    clearTimeout(giftWaitCapTimer);
+    giftWaitCapTimer = setTimeout(giftWaitEnd, 5000);
+  }
+  function giftWaitEnd() {
+    miniCartGiftWait = false;
+    clearTimeout(giftWaitQuietTimer);
+    clearTimeout(giftWaitCapTimer);
+    giftWaitKeys = {};
+    $("#cart-mini .cart-line-item.is-updating").each(function () {
+      var key = $(this).find("[data-mc-key]").attr("data-mc-key");
+      if (!pendingQty[key]) $(this).removeClass("is-updating is-sending is-removing");
+    });
+    removeHalterOverlay();
+  }
+  // Rows can be re-created when gift lines come and go: keep the spinner on the changed lines.
+  function reapplyGiftWaitRows() {
+    if (!miniCartGiftWait) return;
+    Object.keys(giftWaitKeys).forEach(function (key) {
+      $('#cart-mini [data-mc-key="' + key + '"]').closest(".cart-line-item").addClass("is-updating is-sending");
+    });
+  }
+
+  $(document).on("cart.requestComplete", function () {
+    miniCartBusy = false;
+    if (cartMutating) {
+      giftWaitStart(qtySentKeys);
+      qtySentKeys = [];
+    }
+    reapplyGiftWaitRows();
+    setTimeout(removeHalterOverlay, 0);
+    // Suggestions together with the items (not seconds later); unchanged suggestions are kept.
+    if ($("body").hasClass("cart-open")) renderMiniCartUpsell();
+  });
+
+  /* Free gift lines. After a cart change the Free Gifts app checks the cart (sca_fetch) and, if
+     needed, saves gifts (/cart/update.js?sca_process_gifts), then polls the cart for ~2s before
+     the drawer refreshes. A small watcher in theme.liquid (before the apps load) reports each of
+     its requests:
+     - while any is running, the loading state stays on;
+     - a gift save returns the updated cart: show it straight away (CartJS.cart.update
+       re-renders the drawer);
+     - when none is running any more, the loading state ends shortly after. */
+  var fgRunning = 0;
+  document.addEventListener("minicart:fg-start", function () {
+    fgRunning++;
+    clearTimeout(giftWaitQuietTimer);
+  });
+  document.addEventListener("minicart:fg-end", function (event) {
+    fgRunning = Math.max(0, fgRunning - 1);
+    var cart = event.detail && event.detail.cart;
+    if (cart && cart.items && $("body").hasClass("cart-open")) {
+      CartJS.cart.update(cart);
+      $(document).trigger("cart.requestComplete", [CartJS.cart]);
+    }
+    if (miniCartGiftWait && !fgRunning) giftWaitQuiet(cart ? 120 : 300);
+  });
+
+  /* Quantity buttons: the number changes immediately; taps made in quick succession are sent as
+     one update. Lines are addressed by their key, which stays valid when gift lines are added
+     or removed (line numbers shift, which caused "line parameter is invalid"). */
+  var pendingQty = {};
+  var qtyRequestInFlight = false;
+  $(document).on("click", "#cart-mini [data-mc-step]", function (e) {
+    e.preventDefault();
+    var btn = $(this);
+    var key = btn.attr("data-mc-key");
+    var row = btn.closest(".cart-line-item");
+    if (!key || row.hasClass("is-removing") || row.hasClass("is-sending")) return;
+    var input = row.find("[data-mc-qty]");
+    var entry = pendingQty[key] || { qty: parseInt(input.val(), 10) || 1 };
+    entry.qty = Math.max(0, entry.qty + parseInt(btn.attr("data-mc-step"), 10));
+    // Line loading state right away; below 1 the line is removed ("Removing…"), never shows 0.
+    row.addClass("is-updating");
+    if (entry.qty === 0) {
+      row.addClass("is-removing");
+    } else {
+      input.val(entry.qty);
+    }
+    clearTimeout(entry.timer);
+    entry.timer = setTimeout(function () {
+      delete pendingQty[key];
+      row.addClass("is-sending");
+      qtySentKeys.push(key);
+      qtyRequestInFlight = true;
+      CartJS.updateItemById(key, entry.qty);
+    }, entry.qty === 0 ? 0 : 350);
+    pendingQty[key] = entry;
+  });
+  $(document).on("cart.requestComplete", function () {
+    qtyRequestInFlight = false;
+    // Clear the loading state on lines with no newer taps waiting — unless the gift lines are
+    // still being settled (giftWaitEnd clears them then).
+    if (miniCartGiftWait) return;
+    $("#cart-mini .cart-line-item.is-updating").each(function () {
+      var key = $(this).find("[data-mc-key]").attr("data-mc-key");
+      if (!pendingQty[key]) $(this).removeClass("is-updating is-sending is-removing");
+    });
   });
   var compareAtCache = {};
 
@@ -991,44 +1160,59 @@ $(document).ready(function () {
     //await bogos2CartPopupOfferCheck(true);
     bogos2CartPopupOfferCheck(true);
   });
+  // Overlay only for real changes (add / quantity / remove), not for background cart refreshes.
+  var cartMutating = false;
+  $.ajaxPrefilter(function (options) {
+    var url = options.url || "";
+    if (/\/cart\/(add|change|update|clear)/.test(url) && !/sca_/.test(url)) cartMutating = true;
+  });
   $(document).on("cart.requestStarted", function () {
-    console.log("CART OP STARTED");
-    addHalterOverlay();
+    setTimeout(function () {
+      if (cartMutating && miniCartBusy && !qtyRequestInFlight) addHalterOverlay();
+    }, 0);
+  });
+  $(document).on("cart.requestComplete", function () {
+    cartMutating = false;
   });
   $(document).on("cart.requestComplete", function () {
     console.log("CART OP COMPLETED");
     //renderMiniCartUpsell();
   });
+  // The Free Gifts app fires this several times per cart change: refresh once it settles.
+  var fgSettleTimer = null;
   $(document).on("fg-cart:end-process", function () {
-    console.log("CART ITEMS", FGSECOMAPP.cartItems);
-    renderMiniCartUpsell();
-    bogos2CartPopupOfferCheck(false);
-    calcGwpThresholdWarning();
+    clearTimeout(fgSettleTimer);
+    fgSettleTimer = setTimeout(function () {
+      renderMiniCartUpsell();
+      bogos2CartPopupOfferCheck(false);
+      calcGwpThresholdWarning();
+    }, 250);
   });
 });
 $(document).ajaxComplete(function (event, xhr, settings) {
-  if ((settings.url = "/cart/add.js")) {
+  var url = (settings && settings.url) || "";
+  if (/\/cart\/(add|change|update)/.test(url) && xhr.status < 400) {
     $("#cart-mini .errMsg").remove();
   }
 });
 $(document).ajaxError(function (event, jqXHR, settings, thrownError) {
-  if ((settings.url = "/cart/add.js")) {
-    var errMSG = JSON.parse(jqXHR.responseText);
-    console.log("errMSG", errMSG);
+  var url = (settings && settings.url) || "";
+  var errMSG = {};
+  try {
+    errMSG = JSON.parse(jqXHR.responseText) || {};
+  } catch (e) {}
+  // Quantity change / remove for a line that no longer exists (the cart changed underneath,
+  // e.g. a gift was added or removed): just reload the cart quietly.
+  if (/\/cart\/(change|update)/.test(url)) {
+    if (typeof CartJS !== "undefined" && CartJS.getCart) CartJS.getCart();
+    return;
+  }
+  if (/\/cart\/add/.test(url) && errMSG.description) {
+    // e.g. "You can only add 2 of this item to your cart"
     setTimeout(function () {
-      $("#cart-mini  .errMsg").remove();
-      $("#cart-mini .cart-info").prepend(
-        '<div class="errMsg">' + errMSG.description + "</div>"
-      );
-      $("#cart-mini .noItem").prepend(
-        '<div class="errMsg">' + errMSG.description + "</div>"
-      );
-      if (
-        errMSG.status == "bad_request" &&
-        errMSG.message == "no valid id or line parameter"
-      ) {
-        location.reload();
-      }
+      $("#cart-mini .errMsg").remove();
+      $("#cart-mini .cart-info").prepend('<div class="errMsg">' + $("<div>").text(errMSG.description).html() + "</div>");
+      $("#cart-mini .noItem").prepend('<div class="errMsg">' + $("<div>").text(errMSG.description).html() + "</div>");
     }, 450);
   }
 });

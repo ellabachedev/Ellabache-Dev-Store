@@ -9,58 +9,16 @@
   {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
   <div class="page-width">
     <div class="flex-container hero-content">
-      <div class="desktop-hide">
-        <h1>{{ product.title }}</h1>
-        <div class="short-info">
-          {% if product.metafields.global.shortdescription1 %}
-            <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
-          {% endif %}
-          {%- if product.metafields.global.prod_size -%}
-            <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
-          {%- endif -%}
-          {%- if product.price > 0 -%}
-            <div class="product-price-wrapper">
-              <div data-product-price-wrapper class="product-price {% if current_variant.compare_at_price > current_variant.price %} on-sale {% endif %}">
-                <span class="regular-price" data-product-price>{{ current_variant.price | money }}</span>
-                {%- if product.compare_at_price_max > product.price -%}
-                  <div class="was-price">
-                    <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-                    <s data-compare-price style="color:red;">
-                      {%- if current_variant.compare_at_price > current_variant.price -%}
-                        {{ current_variant.compare_at_price | money }}
-                      {%- endif -%}
-                    </s>
-                  </div>
-                {%- endif -%}
-              </div>
-            </div>
-          {%- endif -%}
-          <div style="margin-top:10px;" id="productReviewBadge-{{ collection.handle }}-{{ product.id }}">
-            <!-- Stamped - Begin Star Rating Badge -->
-            <span
-              class="stamped-product-reviews-badge stamped-main-badge"
-              data-id="{{ product.id }}"
-              data-product-sku="{{ product.handle }}"
-              data-product-title="{{product.title}}"
-              style="display: block;">
-              {{ product.metafields.stamped.badge }}
-            </span>
-          <!-- Stamped - End Star Rating Badge -->
-          </div>
-          {%- if product.metafields.global.shortdescription2 -%}
-            <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
-          {%- endif -%}
-        </div>
-      </div>
       <div class="image-carousel product-image-gallery">
-        {% render 'pdp-image-gallery-new', product: product, featured_image: featured_image %}
+        {% render 'pdp-image-gallery-new', product: product, featured_image: featured_image, show_dots: true %}
       </div>
       <div class="product-hero-content">
-        <div class="mobile-hide">
+        {%- comment -%} One title block (one <h1>). On mobile it sits under the gallery. {%- endcomment -%}
+        <div class="pdp-title-block">
           <h1>{{ product.title }}</h1>
           <div class="short-info">
             {%- if product.metafields.global.shortdescription1 -%}
-              <h3 class="desc2">{{ product.metafields.global.shortdescription1 }}</h3>
+              {% render 'pdp-tagline', text: product.metafields.global.shortdescription1 %}
             {%- endif -%}
             {%- if product.metafields.global.prod_size -%}
               <h3 class="size" style="min-height:16px;">{{ product.metafields.global.prod_size }}</h3>
@@ -95,14 +53,15 @@
             <!-- Stamped - End Star Rating Badge -->
             </div>
             {%- if product.metafields.global.shortdescription2 -%}
-              <h3 class="desc1">{{ product.metafields.global.shortdescription2 }}</h3>
+              {% render 'pdp-tagline', text: product.metafields.global.shortdescription2, class_name: 'desc1' %}
             {%- endif -%}
           </div>
         </div>
         {%- if product.price > 0 -%}
           {% render 'product-info-new'
             , product: product
-            , current_variant: current_variant %}
+            , current_variant: current_variant
+            , hero_extras: true %}
         {%- endif -%}
         {% render 'back-in-stock' %}
         {% comment %} {% render 'product-description', product:product %} {% endcomment %}

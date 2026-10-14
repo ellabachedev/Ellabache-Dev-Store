@@ -1061,26 +1061,26 @@ body .freegifts-main-container .nav.right-nav{
   background: #eef8f9;
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample {
-  padding: 8px 10px;
+  padding: 6px 10px;
   border-bottom-color: #d5eef0;
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-image {
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   margin-right: 12px;
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-image img {
-  width: 56px;
-  height: 56px;
-  padding: 4px;
+  width: 44px;
+  height: 44px;
+  padding: 3px;
   border: 1px solid #d5eef0;
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .product-info {
-  width: calc(100% - 68px);
+  width: calc(100% - 56px);
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .product-info .prod-title a {
-  font-size: 14px;
-  line-height: 1.3;
+  font-size: 13px;
+  line-height: 1.25;
 }
 #cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-actions {
   margin-left: 0;
@@ -1088,18 +1088,56 @@ body .freegifts-main-container .nav.right-nav{
 #cart-mini .gift-label {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  width: max-content;
   margin-bottom: 2px;
-  color: #1f6f74;
-  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 0;
+  background: #1f6f74;
+  color: #ffffff;
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 1px;
-  line-height: 1.4;
+  line-height: 1.5;
   text-transform: uppercase;
+}
+/* Gift badge on the thumbnail (the Free Gifts app's 🎁, kept out of the product name). */
+#cart-mini .mini-cart-form .cart-info .cart-line-item-box .cart-line-item .prod-info-container.sample .minicart-image {
+  position: relative;
+  overflow: visible;
+}
+#cart-mini .gift-badge {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #eef8f9;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 30, 55, 0.18);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  pointer-events: none;
+  animation: cart-gift-pop 0.45s ease-out both;
+}
+@keyframes cart-gift-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #cart-mini .gift-badge {
+    animation: none;
+  }
 }
 #cart-mini .gift-value {
   display: none;
-  margin: 2px 0 0;
+  margin: 1px 0 0;
   color: #4a4a4a;
   font-size: 12px;
 }
@@ -1128,9 +1166,17 @@ body .freegifts-main-container .nav.right-nav{
   letter-spacing: 0.6px;
   text-transform: uppercase;
 }
+#cart-mini .upsell-products__add-to-cart button {
+  transition: background-color 0.2s ease, border-color 0.2s ease, outline-color 0.1s ease;
+}
+/* Same hover as the product page's main Add to Cart (lighter navy) */
 #cart-mini .upsell-products__add-to-cart button:hover {
-  background-color: #001e37;
+  background-color: #12385c;
+  border-color: transparent;
   color: #ffffff;
+  /* Dark navy frame from 1px inside to 1px outside the edge, like the main Add to Cart hover */
+  outline: 2px solid #001e37;
+  outline-offset: -1px;
 }
 
 /* Footer: subtotal, then Afterpay, then checkout, then accepted payments */
@@ -1157,11 +1203,24 @@ body .freegifts-main-container .nav.right-nav{
 
 /* Mobile: keep the footer at the bottom of the drawer instead of floating mid-screen */
 @media only screen and (max-width: 767px) {
+  /* Like desktop: the drawer is exactly the screen height, the items scroll inside it, and
+     "You may also like" + the subtotal stay attached at the bottom. */
   #cart-mini .mini-cart-form {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - var(--mini-cart-head-height, 106px));
-    min-height: calc(100dvh - var(--mini-cart-head-height, 106px));
+    height: calc(100vh - var(--mini-cart-head-height, 106px)) !important;
+    height: calc(100dvh - var(--mini-cart-head-height, 106px)) !important;
+    padding-bottom: 0;
+  }
+  #cart-mini .mini-cart-form .cart-info {
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  #cart-mini .mini-cart-form .eb-cart-upsell {
+    flex: none;
   }
   #cart-mini .mini-cart-form .mini-cart-footer {
     margin-top: auto;
@@ -1217,4 +1276,75 @@ body.cart-open div:has(> dialog.pushowl-ios-install-prompt) {
 }
 #cart-mini a#btnClaimSamplesMain::after {
   box-shadow: none;
+}
+
+/* "You may also like" sits on top of the subtotal: a thin divider separates it from the scrolling items */
+#cart-mini .mini-cart-form .eb-cart-upsell {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+}
+
+/* Cart update overlay: light, and only over the drawer while it is open (was a near-opaque
+   navy layer over the whole page) */
+#halterOverlay.body-overlay {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+body.cart-open #halterOverlay.body-overlay {
+  left: auto;
+  right: 0;
+  width: 100vw;
+  max-width: 400px;
+}
+#halterOverlay.body-overlay svg {
+  width: 36px;
+  height: 36px;
+}
+/* Spinner: no dark square behind it, navy bars on the light overlay */
+#halterOverlay.body-overlay svg rect {
+  fill: transparent;
+}
+#halterOverlay.body-overlay svg path {
+  fill: #001e37;
+}
+/* Quantity +/−: the number changes instantly; once the update is sent the line gets a light
+   veil with a small navy spinner until the cart confirms (buttons locked meanwhile).
+   Going below 1 removes the line with the same spinner (the number never shows 0). */
+#cart-mini .cart-line-item {
+  position: relative;
+}
+#cart-mini .cart-line-item.is-sending::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.6);
+}
+#cart-mini .cart-line-item.is-sending::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 2px solid rgba(0, 30, 55, 0.2);
+  border-top-color: #001e37;
+  border-radius: 50%;
+  animation: mc-line-spin 0.8s linear infinite;
+}
+@keyframes mc-line-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #cart-mini .cart-line-item.is-sending::before {
+    animation-duration: 2.4s;
+  }
+}
+
+/* "You may also like" has nothing to show yet: no empty strip with a divider */
+#cart-mini .mini-cart-form .eb-cart-upsell:empty {
+  display: none;
 }

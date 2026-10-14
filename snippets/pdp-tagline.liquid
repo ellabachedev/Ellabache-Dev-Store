@@ -1,0 +1,36 @@
+{%- comment -%}
+  Product tagline: "correcting | micro-resurfacing | smoothing" → "Correcting · Micro-resurfacing · Smoothing".
+  Only the first letter of each phrase is capitalised, so names like SPF stay as typed.
+  Usage: {% render 'pdp-tagline', text: product.metafields.global.shortdescription1 %}
+  class_name: the heading class (default "desc2"; the second short description uses "desc1").
+{%- endcomment -%}
+{%- assign tagline_parts = text | split: '|' -%}
+<h3 class="{{ class_name | default: 'desc2' }} pdp-tagline">
+  {%- assign tagline_count = 0 -%}
+  {%- for part in tagline_parts -%}
+    {%- assign part_text = part | strip -%}
+    {%- if part_text == blank -%}{%- continue -%}{%- endif -%}
+    {%- if tagline_count > 0 -%}<span class="pdp-tagline__sep" aria-hidden="true">&middot;</span><span class="visually-hidden">, </span>{%- endif -%}
+    <span class="pdp-tagline__item">{{ part_text }}</span>
+    {%- assign tagline_count = tagline_count | plus: 1 -%}
+  {%- endfor -%}
+</h3>
+{%- style -%}
+  .pdp-tagline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 2px;
+  }
+  .pdp-tagline__item {
+    display: inline-block;
+  }
+  .pdp-tagline__item::first-letter {
+    text-transform: uppercase;
+  }
+  .pdp-tagline__sep {
+    color: #8a97a5;
+    font-weight: 700;
+  }
+{%- endstyle -%}

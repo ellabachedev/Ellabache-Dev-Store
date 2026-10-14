@@ -1,11 +1,14 @@
 {%- comment -%}
-  "People using it" strip of short vertical videos (creator, therapist and salon clips).
-  Each block is one Shopify-hosted video; it plays in a popup. Hidden when no block has a video.
+  "People using it": a row of short videos that open in a popup.
+  Each block is a Shopify-hosted video, or a video URL (.mp4) with a cover image URL.
+  A block can be linked to a product: the card names it and the popup shows the product
+  with Add to cart / View product. The current product's own video (if any) is shown first.
+  Hidden when no block has a video.
 {%- endcomment -%}
 {%- liquid
   assign video_count = 0
   for block in section.blocks
-    if block.settings.video != blank
+    if block.settings.video != blank or block.settings.video_url != blank
       assign video_count = video_count | plus: 1
     endif
   endfor
@@ -18,7 +21,12 @@
     style="--pdp-ugc-bg: {{ section.settings.background_color }};">
     <div class="page-width">
       <div class="pdp-ugc__header">
-        <h2 class="pdp-ugc__heading">{{ section.settings.heading }}</h2>
+        <div>
+          <h2 class="pdp-section__heading">{{ section.settings.heading }}</h2>
+          {%- if section.settings.subheading != blank -%}
+            <p class="pdp-section__subheading">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+        </div>
         {%- if video_count > 1 -%}
           <div class="pdp-ugc__arrows">
             <button type="button" class="pdp-ugc__arrow" data-pdp-ugc-prev aria-label="Previous videos">
@@ -31,39 +39,94 @@
         {%- endif -%}
       </div>
       <ul class="pdp-ugc__track" data-pdp-ugc-track>
-        {%- for block in section.blocks -%}
-          {%- if block.settings.video == blank -%}{%- continue -%}{%- endif -%}
-          {%- assign poster = block.settings.poster | default: block.settings.video.preview_image -%}
-          <li class="pdp-ugc__item" {{ block.shopify_attributes }}>
-            <button
-              type="button"
-              class="pdp-ugc__card"
-              data-pdp-ugc-open="pdp-ugc-video-{{ block.id }}"
-              aria-label="Play video{% if block.settings.handle != blank %} from {{ block.settings.handle | escape }}{% endif %}{% if block.settings.caption != blank %}: {{ block.settings.caption | escape }}{% endif %}">
-              {%- if poster -%}
-                <img
-                  src="{{ poster | image_url: width: 480 }}"
-                  srcset="{{ poster | image_url: width: 240 }} 240w, {{ poster | image_url: width: 480 }} 480w"
-                  sizes="(max-width: 768px) 42vw, 16vw"
-                  alt=""
-                  width="480"
-                  height="{{ 480 | divided_by: poster.aspect_ratio | round }}"
-                  loading="lazy">
-              {%- endif -%}
-              <span class="pdp-ugc__play">{%- render 'pdp-icon', icon: 'play' -%}</span>
-              <span class="pdp-ugc__meta">
-                {%- if block.settings.handle != blank -%}
-                  <span class="pdp-ugc__handle">{{ block.settings.handle }}</span>
+        {%- comment -%} Two passes: this product's own video first, then the rest. {%- endcomment -%}
+        {%- for pass in (1..2) -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.video == blank and block.settings.video_url == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign linked = block.settings.product -%}
+            {%- assign is_current = false -%}
+            {%- if product and linked and linked.id == product.id -%}{%- assign is_current = true -%}{%- endif -%}
+            {%- if pass == 1 and is_current == false -%}{%- continue -%}{%- endif -%}
+            {%- if pass == 2 and is_current -%}{%- continue -%}{%- endif -%}
+            {%- assign poster = block.settings.poster | default: block.settings.video.preview_image -%}
+            {%- assign label = block.settings.caption -%}
+            {%- if linked -%}{%- assign label = linked.title | append: ': ' | append: block.settings.caption -%}{%- endif -%}
+            <li class="pdp-ugc__item" {{ block.shopify_attributes }}>
+              <button
+                type="button"
+                class="pdp-ugc__card"
+                data-pdp-ugc-open="pdp-ugc-video-{{ block.id }}"
+                aria-label="Play video{% if block.settings.handle != blank %} from {{ block.settings.handle | escape }}{% endif %}{% if label != blank %}: {{ label | escape }}{% endif %}">
+                {%- if poster -%}
+                  <img
+                    src="{{ poster | image_url: width: 480 }}"
+                    srcset="{{ poster | image_url: width: 320 }} 320w, {{ poster | image_url: width: 480 }} 480w, {{ poster | image_url: width: 720 }} 720w"
+                    sizes="(max-width: 768px) 44vw, 17vw"
+                    alt=""
+                    width="480"
+                    height="600"
+                    loading="lazy">
+                {%- elsif block.settings.poster_url != blank -%}
+                  <img src="{{ block.settings.poster_url }}" alt="" width="480" height="600" loading="lazy" decoding="async">
+                {%- elsif linked and linked.featured_image -%}
+                  <img src="{{ linked.featured_image | image_url: width: 480 }}" alt="" width="480" height="600" loading="lazy">
                 {%- endif -%}
-                {%- if block.settings.caption != blank -%}
-                  <span class="pdp-ugc__caption">{{ block.settings.caption }}</span>
+                <span class="pdp-ugc__play" aria-hidden="true">{%- render 'pdp-icon', icon: 'play' -%}</span>
+                {%- if is_current -%}<span class="pdp-ugc__badge">This product</span>{%- endif -%}
+                <span class="pdp-ugc__meta">
+                  {%- if block.settings.handle != blank -%}
+                    <span class="pdp-ugc__handle">{{ block.settings.handle }}</span>
+                  {%- endif -%}
+                  {%- if linked -%}
+                    <span class="pdp-ugc__product">{{ linked.title }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.caption != blank -%}
+                    <span class="pdp-ugc__caption">{{ block.settings.caption }}</span>
+                  {%- endif -%}
+                </span>
+              </button>
+              <template id="pdp-ugc-video-{{ block.id }}">
+                {%- if block.settings.video != blank -%}
+                  {{ block.settings.video | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '720x' }}
+                {%- else -%}
+                  <video controls playsinline preload="metadata"{% if block.settings.poster_url != blank %} poster="{{ block.settings.poster_url }}"{% endif %}>
+                    <source src="{{ block.settings.video_url }}" type="video/mp4">
+                  </video>
                 {%- endif -%}
-              </span>
-            </button>
-            <template id="pdp-ugc-video-{{ block.id }}">
-              {{ block.settings.video | video_tag: controls: true, playsinline: true, preload: 'metadata', image_size: '720x' }}
-            </template>
-          </li>
+                {%- if linked -%}
+                  {%- assign linked_variant = linked.selected_or_first_available_variant -%}
+                  <div class="pdp-ugc__shop">
+                    {%- if linked.featured_image -%}
+                      <img class="pdp-ugc__shop-img" src="{{ linked.featured_image | image_url: width: 120 }}" alt="" width="56" height="56" loading="lazy">
+                    {%- endif -%}
+                    <div class="pdp-ugc__shop-info">
+                      <a class="pdp-ugc__shop-title" href="{{ linked.url }}">{{ linked.title }}</a>
+                      {%- if linked.price > 0 -%}
+                        <span class="pdp-ugc__shop-price">{{ linked_variant.price | money }}</span>
+                      {%- endif -%}
+                    </div>
+                    {%- if linked.id != product.id -%}
+                      <div class="pdp-ugc__shop-actions">
+                        {%- if linked.available and linked.price > 0 -%}
+                          {%- capture linked_claim -%}{%- render 'pdp-cart-claim', product: linked -%}{%- endcapture -%}
+                          <button
+                            type="button"
+                            class="pdp-button"
+                            data-pdp-ugc-add
+                            aria-label="Add {{ linked.title | escape }} to cart"
+                            data-cart-addclaims="[{{ linked_claim | strip | escape }}]">
+                            {{ 'products.product.add_to_cart' | t }}
+                          </button>
+                        {%- else -%}
+                          <a class="pdp-button" href="{{ linked.url }}">View product</a>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </template>
+            </li>
+          {%- endfor -%}
         {%- endfor -%}
       </ul>
       {%- if section.settings.note != blank -%}
@@ -147,6 +210,12 @@
         });
       });
 
+      // "Add to cart" in the popup: let the cart script handle the click first, then close the
+      // popup so the mini cart that opens is visible.
+      player.addEventListener('click', function (event) {
+        if (event.target.closest('[data-pdp-ugc-add]')) setTimeout(closeVideo, 0);
+      });
+
       root.querySelector('[data-pdp-ugc-close]').addEventListener('click', closeVideo);
       dialog.addEventListener('click', function (event) {
         if (event.target === dialog) closeVideo();
@@ -176,15 +245,21 @@
     },
     {
       "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Textures, routines and how to apply, filmed by Ella Baché."
+    },
+    {
+      "type": "text",
       "id": "note",
       "label": "Note below videos",
-      "default": "Creator and salon clips, reposted with permission"
+      "info": "Optional. For creator clips, e.g. Creator and salon clips, reposted with permission."
     },
     {
       "type": "color",
       "id": "background_color",
       "label": "Background colour",
-      "default": "#f8f8f8"
+      "default": "#f6f1eb"
     },
     {
       "type": "range",
@@ -219,10 +294,28 @@
           "info": "Upload a vertical (9:16) clip. Can be connected to a product metafield for product-specific videos."
         },
         {
+          "type": "text",
+          "id": "video_url",
+          "label": "Or video URL (.mp4)",
+          "info": "Used when no video is uploaded above, e.g. a video already on the store's CDN."
+        },
+        {
           "type": "image_picker",
           "id": "poster",
           "label": "Cover image",
           "info": "Optional. Defaults to the video preview frame."
+        },
+        {
+          "type": "text",
+          "id": "poster_url",
+          "label": "Or cover image URL",
+          "info": "Used with a video URL when no cover image is chosen above."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product shown in the video",
+          "info": "Optional. Names the product on the card and adds Add to cart / View product under the video."
         },
         {
           "type": "text",
@@ -234,7 +327,7 @@
           "type": "text",
           "id": "caption",
           "label": "Caption",
-          "default": "My honest review"
+          "default": "Texture and how to apply"
         }
       ]
     }

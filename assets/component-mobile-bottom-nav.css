@@ -1,0 +1,165 @@
+/* ------------------------------------------------------------------
+   Mobile bottom navigation (snippets/mobile-bottom-nav.liquid)
+   Phones only (≤768px, same breakpoint as the mobile header).
+   --mbar-height is set by the snippet's script; 0 when the bar is hidden.
+------------------------------------------------------------------ */
+.mbar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 55;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding: 6px 4px max(6px, env(safe-area-inset-bottom, 0px));
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 16px rgba(0, 30, 55, 0.06);
+  }
+  .mbar__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 52px;
+    padding: 2px 2px 4px;
+    color: #66717d;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s ease;
+  }
+  .mbar__icon {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* Icon sits in a pill; the current section's pill is solid theme navy with a white icon */
+  .mbar__pill {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 32px;
+    border-radius: 16px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .mbar__link {
+    touch-action: manipulation;
+  }
+  .mbar__link:hover {
+    color: #001e37;
+  }
+  /* Pressed: immediate tint, so a tap always gets feedback */
+  .mbar__link:active:not(.is-active) .mbar__pill {
+    background: #e6ecf2;
+    color: #001e37;
+  }
+  .mbar__link.is-active {
+    color: #001e37;
+    font-weight: 600;
+  }
+  .mbar__link.is-active .mbar__pill {
+    background: #001e37;
+    color: #ffffff;
+  }
+  .mbar__link.is-active .mbar__icon {
+    stroke-width: 1.8;
+  }
+  .mbar__link:focus-visible {
+    outline: 2px solid #001e37;
+    outline-offset: -2px;
+  }
+
+  /* Hidden while the cart drawer or the menu is open (they cover the screen) */
+  body.cart-open .mbar,
+  body.mobile-menu-open .mbar,
+  body.tidio-chat-open .mbar {
+    display: none;
+  }
+  /* The open chat is full-screen: never shift it (its header and close button would go off screen) */
+  body.tidio-chat-open #tidio-chat {
+    transform: none !important;
+  }
+
+  /* Keep the end of the page (footer) clear of the bar */
+  body.has-mbar {
+    padding-bottom: var(--mbar-height, 64px);
+  }
+
+  /* Product page: the sticky Add to Cart bar sits directly on top of the navigation */
+  body.has-mbar .pdp-sticky-atc {
+    bottom: var(--mbar-height, 64px);
+    box-shadow: none;
+  }
+  body.has-mbar .pdp-sticky-atc .pdp-sticky-atc__inner {
+    padding-bottom: 10px; /* the nav already covers the home-indicator area */
+  }
+  body.has-mbar.pdp-sticky-atc-visible {
+    padding-bottom: calc(var(--mbar-height, 64px) + var(--pdp-sticky-atc-height, 66px));
+  }
+
+  /* PushOwl "Add to Home Screen" prompt (iPhone) is pinned to the bottom on the top layer and
+     would cover the nav and the Add to Cart bar: keep it above them. */
+  body.has-mbar dialog.pushowl-ios-install-prompt {
+    top: auto !important;
+    bottom: calc(var(--mbar-height, 64px) + 8px) !important;
+    margin-bottom: 0 !important;
+  }
+  body.has-mbar.pdp-sticky-atc-visible dialog.pushowl-ios-install-prompt {
+    bottom: calc(var(--mbar-height, 64px) + var(--pdp-sticky-atc-height, 66px) + 8px) !important;
+  }
+
+  /* Chat launcher: above the nav on every page, above both bars on the product page */
+  body.has-mbar #tidio-chat {
+    transform: translateY(calc(-1 * var(--mbar-height, 64px)));
+  }
+  body.has-mbar.pdp-sticky-lift-chat #tidio-chat {
+    transform: translateY(calc(-1 * (var(--mbar-height, 64px) + var(--pdp-sticky-atc-height, 66px))));
+  }
+}
+/* Page change from the bottom nav: quick cross-fade of the page while the header and the nav
+   stay still (supported browsers only; pages opened any other way skip it in the snippet's
+   script). Off for reduced motion. */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+  .mbar {
+    view-transition-name: mbar;
+  }
+  .site-header {
+    view-transition-name: site-header;
+  }
+  ::view-transition-group(mbar),
+  ::view-transition-group(site-header),
+  ::view-transition-old(mbar),
+  ::view-transition-new(mbar),
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
+    animation: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.18s;
+    animation-timing-function: ease-out;
+  }
+}
+@media print {
+  .mbar {
+    display: none !important;
+  }
+}

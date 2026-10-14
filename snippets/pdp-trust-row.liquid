@@ -1,0 +1,72 @@
+{%- comment -%}
+  Product page trust row, under Add to Cart: free-shipping status, returns, secure checkout and an
+  expert-advice link. Text is edited in Theme settings → Product page trust row; the free-shipping
+  amount comes from the Free Shipping Threshold setting.
+  pdp-enhancements.js updates the shipping line after items are added to the cart.
+
+  Usage: {% render 'pdp-trust-row', current_variant: current_variant, product: product %}
+{%- endcomment -%}
+{%- if settings.pdp_trust_enable -%}
+  {%- liquid
+    assign threshold = settings.free_shipping_threshold_1_amt | plus: 0 | times: 100
+    assign price = current_variant.price
+    assign in_cart = cart.items | where: 'product_id', product.id | size
+    assign cart_total = cart.total_price
+    if in_cart == 0
+      assign cart_total = cart_total | plus: price
+    endif
+  -%}
+  <div class="pdp-trust">
+    <ul class="pdp-trust__list" aria-label="Shipping, returns and payment">
+      <li class="pdp-trust__item"
+        data-pdp-free-shipping
+        data-threshold="{{ threshold }}"
+        data-price="{{ price }}"
+        data-product-id="{{ product.id }}">
+        <span class="pdp-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3v3h-7zM6.5 18.5a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5zm11 0a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="pdp-trust__text" data-pdp-free-shipping-text>
+          {%- if threshold > 0 and price >= threshold -%}
+            <strong>Free standard shipping</strong> on this item
+          {%- elsif threshold > 0 and cart_total >= threshold -%}
+            <strong>Free standard shipping</strong> on your order
+          {%- elsif threshold > 0 -%}
+            {%- assign remaining = threshold | minus: cart_total -%}
+            With this item you're <strong>{{ remaining | money }}</strong> away from free standard shipping
+          {%- else -%}
+            {{ settings.pdp_trust_shipping }}
+          {%- endif -%}
+        </span>
+      </li>
+      {%- if settings.pdp_trust_returns != blank -%}
+        <li class="pdp-trust__item">
+          <span class="pdp-trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M9 7.5H4.5V3M4.9 7.5A8 8 0 1 1 4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="pdp-trust__text">
+            {%- if settings.pdp_trust_returns_link != blank -%}
+              <a href="{{ settings.pdp_trust_returns_link }}">{{ settings.pdp_trust_returns }}</a>
+            {%- else -%}
+              {{ settings.pdp_trust_returns }}
+            {%- endif -%}
+          </span>
+        </li>
+      {%- endif -%}
+      {%- if settings.pdp_trust_secure != blank -%}
+        <li class="pdp-trust__item">
+          <span class="pdp-trust__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M5.5 11h13v9.5h-13zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="pdp-trust__text">{{ settings.pdp_trust_secure }}</span>
+        </li>
+      {%- endif -%}
+    </ul>
+    {%- if settings.pdp_trust_expert != blank and settings.pdp_trust_expert_link != blank -%}
+      <a class="pdp-trust__expert" href="{{ settings.pdp_trust_expert_link }}">
+        <span>{{ settings.pdp_trust_expert }}</span>
+        <svg class="pdp-trust__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

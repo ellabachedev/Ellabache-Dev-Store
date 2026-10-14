@@ -95,12 +95,72 @@
   .treatment-card-grid__item .treatment-card-grid__description:last-child{
     margin-bottom:0;
   }
+  /* Whole card is clickable (the title link stretches over it). */
+  .treatment-card-grid__item {
+    position: relative;
+  }
+  .treatment-card-grid__link {
+    color: #001e37;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .treatment-card-grid__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .treatment-card-grid__item:hover .treatment-card-grid__link,
+  .treatment-card-grid__link:focus-visible {
+    background-size: 100% 1px;
+  }
+  .treatment-card-grid__link:focus-visible {
+    outline: none;
+  }
+  .treatment-card-grid__item:has(.treatment-card-grid__link:focus-visible) {
+    outline: 2px solid #001e37;
+    outline-offset: 4px;
+  }
+  .treatment-card-grid__button:hover {
+    background-color: #12385c;
+    color: #fff;
+  }
+  /* Phones: a swipeable row instead of a long stack of full-width cards. */
+  @media only screen and (max-width: 749px) {
+    .treatment-card-grid__grid {
+      display: flex;
+      gap: 12px;
+      margin: 0 -15px;
+      padding: 0 15px 4px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 15px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .treatment-card-grid__grid::-webkit-scrollbar {
+      display: none;
+    }
+    .treatment-card-grid__item {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
+    .treatment-card-grid__title {
+      font-size: 1.7rem;
+    }
+    .treatment-card-grid__description {
+      font-size: 1.3rem;
+    }
+  }
   .treatment-card-grid__cta {
     margin-top: 4rem;
     text-align:center;
   }
   .treatment-card-grid__button {
-    background-color: #0b1d3a;
+    background-color: #001e37;
     color: #fff;
     padding:1.52rem 3.2rem;
     text-transform: uppercase;
@@ -141,10 +201,11 @@
             </div>
             <div class="treatment-card-grid__content">
               <h3 class="treatment-card-grid__title">
-                <a href="{{ product.url }}">{{ product.title }}</a>
+                <a class="treatment-card-grid__link" href="{{ product.url }}">{{ product.title }}</a>
               </h3>
               {% if product.description != blank %}
-                <p class="treatment-card-grid__description">{{ product.description | strip_html | truncatewords: 20 }}</p>
+                {%- comment -%} Space before each tag, so words from separate paragraphs don't run together. {%- endcomment -%}
+                <p class="treatment-card-grid__description">{{ product.description | replace: '<', ' <' | strip_html | strip_newlines | truncatewords: 18 }}</p>
               {% endif %}
             </div>
           </div>

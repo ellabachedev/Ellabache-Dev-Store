@@ -1,0 +1,135 @@
+{%- comment -%}
+  Mobile bottom navigation (phones only, ≤768px): Home, Products, Book, Salon.
+  Links and labels: Theme settings → Mobile bottom navigation.
+  Its live height is kept in --mbar-height on <html>, which the product page's sticky
+  Add to Cart bar, the chat launcher and the page's bottom padding use so nothing overlaps.
+{%- endcomment -%}
+{%- if settings.mbar_enable -%}
+  {%- liquid
+    assign path = request.path
+    assign active = ''
+    if template.name == 'index'
+      assign active = 'home'
+    elsif path contains 'salon'
+      assign active = 'salon'
+    elsif collection.handle == 'treatments' or template.suffix contains 'treatment'
+      assign active = 'book'
+    elsif template.name == 'product' or template.name == 'collection' or template.name == 'list-collections' or template.name == 'search'
+      assign active = 'products'
+    endif
+  -%}
+  {{ 'component-mobile-bottom-nav.css' | asset_url | stylesheet_tag }}
+  <nav class="mbar" aria-label="Quick links" data-mbar>
+    <a href="{{ settings.mbar_home_link | default: routes.root_url }}" data-mbar-key="home" class="mbar__link{% if active == 'home' %} is-active{% endif %}"{% if active == 'home' %} aria-current="page"{% endif %}>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
+      <span>{{ settings.mbar_home_label | default: 'Home' }}</span>
+    </a>
+    <a href="{{ settings.mbar_products_link | default: '/collections/all' }}" data-mbar-key="products" class="mbar__link{% if active == 'products' %} is-active{% endif %}"{% if active == 'products' %} aria-current="page"{% endif %}>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+      <span>{{ settings.mbar_products_label | default: 'Products' }}</span>
+    </a>
+    <a href="{{ settings.mbar_book_link | default: '/collections/treatments' }}" data-mbar-key="book" class="mbar__link{% if active == 'book' %} is-active{% endif %}"{% if active == 'book' %} aria-current="page"{% endif %}>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <span>{{ settings.mbar_book_label | default: 'Book' }}</span>
+    </a>
+    <a href="{{ settings.mbar_salon_link | default: '/pages/find-a-salon' }}" data-mbar-key="salon" class="mbar__link{% if active == 'salon' %} is-active{% endif %}"{% if active == 'salon' %} aria-current="page"{% endif %}>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg></span>
+      <span>{{ settings.mbar_salon_label | default: 'Salon' }}</span>
+    </a>
+  </nav>
+  {%- comment -%} Chrome/Android: start loading a nav page as soon as it's touched (pointerdown). {%- endcomment -%}
+  <script type="speculationrules">
+    {
+      "prerender": [
+        { "source": "document", "where": { "selector_matches": ".mbar__link" }, "eagerness": "moderate" }
+      ]
+    }
+  </script>
+  <script>
+    (function () {
+      var bar = document.querySelector('[data-mbar]');
+      if (!bar) return;
+      var root = document.documentElement;
+      var phone = window.matchMedia('(max-width: 768px)');
+      function update() {
+        var on = phone.matches && getComputedStyle(bar).display !== 'none';
+        root.style.setProperty('--mbar-height', (on ? bar.offsetHeight : 0) + 'px');
+        document.body.classList.toggle('has-mbar', on);
+      }
+      update();
+
+      /* Active item: a link's own page wins, then the server's choice, then the address
+         (/collections, /products and /search → Products; treatments → Book; salon pages → Salon). */
+      function markActive() {
+        var path = window.location.pathname.replace(/\/+$/, '') || '/';
+        var links = bar.querySelectorAll('[data-mbar-key]');
+        var key = '';
+        Array.prototype.forEach.call(links, function (a) {
+          var href = (a.getAttribute('href') || '').replace(/^https?:\/\/[^/]+/, '').replace(/\/+$/, '') || '/';
+          if (href === path) key = a.getAttribute('data-mbar-key');
+        });
+        if (!key) {
+          // Keep the server's choice (it knows e.g. that a treatment is under /products/).
+          var server = bar.querySelector('[data-mbar-key].is-active');
+          if (server) key = server.getAttribute('data-mbar-key');
+        }
+        if (!key) {
+          if (path === '/') key = 'home';
+          else if (/salon/i.test(path)) key = 'salon';
+          else if (/^\/collections\/treatments/.test(path) || /treatment/i.test(document.body.className)) key = 'book';
+          else if (/^\/(collections|products|search)(\/|$)/.test(path)) key = 'products';
+        }
+        Array.prototype.forEach.call(links, function (a) {
+          var on = a.getAttribute('data-mbar-key') === key;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        });
+      }
+      markActive();
+
+      /* Navigating feels instant:
+         - the tapped item turns active straight away (before the next page arrives);
+         - tapping the item for the page you're already on scrolls to the top instead of reloading;
+         - only navigations started here get the page cross-fade (see the CSS), others are skipped. */
+      var fromBar = false;
+      bar.addEventListener('click', function (event) {
+        var link = event.target.closest('a[data-mbar-key]');
+        if (!link || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        var target = new URL(link.href, window.location.href);
+        if (target.origin === window.location.origin && target.pathname.replace(/\/+$/, '') === window.location.pathname.replace(/\/+$/, '') && !target.search) {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        Array.prototype.forEach.call(bar.querySelectorAll('[data-mbar-key]'), function (a) {
+          a.classList.toggle('is-active', a === link);
+          if (a === link) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        });
+        fromBar = true;
+      });
+      window.addEventListener('pageswap', function (event) {
+        if (event.viewTransition && !fromBar) event.viewTransition.skipTransition();
+        fromBar = false;
+      });
+      window.addEventListener('pageshow', function (event) {
+        // Back/forward cache restores the old page: put the right item back.
+        if (event.persisted) { fromBar = false; markActive(); }
+      });
+
+      /* Tidio chat opens full-screen on phones: hide the nav (and with it the chat lift)
+         while it is open, so the chat window and its close button sit exactly on screen. */
+      function bindChat() {
+        if (!window.tidioChatApi || bindChat.done) return;
+        bindChat.done = true;
+        window.tidioChatApi.on('open', function () { document.body.classList.add('tidio-chat-open'); });
+        window.tidioChatApi.on('close', function () { document.body.classList.remove('tidio-chat-open'); });
+      }
+      document.addEventListener('tidioChat-ready', bindChat);
+      bindChat();
+
+      if ('ResizeObserver' in window) new ResizeObserver(update).observe(bar);
+      window.addEventListener('resize', update);
+      if (phone.addEventListener) phone.addEventListener('change', update);
+    })();
+  </script>
+{%- endif -%}

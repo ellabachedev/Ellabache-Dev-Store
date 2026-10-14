@@ -1980,5 +1980,135 @@
         "default": "#404040"
       }
     ]
+  },
+  {
+    "name": "Product page trust row",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Short reassurance lines under Add to Cart on product pages. Keep them true to the store's real policies. The free-shipping line uses the First Threshold Amount from the free shipping settings."
+      },
+      {
+        "type": "checkbox",
+        "id": "pdp_trust_enable",
+        "label": "Show trust row",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_shipping",
+        "label": "Shipping line",
+        "info": "Only used when no free-shipping amount is set.",
+        "default": "Fast Australia-wide shipping"
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_returns",
+        "label": "Returns line",
+        "default": "30-day returns on unopened products"
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_returns_link",
+        "label": "Returns link",
+        "default": "/policies/refund-policy"
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_secure",
+        "label": "Secure checkout line",
+        "default": "Secure checkout with Afterpay, Klarna and PayPal"
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_expert",
+        "label": "Expert advice link text",
+        "default": "Not sure it's right for your skin? Ask a skin expert"
+      },
+      {
+        "type": "text",
+        "id": "pdp_trust_expert_link",
+        "label": "Expert advice link",
+        "default": "/pages/ella-bache-online-skin-consultation"
+      }
+    ]
+  },
+  {
+    "name": "Mobile bottom navigation",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "A bar fixed to the bottom of the screen on phones, with four quick links. On product pages the sticky Add to Cart bar sits on top of it."
+      },
+      {
+        "type": "checkbox",
+        "id": "mbar_enable",
+        "label": "Show bottom navigation on phones",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Link 1"
+      },
+      {
+        "type": "text",
+        "id": "mbar_home_label",
+        "label": "Label",
+        "default": "Home"
+      },
+      {
+        "type": "url",
+        "id": "mbar_home_link",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Link 2"
+      },
+      {
+        "type": "text",
+        "id": "mbar_products_label",
+        "label": "Label",
+        "default": "Products"
+      },
+      {
+        "type": "url",
+        "id": "mbar_products_link",
+        "label": "Link",
+        "default": "/collections/all"
+      },
+      {
+        "type": "header",
+        "content": "Link 3"
+      },
+      {
+        "type": "text",
+        "id": "mbar_book_label",
+        "label": "Label",
+        "default": "Book"
+      },
+      {
+        "type": "url",
+        "id": "mbar_book_link",
+        "label": "Link",
+        "info": "Defaults to the Treatments collection."
+      },
+      {
+        "type": "header",
+        "content": "Link 4"
+      },
+      {
+        "type": "text",
+        "id": "mbar_salon_label",
+        "label": "Label",
+        "default": "Salon"
+      },
+      {
+        "type": "url",
+        "id": "mbar_salon_link",
+        "label": "Link",
+        "info": "Defaults to /pages/find-a-salon."
+      }
+    ]
   }
 ]

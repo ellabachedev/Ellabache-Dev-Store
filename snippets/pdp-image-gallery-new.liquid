@@ -14,7 +14,10 @@
         data-w-variant-id="{{ product.variants[0].id }}"
         data-w-product-id="{{ product.id }}"
         id="addToWishlist"
-        class="add_to_wishlist">{%- render 'icon-heart' -%}<span class="text">Add to wishlist</span>
+        class="add_to_wishlist"
+        role="button"
+        tabindex="0"
+        aria-label="Add to wishlist">{%- render 'icon-heart' -%}<svg class="icon-heart-filled" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.2 3.7 12.9a5.4 5.4 0 0 1 0-7.6 5.3 5.3 0 0 1 7.6 0l.7.7.7-.7a5.3 5.3 0 0 1 7.6 0 5.4 5.4 0 0 1 0 7.6Z"/></svg><span class="text"><span class="text-add">Add to wishlist</span><span class="text-saved">Saved to wishlist</span></span>
       </span>
     {%- endif -%}
   {%- comment -%} Build variant→image map {%- endcomment -%}
@@ -25,7 +28,18 @@
     {%- unless forloop.last %}{% assign variantImgMap = variantImgMap | append: '||' %}{% endunless -%}
   {%- endfor -%}
   {% assign variantImgMapArray = variantImgMap | split: '||' %}
-  <div class="swiper productHeroSlider">
+  {%- liquid
+    assign slide_count = product.images.size | plus: product.metafields.accentuate.product_grid_image_upload.size
+    assign promo_check = product.metafields.accentuate.teaser_video | strip_html | strip
+    if promo_check != blank
+      assign slide_count = slide_count | plus: 1
+    endif
+    assign promo_check = product.metafields.accentuate.teaser_video_2 | strip_html | strip
+    if promo_check != blank
+      assign slide_count = slide_count | plus: 1
+    endif
+  -%}
+  <div class="swiper productHeroSlider{% if slide_count > 1 %} has-multiple-slides{% endif %}">
     <div class="product-card__badges">
       {%- if product.tags contains 'badge new' -%}
         <span class="badge new" style="font-size:16px; padding:4px 8px;font-weight:500;">New</span>
@@ -43,13 +57,13 @@
           {%- endif -%}
         {%- endfor -%}
         <div class="swiper-slide" data-variant-id="{{ dataVariantId }}" data-swiper-index="{{ index }}">
-          <picture>
-            <source media="(min-width: 1920px)" srcset="{{ image | img_url: '1920x1920' }}">
-            <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1024x1024' }}">
-            <source media="(min-width: 768px)" srcset="{{ image | img_url: '768x768' }}">
-            <source media="(max-width: 767px)" srcset="{{ image | img_url: '480x480' }}">
-            <img src="{{ image | img_url: '480x480' }}" alt="{{ image.alt | escape }}" {% if index > 0 %}loading="lazy"{% endif %} width="738" height="738" >
-          </picture>
+          {%- comment -%} srcset: phones download a small file, retina screens a sharp one (up to 2000px when the original is that big). {%- endcomment -%}
+          {%- assign img_alt = image.alt | default: product.title -%}
+          {%- if index == 0 -%}
+            {{ image | image_url: width: 1500 | image_tag: widths: '480, 768, 1024, 1300, 1600, 2000', sizes: '(min-width: 1300px) 640px, (min-width: 769px) 45vw, calc(100vw - 30px)', alt: img_alt, width: 738, height: 738, loading: 'eager', fetchpriority: 'high' }}
+          {%- else -%}
+            {{ image | image_url: width: 1500 | image_tag: widths: '480, 768, 1024, 1300, 1600, 2000', sizes: '(min-width: 1300px) 640px, (min-width: 769px) 45vw, calc(100vw - 30px)', alt: img_alt, width: 738, height: 738, loading: 'lazy' }}
+          {%- endif -%}
         </div>
         {%- assign index = index | plus: 1 -%}
       {%- endfor -%}
@@ -82,6 +96,10 @@
     <!-- MAIN arrows -->
     <div class="productHero-main-prev swiper-button-prev"></div>
     <div class="productHero-main-next swiper-button-next"></div>
+    {%- if show_dots -%}
+      <!-- Swipe dots: shown on mobile instead of the thumbnail column -->
+      <div class="swiper-pagination productHero-pagination"></div>
+    {%- endif -%}
   </div>
   <div class="swiper productHeroSliderThumb">
     <div class="swiper-wrapper">
@@ -126,11 +144,17 @@
 </div>
 {%- endcapture -%}
 {{ pdp_image_gallery | strip_newlines }}
-{%- assign index = 0 -%}
-{%- for image in product.images -%}
-  {%- if index > 0 or product.metafields.accentuate.video_poster_image != blank or product.metafields.accentuate.video_poster_image_2 != blank -%}
-    <script>
-      $(window).on('load', function() {
+{%- if slide_count > 1 or product.metafields.accentuate.video_poster_image != blank or product.metafields.accentuate.video_poster_image_2 != blank -%}
+  <script>
+    (function () {
+      /* Start the gallery as soon as the page is parsed (Swiper is a deferred script), so it can be
+         swiped straight away instead of after every app script has loaded. */
+      function initProductHeroSlider() {
+        if (window.productHeroSlider) return;
+        if (typeof Swiper === 'undefined') {
+          window.addEventListener('load', initProductHeroSlider);
+          return;
+        }
         window.productHeroSliderThumb = new Swiper(".productHeroSliderThumb", {
           spaceBetween: 10,
           slidesPerView: 'auto',
@@ -148,13 +172,20 @@
             nextEl: ".productHero-main-next",
             prevEl: ".productHero-main-prev",
           },
+          pagination: {
+            el: ".productHero-pagination",
+            clickable: true,
+          },
           thumbs: {
-            swiper: productHeroSliderThumb,
+            swiper: window.productHeroSliderThumb,
           },
         });
-      });
-    </script>
-    {% break %}
-  {%- endif -%}
-  {%- assign index = index | plus: 1 -%}
-{%- endfor -%}
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProductHeroSlider);
+      } else {
+        initProductHeroSlider();
+      }
+    })();
+  </script>
+{%- endif -%}
