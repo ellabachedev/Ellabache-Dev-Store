@@ -1,13 +1,14 @@
 {%- comment -%}
-Collection Products Grid - Three-Filter System (Concern, Category, Collection)
-Matches reference website: ella-bache-site.pages.dev/products/
-Uses product.type for Category, metafields for Concern & Collection
-Navy #001e37 theme
+Collection Products Grid - category rows with working Concern, Category and Collection filters and sort
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid-item.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
-<main class="collection-products-grid" id="main" data-section-id="{{ section.id }}">
+<main class="collection-products-grid" id="main" data-section-id="{{ section.id }}" data-collection-grid>
   <div class="collection-wrapper page-width">
 
     {%- if section.settings.show_breadcrumbs -%}
@@ -20,7 +21,7 @@ Navy #001e37 theme
 
     {%- if section.settings.show_header -%}
       <div class="collection-header">
-        <h1>{{ page_title }}</h1>
+        <h1>{{ page_title | replace: ' AU', '' }}</h1>
         {%- if collection.description != blank -%}
           <div class="collection-description">
             {{ collection.description }}
@@ -32,214 +33,169 @@ Navy #001e37 theme
     {%- if section.settings.show_filters -%}
       <div class="collection-filter-bar fbar">
 
-        {%- comment -%} CONCERN FILTER {%- endcomment -%}
-        <div class="filter-group pop">
-          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="concern">
-            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
-            </svg>
+        <div class="filter-group pop" data-group="concern">
+          <button type="button" class="filter-chip fchip" aria-expanded="false" aria-controls="filter-panel-concern" data-toggle>
             <span class="filter-label">Concern</span>
-            <span class="filter-count car">0</span>
+            <span class="filter-count" data-group-count hidden></span>
+            <svg class="filter-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path fill="currentColor" d="M0 0l5 6 5-6z"/></svg>
           </button>
-          <div class="filter-panel panel" hidden>
-            <button class="filter-opt opt">Hydration</button>
-            <button class="filter-opt opt">Brightening</button>
-            <button class="filter-opt opt">Age Correction</button>
-            <button class="filter-opt opt">Age Prevention</button>
-            <button class="filter-opt opt">Sensitivity</button>
-            <button class="filter-opt opt">Purifying</button>
-            <button class="filter-opt opt">Sun Protection</button>
-            <div class="filter-progress pbar"></div>
-          </div>
+          <div class="filter-panel panel" id="filter-panel-concern" hidden data-options="concern"></div>
         </div>
 
-        {%- comment -%} CATEGORY FILTER {%- endcomment -%}
-        <div class="filter-group pop">
-          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="category">
-            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
-            </svg>
+        <div class="filter-group pop" data-group="category">
+          <button type="button" class="filter-chip fchip" aria-expanded="false" aria-controls="filter-panel-category" data-toggle>
             <span class="filter-label">Category</span>
-            <span class="filter-count car">0</span>
+            <span class="filter-count" data-group-count hidden></span>
+            <svg class="filter-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path fill="currentColor" d="M0 0l5 6 5-6z"/></svg>
           </button>
-          <div class="filter-panel panel" hidden>
-            <button class="filter-opt opt">Cleansers</button>
-            <button class="filter-opt opt">Serums</button>
-            <button class="filter-opt opt">Moisturisers</button>
-            <button class="filter-opt opt">Eye & Neck</button>
-            <button class="filter-opt opt">Masks</button>
-            <button class="filter-opt opt">Exfoliants</button>
-            <button class="filter-opt opt">Suncare</button>
-            <button class="filter-opt opt">Tanning</button>
-            <button class="filter-opt opt">Bodycare</button>
-            <button class="filter-opt opt">Treatment Products</button>
-            <button class="filter-opt opt">Mists</button>
-            <div class="filter-progress pbar"></div>
-          </div>
+          <div class="filter-panel panel" id="filter-panel-category" hidden data-options="category"></div>
         </div>
 
-        {%- comment -%} COLLECTION FILTER {%- endcomment -%}
-        <div class="filter-group pop">
-          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="collection">
-            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
-            </svg>
+        <div class="filter-group pop" data-group="collection">
+          <button type="button" class="filter-chip fchip" aria-expanded="false" aria-controls="filter-panel-collection" data-toggle>
             <span class="filter-label">Collection</span>
-            <span class="filter-count car">0</span>
+            <span class="filter-count" data-group-count hidden></span>
+            <svg class="filter-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path fill="currentColor" d="M0 0l5 6 5-6z"/></svg>
           </button>
-          <div class="filter-panel panel" hidden>
-            <button class="filter-opt opt">Classics</button>
-            <button class="filter-opt opt">Eternal+</button>
-            <button class="filter-opt opt">Hydra</button>
-            <button class="filter-opt opt">NeoBright</button>
-            <button class="filter-opt opt">SpirulinesLift</button>
-            <button class="filter-opt opt">Sensibeautics</button>
-            <button class="filter-opt opt">Detox Aromatique</button>
-            <button class="filter-opt opt">Brightening Plus</button>
-            <button class="filter-opt opt">Pure Hydration</button>
-            <div class="filter-progress pbar"></div>
-          </div>
+          <div class="filter-panel panel" id="filter-panel-collection" hidden data-options="collection"></div>
         </div>
 
         <div class="filter-spacer sp"></div>
 
         <span class="product-count count">
-          <b>{{ collection.products_count }}</b> Products
+          <b data-visible-count>{{ collection.products.size }}</b> products
         </span>
 
-        {%- comment -%} SORT DROPDOWN {%- endcomment -%}
-        <div class="filter-group pop">
-          <button class="filter-chip fchip sort-btn" aria-expanded="false" data-sort-toggle>
-            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M3 13h8v-2H3v2zm0 4h8v-2H3v2zm0-8h8V7H3v2zm13 0V7h-2v2h2zm-2 4h2v-2h-2v2zm2 4h2v-2h-2v2z"/>
-            </svg>
-            <span>Sort</span>
-            <span class="car"></span>
+        <div class="filter-group pop sort-group">
+          <button type="button" class="filter-chip fchip sort-btn" aria-expanded="false" aria-controls="filter-panel-sort" data-toggle>
+            <span class="filter-label">Sort</span>
+            <svg class="filter-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path fill="currentColor" d="M0 0l5 6 5-6z"/></svg>
           </button>
-          <div class="filter-panel panel sort-panel" hidden>
-            <button class="filter-opt opt on">Popular</button>
-            <button class="filter-opt opt">Price: Low to High</button>
-            <button class="filter-opt opt">Price: High to Low</button>
-            <button class="filter-opt opt">New</button>
+          <div class="filter-panel panel sort-panel" id="filter-panel-sort" hidden data-sort-panel>
+            <button type="button" class="filter-opt opt is-selected" data-sort="popular" aria-checked="true">Popular</button>
+            <button type="button" class="filter-opt opt" data-sort="price-asc" aria-checked="false">Price: Low to High</button>
+            <button type="button" class="filter-opt opt" data-sort="price-desc" aria-checked="false">Price: High to Low</button>
+            <button type="button" class="filter-opt opt" data-sort="name-asc" aria-checked="false">Name: A to Z</button>
           </div>
         </div>
+      </div>
+
+      <div class="active-filters" data-active-filters hidden>
+        <div class="active-filters-list" data-active-list></div>
+        <button type="button" class="active-clear" data-clear-all>Clear all</button>
       </div>
     {%- endif -%}
 
     {%- if collection.products_count > 0 -%}
-      {%- comment -%}
-        Group products by product type (category)
-        Product types: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
-      {%- endcomment -%}
-
-      {%- assign category_order = "Cleansers,Serums,Moisturisers,Eye & Neck,Masks,Exfoliants,Suncare,Tanning,Bodycare,Treatment Products" | split: "," -%}
-      {%- assign any_categorized = false -%}
-
+      {%- comment -%} Group products by their own product type, in order of first appearance {%- endcomment -%}
+      {%- assign type_list = '|' -%}
       {%- for product in collection.products -%}
-        {%- if product.type != blank and product.type != "" -%}
-          {%- assign any_categorized = true -%}
-          {%- break -%}
-        {%- endif -%}
+        {%- assign type_key = '|' | append: product.type | append: '|' -%}
+        {%- unless product.type == blank or type_list contains type_key -%}
+          {%- assign type_list = type_list | append: product.type | append: '|' -%}
+        {%- endunless -%}
+      {%- endfor -%}
+      {%- assign category_names = type_list | split: '|' -%}
+      {%- assign pos_map = '' -%}
+      {%- for product in collection.products -%}
+        {%- assign pos_map = pos_map | append: '|' | append: product.id | append: ':' | append: forloop.index -%}
       {%- endfor -%}
 
-      {%- if any_categorized -%}
+      {%- if type_list != '|' -%}
         {%- assign section_count = 0 -%}
-        {%- for category in category_order -%}
+        {%- for category in category_names -%}
           {%- assign category_products = collection.products | where: "type", category -%}
 
-          {%- if category_products.size > 0 -%}
+          {%- if category != blank and category_products.size > 0 -%}
             {%- assign section_count = section_count | plus: 1 -%}
             {%- assign alternate_bg = section_count | modulo: 2 -%}
 
-            <section class="category-section sec tgroup {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}">
+            <section class="category-section sec {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}" data-category-section>
               <div class="category-wrap wrap">
                 <h2 class="category-heading">
-                  <a href="{{ collection.url }}">{{ category }}</a>
+                  {{ category }}
+                  <span class="category-heading-count"><span data-category-count>{{ category_products.size }}</span> <span data-category-label>{% if category_products.size == 1 %}product{% else %}products{% endif %}</span></span>
                 </h2>
 
-                <div class="products-grid grid pgrid">
-                  {%- for product in category_products limit: 8 -%}
-                    <a href="{{ product.url }}" class="product-card tc">
-                      <div class="product-card-image media">
-                        {%- if product.featured_image -%}
-                          <img
-                            src="{{ product.featured_image | image_url: width: 500 }}"
-                            alt="{{ product.featured_image.alt | escape }}"
-                            loading="lazy"
-                            width="500"
-                            height="500">
-                        {%- else -%}
-                          <div class="placeholder-image">No Image</div>
-                        {%- endif -%}
-                      </div>
-                      <div class="product-card-content bd">
-                        <h3 class="product-card-title t">{{ product.title }}</h3>
-                        {%- if product.metafields.global.prod_size -%}
-                          <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
-                        {%- endif -%}
-                        <div class="product-card-price cs">
-                          <span class="price">{{ product.price | money }}</span>
-                          {%- if product.compare_at_price > product.price -%}
-                            <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                <ul class="product-listing product-grid grid grid--2-col grid--4-col-desktop" role="list" data-product-list>
+                  {%- for product in category_products -%}
+                    {%- assign needle = '|' | append: product.id | append: ':' -%}
+                    {%- assign gpos = pos_map | split: needle | last | split: '|' | first | plus: 0 -%}
+                    {%- assign tile_index = 0 -%}
+                    {%- for bannerSwitch in collection.metafields.accentuate.grid_banner_switch -%}
+                      {%- assign gridPos = collection.metafields.accentuate.grid_position_number[tile_index] | plus: 0 | minus: tile_index -%}
+                      {%- if gpos == gridPos and bannerSwitch != blank -%}
+                        <li class="item item-package grid__item" data-promo {%- if collection.metafields.accentuate.gird_banner_bg_img[tile_index] != blank %} style="background-image: url('{{ collection.metafields.accentuate.gird_banner_bg_img[tile_index] | escape }}');"{% endif %}>
+                          <a href="{{ collection.metafields.accentuate.grid_banner_url[tile_index] }}" class="anchor-link">
+                            {%- if collection.metafields.accentuate.grid_banner_title[tile_index] != blank -%}
+                              <h3 class="product-grid-details-info title">{{ collection.metafields.accentuate.grid_banner_title[tile_index] }}</h3>
+                            {%- endif -%}
+                            {%- if collection.metafields.accentuate.grid_banner_btn_text[tile_index] != blank -%}
+                              <span class="button primary small">{{ collection.metafields.accentuate.grid_banner_btn_text[tile_index] }}</span>
+                            {%- endif -%}
+                          </a>
+                          {%- if collection.metafields.accentuate.gird_banner_img_overlay_remove[tile_index] == blank -%}
+                            <div class="overlay" style="background-color:{{ section.settings.collection_grid_banner_overlay_color }}; opacity:{{ section.settings.collection_grid_banner_overlay_opacity | divided_by: 100.0 }}"></div>
                           {%- endif -%}
-                        </div>
-                      </div>
-                    </a>
+                        </li>
+                      {%- endif -%}
+                      {%- assign tile_index = tile_index | plus: 1 -%}
+                    {%- endfor -%}
+                    <li class="product-card item grid__item"
+                        data-card
+                        data-index="{{ forloop.index }}"
+                        data-title="{{ product.title | escape }}"
+                        data-price="{{ product.price | divided_by: 100.0 }}"
+                        data-tags="{{ product.tags | join: '|' | escape }}"{% unless product.available %} data-sold-out{% endunless %}>
+                      {%- if product.price > 0 -%}
+                        {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
+                      {%- else -%}
+                        <a class="gift-card-link" href="{{ product.url }}">
+                          <span class="gift-card-label">Free with purchase</span>
+                          <h3 class="gift-card-title">{{ product.title | escape }}</h3>
+                        </a>
+                      {%- endif -%}
+                    </li>
                   {%- endfor -%}
-                </div>
-
-                {%- if category_products.size > 8 -%}
-                  <div class="category-footer">
-                    <a href="{{ collection.url }}" class="view-all-link bk ghost">
-                      View all {{ category }}
-                    </a>
-                  </div>
-                {%- endif -%}
+                </ul>
               </div>
             </section>
           {%- endif -%}
         {%- endfor -%}
       {%- else -%}
-        <div class="no-categories-notice">
-          <p>Products found but not categorized. Set product types in Shopify admin for proper categorization.</p>
-        </div>
-
-        <section class="category-section sec">
+        <section class="category-section sec" data-category-section>
           <div class="category-wrap wrap">
-            <h2 class="category-heading">All Products</h2>
-            <div class="products-grid grid pgrid">
+            <h2 class="category-heading">
+              All products
+              <span class="category-heading-count"><span data-category-count>{{ collection.products.size }}</span> <span data-category-label>{% if collection.products.size == 1 %}product{% else %}products{% endif %}</span></span>
+            </h2>
+            <ul class="product-listing product-grid grid grid--2-col grid--4-col-desktop" role="list" data-product-list>
               {%- for product in collection.products -%}
-                <a href="{{ product.url }}" class="product-card tc">
-                  <div class="product-card-image media">
-                    {%- if product.featured_image -%}
-                      <img
-                        src="{{ product.featured_image | image_url: width: 500 }}"
-                        alt="{{ product.featured_image.alt | escape }}"
-                        loading="lazy"
-                        width="500"
-                        height="500">
-                    {%- else -%}
-                      <div class="placeholder-image">No Image</div>
-                    {%- endif -%}
-                  </div>
-                  <div class="product-card-content bd">
-                    <h3 class="product-card-title t">{{ product.title }}</h3>
-                    {%- if product.metafields.global.prod_size -%}
-                      <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
-                    {%- endif -%}
-                    <div class="product-card-price cs">
-                      <span class="price">{{ product.price | money }}</span>
-                      {%- if product.compare_at_price > product.price -%}
-                        <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                <li class="product-card item grid__item"
+                    data-card
+                    data-index="{{ forloop.index }}"
+                    data-title="{{ product.title | escape }}"
+                    data-price="{{ product.price | divided_by: 100.0 }}"
+                    data-tags="{{ product.tags | join: '|' | escape }}"{% unless product.available %} data-sold-out{% endunless %}>
+                  {%- if product.price > 0 -%}
+                        {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
+                      {%- else -%}
+                        <a class="gift-card-link" href="{{ product.url }}">
+                          <span class="gift-card-label">Free with purchase</span>
+                          <h3 class="gift-card-title">{{ product.title | escape }}</h3>
+                        </a>
                       {%- endif -%}
-                    </div>
-                  </div>
-                </a>
+                </li>
               {%- endfor -%}
-            </div>
+            </ul>
           </div>
         </section>
       {%- endif -%}
+
+      <div class="filter-empty" data-empty hidden>
+        <p>No products match these filters.</p>
+        <button type="button" class="bk ghost" data-clear-all>Clear all filters</button>
+      </div>
 
     {%- else -%}
       <div class="collection-empty">
@@ -251,47 +207,221 @@ Navy #001e37 theme
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const filterChips = document.querySelectorAll('[data-filter-toggle], [data-sort-toggle]');
+  (function() {
+    const root = document.querySelector('[data-collection-grid]');
+    if (!root) return;
 
-    filterChips.forEach(chip => {
-      chip.addEventListener('click', function(e) {
-        e.preventDefault();
-        const panel = this.nextElementSibling;
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+    const cards = Array.from(root.querySelectorAll('[data-card]'));
+    const groups = {
+      concern: 'Concern-',
+      category: 'Category-',
+      collection: 'Collection-'
+    };
+    const selected = { concern: new Set(), category: new Set(), collection: new Set() };
+    let sortKey = 'popular';
 
-        // Close other panels
-        filterChips.forEach(otherChip => {
-          if (otherChip !== this) {
-            otherChip.setAttribute('aria-expanded', 'false');
-            const otherPanel = otherChip.nextElementSibling;
-            if (otherPanel) {
-              otherPanel.hidden = true;
-            }
-          }
+    const tagsOf = card => card.dataset.tags ? card.dataset.tags.split('|') : [];
+
+    Object.keys(groups).forEach(function(key) {
+      const prefix = groups[key];
+      const counts = new Map();
+      cards.forEach(function(card) {
+        tagsOf(card).forEach(function(tag) {
+          if (tag.indexOf(prefix) === 0) counts.set(tag, (counts.get(tag) || 0) + 1);
         });
+      });
 
-        // Toggle this panel
-        this.setAttribute('aria-expanded', !isExpanded);
-        if (panel) {
-          panel.hidden = isExpanded;
-        }
+      const panel = root.querySelector('[data-options="' + key + '"]');
+      const group = root.querySelector('[data-group="' + key + '"]');
+      if (!counts.size) {
+        group.hidden = true;
+        return;
+      }
+
+      Array.from(counts.keys()).sort().forEach(function(value) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'filter-opt opt';
+        btn.dataset.group = key;
+        btn.dataset.value = value;
+        btn.setAttribute('aria-checked', 'false');
+
+        const mark = document.createElement('span');
+        mark.className = 'opt-mark';
+        mark.setAttribute('aria-hidden', 'true');
+
+        const label = document.createElement('span');
+        label.className = 'opt-label';
+        label.textContent = value.slice(prefix.length).trim();
+
+        const count = document.createElement('span');
+        count.className = 'opt-count';
+        count.textContent = counts.get(value);
+
+        btn.append(mark, label, count);
+        panel.appendChild(btn);
       });
     });
 
-    // Close panels when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.filter-group') && !e.target.closest('[data-filter-toggle]') && !e.target.closest('[data-sort-toggle]')) {
-        filterChips.forEach(chip => {
-          chip.setAttribute('aria-expanded', 'false');
-          const panel = chip.nextElementSibling;
-          if (panel) {
-            panel.hidden = true;
-          }
+    function labelFor(group, value) {
+      return value.slice(groups[group].length).trim();
+    }
+
+    function matches(card) {
+      const tags = tagsOf(card);
+      return Object.keys(selected).every(function(key) {
+        const set = selected[key];
+        return set.size === 0 || tags.some(function(t) { return set.has(t); });
+      });
+    }
+
+    function compare(a, b) {
+      const pa = parseFloat(a.dataset.price), pb = parseFloat(b.dataset.price);
+      if (sortKey === 'price-asc') return pa - pb;
+      if (sortKey === 'price-desc') return pb - pa;
+      if (sortKey === 'name-asc') return a.dataset.title.localeCompare(b.dataset.title);
+      return parseInt(a.dataset.index, 10) - parseInt(b.dataset.index, 10);
+    }
+
+    function renderActive() {
+      const list = root.querySelector('[data-active-list]');
+      const wrap = root.querySelector('[data-active-filters]');
+      list.textContent = '';
+      let total = 0;
+      Object.keys(selected).forEach(function(key) {
+        selected[key].forEach(function(value) {
+          total++;
+          const chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'active-chip';
+          chip.dataset.removeGroup = key;
+          chip.dataset.removeValue = value;
+          chip.setAttribute('aria-label', 'Remove ' + labelFor(key, value));
+          chip.textContent = labelFor(key, value) + ' ×';
+          list.appendChild(chip);
         });
+      });
+      wrap.hidden = total === 0;
+    }
+
+    function updateGroupButtons() {
+      Object.keys(groups).forEach(function(key) {
+        const group = root.querySelector('[data-group="' + key + '"]');
+        const count = selected[key].size;
+        const badge = group.querySelector('[data-group-count]');
+        badge.textContent = count;
+        badge.hidden = count === 0;
+        group.classList.toggle('is-active', count > 0);
+        group.querySelectorAll('.filter-opt').forEach(function(opt) {
+          const on = selected[key].has(opt.dataset.value);
+          opt.classList.toggle('is-selected', on);
+          opt.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+      });
+    }
+
+    function apply() {
+      let visible = 0;
+      cards.forEach(function(card) {
+        card.hidden = !matches(card);
+        if (!card.hidden) visible++;
+      });
+
+      root.querySelectorAll('[data-product-list]').forEach(function(list) {
+        const items = Array.from(list.children);
+        const promoSlots = items.map(function(el, i) { return el.hasAttribute('data-promo') ? i : -1; }).filter(function(i) { return i >= 0; });
+        const sorted = items.filter(function(el) { return el.hasAttribute('data-card'); }).sort(compare);
+        let next = 0;
+        items.forEach(function(_, i) {
+          const item = promoSlots.indexOf(i) >= 0 ? items[i] : sorted[next++];
+          list.appendChild(item);
+        });
+      });
+
+      root.querySelectorAll('[data-category-section]').forEach(function(section) {
+        const shown = section.querySelectorAll('[data-card]:not([hidden])').length;
+        section.hidden = shown === 0;
+        const counter = section.querySelector('[data-category-count]');
+        if (counter) counter.textContent = shown;
+        const label = section.querySelector('[data-category-label]');
+        if (label) label.textContent = shown === 1 ? 'product' : 'products';
+      });
+
+      const filtering = Object.keys(selected).some(function(key) { return selected[key].size > 0; });
+      root.querySelectorAll('[data-promo]').forEach(function(promo) { promo.hidden = filtering; });
+
+      root.querySelector('[data-visible-count]').textContent = visible;
+      const empty = root.querySelector('[data-empty]');
+      if (empty) empty.hidden = visible !== 0;
+
+      updateGroupButtons();
+      renderActive();
+    }
+
+    function closePanels(except) {
+      root.querySelectorAll('[data-toggle]').forEach(function(btn) {
+        if (btn === except) return;
+        btn.setAttribute('aria-expanded', 'false');
+        const panel = btn.nextElementSibling;
+        if (panel) panel.hidden = true;
+      });
+    }
+
+    root.addEventListener('click', function(e) {
+      const toggle = e.target.closest('[data-toggle]');
+      if (toggle) {
+        const panel = toggle.nextElementSibling;
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        closePanels(toggle);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (panel) panel.hidden = !open;
+        return;
       }
+
+      const option = e.target.closest('.filter-opt[data-value]');
+      if (option) {
+        const set = selected[option.dataset.group];
+        if (set.has(option.dataset.value)) set.delete(option.dataset.value);
+        else set.add(option.dataset.value);
+        apply();
+        return;
+      }
+
+      const sortOption = e.target.closest('[data-sort]');
+      if (sortOption) {
+        sortKey = sortOption.dataset.sort;
+        root.querySelectorAll('[data-sort]').forEach(function(btn) {
+          const on = btn === sortOption;
+          btn.classList.toggle('is-selected', on);
+          btn.setAttribute('aria-checked', on ? 'true' : 'false');
+        });
+        closePanels(null);
+        apply();
+        return;
+      }
+
+      const remove = e.target.closest('[data-remove-group]');
+      if (remove) {
+        selected[remove.dataset.removeGroup].delete(remove.dataset.removeValue);
+        apply();
+        return;
+      }
+
+      if (e.target.closest('[data-clear-all]')) {
+        Object.keys(selected).forEach(function(key) { selected[key].clear(); });
+        apply();
+        return;
+      }
+
+      if (!e.target.closest('.filter-group')) closePanels(null);
     });
-  });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePanels(null);
+    });
+
+    apply();
+  })();
 </script>
 
 {% schema %}
@@ -315,16 +445,6 @@ Navy #001e37 theme
       "id": "show_filters",
       "label": "Show filter bar (Concern, Category, Collection, Sort)",
       "default": true
-    },
-    {
-      "type": "range",
-      "id": "columns",
-      "min": 2,
-      "max": 6,
-      "step": 1,
-      "unit": "col",
-      "label": "Grid columns (desktop)",
-      "default": 4
     }
   ]
 }
