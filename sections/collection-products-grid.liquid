@@ -1,7 +1,8 @@
 {%- comment -%}
-Collection Products Grid - Displays products grouped by product type/category
-Uses product.type (built-in Shopify category) instead of tags
-Matches Ella Baché website layout with Navy #001e37 theme
+Collection Products Grid - Three-Filter System (Concern, Category, Collection)
+Matches reference website: ella-bache-site.pages.dev/products/
+Uses product.type for Category, metafields for Concern & Collection
+Navy #001e37 theme
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
@@ -30,22 +31,72 @@ Matches Ella Baché website layout with Navy #001e37 theme
 
     {%- if section.settings.show_filters -%}
       <div class="collection-filter-bar fbar">
+
+        {%- comment -%} CONCERN FILTER {%- endcomment -%}
         <div class="filter-group pop">
-          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle>
+          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="concern">
             <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
               <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
             </svg>
-            <span class="filter-label">Filters</span>
-            <span class="filter-count car">({{ collection.products_count }})</span>
+            <span class="filter-label">Concern</span>
+            <span class="filter-count car">0</span>
           </button>
           <div class="filter-panel panel" hidden>
-            <button class="filter-opt opt">All Products</button>
+            <button class="filter-opt opt">Hydration</button>
+            <button class="filter-opt opt">Brightening</button>
+            <button class="filter-opt opt">Age Correction</button>
+            <button class="filter-opt opt">Age Prevention</button>
+            <button class="filter-opt opt">Sensitivity</button>
+            <button class="filter-opt opt">Purifying</button>
+            <button class="filter-opt opt">Sun Protection</button>
+            <div class="filter-progress pbar"></div>
+          </div>
+        </div>
+
+        {%- comment -%} CATEGORY FILTER {%- endcomment -%}
+        <div class="filter-group pop">
+          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="category">
+            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+            <span class="filter-label">Category</span>
+            <span class="filter-count car">0</span>
+          </button>
+          <div class="filter-panel panel" hidden>
             <button class="filter-opt opt">Cleansers</button>
             <button class="filter-opt opt">Serums</button>
             <button class="filter-opt opt">Moisturisers</button>
             <button class="filter-opt opt">Eye & Neck</button>
             <button class="filter-opt opt">Masks</button>
             <button class="filter-opt opt">Exfoliants</button>
+            <button class="filter-opt opt">Suncare</button>
+            <button class="filter-opt opt">Tanning</button>
+            <button class="filter-opt opt">Bodycare</button>
+            <button class="filter-opt opt">Treatment Products</button>
+            <button class="filter-opt opt">Mists</button>
+            <div class="filter-progress pbar"></div>
+          </div>
+        </div>
+
+        {%- comment -%} COLLECTION FILTER {%- endcomment -%}
+        <div class="filter-group pop">
+          <button class="filter-chip fchip" aria-expanded="false" data-filter-toggle="collection">
+            <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+            </svg>
+            <span class="filter-label">Collection</span>
+            <span class="filter-count car">0</span>
+          </button>
+          <div class="filter-panel panel" hidden>
+            <button class="filter-opt opt">Classics</button>
+            <button class="filter-opt opt">Eternal+</button>
+            <button class="filter-opt opt">Hydra</button>
+            <button class="filter-opt opt">NeoBright</button>
+            <button class="filter-opt opt">SpirulinesLift</button>
+            <button class="filter-opt opt">Sensibeautics</button>
+            <button class="filter-opt opt">Detox Aromatique</button>
+            <button class="filter-opt opt">Brightening Plus</button>
+            <button class="filter-opt opt">Pure Hydration</button>
             <div class="filter-progress pbar"></div>
           </div>
         </div>
@@ -56,6 +107,7 @@ Matches Ella Baché website layout with Navy #001e37 theme
           <b>{{ collection.products_count }}</b> Products
         </span>
 
+        {%- comment -%} SORT DROPDOWN {%- endcomment -%}
         <div class="filter-group pop">
           <button class="filter-chip fchip sort-btn" aria-expanded="false" data-sort-toggle>
             <svg class="ic" viewBox="0 0 24 24" width="16" height="16">
@@ -65,11 +117,10 @@ Matches Ella Baché website layout with Navy #001e37 theme
             <span class="car"></span>
           </button>
           <div class="filter-panel panel sort-panel" hidden>
-            <button class="filter-opt opt on">Featured</button>
-            <button class="filter-opt opt">Best Selling</button>
-            <button class="filter-opt opt">Newest</button>
+            <button class="filter-opt opt on">Popular</button>
             <button class="filter-opt opt">Price: Low to High</button>
             <button class="filter-opt opt">Price: High to Low</button>
+            <button class="filter-opt opt">New</button>
           </div>
         </div>
       </div>
@@ -78,26 +129,20 @@ Matches Ella Baché website layout with Navy #001e37 theme
     {%- if collection.products_count > 0 -%}
       {%- comment -%}
         Group products by product type (category)
-        Product types should match: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
+        Product types: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
       {%- endcomment -%}
 
       {%- assign category_order = "Cleansers,Serums,Moisturisers,Eye & Neck,Masks,Exfoliants,Suncare,Tanning,Bodycare,Treatment Products" | split: "," -%}
-      {%- assign all_types = "" | split: "" -%}
       {%- assign any_categorized = false -%}
 
       {%- for product in collection.products -%}
         {%- if product.type != blank and product.type != "" -%}
           {%- assign any_categorized = true -%}
-          {%- unless all_types contains product.type -%}
-            {%- assign all_types = all_types | push: product.type -%}
-          {%- endunless -%}
+          {%- break -%}
         {%- endif -%}
       {%- endfor -%}
 
       {%- if any_categorized -%}
-        {%- comment -%}
-          Display products grouped by product type in predefined order
-        {%- endcomment -%}
         {%- assign section_count = 0 -%}
         {%- for category in category_order -%}
           {%- assign category_products = collection.products | where: "type", category -%}
@@ -155,12 +200,8 @@ Matches Ella Baché website layout with Navy #001e37 theme
           {%- endif -%}
         {%- endfor -%}
       {%- else -%}
-        {%- comment -%}
-          No product types set - display all products in a single grid
-          NOTE: Set product types in Shopify admin for proper categorization
-        {%- endcomment -%}
         <div class="no-categories-notice">
-          <p>Note: Products are not categorized. Please set product types in Shopify admin.</p>
+          <p>Products found but not categorized. Set product types in Shopify admin for proper categorization.</p>
         </div>
 
         <section class="category-section sec">
@@ -272,7 +313,7 @@ Matches Ella Baché website layout with Navy #001e37 theme
     {
       "type": "checkbox",
       "id": "show_filters",
-      "label": "Show filter bar",
+      "label": "Show filter bar (Concern, Category, Collection, Sort)",
       "default": true
     },
     {
