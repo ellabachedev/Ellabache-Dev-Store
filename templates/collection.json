@@ -47,61 +47,6 @@
         "columns": 4
       }
     },
-    "collection-old": {
-      "type": "collection",
-      "disabled": true,
-      "blocks": {
-        "8ae20c17-6a9a-492a-a6d1-a22afbfda68e": {
-          "type": "tags",
-          "settings": {
-            "title": "Collection",
-            "prefix": "Collection-"
-          }
-        },
-        "0b5fc79b-589c-40b4-8cdc-7ca619e4d34c": {
-          "type": "tags",
-          "settings": {
-            "title": "Category",
-            "prefix": "Category-"
-          }
-        },
-        "bf3b9aa1-8ecb-4a6d-bdab-1a88d2b3e0e5": {
-          "type": "tags",
-          "settings": {
-            "title": "Skin concerns",
-            "prefix": "Concern-"
-          }
-        },
-        "bb8a6beb-d21a-4ab5-9d35-9608041b8eb4": {
-          "type": "tags",
-          "settings": {
-            "title": "Solution",
-            "prefix": "Solution-"
-          }
-        },
-        "d1ba59af-e532-4943-a0c4-c02df7fb28d0": {
-          "type": "tags",
-          "settings": {
-            "title": "Skin type",
-            "prefix": "Skin-"
-          }
-        }
-      },
-      "block_order": [
-        "8ae20c17-6a9a-492a-a6d1-a22afbfda68e",
-        "0b5fc79b-589c-40b4-8cdc-7ca619e4d34c",
-        "bf3b9aa1-8ecb-4a6d-bdab-1a88d2b3e0e5",
-        "bb8a6beb-d21a-4ab5-9d35-9608041b8eb4",
-        "d1ba59af-e532-4943-a0c4-c02df7fb28d0"
-      ],
-      "settings": {
-        "pagination_limit": "14",
-        "collection_grid_banner_overlay_color": "#c7e3e1",
-        "collection_grid_banner_overlay_opacity": 30,
-        "pagination_type": "2",
-        "collection_banner_design": "1"
-      }
-    },
     "category_card_grid_riCyGT": {
       "type": "category-card-grid",
       "blocks": {
