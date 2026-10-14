@@ -1,15 +1,15 @@
 {%- comment -%}
-Collection Products Grid - Displays products grouped by category
-Matches reference website layout with category sections
+Collection Products Grid - Displays products grouped by category with filters
+Matches reference website layout with category sections and Navy theme
 {%- endcomment -%}
 
 <link rel="stylesheet" href="{{ 'collection-products-grid.css' | asset_url }}">
 
-<main class="collection-products-grid" data-section-id="{{ section.id }}">
+<main class="collection-products-grid" id="main" data-section-id="{{ section.id }}">
   <div class="collection-wrapper page-width">
 
     {%- if section.settings.show_breadcrumbs -%}
-      <div class="collection-breadcrumbs">
+      <div class="collection-breadcrumbs crumbs">
         <a href="/">Home</a>
         <span class="breadcrumb-separator">/</span>
         <span class="breadcrumb-current">Products</span>
@@ -28,105 +28,72 @@ Matches reference website layout with category sections
     {%- endif -%}
 
     {%- if section.settings.show_filters -%}
-      <div class="collection-filter-bar">
-        <div class="filter-controls">
-          <span class="filter-label">Filters:</span>
-          <span class="filter-count">{{ collection.products_count }} Products</span>
+      <div class="collection-filter-bar fbar">
+        <div class="filter-group pop">
+          <button class="filter-chip fchip" aria-expanded="false">
+            <svg class="ic" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            <span class="filter-label">Filters</span>
+            <span class="filter-count car"></span>
+          </button>
+          <div class="filter-panel panel" hidden>
+            <button class="filter-opt opt">Cleansers</button>
+            <button class="filter-opt opt">Serums</button>
+            <button class="filter-opt opt">Moisturisers</button>
+            <button class="filter-opt opt">Eye & Neck</button>
+            <button class="filter-opt opt">Masks</button>
+            <button class="filter-opt opt">Exfoliants</button>
+            <div class="filter-progress pbar"></div>
+          </div>
         </div>
-        <div class="filter-sort">
-          <label>Sort:</label>
-          <select class="sort-select">
-            <option value="title-asc">Name (A-Z)</option>
-            <option value="title-desc">Name (Z-A)</option>
-            <option value="price-asc">Price (Low to High)</option>
-            <option value="price-desc">Price (High to Low)</option>
-          </select>
+
+        <div class="filter-spacer sp"></div>
+
+        <span class="product-count count">
+          <b>{{ collection.products_count }}</b> Products
+        </span>
+
+        <div class="filter-group pop">
+          <button class="filter-chip fchip sort-btn" aria-expanded="false">
+            <svg class="ic" viewBox="0 0 24 24"><path fill="currentColor" d="M3 13h8v-2H3v2zm0 4h8v-2H3v2zm0-8h8V7H3v2zm13 0V7h-2v2h2zm-2 4h2v-2h-2v2zm2 4h2v-2h-2v2z"/></svg>
+            <span>Sort</span>
+            <span class="car"></span>
+          </button>
+          <div class="filter-panel panel sort-panel" hidden>
+            <button class="filter-opt opt on">Featured</button>
+            <button class="filter-opt opt">Best Selling</button>
+            <button class="filter-opt opt">Price: Low to High</button>
+            <button class="filter-opt opt">Price: High to Low</button>
+          </div>
         </div>
       </div>
     {%- endif -%}
 
     {%- if collection.products_count > 0 -%}
       {%- comment -%}
-        Group products by collection tag (category)
-        Each tag becomes a section with alternating background
+        Categorize products by their Collection tag
+        Expected tags: Cleansers, Serums, Moisturisers, Eye & Neck, Masks, Exfoliants, Suncare, Tanning, Bodycare, Treatment Products
       {%- endcomment -%}
 
-      {%- assign all_tags = "" | split: "" -%}
-      {%- for product in collection.products -%}
-        {%- for tag in product.tags -%}
-          {%- unless all_tags contains tag -%}
-            {%- assign all_tags = all_tags | push: tag -%}
-          {%- endunless -%}
-        {%- endfor -%}
-      {%- endfor -%}
+      {%- assign category_order = "Cleansers,Serums,Moisturisers,Eye & Neck,Masks,Exfoliants,Suncare,Tanning,Bodycare,Treatment Products" | split: "," -%}
+      {%- assign section_count = 0 -%}
 
-      {%- if all_tags.size > 0 -%}
-        {%- assign section_count = 0 -%}
-        {%- for tag in all_tags -%}
-          {%- assign tagged_products = collection.products | where: "tags", tag -%}
-          {%- if tagged_products.size > 0 -%}
-            {%- assign section_count = section_count | plus: 1 -%}
-            {%- assign alternate_bg = section_count | modulo: 2 -%}
+      {%- for category in category_order -%}
+        {%- assign category_products = collection.products | where: "tags", category -%}
 
-            <section class="category-section {% if alternate_bg == 1 %}category-section--alternate{% endif %}" id="{{ tag | handleize }}">
-              <div class="category-wrap">
-                <h2 class="category-heading">
-                  <a href="{{ collection.url }}?filter.tag={{ tag | url_encode }}">{{ tag }}</a>
-                </h2>
+        {%- if category_products.size > 0 -%}
+          {%- assign section_count = section_count | plus: 1 -%}
+          {%- assign alternate_bg = section_count | modulo: 2 -%}
 
-                <div class="products-grid">
-                  {%- for product in tagged_products limit: 8 -%}
-                    <div class="product-grid-item">
-                      <a href="{{ product.url }}" class="product-card">
-                        <div class="product-card-image">
-                          {%- if product.featured_image -%}
-                            <img
-                              src="{{ product.featured_image | image_url: width: 400 }}"
-                              alt="{{ product.featured_image.alt | escape }}"
-                              loading="lazy"
-                              width="400"
-                              height="400">
-                          {%- endif -%}
-                        </div>
-                        <div class="product-card-content">
-                          <h3 class="product-card-title">{{ product.title }}</h3>
-                          {%- if product.metafields.global.prod_size -%}
-                            <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
-                          {%- endif -%}
-                          <div class="product-card-price">
-                            <span class="price">{{ product.price | money }}</span>
-                            {%- if product.compare_at_price > product.price -%}
-                              <span class="compare-price">{{ product.compare_at_price | money }}</span>
-                            {%- endif -%}
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  {%- endfor -%}
-                </div>
+          <section class="category-section sec tgroup {% if alternate_bg == 1 %}category-section--alternate sand{% endif %}" id="{{ category | handleize }}">
+            <div class="category-wrap wrap">
+              <h2 class="category-heading">
+                <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}">{{ category }}</a>
+              </h2>
 
-                {%- if tagged_products.size > 8 -%}
-                  <div class="category-footer">
-                    <a href="{{ collection.url }}?filter.tag={{ tag | url_encode }}" class="view-all-link">
-                      View all {{ tag }}
-                    </a>
-                  </div>
-                {%- endif -%}
-              </div>
-            </section>
-          {%- endif -%}
-        {%- endfor -%}
-      {%- else -%}
-        {%- comment -%}
-          If no tags, display all products in a single grid
-        {%- endcomment -%}
-        <section class="category-section">
-          <div class="category-wrap">
-            <div class="products-grid">
-              {%- for product in collection.products -%}
-                <div class="product-grid-item">
-                  <a href="{{ product.url }}" class="product-card">
-                    <div class="product-card-image">
+              <div class="products-grid grid pgrid">
+                {%- for product in category_products limit: 8 -%}
+                  <a href="{{ product.url }}" class="product-card tc">
+                    <div class="product-card-image media">
                       {%- if product.featured_image -%}
                         <img
                           src="{{ product.featured_image | image_url: width: 400 }}"
@@ -136,12 +103,12 @@ Matches reference website layout with category sections
                           height="400">
                       {%- endif -%}
                     </div>
-                    <div class="product-card-content">
-                      <h3 class="product-card-title">{{ product.title }}</h3>
+                    <div class="product-card-content bd">
+                      <h3 class="product-card-title t">{{ product.title }}</h3>
                       {%- if product.metafields.global.prod_size -%}
-                        <div class="product-card-meta">{{ product.metafields.global.prod_size }}</div>
+                        <div class="product-card-meta m">{{ product.metafields.global.prod_size }}</div>
                       {%- endif -%}
-                      <div class="product-card-price">
+                      <div class="product-card-price cs">
                         <span class="price">{{ product.price | money }}</span>
                         {%- if product.compare_at_price > product.price -%}
                           <span class="compare-price">{{ product.compare_at_price | money }}</span>
@@ -149,12 +116,21 @@ Matches reference website layout with category sections
                       </div>
                     </div>
                   </a>
+                {%- endfor -%}
+              </div>
+
+              {%- if category_products.size > 8 -%}
+                <div class="category-footer">
+                  <a href="{{ collection.url }}?filter.tag={{ category | url_encode }}" class="view-all-link bk ghost">
+                    View all {{ category }}
+                  </a>
                 </div>
-              {%- endfor -%}
+              {%- endif -%}
             </div>
-          </div>
-        </section>
-      {%- endif -%}
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+
     {%- else -%}
       <div class="collection-empty">
         <p>No products found in this collection.</p>
@@ -163,6 +139,23 @@ Matches reference website layout with category sections
 
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterChips = document.querySelectorAll('.fchip');
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', function(e) {
+        e.preventDefault();
+        const panel = this.nextElementSibling;
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+        this.setAttribute('aria-expanded', !isExpanded);
+        panel.hidden = isExpanded;
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {
