@@ -17,6 +17,9 @@ rel="stylesheet"
   <link rel="stylesheet" href="{{ 'magnific-popup.css' | asset_url }}">
 </noscript>
 <script src="{{ 'cart-mini.js' | asset_url }}" defer="defer"></script>
+{%- comment -%} "Free gift added" notice in the drawer; it skips gifts already in the cart now. {%- endcomment -%}
+{%- capture initial_gift_keys -%}{%- for item in cart.items -%}{%- if item.title contains '% off' -%}{{ item.key }},{%- endif -%}{%- endfor -%}{%- endcapture -%}
+<script src="{{ 'cart-gift-notice.js' | asset_url }}" defer="defer" data-initial-gifts="{{ initial_gift_keys | escape }}"></script>
 <div
   id="cart-mini"
   style="display:none;"
