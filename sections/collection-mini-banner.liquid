@@ -122,6 +122,89 @@
     }
   }
   {{ collection.metafields.accentuate.custom_css_code }}
+  /* Offer under the banner image: quiet centred band in the theme's style (navy, thin rules, small caps) */
+  .cmb-offer {
+    padding: 28px 16px 30px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+  }
+  .cmb-offer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .cmb-offer__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 12px;
+    color: #001e37;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.6px;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .cmb-offer__label::before,
+  .cmb-offer__label::after {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: #b9c0c9;
+  }
+  .cmb-offer__copy {
+    margin: 0;
+    color: #001e37;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .cmb-offer__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 28px;
+    border: 1px solid #001e37;
+    background: transparent;
+    color: #001e37;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .cmb-offer__cta svg {
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .cmb-offer__cta:hover {
+    background: #001e37;
+    color: #ffffff;
+  }
+  .cmb-offer__cta:focus-visible {
+    outline: 2px solid #001e37;
+    outline-offset: 2px;
+  }
+  @media (min-width: 769px) {
+    .cmb-offer {
+      padding: 40px 20px 42px;
+    }
+    .cmb-offer__copy {
+      font-size: 17px;
+    }
+  }
   .collection-banner-nav-wrapper{
     background-color:#fccebc;
     margin-top:0;
@@ -164,9 +247,52 @@
       </picture>
     </div>
     {%- if collection.metafields.accentuate.collection_mini_banner_title != blank -%}
-      <div class="banner_content text-wrapper">
-        <div class="page-width" style="max-width:1440px;">
-          <h1 class="h2">{{ collection.metafields.accentuate.collection_mini_banner_title }}</h1>
+      {%- comment -%} Offer text under the banner image: readable body text + a button down to the products (not a heading) {%- endcomment -%}
+      <div class="cmb-offer">
+        <div class="cmb-offer__inner">
+          <div class="cmb-offer__text">
+            {%- if section.settings.offer_label != blank -%}
+              <p class="cmb-offer__label">
+                {{ section.settings.offer_label | escape }}
+              </p>
+            {%- endif -%}
+            <p class="cmb-offer__copy">{{ collection.metafields.accentuate.collection_mini_banner_title }}</p>
+          </div>
+          {%- if section.settings.offer_button_label != blank -%}
+            <a class="cmb-offer__cta" href="{{ section.settings.offer_button_link | default: '#main' }}" data-cmb-offer-cta>
+              {{ section.settings.offer_button_label | escape }}
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M8 3v10M3.5 8.5 8 13l4.5-4.5"/></svg>
+            </a>
+            <script>
+              /* "Shop now" to a spot on this page: a gentle eased scroll (~0.9s) instead of a jump.
+                 Skipped for reduced motion, other pages' links and modified clicks. */
+              (function () {
+                var cta = document.querySelector('[data-cmb-offer-cta]');
+                if (!cta) return;
+                cta.addEventListener('click', function (event) {
+                  var hash = cta.getAttribute('href') || '';
+                  if (hash.charAt(0) !== '#' || event.metaKey || event.ctrlKey || event.shiftKey) return;
+                  var target = document.getElementById(hash.slice(1));
+                  if (!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                  event.preventDefault();
+                  var offset = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+                  var start = window.scrollY;
+                  var distance = target.getBoundingClientRect().top - offset;
+                  var duration = 900;
+                  var began = null;
+                  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+                  function step(now) {
+                    if (began === null) began = now;
+                    var t = Math.min((now - began) / duration, 1);
+                    window.scrollTo(0, start + distance * ease(t));
+                    if (t < 1) requestAnimationFrame(step);
+                    else history.replaceState(null, '', hash);
+                  }
+                  requestAnimationFrame(step);
+                });
+              })();
+            </script>
+          {%- endif -%}
         </div>
       </div>
     {%- endif -%}
@@ -315,6 +441,33 @@
         "type": "checkbox",
         "id": "show_breadcrumb_nav",
         "label": "Show breadcrumb navigation"
+      },
+      {
+        "type": "header",
+        "content": "Offer text under the banner image"
+      },
+      {
+        "type": "paragraph",
+        "content": "The offer text itself comes from the collection's \"Collection mini banner title\" field."
+      },
+      {
+        "type": "text",
+        "id": "offer_label",
+        "label": "Small label above the offer",
+        "default": "Gift with purchase"
+      },
+      {
+        "type": "text",
+        "id": "offer_button_label",
+        "label": "Button text",
+        "info": "Leave empty to hide the button.",
+        "default": "Shop now"
+      },
+      {
+        "type": "url",
+        "id": "offer_button_link",
+        "label": "Button link",
+        "info": "Leave empty to scroll down to the products."
       }
     ],
     "presets": [

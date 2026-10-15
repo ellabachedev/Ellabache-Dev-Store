@@ -41,7 +41,6 @@
       "disabled": false,
       "name": "Products Grid",
       "settings": {
-        "show_breadcrumbs": true,
         "show_header": true,
         "show_filters": true,
         "columns": 4

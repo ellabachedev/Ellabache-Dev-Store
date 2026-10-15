@@ -21,19 +21,19 @@
   {{ 'component-mobile-bottom-nav.css' | asset_url | stylesheet_tag }}
   <nav class="mbar" aria-label="Quick links" data-mbar>
     <a href="{{ settings.mbar_home_link | default: routes.root_url }}" data-mbar-key="home" class="mbar__link{% if active == 'home' %} is-active{% endif %}"{% if active == 'home' %} aria-current="page"{% endif %}>
-      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9v10.5a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1V9"/></svg></span>
       <span>{{ settings.mbar_home_label | default: 'Home' }}</span>
     </a>
     <a href="{{ settings.mbar_products_link | default: '/collections/all' }}" data-mbar-key="products" class="mbar__link{% if active == 'products' %} is-active{% endif %}"{% if active == 'products' %} aria-current="page"{% endif %}>
-      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg></span>
       <span>{{ settings.mbar_products_label | default: 'Products' }}</span>
     </a>
     <a href="{{ settings.mbar_book_link | default: '/collections/treatments' }}" data-mbar-key="book" class="mbar__link{% if active == 'book' %} is-active{% endif %}"{% if active == 'book' %} aria-current="page"{% endif %}>
-      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 16.5h.01M12 16.5h.01"/></svg></span>
       <span>{{ settings.mbar_book_label | default: 'Book' }}</span>
     </a>
     <a href="{{ settings.mbar_salon_link | default: '/pages/find-a-salon' }}" data-mbar-key="salon" class="mbar__link{% if active == 'salon' %} is-active{% endif %}"{% if active == 'salon' %} aria-current="page"{% endif %}>
-      <span class="mbar__pill"><svg class="mbar__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg></span>
+      <span class="mbar__pill mbar__pill--brand" aria-hidden="true">{%- render 'icon-map-pointer' -%}</span>
       <span>{{ settings.mbar_salon_label | default: 'Salon' }}</span>
     </a>
   </nav>

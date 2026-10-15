@@ -6,20 +6,27 @@ $(document).ready(function(){
         menuTextWidthAssign();
     }, 300);
     var winWidth = $(window).width();
+    // Mobile menu: the open/close animation lives in header.css ("Mobile menu open/close animation").
+    var menuHideTimer = null;
     $('button.c-nav-header-toggle').on('click', function(){
+        clearTimeout(menuHideTimer);
         if($(this).hasClass('hamburger__active')){
         $(this).removeClass('hamburger__active').addClass('hamburger__active-removed');
-         $('body').removeClass('mobile-menu-open'); 
-        setTimeout(function(){
+         $('body').removeClass('mobile-menu-open');
+        // Hide only once the close transition has finished (was cut off halfway at 180ms).
+        menuHideTimer = setTimeout(function(){
           $('.desktop-navigation').css('display', 'none');
-        },180);
+        },280);
         }
         else{
         $('.desktop-navigation').css('display', 'block');
         $(this).addClass('hamburger__active').removeClass('hamburger__active-removed');
-        setTimeout(function(){
+        // Two frames so the menu is laid out before the transition starts (no fixed delay).
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){
             $('body').addClass('mobile-menu-open');
-        },100);
+          });
+        });
         }
     });
     //Add Mobile Class to Navigation ---------------------------------------------------
@@ -38,6 +45,8 @@ $(document).ready(function(){
           }
       });
       $('.mobile-menu ul.site-nav > li.site-nav--has-submenu li.site-nav--has-submenu > a').on('click', function(e){
+          // Items like "All Products" carry site-nav--has-submenu but have no sub-links: let them navigate.
+          if(!$(this).next('ul.site-nav__submenu_2').children('li').length) return;
           e.preventDefault();
           e.stopPropagation();
           if($(this).hasClass('is-open')){
@@ -81,6 +90,8 @@ $(window).on('resize',function () {
           }
       });
       $('.mobile-menu ul.site-nav > li.site-nav--has-submenu li.site-nav--has-submenu > a').on('click', function(e){
+          // Items like "All Products" carry site-nav--has-submenu but have no sub-links: let them navigate.
+          if(!$(this).next('ul.site-nav__submenu_2').children('li').length) return;
           e.preventDefault();
           e.stopPropagation();
           if($(this).hasClass('is-open')){

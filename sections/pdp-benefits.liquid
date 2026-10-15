@@ -15,12 +15,80 @@
     assign benefit_columns = 4
   endif
 -%}
-{%- if benefit_count > 0 -%}
+{%- comment -%}
+  No blocks: build up to three from the product's own "Benefits" list (the accordion metafields
+  shown in the info tabs). Each bullet gets a short label + icon from its wording; three different
+  kinds are picked first. Bullets that match no kind are left for the Benefits tab.
+{%- endcomment -%}
+{%- assign auto_count = 0 -%}
+{%- if benefit_count == 0 and product -%}
+  {%- assign benefits_html = '' -%}
+  {%- for n in (1..6) -%}
+    {%- assign key_title = 'accordion_content_' | append: n | append: '_title' -%}
+    {%- assign key_hide = 'accordion_content_' | append: n | append: '_hide' -%}
+    {%- assign key_text = 'accordion_content_' | append: n | append: '_text' -%}
+    {%- capture item_title -%}{{ product.metafields.accentuate[key_title] }}{%- endcapture -%}
+    {%- capture item_hidden -%}{{ product.metafields.accentuate[key_hide] }}{%- endcapture -%}
+    {%- assign item_title = item_title | downcase -%}
+    {%- if item_title contains 'benefit' and item_hidden == blank -%}
+      {%- capture benefits_html -%}{{ product.metafields.accentuate[key_text] }}{%- endcapture -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign auto_icons = '' -%}
+  {%- assign auto_titles = '' -%}
+  {%- assign auto_texts = '' -%}
+  {%- assign used_kinds = '' -%}
+  {%- assign chunks = benefits_html | split: '</li>' -%}
+  {%- for pass in (1..2) -%}
+    {%- for chunk in chunks -%}
+      {%- if auto_count >= 3 -%}{%- break -%}{%- endif -%}
+      {%- unless chunk contains '<li' -%}{%- continue -%}{%- endunless -%}
+      {%- assign line = chunk | strip_html | strip -%}
+      {%- if line == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign low = line | downcase -%}
+      {%- assign kind = '' -%}
+      {%- if low contains 'cleans' or low contains 'remov' or low contains 'purif' or low contains 'pore' or low contains 'impurit' -%}
+        {%- assign kind = 'check' -%}{%- assign kind_title = 'Cleanses' -%}
+      {%- elsif low contains 'hydrat' or low contains 'moist' or low contains 'plump' or low contains 'nourish' -%}
+        {%- assign kind = 'drop' -%}{%- assign kind_title = 'Hydrates' -%}
+      {%- elsif low contains 'protect' or low contains ' uv' or low contains 'spf' or low contains 'barrier' or low contains 'antioxid' or low contains 'free radical' -%}
+        {%- assign kind = 'shield' -%}{%- assign kind_title = 'Protects' -%}
+      {%- elsif low contains 'sooth' or low contains 'calm' or low contains 'sensitiv' or low contains 'redness' or low contains 'heal' or low contains 'comfort' -%}
+        {%- assign kind = 'leaf' -%}{%- assign kind_title = 'Soothes' -%}
+      {%- elsif low contains 'bright' or low contains 'glow' or low contains 'radian' or low contains 'luminous' or low contains 'pigment' -%}
+        {%- assign kind = 'sparkle' -%}{%- assign kind_title = 'Brightens' -%}
+      {%- elsif low contains 'smooth' or low contains 'wrinkle' or low contains 'fine line' or low contains 'firm' or low contains 'lift' or low contains 'texture' or low contains 'refine' -%}
+        {%- assign kind = 'waves' -%}{%- assign kind_title = 'Smooths' -%}
+      {%- endif -%}
+      {%- if kind == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign kind_tag = '|' | append: kind | append: '|' -%}
+      {%- assign line_tag = '§' | append: line | append: '§' -%}
+      {%- assign texts_check = '§' | append: auto_texts -%}
+      {%- if pass == 1 and used_kinds contains kind_tag -%}{%- continue -%}{%- endif -%}
+      {%- if texts_check contains line_tag -%}{%- continue -%}{%- endif -%}
+      {%- assign used_kinds = used_kinds | append: kind_tag -%}
+      {%- assign auto_icons = auto_icons | append: kind | append: '§' -%}
+      {%- assign auto_titles = auto_titles | append: kind_title | append: '§' -%}
+      {%- assign auto_texts = auto_texts | append: line | append: '§' -%}
+      {%- assign auto_count = auto_count | plus: 1 -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- if auto_count < 2 -%}{%- assign auto_count = 0 -%}{%- endif -%}
+  {%- assign auto_icons = auto_icons | split: '§' -%}
+  {%- assign auto_titles = auto_titles | split: '§' -%}
+  {%- assign auto_texts = auto_texts | split: '§' -%}
+  {%- assign benefit_columns = auto_count -%}
+{%- endif -%}
+{%- if benefit_count > 0 or auto_count > 0 -%}
   {{ 'component-pdp-enhancements.css' | asset_url | stylesheet_tag }}
   <div class="pdp-section pdp-benefits pdp-benefits-{{ section.id }}">
     <div class="page-width">
       {%- if section.settings.heading != blank -%}
-        <h2 class="pdp-section__heading">{{ section.settings.heading }}</h2>
+        {%- assign benefits_heading = section.settings.heading -%}
+        {%- if auto_count == 2 -%}{%- assign benefits_heading = benefits_heading | replace: 'Three', 'Two' -%}{%- endif -%}
+        <h2 class="pdp-section__heading">{{ benefits_heading }}</h2>
       {%- endif -%}
       <ul class="pdp-benefits__grid" style="--pdp-benefit-columns: {{ benefit_columns }};">
         {%- for block in section.blocks -%}
@@ -44,6 +112,15 @@
             {%- endif -%}
           </li>
         {%- endfor -%}
+        {%- if benefit_count == 0 -%}
+          {%- for auto_text in auto_texts limit: auto_count -%}
+            <li class="pdp-benefits__item">
+              <span class="pdp-benefits__icon">{%- render 'pdp-icon', icon: auto_icons[forloop.index0] -%}</span>
+              <h3 class="pdp-benefits__title">{{ auto_titles[forloop.index0] }}</h3>
+              <p class="pdp-benefits__text">{{ auto_text | truncatewords: 14, '…' }}</p>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
       </ul>
     </div>
   </div>
@@ -69,6 +146,10 @@
   "class": "pdp-benefits-section",
   "max_blocks": 4,
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "With no blocks added, up to three benefits are taken from each product's own \"Benefits\" list, with a matching icon and short label. Add blocks to set them by hand instead."
+    },
     {
       "type": "text",
       "id": "heading",

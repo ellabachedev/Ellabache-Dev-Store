@@ -258,6 +258,11 @@ strong {
     height: 100vh;
     margin: 0;
     position: fixed;
+    /* A fixed body shrinks to fit its content (it grew to ~570px on a 375px phone and the page
+       reflowed behind the menu); keep it at the screen width. top is set by header-sticky-mobile.js. */
+    left: 0;
+    right: 0;
+    width: 100%;
   }
 }
 .flex-container {

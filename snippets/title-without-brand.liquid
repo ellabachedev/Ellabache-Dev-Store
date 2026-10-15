@@ -1,0 +1,15 @@
+{%- comment -%}
+  Outputs `title` with a trailing brand suffix removed (" - Ella Baché", " – Ella Baché", " | Ella Baché", ...),
+  even when the brand is typed into the SEO title in admin.
+  Usage: {% render 'title-without-brand', title: page_title %}
+{%- endcomment -%}
+{%- assign clean_title = title -%}
+{%- assign title_brands = shop.name | append: ',Ella Baché,Ella Bache' | split: ',' -%}
+{%- for brand in title_brands -%}
+  {%- assign sep_hyphen = ' - ' | append: brand -%}
+  {%- assign sep_en = ' – ' | append: brand -%}
+  {%- assign sep_em = ' — ' | append: brand -%}
+  {%- assign sep_pipe = ' | ' | append: brand -%}
+  {%- assign clean_title = clean_title | remove: sep_hyphen | remove: sep_en | remove: sep_em | remove: sep_pipe -%}
+{%- endfor -%}
+{{- clean_title | strip -}}

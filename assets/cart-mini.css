@@ -1348,3 +1348,208 @@ body.cart-open #halterOverlay.body-overlay {
 #cart-mini .mini-cart-form .eb-cart-upsell:empty {
   display: none;
 }
+
+/* ------------------------------------------------------------------
+   Wish list tab: same look as the cart tab (image, title, price, faint ×, thin dividers,
+   one full-width navy button pinned at the bottom) instead of a big button per item.
+   Markup comes from addto-wishlist.js.liquid.
+------------------------------------------------------------------ */
+#tabWishlist .inner {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--mini-cart-head-height, 53px)) !important;
+  height: calc(100dvh - var(--mini-cart-head-height, 53px)) !important;
+}
+#wishListWrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+#tabWishlist .inner form.cart {
+  flex: 1 1 auto;
+  height: auto !important; /* cart-mini.js sets a fixed pixel height */
+  min-height: 0;
+  padding: 0 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+#wishListWrapper ul li.single-product {
+  padding: 16px 0;
+  border-bottom: 1px solid #ececed;
+}
+#wishListWrapper ul li.single-product .prod-info-container {
+  align-items: flex-start;
+  overflow: visible;
+}
+#wishListWrapper ul li.single-product .single-product-img {
+  display: block;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  margin-right: 16px;
+}
+#wishListWrapper ul li.single-product .single-product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#wishListWrapper ul li.single-product .details {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  float: none;
+}
+#wishListWrapper ul li.single-product .details p.prod-title {
+  margin: 0 0 6px;
+  padding-right: 36px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+#wishListWrapper ul li.single-product .details p.prod-title a {
+  color: #001e37;
+  font-size: 14px;
+}
+/* A wish list saves products; quantity is chosen in the cart */
+#wishListWrapper ul li.single-product .details .minicart-qty-container {
+  display: none;
+}
+#wishListWrapper ul li.single-product .details .minicart-actions {
+  margin: 0 0 12px;
+}
+#wishListWrapper ul li.single-product .details span.price {
+  color: #001e37;
+  font-size: 15px;
+  font-weight: 500;
+}
+#wishListWrapper ul li.single-product .details .addtocart-wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 40px;
+  padding: 0 20px;
+  border: 1px solid #001e37;
+  background: transparent;
+  color: #001e37;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#wishListWrapper ul li.single-product .details .addtocart-wishlist:hover,
+#wishListWrapper ul li.single-product .details .addtocart-wishlist:focus-visible {
+  background: #001e37;
+  color: #ffffff;
+}
+#wishListWrapper ul li.single-product .details .remove-item-from-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -12px;
+  right: -12px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+#wishListWrapper ul li.single-product .details .remove-item-from-quote svg path {
+  fill: #9aa3ad;
+}
+#wishListWrapper ul li.single-product .details .remove-item-from-quote:hover svg path {
+  fill: #001e37;
+}
+/* "Add all to cart": pinned at the bottom like the cart's Check out button */
+#addEverthingToCart {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 52px;
+  margin: 16px 16px max(16px, env(safe-area-inset-bottom, 0px));
+  padding: 0 16px;
+  border: 1px solid #001e37;
+  background: #001e37;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#addEverthingToCart:hover {
+  background: #001e37;
+  color: #ffffff;
+}
+/* Empty wish list */
+#cart-mini .wl-empty {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px 32px 80px;
+  text-align: center;
+}
+#cart-mini .wl-empty__icon {
+  margin-bottom: 6px;
+  fill: none;
+  stroke: #001e37;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+#cart-mini .wl-empty p.wl-empty__title {
+  margin: 0;
+  color: #001e37;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#cart-mini .wl-empty p.wl-empty__text {
+  max-width: 260px;
+  margin: 0 0 10px;
+  color: #66717d;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+}
+#cart-mini .wl-empty__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 28px;
+  border: 1px solid #001e37;
+  color: #001e37;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#cart-mini .wl-empty__cta:hover {
+  background: #001e37;
+  color: #ffffff;
+}
+/* Empty cart: same design as the empty wish list, centred in the drawer */
+#tabCart .cart-empty-state {
+  min-height: calc(100vh - var(--mini-cart-head-height, 53px));
+  min-height: calc(100dvh - var(--mini-cart-head-height, 53px));
+}
+/* Empty cart icon = the header's cart bag (a filled-outline icon, so no stroke styling) */
+#cart-mini .cart-empty-state__icon {
+  display: block;
+  margin-bottom: 6px;
+}
+#cart-mini .cart-empty-state__icon svg {
+  display: block;
+  width: auto;
+  height: 40px;
+}
+#cart-mini .cart-empty-state__icon svg path {
+  fill: #001e37;
+}

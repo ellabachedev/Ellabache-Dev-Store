@@ -50,6 +50,33 @@
       return tab;
     });
 
+    // Narrower screens (tablets, small laptops): the tabs scroll sideways instead of wrapping onto
+    // a second row, with ‹ › at the edges so it's clear there are more tabs.
+    var wrap = document.createElement('div');
+    wrap.className = 'pdp-info-tabs-wrap';
+    var arrow = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var prev = document.createElement('button');
+    prev.type = 'button';
+    prev.className = 'pdp-info-tabs__arrow pdp-info-tabs__arrow--prev';
+    prev.setAttribute('aria-hidden', 'true'); // keyboard users move between tabs with the arrow keys
+    prev.tabIndex = -1;
+    prev.innerHTML = arrow;
+    var next = prev.cloneNode(true);
+    next.className = 'pdp-info-tabs__arrow pdp-info-tabs__arrow--next';
+    wrap.appendChild(prev);
+    wrap.appendChild(nav);
+    wrap.appendChild(next);
+
+    function updateArrows() {
+      var max = nav.scrollWidth - nav.clientWidth;
+      wrap.classList.toggle('can-prev', max > 2 && nav.scrollLeft > 2);
+      wrap.classList.toggle('can-next', max > 2 && nav.scrollLeft < max - 2);
+    }
+    prev.addEventListener('click', function () { nav.scrollBy({ left: -nav.clientWidth * 0.6, behavior: 'smooth' }); });
+    next.addEventListener('click', function () { nav.scrollBy({ left: nav.clientWidth * 0.6, behavior: 'smooth' }); });
+    nav.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+
     function select(activeIndex, focus) {
       items.forEach(function (item, index) {
         var active = index === activeIndex;
@@ -57,12 +84,202 @@
         tabs[index].setAttribute('aria-selected', active ? 'true' : 'false');
         tabs[index].tabIndex = active ? 0 : -1;
       });
-      if (focus) tabs[activeIndex].focus();
+      if (focus) tabs[activeIndex].focus({ preventScroll: true });
+      // Bring the chosen tab fully into view inside the row (without scrolling the page)
+      var tab = tabs[activeIndex];
+      var left = tab.offsetLeft - nav.offsetLeft;
+      if (left < nav.scrollLeft) nav.scrollTo({ left: left - 24, behavior: 'smooth' });
+      else if (left + tab.offsetWidth > nav.scrollLeft + nav.clientWidth) nav.scrollTo({ left: left + tab.offsetWidth - nav.clientWidth + 24, behavior: 'smooth' });
     }
 
-    block.insertBefore(nav, items[0]);
+    block.insertBefore(wrap, items[0]);
     block.classList.add('pdp-tabs-enabled');
     select(0, false);
+    updateArrows();
+  }
+
+  /* ---------- Info cards ----------
+     "How to use", "Benefits" and "Therapist tips" are written in admin as bullet lists. Show
+     them as cards: numbered steps, icon cards (icon picked from the wording) and tip cards.
+     Content that isn't a single list (e.g. paragraphs) is left exactly as written. */
+  var BENEFIT_ICONS = [
+    [/cleans|remov|purif|pore|impurit/i, 'check'],
+    [/hydrat|moist|plump|nourish|water/i, 'drop'],
+    [/protect|uv|spf|sun|barrier|free radical|antioxidant|defen|prevent/i, 'shield'],
+    [/sooth|calm|sensitiv|redness|gentle|comfort|heal|condition/i, 'leaf'],
+    [/bright|glow|radian|luminous|tone|pigment|clarity/i, 'sparkle'],
+    [/smooth|line|wrinkle|firm|lift|texture|volume|refine/i, 'waves']
+  ];
+
+  /* Splits a panel's content into { lead, rows }:
+     - bullets (any number) become rows; paragraphs after a list become rows too;
+     - paragraphs before the first list are a short lead-in shown above the rows;
+     - with no list at all, paragraphs become rows, except for Description (left as text);
+     - anything else (tables, images, headings…) → null, and the content is left as written. */
+  function infoEntries(content, type) {
+    var nodes = Array.prototype.filter.call(content.childNodes, function (node) {
+      return node.textContent.trim() !== '' || (node.nodeType === 1 && node.querySelector('img'));
+    });
+    if (!nodes.length) return null;
+    var hasList = nodes.some(function (node) { return /^(UL|OL)$/.test(node.nodeName); });
+    if (!hasList && type === 'description') return null;
+    var lead = [];
+    var rows = [];
+    var seenList = false;
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (/^(UL|OL)$/.test(node.nodeName)) {
+        seenList = true;
+        Array.prototype.forEach.call(node.children, function (li) {
+          if (li.nodeName === 'LI' && li.textContent.trim() !== '') rows.push(li.innerHTML.trim());
+        });
+        continue;
+      }
+      var html;
+      if (node.nodeType === 3) html = node.textContent.trim().replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; });
+      else if (/^(P|DIV|SPAN)$/.test(node.nodeName) && !node.querySelector('img, table, ul, ol, h1, h2, h3, h4')) html = node.innerHTML.trim();
+      else return null;
+      if (hasList && !seenList) lead.push(html);
+      else rows.push(html);
+    }
+    return rows.length ? { lead: lead, rows: rows } : null;
+  }
+
+  // Which tabs become icon rows, and the icon each row gets (benefits: picked from the wording)
+  var INFO_LISTS = [
+    [/descri/i, 'description', 'check'],
+    [/benefit/i, 'benefits', null],
+    [/how to use|directions/i, 'steps', 'number'],
+    [/tip/i, 'tips', 'bulb']
+  ];
+
+  function initInfoCards() {
+    var block = document.querySelector('.product-single .accordion-block');
+    if (!block || block.dataset.pdpCardsInit) return;
+    block.dataset.pdpCardsInit = 'true';
+    var icons = document.querySelector('[data-pdp-card-icons]');
+
+    Array.prototype.forEach.call(block.children, function (item) {
+      var heading = item.querySelector('.header h3');
+      var content = item.querySelector('.content');
+      if (!heading || !content) return;
+      var title = heading.textContent.trim();
+      var type = null;
+      for (var t = 0; t < INFO_LISTS.length; t++) {
+        if (INFO_LISTS[t][0].test(title)) { type = INFO_LISTS[t]; break; }
+      }
+      if (!type) return;
+      var parts = infoEntries(content, type[1]);
+      if (!parts) return;
+      var entries = parts.rows;
+
+      var list = document.createElement(type[1] === 'steps' ? 'ol' : 'ul');
+      list.className = 'pdp-info-list pdp-info-list--' + type[1];
+      entries.forEach(function (html, index) {
+        var li = document.createElement('li');
+        li.className = 'pdp-info-row';
+        li.innerHTML = '<span class="pdp-info-row__icon" aria-hidden="true"></span><p class="pdp-info-row__text"></p>';
+        var icon = type[2];
+        if (icon === 'number') {
+          li.firstChild.textContent = index + 1;
+        } else {
+          if (!icon) {
+            var text = html.replace(/<[^>]+>/g, ' ');
+            icon = 'check';
+            for (var i = 0; i < BENEFIT_ICONS.length; i++) {
+              if (BENEFIT_ICONS[i][0].test(text)) { icon = BENEFIT_ICONS[i][1]; break; }
+            }
+          }
+          var source = icons && icons.content.querySelector('[data-icon="' + icon + '"] svg');
+          if (source) li.firstChild.appendChild(source.cloneNode(true));
+        }
+        li.lastChild.innerHTML = html;
+        list.appendChild(li);
+      });
+      content.innerHTML = '';
+      if (parts.lead.length) {
+        var lead = document.createElement('div');
+        lead.className = 'pdp-info-lead';
+        lead.innerHTML = parts.lead.map(function (html) { return '<p>' + html + '</p>'; }).join('');
+        content.appendChild(lead);
+      }
+      content.appendChild(list);
+    });
+  }
+
+  /* ---------- Long info content ----------
+     Keeps each info tab / accordion panel a sensible height. Card lists (benefits, steps, tips)
+     show the first few cards with "Show all N …"; long text (e.g. ingredients) is cut to a few
+     lines with a fade and "Read more". Collapsing again scrolls back to the panel if needed. */
+  // [word for the button, rows shown first on desktop]; phones show one fewer
+  var CARD_LIMITS = { description: ['details', 5], benefits: ['benefits', 4], steps: ['steps', 4], tips: ['tips', 3] };
+  var LONG_TEXT_CHARS = 450;
+
+  function moreButton(label) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'pdp-info-more';
+    button.setAttribute('aria-expanded', 'false');
+    button.textContent = label;
+    return button;
+  }
+
+  function backToPanel(item) {
+    var top = item.getBoundingClientRect().top;
+    if (top < 0) window.scrollTo({ top: window.pageYOffset + top - 120, behavior: 'smooth' });
+  }
+
+  function initInfoCollapse() {
+    var block = document.querySelector('.product-single .accordion-block');
+    if (!block || block.dataset.pdpCollapseInit) return;
+    block.dataset.pdpCollapseInit = 'true';
+
+    Array.prototype.forEach.call(block.children, function (item) {
+      var content = item.querySelector('.content');
+      if (!content) return;
+
+      // Card lists: show the first few cards
+      var list = content.querySelector('.pdp-info-list');
+      if (list) {
+        var rule = CARD_LIMITS[list.className.replace(/.*pdp-info-list--(\w+).*/, '$1')];
+        var cards = Array.prototype.slice.call(list.children);
+        if (!rule) return;
+        // Phones: one fewer card before "Show all" (the text wraps more on a narrow screen)
+        var limit = window.matchMedia('(max-width: 768px)').matches ? Math.max(rule[1] - 1, 2) : rule[1];
+        if (cards.length <= limit + 1) return; // hiding a single card isn't worth a click
+        var showAll = 'Show all ' + cards.length + ' ' + rule[0];
+        var hideExtra = function (hide) {
+          cards.forEach(function (card, index) { if (index >= limit) card.hidden = hide; });
+        };
+        hideExtra(true);
+        var cardsButton = moreButton(showAll);
+        cardsButton.addEventListener('click', function () {
+          var expand = cardsButton.getAttribute('aria-expanded') !== 'true';
+          hideExtra(!expand);
+          cardsButton.setAttribute('aria-expanded', expand ? 'true' : 'false');
+          cardsButton.textContent = expand ? 'Show less' : showAll;
+          if (!expand) backToPanel(item);
+        });
+        content.appendChild(cardsButton);
+        return;
+      }
+
+      // Long text: a few lines with a fade
+      if (content.textContent.trim().length < LONG_TEXT_CHARS) return;
+      var clamp = document.createElement('div');
+      clamp.className = 'pdp-info-clamp';
+      while (content.firstChild) clamp.appendChild(content.firstChild);
+      content.appendChild(clamp);
+      var textButton = moreButton('Read more');
+      textButton.addEventListener('click', function () {
+        var expand = !clamp.classList.contains('is-expanded');
+        clamp.classList.toggle('is-expanded', expand);
+        textButton.setAttribute('aria-expanded', expand ? 'true' : 'false');
+        textButton.textContent = expand ? 'Read less' : 'Read more';
+        if (!expand) backToPanel(item);
+      });
+      content.appendChild(textButton);
+    });
   }
 
   /* ---------- Sticky add to cart ---------- */
@@ -295,9 +512,147 @@
     schedule();
   }
 
+  /* ---------- Reviews carousel ----------
+     The Stamped review list is laid out as a sideways row of cards (CSS). Stamped redraws the
+     list on filter / page change and appends on "Load more", so the ‹ › buttons and the dots
+     under the row are (re)attached and recounted whenever it changes. One dot per scroll stop.
+     With a mouse the row can also be dragged sideways. */
+  function initReviewCarousel() {
+    var widget = document.getElementById('stamped-main-widget');
+    if (!widget || widget.dataset.pdpCarouselInit) return;
+    widget.dataset.pdpCarouselInit = 'true';
+    var scheduled = false;
+    var current = null; // { list, nav, dots } for the list on screen now
+    window.addEventListener('resize', function () { if (current) update(current); });
+
+    function step(list) {
+      var card = list.querySelector('.stamped-review');
+      return card ? card.getBoundingClientRect().width + 16 : list.clientWidth;
+    }
+
+    function update(c) {
+      var list = c.list;
+      var max = list.scrollWidth - list.clientWidth;
+      var scrollable = max > 2;
+      c.nav.hidden = !scrollable; // the bar holds the arrows and the dots
+      c.nav.querySelector('[data-dir="-1"]').disabled = list.scrollLeft <= 2;
+      c.nav.querySelector('[data-dir="1"]').disabled = list.scrollLeft >= max - 2;
+      if (!scrollable) return;
+
+      var size = step(list);
+      var pages = Math.ceil((max - 2) / size) + 1;
+      if (c.dots.children.length !== pages) {
+        c.dots.innerHTML = '';
+        for (var i = 0; i < pages; i++) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'pdp-review-dots__dot';
+          dot.setAttribute('aria-label', 'Go to reviews ' + (i + 1) + ' of ' + pages);
+          dot.dataset.index = i;
+          c.dots.appendChild(dot);
+        }
+      }
+      var active = list.scrollLeft >= max - 2 ? pages - 1 : Math.round(list.scrollLeft / size);
+      Array.prototype.forEach.call(c.dots.children, function (dot, index) {
+        var on = index === active;
+        dot.classList.toggle('is-active', on);
+        if (on) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
+      });
+    }
+
+    // Mouse only: drag the row sideways (touch screens already swipe).
+    function enableDrag(list) {
+      var start = null;
+      var moved = false;
+      list.addEventListener('pointerdown', function (event) {
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button, input, select, textarea')) return;
+        start = { x: event.clientX, left: list.scrollLeft };
+        moved = false;
+      });
+      window.addEventListener('pointermove', function (event) {
+        if (!start) return;
+        var dx = event.clientX - start.x;
+        if (!moved && Math.abs(dx) < 5) return;
+        if (!moved) { moved = true; list.classList.add('is-dragging'); }
+        list.scrollLeft = start.left - dx;
+      });
+      window.addEventListener('pointerup', function () {
+        if (!start) return;
+        start = null;
+        if (!moved) return;
+        list.classList.remove('is-dragging');
+        // Settle on the nearest card, as a swipe does.
+        var size = step(list);
+        list.scrollTo({ left: Math.round(list.scrollLeft / size) * size, behavior: 'smooth' });
+      });
+      // A drag must not also count as a click on a review photo or link.
+      list.addEventListener('click', function (event) {
+        if (moved) { event.preventDefault(); event.stopPropagation(); moved = false; }
+      }, true);
+      // Stop the browser's own image/link dragging from taking over.
+      list.addEventListener('dragstart', function (event) { event.preventDefault(); });
+    }
+
+    function attach() {
+      scheduled = false;
+      var list = widget.querySelector('.stamped-reviews');
+      if (!list) return;
+      if (list.dataset.pdpCarousel) {
+        // Same list, more cards ("Load more"): just recount.
+        if (current && current.list === list) update(current);
+        return;
+      }
+      list.dataset.pdpCarousel = 'true';
+      // A redraw may have replaced the list: drop the previous controls first.
+      Array.prototype.forEach.call(widget.querySelectorAll('.pdp-review-nav'), function (old) { old.remove(); });
+      list.setAttribute('tabindex', '0');
+      list.setAttribute('aria-label', 'Customer reviews');
+
+      var nav = document.createElement('div');
+      nav.className = 'pdp-review-nav';
+      nav.innerHTML =
+        '<button type="button" class="pdp-review-nav__btn" data-dir="-1" aria-label="Previous reviews"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+        '<button type="button" class="pdp-review-nav__btn" data-dir="1" aria-label="Next reviews"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+      // One bar under the cards: ‹ dots ›
+      var dots = document.createElement('div');
+      dots.className = 'pdp-review-dots';
+      nav.insertBefore(dots, nav.lastElementChild);
+      list.parentNode.insertBefore(nav, list.nextSibling);
+      nav.addEventListener('click', function (event) {
+        var button = event.target.closest('[data-dir]');
+        if (button) list.scrollBy({ left: step(list) * Number(button.dataset.dir), behavior: 'smooth' });
+      });
+      dots.addEventListener('click', function (event) {
+        var dot = event.target.closest('[data-index]');
+        if (dot) list.scrollTo({ left: step(list) * Number(dot.dataset.index), behavior: 'smooth' });
+      });
+
+      current = { list: list, nav: nav, dots: dots };
+      var ticking = false;
+      list.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function () { ticking = false; update(current); });
+      }, { passive: true });
+      enableDrag(list);
+      update(current);
+    }
+
+    function schedule() {
+      if (scheduled) return;
+      scheduled = true;
+      window.requestAnimationFrame(attach);
+    }
+    new MutationObserver(schedule).observe(widget, { childList: true, subtree: true });
+    schedule();
+  }
+
   function init() {
     initGalleryOffset();
     initReviewClamp();
+    initReviewCarousel();
+    initInfoCards();
+    initInfoCollapse();
     initInfoTabs();
     initStickyAtc();
     initWishlistButton();

@@ -164,18 +164,6 @@
         "padding_bottom": 48
       }
     },
-    "mini_promo_banner_L3zLJK": {
-      "type": "mini-promo-banner",
-      "custom_css": [],
-      "name": "Promo Banner",
-      "settings": {
-        "heading": "Speak to an online expert",
-        "subtext": "For over 90 years, we’ve believed that no two skins are alike. Book your online consultation today and receive a personalised skincare, curated by our expert therapists to meet your skin’s unique needs.",
-        "button_text": "Book an online skin consultation",
-        "button_link": "https://www.ellabache.com.au/pages/ella-bache-online-skin-consultation",
-        "image": "shopify://shop_images/speak-to-online-expert_1.jpg"
-      }
-    },
     "custom_product_recommendations_7jPXeP": {
       "type": "custom-product-recommendations",
       "name": "Best Sellers + Pair With",
@@ -263,7 +251,6 @@
     "custom_product_recommendations_7jPXeP",
     "product-recommendations",
     "product_stamped_reviews_8A69eF",
-    "mini_promo_banner_L3zLJK",
     "pdp_faq",
     "treatment_card_grid_76FXV3",
     "main",

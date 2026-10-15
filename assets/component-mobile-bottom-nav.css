@@ -40,13 +40,26 @@
     transition: color 0.2s ease;
   }
   .mbar__icon {
-    width: 22px;
-    height: 22px;
+    width: 23px;
+    height: 23px;
     fill: none;
     stroke: currentColor;
-    stroke-width: 1.5;
+    stroke-width: 1.25;
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+  .mbar__icon path[d$="h.01"] {
+    stroke-width: 2.2; /* calendar dots */
+  }
+  /* Bag and pin are the header's own icons (filled outlines), so they match the rest of the site */
+  .mbar__pill--brand svg {
+    display: block;
+    width: auto;
+    height: 22px;
+  }
+  .mbar__pill--brand svg path,
+  .mbar__pill--brand svg .G {
+    fill: currentColor;
   }
   /* Icon sits in a pill; the current section's pill is solid theme navy with a white icon */
   .mbar__pill {
@@ -77,7 +90,7 @@
     color: #ffffff;
   }
   .mbar__link.is-active .mbar__icon {
-    stroke-width: 1.8;
+    stroke-width: 1.5;
   }
   .mbar__link:focus-visible {
     outline: 2px solid #001e37;

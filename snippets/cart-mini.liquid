@@ -277,8 +277,12 @@ rel="stylesheet"
           {%- endif -%}
         </div>
         <!-- end of cart.item_count -->
-        <div data-rv-show="cart.item_count | lt 1" class="noItem">
-          <p>{{ 'cart.general.empty' | t }}</p>
+        {%- comment -%} Same empty state as the wish list tab (styles: "Wish list tab" block in cart-mini.css) {%- endcomment -%}
+        <div data-rv-show="cart.item_count | lt 1" class="noItem wl-empty cart-empty-state">
+          <span class="cart-empty-state__icon" aria-hidden="true">{%- render 'icon-cart' -%}</span>
+          <p class="wl-empty__title">{{ 'cart.general.empty' | t | remove: 'currently ' | remove: '.' }}</p>
+          <p class="wl-empty__text">Discover skincare made for your skin, and add your favourites here.</p>
+          <a class="wl-empty__cta" href="{{ routes.all_products_collection_url }}">Shop products</a>
         </div>
       </div>
       <div id="tabWishlist" class="tab-content-item">

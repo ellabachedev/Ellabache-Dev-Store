@@ -65,6 +65,13 @@
         {%- endif -%}
         {% render 'back-in-stock' %}
         {% comment %} {% render 'product-description', product:product %} {% endcomment %}
+        {%- comment -%} Icons for the Benefits cards; pdp-enhancements.js copies them in (initInfoCards). {%- endcomment -%}
+        {%- assign card_icons = 'drop,shield,leaf,sparkle,waves,check,bulb' | split: ',' -%}
+        <template data-pdp-card-icons>
+          {%- for card_icon in card_icons -%}
+            <span data-icon="{{ card_icon }}">{%- render 'pdp-icon', icon: card_icon -%}</span>
+          {%- endfor -%}
+        </template>
         <div class="accordion-block"{% if section.settings.info_layout == 'tabs' %} data-pdp-tabs{% endif %}>
           {%- if product.metafields.accentuate.accordion_content_1_hide == blank -%}
             {%- if product.metafields.accentuate.accordion_content_1_title != blank -%}

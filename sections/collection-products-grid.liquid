@@ -8,20 +8,34 @@ Collection Products Grid - category rows with working Concern, Category and Coll
 {{ 'component-product-grid-item.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%} Hide free gift products (price 0 or less) everywhere in this grid {%- endcomment -%}
+{%- assign paid_products = collection.products | where: 'id', 0 -%}
+{%- for product in collection.products -%}
+  {%- if product.price > 0 -%}
+    {%- assign this_product = collection.products | where: 'id', product.id -%}
+    {%- assign paid_products = paid_products | concat: this_product -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <main class="collection-products-grid" id="main" data-section-id="{{ section.id }}" data-collection-grid>
   <div class="collection-wrapper page-width">
 
-    {%- if section.settings.show_breadcrumbs -%}
-      <div class="collection-breadcrumbs crumbs">
-        <a href="/">Home</a>
-        <span class="breadcrumb-separator">/</span>
-        <span class="breadcrumb-current">Products</span>
-      </div>
-    {%- endif -%}
 
     {%- if section.settings.show_header -%}
       <div class="collection-header">
-        <h1>{{ page_title | replace: ' AU', '' }}</h1>
+        {%- capture heading_title -%}{%- render 'title-without-brand', title: page_title -%}{%- endcapture -%}
+        {%- assign heading_title = heading_title | replace: ' AU', '' | strip -%}
+        {%- assign heading_end = heading_title | slice: -7, 7 | downcase -%}
+        {%- if heading_end == ' online' -%}
+          {%- assign heading_cut = heading_title.size | minus: 7 -%}
+          {%- assign heading_title = heading_title | slice: 0, heading_cut -%}
+        {%- endif -%}
+        {%- comment -%} The collection mini banner shows the page's H1 unless its content is hidden; then this title is the H1 {%- endcomment -%}
+        {%- if collection.metafields.accentuate.hide_banner_content == 'true' -%}
+          <h1 class="collection-title">{{ heading_title }}</h1>
+        {%- else -%}
+          <h2 class="collection-title">{{ heading_title }}</h2>
+        {%- endif -%}
         {%- if collection.description != blank -%}
           <div class="collection-description">
             {{ collection.description }}
@@ -63,7 +77,7 @@ Collection Products Grid - category rows with working Concern, Category and Coll
         <div class="filter-spacer sp"></div>
 
         <span class="product-count count">
-          <b data-visible-count>{{ collection.products.size }}</b> products
+          <b data-visible-count>{{ paid_products.size }}</b> products
         </span>
 
         <div class="filter-group pop sort-group">
@@ -86,10 +100,10 @@ Collection Products Grid - category rows with working Concern, Category and Coll
       </div>
     {%- endif -%}
 
-    {%- if collection.products_count > 0 -%}
+    {%- if paid_products.size > 0 -%}
       {%- comment -%} Group products by their own product type, in order of first appearance {%- endcomment -%}
       {%- assign type_list = '|' -%}
-      {%- for product in collection.products -%}
+      {%- for product in paid_products -%}
         {%- assign type_key = '|' | append: product.type | append: '|' -%}
         {%- unless product.type == blank or type_list contains type_key -%}
           {%- assign type_list = type_list | append: product.type | append: '|' -%}
@@ -97,14 +111,14 @@ Collection Products Grid - category rows with working Concern, Category and Coll
       {%- endfor -%}
       {%- assign category_names = type_list | split: '|' -%}
       {%- assign pos_map = '' -%}
-      {%- for product in collection.products -%}
+      {%- for product in paid_products -%}
         {%- assign pos_map = pos_map | append: '|' | append: product.id | append: ':' | append: forloop.index -%}
       {%- endfor -%}
 
       {%- if type_list != '|' -%}
         {%- assign section_count = 0 -%}
         {%- for category in category_names -%}
-          {%- assign category_products = collection.products | where: "type", category -%}
+          {%- assign category_products = paid_products | where: "type", category -%}
 
           {%- if category != blank and category_products.size > 0 -%}
             {%- assign section_count = section_count | plus: 1 -%}
@@ -147,14 +161,7 @@ Collection Products Grid - category rows with working Concern, Category and Coll
                         data-title="{{ product.title | escape }}"
                         data-price="{{ product.price | divided_by: 100.0 }}"
                         data-tags="{{ product.tags | join: '|' | escape }}"{% unless product.available %} data-sold-out{% endunless %}>
-                      {%- if product.price > 0 -%}
-                        {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
-                      {%- else -%}
-                        <a class="gift-card-link" href="{{ product.url }}">
-                          <span class="gift-card-label">Free with purchase</span>
-                          <h3 class="gift-card-title">{{ product.title | escape }}</h3>
-                        </a>
-                      {%- endif -%}
+                      {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
                     </li>
                   {%- endfor -%}
                 </ul>
@@ -167,24 +174,17 @@ Collection Products Grid - category rows with working Concern, Category and Coll
           <div class="category-wrap wrap">
             <h2 class="category-heading">
               All products
-              <span class="category-heading-count"><span data-category-count>{{ collection.products.size }}</span> <span data-category-label>{% if collection.products.size == 1 %}product{% else %}products{% endif %}</span></span>
+              <span class="category-heading-count"><span data-category-count>{{ paid_products.size }}</span> <span data-category-label>{% if paid_products.size == 1 %}product{% else %}products{% endif %}</span></span>
             </h2>
             <ul class="product-listing product-grid grid grid--2-col grid--4-col-desktop" role="list" data-product-list>
-              {%- for product in collection.products -%}
+              {%- for product in paid_products -%}
                 <li class="product-card item grid__item"
                     data-card
                     data-index="{{ forloop.index }}"
                     data-title="{{ product.title | escape }}"
                     data-price="{{ product.price | divided_by: 100.0 }}"
                     data-tags="{{ product.tags | join: '|' | escape }}"{% unless product.available %} data-sold-out{% endunless %}>
-                  {%- if product.price > 0 -%}
-                        {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
-                      {%- else -%}
-                        <a class="gift-card-link" href="{{ product.url }}">
-                          <span class="gift-card-label">Free with purchase</span>
-                          <h3 class="gift-card-title">{{ product.title | escape }}</h3>
-                        </a>
-                      {%- endif -%}
+                  {%- render 'card-product-custom', product: product, hidereviews: true, indexP: forloop.index -%}
                 </li>
               {%- endfor -%}
             </ul>
@@ -367,6 +367,17 @@ Collection Products Grid - category rows with working Concern, Category and Coll
       });
     }
 
+    // Phones: the filter row scrolls sideways, so open panels are fixed full width just below it
+    const mobileFilters = window.matchMedia('(max-width: 600px)');
+    function placeOpenPanel() {
+      const toggle = root.querySelector('[data-toggle][aria-expanded="true"]');
+      if (!toggle) return;
+      const panel = toggle.nextElementSibling;
+      panel.style.top = mobileFilters.matches ? toggle.getBoundingClientRect().bottom + 4 + 'px' : '';
+    }
+    window.addEventListener('scroll', placeOpenPanel, { passive: true });
+    window.addEventListener('resize', placeOpenPanel);
+
     root.addEventListener('click', function(e) {
       const toggle = e.target.closest('[data-toggle]');
       if (toggle) {
@@ -375,6 +386,7 @@ Collection Products Grid - category rows with working Concern, Category and Coll
         closePanels(toggle);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         if (panel) panel.hidden = !open;
+        placeOpenPanel();
         return;
       }
 
@@ -413,6 +425,11 @@ Collection Products Grid - category rows with working Concern, Category and Coll
         return;
       }
 
+    });
+
+    // Touching anywhere outside the filters closes an open panel. pointerdown on the document, not
+    // click: iPhone Safari sends no click for taps on plain areas, so panels stayed stuck open there.
+    document.addEventListener('pointerdown', function(e) {
       if (!e.target.closest('.filter-group')) closePanels(null);
     });
 
@@ -428,12 +445,6 @@ Collection Products Grid - category rows with working Concern, Category and Coll
 {
   "name": "Collection Products Grid",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_breadcrumbs",
-      "label": "Show breadcrumbs",
-      "default": true
-    },
     {
       "type": "checkbox",
       "id": "show_header",

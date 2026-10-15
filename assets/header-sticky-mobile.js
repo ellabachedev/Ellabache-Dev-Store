@@ -20,8 +20,15 @@
   function updateReservedHeight() {
     if (!mobile.matches || menuOpen) return;
     var height = header.offsetHeight;
+    // The slide-down menu is inside the header; while it fades out after closing it still has a
+    // height, which pushed the page ~270px down for a moment. It never takes page space.
+    // (header.js also tucks it away with a negative margin-top, so count only the space it really takes.)
+    var nav = header.querySelector('.desktop-navigation');
+    if (nav) height -= Math.max(0, nav.offsetHeight + (parseFloat(getComputedStyle(nav).marginTop) || 0));
     if (announcement) {
-      var marginTop = parseFloat(announcement.style.marginTop) || 0;
+      // The current (mid-animation) margin, not the inline end value: while the bar slides up the
+      // header is only partly shrunk, and using the end value made the page jump ~40px on every scroll.
+      var marginTop = parseFloat(getComputedStyle(announcement).marginTop) || 0;
       if (marginTop < 0) height -= marginTop;
     }
     root.style.setProperty('--mobile-header-height', height + 'px');
@@ -41,9 +48,14 @@
     menuOpen = open;
     if (open) {
       savedY = currentY;
-    } else if (savedY !== null && mobile.matches) {
-      window.scrollTo(0, savedY);
-      currentY = savedY;
+      // Keep the page where it was behind the fading menu backdrop (instead of jumping to the top).
+      if (mobile.matches) body.style.top = -savedY + 'px';
+    } else {
+      body.style.top = '';
+      if (savedY !== null && mobile.matches) {
+        window.scrollTo(0, savedY);
+        currentY = savedY;
+      }
       savedY = null;
     }
     updateReservedHeight();

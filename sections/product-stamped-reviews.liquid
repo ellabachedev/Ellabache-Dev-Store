@@ -6,6 +6,8 @@
     class="productReviewsBlock"
     id="stamped-main-widget"
     data-widget-style="standard"
+    {%- comment -%} 10 reviews per page (Stamped's default is 5) {%- endcomment %}
+    data-take-reviews="10"
     {% if product.metafields.accentuate.eb_product_ids != blank %}
     data-product-ids="{{ product.metafields.accentuate.eb_product_ids }}"
     {% else %}

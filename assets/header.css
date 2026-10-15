@@ -1704,3 +1704,37 @@
     top: auto; /* the desktop rule's top: 50% would push it down once it's positioned */
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile menu open/close animation (phones). Was: a 100ms pause, the whole screen snapping to
+   navy, then a 275px linear slide; on close the navy vanished at once and the slide was cut off
+   halfway. Now the navy backdrop fades and the menu does a short eased slide + fade both ways.
+   Timing is shared with header.js (it hides the menu after the close transition, 280ms).
+------------------------------------------------------------------ */
+@media only screen and (max-width: 768px) {
+  .site-header {
+    background-color: rgba(0, 31, 56, 0); /* the logo row has its own white background */
+    transition: box-shadow 0.3s ease, background-color 0.28s ease;
+  }
+  .mobile-menu-open .site-header {
+    background-color: #001f38;
+  }
+  .desktop-navigation {
+    opacity: 0;
+    transform: translateY(-12px);
+    -webkit-transform: translateY(-12px);
+    transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
+    -webkit-transition: opacity 0.24s ease, transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .mobile-menu-open .desktop-navigation {
+    opacity: 1;
+    transform: none;
+    -webkit-transform: none;
+  }
+}
+@media only screen and (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .site-header,
+  .desktop-navigation {
+    transition: none;
+  }
+}

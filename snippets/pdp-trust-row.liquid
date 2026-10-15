@@ -1,6 +1,5 @@
 {%- comment -%}
-  Product page trust row, under Add to Cart: free-shipping status, returns, secure checkout and an
-  expert-advice link. Text is edited in Theme settings → Product page trust row; the free-shipping
+  Product page trust row, under Add to Cart: free-shipping status, returns and secure checkout. Text is edited in Theme settings → Product page trust row; the free-shipping
   amount comes from the Free Shipping Threshold setting.
   pdp-enhancements.js updates the shipping line after items are added to the cart.
 
@@ -62,11 +61,5 @@
         </li>
       {%- endif -%}
     </ul>
-    {%- if settings.pdp_trust_expert != blank and settings.pdp_trust_expert_link != blank -%}
-      <a class="pdp-trust__expert" href="{{ settings.pdp_trust_expert_link }}">
-        <span>{{ settings.pdp_trust_expert }}</span>
-        <svg class="pdp-trust__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    {%- endif -%}
   </div>
 {%- endif -%}

@@ -84,12 +84,13 @@ addEventListenerStamped(document, "stamped:reviews:loaded", function (e) {
     //
     var stampedSummarAddReview = $(".stamped-summary .add-review").length;
     if (stampedSummarAddReview < 1) {
+      // A real button (was a picture of empty stars inside a clickable box) that opens Stamped's review form.
       var newDiv2 = $(
-        "<div class='add-review'><h3>Review This Product</h3><img width='195' height='34' src='https://cdn.shopify.com/s/files/1/0119/6028/7313/files/Frame_1000002262.png?v=1704382943' alt='star'><p>Adding a review will require a valid email for verification</p></div>"
+        "<div class='add-review'><button type='button' class='add-review__btn'>Write a review</button><p>A valid email is needed to verify your review.</p></div>"
       );
       newDiv.append(newDiv2);
       var t = $(".stamped-summary-actions-newreview").attr("onclick");
-      $("div.add-review").attr("onclick", t);
+      $("div.add-review .add-review__btn").attr("onclick", t);
     }
     $(".stamped-filter-selects .stamped-filter-select").each(function () {
       var filterDurationTxt = $(this).find("option:first-child").text();

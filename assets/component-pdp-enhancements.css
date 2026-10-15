@@ -64,36 +64,55 @@
 .pdp-info-tabs {
   display: none;
 }
+/* The first item (Description) is rendered open (.header.is-open) but the theme hides every
+   .content, so it showed as open with no text and the first tap "closed" it. Show the open one.
+   product-accordion.js's slideUp sets an inline display:none, which still wins when it closes. */
+.product-single .accordion-block .item .header.is-open + .content {
+  display: block;
+}
 @media (min-width: 769px) {
   .product-single .accordion-block.pdp-tabs-enabled .pdp-info-tabs {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0 28px;
+    flex-wrap: nowrap;
+    gap: 6px;
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    overflow-x: auto;
     list-style: none;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .product-single .accordion-block.pdp-tabs-enabled .pdp-info-tabs::-webkit-scrollbar {
+    display: none;
   }
   .pdp-info-tabs__tab {
-    position: relative;
     margin: 0;
-    padding: 16px 0 12px;
-    border: 0;
-    background: none;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid #b9c0c9;
+    background: #ffffff;
     color: #001e37;
     font-family: inherit;
-    font-size: 14px;
-    letter-spacing: 1.2px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
     cursor: pointer;
+    flex: 1 0 auto; /* fill the row when they fit; never squash (the row scrolls instead) */
+    white-space: nowrap;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   }
-  .pdp-info-tabs__tab[aria-selected="true"]::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    border-bottom: 2px solid #001939;
+  .pdp-info-tabs__tab:hover {
+    border-color: #001e37;
+  }
+  .pdp-info-tabs__tab[aria-selected="true"] {
+    border-color: #001e37;
+    background: #001e37;
+    color: #ffffff;
+  }
+  .pdp-info-tabs__tab:focus-visible {
+    outline: 2px solid #001e37;
+    outline-offset: 2px;
   }
   .product-single .accordion-block.pdp-tabs-enabled .item {
     padding: 0;
@@ -104,7 +123,7 @@
   }
   .product-single .hero-content .product-hero-content .accordion-block.pdp-tabs-enabled .item .content {
     display: none !important;
-    padding-top: 20px;
+    padding-top: 16px;
   }
   .product-single .hero-content .product-hero-content .accordion-block.pdp-tabs-enabled .item.is-active .content {
     display: block !important;
@@ -439,8 +458,11 @@ body.pdp-sticky-lift-chat #tidio-chat {
   object-fit: contain;
   transition: transform 0.3s ease;
 }
-.pdp-pair-card:hover .pdp-pair-card__media img {
-  transform: scale(1.04);
+/* Mouse only: on iPhone a touched card keeps :hover until the next tap, which left its image zoomed in */
+@media (hover: hover) and (pointer: fine) {
+  .pdp-pair-card:hover .pdp-pair-card__media img {
+    transform: scale(1.04);
+  }
 }
 .pdp-pair-card__body {
   display: flex;
@@ -814,8 +836,9 @@ body.pdp-sticky-lift-chat #tidio-chat {
   justify-content: center;
   width: 56px;
   height: 56px;
-  margin-bottom: 12px;
-  background: #f8f8f8;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: #f4f5f7;
   color: #001e37;
 }
 .pdp-benefits__icon .pdp-icon {
@@ -828,15 +851,52 @@ body.pdp-sticky-lift-chat #tidio-chat {
   object-fit: contain;
 }
 .pdp-benefits__title {
-  margin: 0 0 4px;
-  font-size: 18px;
-  font-weight: 400;
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
   color: #001e37;
 }
 .pdp-benefits__text {
-  margin: 0;
+  max-width: 300px;
+  margin: 0 auto;
   font-size: 14px;
-  color: #001e37;
+  line-height: 1.5;
+  color: #66717d;
+}
+/* Phones: compact rows (icon left) instead of a tall centred stack */
+@media (max-width: 768px) {
+  .pdp-benefits .pdp-benefits__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    text-align: left;
+  }
+  .pdp-benefits .pdp-benefits__item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    column-gap: 14px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #ececed;
+  }
+  .pdp-benefits .pdp-benefits__item:last-child {
+    border-bottom: 0;
+  }
+  .pdp-benefits .pdp-benefits__icon {
+    grid-row: span 2;
+    width: 48px;
+    height: 48px;
+    margin: 0;
+  }
+  .pdp-benefits .pdp-benefits__title {
+    align-self: end;
+    margin: 0 0 2px;
+  }
+  .pdp-benefits .pdp-benefits__text {
+    align-self: start;
+    max-width: none;
+    margin: 0;
+  }
 }
 
 /* ---------- FAQ ---------- */
@@ -894,7 +954,7 @@ body.pdp-sticky-lift-chat #tidio-chat {
     margin-top: 18px;
   }
   .product-single .hero-content .pdp-title-block .short-info {
-    padding: 8px 0 4px;
+    padding: 8px 0 16px;
   }
   .pdp-image-gallery .productHeroSliderThumb,
   .pdp-image-gallery .productHero-main-prev,
@@ -1184,8 +1244,8 @@ body.pdp-sticky-lift-chat #tidio-chat {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #eef8f9;
-  color: #1f6f74;
+  background: #f4f5f7;
+  color: #001e37;
 }
 .pdp-trust__icon svg {
   width: 18px;
@@ -1199,33 +1259,6 @@ body.pdp-sticky-lift-chat #tidio-chat {
 }
 .pdp-trust__item a:hover {
   text-decoration-color: currentColor;
-}
-.pdp-trust__expert {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 12px 14px;
-  background: #f8f8f8;
-  color: #001e37;
-  font-size: 14px;
-  line-height: 1.4;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-.pdp-trust__expert span {
-  text-decoration: underline;
-  text-decoration-color: rgba(0, 30, 55, 0.35);
-  text-underline-offset: 3px;
-}
-.pdp-trust__arrow {
-  flex: none;
-  width: 16px;
-  height: 16px;
-}
-.pdp-trust__expert:hover {
-  background: #f0f0f0;
 }
 .pdp-trust a:focus-visible {
   outline: 2px solid #001e37;
@@ -1449,4 +1482,491 @@ body.pdp-sticky-lift-chat #tidio-chat {
 }
 .shopify-section .stamped-widget ul.stamped-pagination li.next a:hover::before {
   color: #ffffff;
+}
+
+/* Back-in-stock app ("Get notified"): theme colours instead of black. Its own CSS uses #ids. */
+#NotifyMeApp #notifyForm input[type="email"] {
+  border-color: #b9c0c9;
+  color: #001e37;
+}
+#NotifyMeApp #notifyForm input[type="email"]:focus {
+  border-color: #001e37;
+  outline: none;
+}
+/* The app writes its button colour inline (#111) and a white !important hover, hence !important */
+#NotifyMeApp #notifyForm button.notify-submit-btn,
+#NotifyMeApp #notifyForm button.notify-submit-btn:hover {
+  border-color: #001e37;
+  background-color: #001e37 !important;
+  color: #ffffff !important;
+  font-weight: 500;
+}
+#NotifyMeApp .notify-tooltip-text {
+  background: #001e37;
+}
+
+/* ---------- Reviews: sideways carousel of cards (Stamped markup) ----------
+   Arrows are added by pdp-enhancements.js (initReviewCarousel). Stamped's own CSS lays each
+   review out as a wide row with the author in a left column; these rules turn it into a card. */
+#stamped-main-widget .stamped-reviews {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  margin: 0;
+  padding: 4px 0 8px;
+}
+#stamped-main-widget .stamped-reviews::-webkit-scrollbar {
+  display: none;
+}
+#stamped-main-widget .stamped-reviews:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 4px;
+}
+/* !important on layout only: Stamped's own CSS fixes widths, first-card padding and gaps */
+#stamped-main-widget .stamped-reviews .stamped-review {
+  display: flex !important;
+  flex: 0 0 calc((100% - 32px) / 3);
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  border: 1px solid #e5e7eb !important;
+  background: #ffffff;
+  scroll-snap-align: start;
+}
+#stamped-main-widget .stamped-review .stamped-review-content,
+#stamped-main-widget .stamped-review .stamped-review-body,
+#stamped-main-widget .stamped-review .stamped-review-content-body,
+#stamped-main-widget .stamped-review .stamped-review-header-title {
+  width: auto !important;
+  max-width: none !important;
+  float: none !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-content {
+  order: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-header-title {
+  display: block !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-header {
+  display: flex !important;
+  align-self: stretch !important;
+  order: 2;
+  width: auto !important;
+  margin: auto 0 0 !important;
+  padding: 14px 0 0 !important;
+  border-top: 1px solid #ececed;
+  float: none !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .info {
+  width: auto !important;
+}
+/* Same footer height on every card (name + badge, then country), so the line above it and the
+   names line up across the row even when a reviewer has no country or a different badge. */
+#stamped-main-widget .stamped-review .stamped-review-header {
+  min-height: 64px;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .info {
+  align-content: flex-start;
+  column-gap: 8px !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .author {
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .stamped-verified-badge,
+#stamped-main-widget .stamped-review .stamped-review-header [class*="verified"] {
+  margin: 0 !important;
+  font-size: 12px;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .review-location {
+  margin-top: 2px;
+}
+#stamped-main-widget .stamped-review .stamped-starratings {
+  font-size: 15px;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .stamped-review-avatar,
+#stamped-main-widget .stamped-review .stamped-review-header .created {
+  display: none;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 10px;
+  margin: 0;
+  padding: 0;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .author {
+  color: #001e37;
+  font-size: 14px;
+  font-weight: 500;
+}
+#stamped-main-widget .stamped-review .stamped-review-header .review-location {
+  flex-basis: 100%;
+  color: #8a939c;
+  font-size: 12px;
+}
+#stamped-main-widget .stamped-review .stamped-review-header-title {
+  margin: 10px 0 4px;
+  color: #001e37;
+  font-size: 15px;
+  font-weight: 500;
+}
+#stamped-main-widget .stamped-review .stamped-review-body .created {
+  margin: 0 0 8px;
+  color: #8a939c;
+  font-size: 12px;
+}
+#stamped-main-widget .stamped-review .stamped-review-content-body {
+  margin: 0 0 14px;
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* Stamped's page numbers sit at the end of the row */
+#stamped-main-widget .stamped-reviews .stamped-pagination {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: center;
+  margin: 0 8px;
+  padding: 0;
+  white-space: nowrap;
+  scroll-snap-align: end; /* so the row can come to rest at the very end (last dot) */
+}
+/* Controls bar under the cards: ‹ dots › */
+.pdp-review-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 18px 0 0;
+}
+.pdp-review-nav[hidden] {
+  display: none;
+}
+.pdp-review-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #b9c0c9;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #001e37;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.pdp-review-nav__btn:hover:not(:disabled) {
+  border-color: #001e37;
+  background: #001e37;
+  color: #ffffff;
+}
+.pdp-review-nav__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+@media (max-width: 989px) {
+  #stamped-main-widget .stamped-reviews .stamped-review {
+    flex-basis: calc((100% - 16px) / 2);
+  }
+}
+@media (max-width: 600px) {
+  /* Phones: swipe; the next card peeks in so it's clear there is more */
+  #stamped-main-widget .stamped-reviews .stamped-review {
+    flex-basis: 84%;
+  }
+  .pdp-review-nav__btn {
+    display: none; /* phones swipe; the dots stay */
+  }
+}
+/* Dots between the arrows: one per scroll stop, active one is a navy pill */
+.pdp-review-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  margin: 0;
+}
+.pdp-review-dots[hidden] {
+  display: none;
+}
+.pdp-review-dots__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.pdp-review-dots__dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: #b9c0c9;
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+.pdp-review-dots__dot.is-active::before {
+  width: 20px;
+  background: #001e37;
+}
+.pdp-review-dots__dot:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 0;
+  border-radius: 12px;
+}
+
+/* Reviews: mouse dragging (desktop); the snap is paused while dragging */
+@media (hover: hover) and (pointer: fine) {
+  #stamped-main-widget .stamped-reviews {
+    cursor: grab;
+  }
+  #stamped-main-widget .stamped-reviews.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+}
+
+/* Review filters + sort: an even grid of 44px boxes in the theme style, so the sort box never
+   wraps up next to the carousel controls. 5 across on desktop, 3 on tablet, 2 on phones. */
+#stamped-main-widget .stamped-reviews-filter {
+  margin: 0 0 20px;
+}
+#stamped-main-widget .stamped-reviews-filter-label {
+  margin: 0 0 10px;
+  color: #001e37;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#stamped-main-widget .stamped-filters-wrapper .stamped-filter-selects {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+#stamped-main-widget .stamped-filter-selects > * {
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+#stamped-main-widget .stamped-filter-selects select {
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 32px 0 12px !important;
+  border: 1px solid #b9c0c9 !important;
+  border-radius: 0 !important;
+  background-color: #ffffff;
+  color: #001e37 !important;
+  font-size: 13px !important;
+  line-height: 42px !important;
+}
+#stamped-main-widget .stamped-filter-selects select:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 1px;
+}
+@media (max-width: 989px) {
+  #stamped-main-widget .stamped-filters-wrapper .stamped-filter-selects {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  #stamped-main-widget .stamped-filters-wrapper .stamped-filter-selects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #stamped-main-widget .stamped-review .stamped-review-header {
+    min-height: 56px;
+  }
+}
+
+/* ---------- Long info content: "Show all" / "Read more" (initInfoCollapse) ---------- */
+.pdp-info-clamp {
+  position: relative;
+  max-height: 11.5em; /* about 8 lines of 14px text */
+  overflow: hidden;
+}
+.pdp-info-clamp::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3.5em;
+  background: linear-gradient(rgba(255, 255, 255, 0), #ffffff);
+  pointer-events: none;
+}
+.pdp-info-clamp.is-expanded {
+  max-height: none;
+}
+.pdp-info-clamp.is-expanded::after {
+  content: none;
+}
+.product-single .accordion-block .item .content .pdp-info-more {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #001e37;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.product-single .accordion-block .item .content .pdp-info-more:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 2px;
+}
+.product-single .accordion-block .item .content [hidden] {
+  display: none !important;
+}
+
+/* ---------- Tab row: scrolls sideways when the tabs don't fit (tablets, small laptops) ---------- */
+.pdp-info-tabs-wrap {
+  display: none;
+}
+@media (min-width: 769px) {
+  .product-single .accordion-block.pdp-tabs-enabled .pdp-info-tabs-wrap {
+    display: block;
+    position: relative;
+  }
+}
+.pdp-info-tabs__arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  width: 48px;
+  padding: 0;
+  border: 0;
+  color: #001e37;
+  cursor: pointer;
+}
+.pdp-info-tabs__arrow svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border: 1px solid #b9c0c9;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.pdp-info-tabs__arrow--prev {
+  left: 0;
+  justify-content: flex-start;
+  background: linear-gradient(to right, #ffffff 55%, rgba(255, 255, 255, 0));
+}
+.pdp-info-tabs__arrow--prev svg {
+  transform: rotate(180deg);
+}
+.pdp-info-tabs__arrow--next {
+  right: 0;
+  justify-content: flex-end;
+  background: linear-gradient(to left, #ffffff 55%, rgba(255, 255, 255, 0));
+}
+.pdp-info-tabs-wrap.can-prev .pdp-info-tabs__arrow--prev,
+.pdp-info-tabs-wrap.can-next .pdp-info-tabs__arrow--next {
+  display: flex;
+}
+.pdp-info-tabs__arrow:hover svg {
+  border-color: #001e37;
+}
+
+/* ---------- Info lists: Description, Benefits, How to use, Therapist tips ----------
+   One style for all four (built by initInfoCards): a round icon top-left (a tick, a benefit icon,
+   the step number or a sparkle), the text beside it, thin dividers between rows. */
+.product-single .accordion-block .item .content .pdp-info-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.product-single .accordion-block .item .content .pdp-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid #ececed;
+  list-style: none;
+}
+.product-single .accordion-block .item .content .pdp-info-row:first-child {
+  padding-top: 4px;
+}
+.product-single .accordion-block .item .content .pdp-info-row::before {
+  content: none;
+}
+.pdp-info-row__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f4f5f7;
+  color: #001e37;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+}
+.pdp-info-row__icon .pdp-icon {
+  width: 16px;
+  height: 16px;
+}
+.product-single .accordion-block .item .content .pdp-info-row__text {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding-top: 7px; /* first line level with the middle of the icon */
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.product-single .accordion-block .item .content .pdp-info-row__text p {
+  margin: 0;
+}
+/* "Show all …" sits just under the last divider */
+.product-single .accordion-block .item .content .pdp-info-list + .pdp-info-more {
+  margin-top: 6px;
+}
+/* Intro paragraph(s) before a list (e.g. "This is a prescriptive product…"): plain lead-in */
+.product-single .accordion-block .item .content .pdp-info-lead {
+  margin: 0 0 10px;
+}
+.product-single .accordion-block .item .content .pdp-info-lead p {
+  margin: 0 0 8px;
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.product-single .accordion-block .item .content .pdp-info-lead p:last-child {
+  margin-bottom: 0;
+}
+/* Ingredients and other plain text: same size, colour and line height as the rows */
+.product-single .accordion-block .item .content > p,
+.product-single .accordion-block .item .content .pdp-info-clamp p {
+  color: #001e37;
+  font-size: 14px;
+  line-height: 1.6;
 }

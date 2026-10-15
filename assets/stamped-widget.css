@@ -1119,3 +1119,125 @@ div[data-widget-style*="standard"] .summary-rating-count:after {
 #stamped-main-widget .stamped-container[data-count='0'] .stamped-header{
   display:none;
 }
+/* ==================================================================
+   Review summary panel: score + "Based on N reviews" | Write a review.
+   (Stamped's per-star rating bars stay hidden.)
+================================================================== */
+#stamped-main-widget .stamped-summary .flex-container {
+  display: grid !important;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px 48px;
+  margin: 0 0 28px;
+  padding: 24px 28px;
+  background: #f7f7f7;
+}
+#stamped-main-widget .stamped-summary .stamped-summary-actions {
+  display: none !important; /* its buttons are hidden; the panel's own button is used */
+}
+/* Score */
+#stamped-main-widget .summary-overview {
+  display: flex !important;
+  order: 1; /* score first, then the button */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+#stamped-main-widget .summary-overview .stamped-summary-caption {
+  float: none;
+  margin: 0;
+}
+#stamped-main-widget .stamped-summary-text-1,
+#stamped-main-widget .stamped-summary-text-1 strong {
+  color: #001e37;
+  font-size: 44px;
+  font-weight: 300;
+  line-height: 1;
+}
+#stamped-main-widget .summary-overview .stamped-summary-starrating {
+  color: #001e37;
+  font-size: 18px;
+}
+#stamped-main-widget [data-version="2"] .stamped-summary-caption-2,
+#stamped-main-widget .stamped-summary-caption-2 {
+  display: block !important;
+}
+#stamped-main-widget .stamped-summary-caption-2 .stamped-summary-text {
+  margin: 0;
+  color: #66717d;
+  font-size: 13px;
+}
+/* Per-star rating bars: not shown */
+#stamped-main-widget .stamped-summary .stamped-summary-ratings {
+  display: none !important;
+}
+/* Write a review */
+#stamped-main-widget .add-review {
+  display: flex;
+  order: 3;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  cursor: auto;
+  text-align: center;
+}
+#stamped-main-widget .add-review__btn {
+  min-height: 48px;
+  padding: 0 32px;
+  border: 1px solid #001e37;
+  background: #001e37;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#stamped-main-widget .add-review__btn:focus-visible {
+  outline: 2px solid #001e37;
+  outline-offset: 2px;
+}
+#stamped-main-widget .add-review p {
+  margin: 0;
+  color: #66717d;
+  font-size: 12px;
+}
+/* Customer photos: compact strip */
+#stamped-main-widget .stamped-summary-photos-container {
+  margin: 0 0 24px;
+}
+#stamped-main-widget .stamped-photos-title {
+  margin: 0 0 10px;
+  color: #001e37;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#stamped-main-widget .stamped-photos-carousel .photo.stamped-photo,
+#stamped-main-widget .stamped-summary-photos-container .stamped-photos-carousel .photo.stamped-photo img {
+  width: 88px !important;
+  height: 88px !important;
+  border-radius: 4px;
+  object-fit: cover;
+}
+@media only screen and (max-width: 768px) {
+  #stamped-main-widget .stamped-summary .flex-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  #stamped-main-widget .add-review__btn {
+    width: 100%;
+  }
+  #stamped-main-widget .stamped-photos-carousel .photo.stamped-photo,
+  #stamped-main-widget .stamped-summary-photos-container .stamped-photos-carousel .photo.stamped-photo img {
+    width: 72px !important;
+    height: 72px !important;
+  }
+}

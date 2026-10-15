@@ -2018,18 +2018,6 @@
         "id": "pdp_trust_secure",
         "label": "Secure checkout line",
         "default": "Secure checkout with Afterpay, Klarna and PayPal"
-      },
-      {
-        "type": "text",
-        "id": "pdp_trust_expert",
-        "label": "Expert advice link text",
-        "default": "Not sure it's right for your skin? Ask a skin expert"
-      },
-      {
-        "type": "text",
-        "id": "pdp_trust_expert_link",
-        "label": "Expert advice link",
-        "default": "/pages/ella-bache-online-skin-consultation"
       }
     ]
   },
