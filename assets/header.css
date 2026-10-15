@@ -1738,3 +1738,23 @@
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Small phones (≤360px, e.g. iPhone SE): the side columns were 65px wide for two 44px icons,
+   so the cart wrapped under search. Slightly smaller logo, icons kept on one line.
+------------------------------------------------------------------ */
+@media only screen and (max-width: 360px) {
+  .main-logo {
+    width: 120px;
+  }
+  .header-main .header-main-left,
+  .header-main .header-main-right {
+    width: calc(50% - 60px);
+  }
+  .header-main .header-main-right .header-actions {
+    flex-wrap: nowrap;
+  }
+  .header-main .header-main-right .item {
+    margin-left: 0;
+  }
+}

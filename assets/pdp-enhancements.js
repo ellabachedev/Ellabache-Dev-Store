@@ -647,6 +647,36 @@
     schedule();
   }
 
+  /* ---------- Sticky bar rating ----------
+     The sticky bar is rendered from Stamped's saved product data, which Stamped only refreshes
+     now and then (e.g. it said 4.8 / 11 reviews while the live badge said 4.5 / 12). Once the
+     live badge under the title loads, copy its rating and count into the sticky bar. */
+  function initStickyRatingSync() {
+    var link = document.querySelector('[data-pdp-sticky-reviews]');
+    if (!link) return;
+    function sync() {
+      // Stamped swaps the badge element when it loads, so look it up each time.
+      var caption = document.querySelector('.pdp-title-block .stamped-badge-caption[data-reviews]');
+      if (!caption) return false;
+      var count = parseInt(caption.getAttribute('data-reviews'), 10);
+      var rating = parseFloat(caption.getAttribute('data-rating'));
+      if (!count || isNaN(rating)) return true;
+      var text = rating.toFixed(1);
+      link.querySelector('.pdp-sticky-atc__stars').style.setProperty('--rating', rating);
+      link.querySelector('.pdp-sticky-atc__rating-value').textContent = text;
+      link.querySelector('.pdp-sticky-atc__count').textContent = count + (count === 1 ? ' review' : ' reviews');
+      link.setAttribute('aria-label', 'Rated ' + text + ' out of 5 from ' + count + ' reviews. Go to reviews');
+      return true;
+    }
+    // The badge can first show the saved numbers and update to the live ones a moment later,
+    // so keep following it for a while instead of stopping at the first match.
+    sync();
+    var block = document.querySelector('.pdp-title-block') || document.body;
+    var observer = new MutationObserver(sync);
+    observer.observe(block, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-reviews', 'data-rating'] });
+    setTimeout(function () { observer.disconnect(); }, 20000);
+  }
+
   function init() {
     initGalleryOffset();
     initReviewClamp();
@@ -655,6 +685,7 @@
     initInfoCollapse();
     initInfoTabs();
     initStickyAtc();
+    initStickyRatingSync();
     initWishlistButton();
     initFreeShippingLine();
   }

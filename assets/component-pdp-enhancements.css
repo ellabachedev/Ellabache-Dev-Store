@@ -1105,16 +1105,17 @@ body.pdp-sticky-lift-chat #tidio-chat {
 .pdp-button {
   transition: background-color 0.2s ease, border-color 0.2s ease, outline-color 0.1s ease;
 }
-.product-single .hero-content .add-to-cart button#pdp-addtocart:not([disabled]):hover {
-  background-color: #12385c;
-  border-color: #12385c;
-}
-/* Same hover "pop" as the main Add to Cart (the theme's .button hover) */
+/* Hover: no colour change (same as the collection page's Add to Cart) */
+.product-single .hero-content .add-to-cart button#pdp-addtocart:not([disabled]):hover,
 .pdp-sticky-atc__button:not(:disabled):hover,
 .pdp-button:not(:disabled):hover {
-  background-color: #12385c;
-  border-color: transparent;
-  /* Dark navy frame from 1px inside to 1px outside the edge, like the main Add to Cart hover */
+  background-color: #001e37;
+  color: #ffffff;
+}
+/* The small "pop" of the main Add to Cart (its navy frame grows to reach 1px outside the edge),
+   for the sticky bar and "Pair it with" buttons too */
+.pdp-sticky-atc__button:not(:disabled):hover,
+.pdp-button:not(:disabled):hover {
   outline: 2px solid #001e37;
   outline-offset: -1px;
 }
@@ -1969,4 +1970,25 @@ body.pdp-sticky-lift-chat #tidio-chat {
   color: #001e37;
   font-size: 14px;
   line-height: 1.6;
+}
+
+/* iPad portrait / large phones in landscape (601–768px): the gallery uses the phone layout at full
+   width, so the photo was ~710px tall and pushed the name, price and Add to Cart off the screen. */
+@media (min-width: 601px) and (max-width: 768px) {
+  .pdp-image-gallery .productHeroSlider img {
+    width: auto;
+    max-width: 100%;
+    max-height: 520px;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+}
+/* Small text links: a bigger tap area without changing how they look */
+.pdp-trust__item a,
+.pdp-pair-card__title a {
+  padding: 12px 0;
+  margin: -12px 0;
+}
+.pdp-pair-card__title a {
+  display: inline-block;
 }
